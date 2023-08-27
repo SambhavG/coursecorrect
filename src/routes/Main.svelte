@@ -5,19 +5,6 @@
 	import Grid from './dnd/Grid.svelte';
 	// import { years, quarters, courses } from './stores.js';
 
-	// function cleanUpCourses() {
-	// 	for (let i = 0; i < courses.length; i++) {
-	// 		for (let j = 0; j < courses[i].quarters.length; j++) {
-	// 			for (let k = 0; k < courses[i].quarters[j].courses.length; k++) {
-	// 				if (courses[i].quarters[j].courses[k] === undefined) {
-	// 					courses[i][j].splice(k, 1);
-	// 					k--;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	import { onMount } from 'svelte';
 	import { years, quarters, allCourses, courseTable, searchResults } from './stores.js';
 	import data from './data/courseDataFile.csv';
@@ -35,10 +22,6 @@
 				coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
 				for (let k = 0; k < 3; k++) {
 					let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
-					// coursesObj[i].quarters[j].courses.push({
-					// 	id: randomCourse.Class,
-					// 	courseData: randomCourse
-					// });
 					coursesObj[i].quarters[j].courses.push(randomCourse);
 				}
 			}
@@ -50,25 +33,28 @@
 </script>
 
 <section>
-	<div class="row">
-		<div class="column">
-			<Search />
-		</div>
-		<div class="column">
-			<Grid />
-		</div>
+	<div class="searchContainer">
+		<Search />
+	</div>
+	<div class="gridContainer">
+		<Grid />
 	</div>
 </section>
 
 <style>
-	.row {
+	section {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
 		width: 100%;
+		align-items: left;
 	}
-
-	.column {
-		flex: 50%;
-		padding: 10px;
+	.searchContainer {
+		margin: 0 1em;
+		background-color: gray;
+	}
+	.gridContainer {
+		margin: 0 1em;
+		background-color: gray;
 	}
 </style>

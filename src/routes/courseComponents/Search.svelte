@@ -10,9 +10,18 @@
 	function handleDndFinalize(e) {
 		$searchResults = e.detail.items;
 	}
+	function randomizeId(course) {
+		//console.log(course.id.split('|')[0] + '|' + Math.random().toString(36).substring(7))
+		return course.id.split('|')[0] + '|' + Math.random().toString(36).substring(7);
+	}
 	function SearchResults(event) {
 		let query = event.target.value;
-		let results = $allCourses.filter((course) => course.Description.includes(query)).slice(0, 10);
+		let results = $allCourses
+			.filter((course) => course.Description.includes(query))
+			.slice(0, 10);
+		for (let i = 0; i < results.length; i++) {
+			results[i].id = randomizeId(results[i]);
+		}
 		$searchResults = results;
 	}
 </script>

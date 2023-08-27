@@ -10,3 +10,10 @@
 <section>
 	<Main />
 </section>
+
+<style>
+	section {
+		width: 100%;
+		background-color: red;
+	}
+</style>

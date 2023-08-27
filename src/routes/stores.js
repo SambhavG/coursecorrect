@@ -71,3 +71,17 @@ export const quarters = writable(['Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
 export const courseTable = writable([]);
 export const searchResults = writable([]);
+
+//For course objects, always show the course number, hours, units
+//Optional: exploreCourses link, carta link, WAYS, description (shows popup on hover),
+//eval, % completed
+export const prefs = writable({
+	courseTableData: {
+		showCartaLink: true,
+		showExploreCoursesLink: true,
+		showWAYS: true,
+		showDescription: true,
+		showAverageEval: true,
+		showPercentCompleted: true
+	}
+});
