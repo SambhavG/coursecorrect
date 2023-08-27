@@ -51,10 +51,10 @@
 	}
 	.searchContainer {
 		margin: 0 1em;
-		background-color: gray;
+		/* background-color: gray; */
 	}
 	.gridContainer {
 		margin: 0 1em;
-		background-color: gray;
+		/* background-color: gray; */
 	}
 </style>

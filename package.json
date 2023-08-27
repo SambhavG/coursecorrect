@@ -43,6 +43,7 @@
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.4.2",
 		"csv": "^6.3.1",
+		"lucide-svelte": "^0.269.0",
 		"papaparse": "^5.4.1",
 		"svelte-fa": "^3.0.4",
 		"svelte-icons": "^2.1.0"

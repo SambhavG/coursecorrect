@@ -14,6 +14,6 @@
 <style>
 	section {
 		width: 100%;
-		background-color: red;
+		background-color: lightgray;
 	}
 </style>
