@@ -12,7 +12,7 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"deploy": "npx gh-pages -d dist"
+		"deploy": "npm run build && npx gh-pages -d build -t true"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
@@ -20,6 +20,7 @@
 		"@playwright/test": "^1.28.1",
 		"@rollup/plugin-dsv": "^3.0.2",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.20.4",
 		"@types/cookie": "^0.5.1",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -47,6 +48,7 @@
 		"csv": "^6.3.1",
 		"lucide-svelte": "^0.269.0",
 		"papaparse": "^5.4.1",
+		"svelte-adapter-github": "^1.0.0-next.0",
 		"svelte-fa": "^3.0.4",
 		"svelte-icons": "^2.1.0"
 	}

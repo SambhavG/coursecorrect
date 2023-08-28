@@ -241,9 +241,4 @@
 	.FR {
 		background-color: hsl(315, 100%, 50%);
 	}
-
-	@font-face {
-		font-family: 'ttnormsproThin';
-		src: url('../../../static/fonts/TT\ Norms\ Pro\ Thin.otf');
-	}
 </style>

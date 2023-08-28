@@ -11,7 +11,7 @@
 	</main>
 
 	<footer>
-		<p>Made by <a href="sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
+		<p>Made by <a href="https://www.sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
 	</footer>
 </div>
 
