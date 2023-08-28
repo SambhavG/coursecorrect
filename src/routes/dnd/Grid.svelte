@@ -20,8 +20,7 @@
 
 <style>
 	section {
-		padding: 0.3em;
-		border: 1px solid black;
+		border: 2px solid;
 		display: flex;
 		flex-direction: column;
 	}
@@ -31,7 +30,8 @@
 		min-height: 8em;
 	}
 	.quarterContainer {
-		margin: 0.02em;
-		border: 0.01em solid gray;
+		padding: 0.5em 0.5em;
+		width: 100%;
+		border: 2px solid;
 	}
 </style>

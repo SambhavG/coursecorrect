@@ -25,7 +25,7 @@
 
 	function percentCompletedColor(averageEval) {
 		if (averageEval == -1) {
-			return 'white';
+			return '';
 		}
 		let hue = 0;
 		if (averageEval > 50) {
@@ -104,12 +104,12 @@
 		{/if}
 		{#if $prefs.courseTableData.showPercentCompleted}
 			<div class="percentCompleted" style={percentCompletedColor(course['Percent Completed'])}>
-				{course['Percent Completed'] == -1 ? '-' : course['Percent Completed']}
+				{course['Percent Completed'] == -1 ? '' : course['Percent Completed']}
 			</div>
 		{/if}
 		{#if $prefs.courseTableData.showAverageEval}
 			<div class="averageEval" style={averageEvalColor(course['Average Eval'])}>
-				{course['Average Eval'] == -1 ? '-' : course['Average Eval']}
+				{course['Average Eval'] == -1 ? '' : course['Average Eval']}
 			</div>
 		{/if}
 		{#if $prefs.courseTableData.showCartaLink}
@@ -127,18 +127,14 @@
 
 <style>
 	section {
-		all: unset;
-		font-size: 0.8em;
 		box-sizing: border-box;
-		/* padding: 0 1em; */
 		text-align: left;
 
-		border: 1px solid black;
+		border: 1px solid var(--color-text-light);
 		border-radius: 1em;
 		height: 1.8em;
 		display: flex;
 		flex-direction: row;
-		font-family: 'Fira mono';
 		justify-content: space-between;
 	}
 
@@ -187,7 +183,6 @@
 	}
 
 	.ways {
-		font-size: unset;
 		margin-left: 0.2em;
 		height: 1.2em;
 		border-radius: 0.3em;
@@ -195,14 +190,15 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		color: white;
 	}
 
 	.percentCompleted {
 		border-radius: 0.3em;
+		color: var(--color-text-dark);
 	}
 	.averageEval {
 		border-radius: 0.3em;
+		color: var(--color-text-dark);
 	}
 
 	.classLink {
@@ -219,28 +215,31 @@
 	}
 
 	.AII {
-		background-color: red;
+		background-color: hsl(0, 100%, 50%);
 	}
 	.SMA {
-		background-color: orange;
+		background-color: hsl(45, 100%, 50%);
 	}
 	.SI {
-		background-color: darkgoldenrod;
+		background-color: hsl(70, 100%, 50%);
+		color: var(--color-text-dark);
 	}
 	.AQR {
-		background-color: green;
+		background-color: hsl(135, 100%, 50%);
+		color: var(--color-text-dark);
 	}
 	.CE {
-		background-color: darkturquoise;
+		background-color: hsl(180, 100%, 50%);
+		color: var(--color-text-dark);
 	}
 	.EDP {
-		background-color: blue;
+		background-color: hsl(225, 100%, 50%);
 	}
 	.ER {
-		background-color: purple;
+		background-color: hsl(270, 100%, 50%);
 	}
 	.FR {
-		background-color: pink;
+		background-color: hsl(315, 100%, 50%);
 	}
 
 	@font-face {
