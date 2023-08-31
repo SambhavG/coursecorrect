@@ -124,19 +124,15 @@
 	section {
 		display: flex;
 		height: 100%;
-		width: 28.5em;
 		flex-direction: column;
 		justify-content: space-between;
+		transition: height 0.3s ease, opacity 0.3s ease;
 	}
 	.courseDndList {
+		height: 100%;
+		min-height: 8em;
 		display: flex;
 		flex-direction: column;
-		min-height: 8em;
-		height: 100%;
-	}
-	.courseDndList > * {
-		margin: 0.2em 0;
-		/* margin: var(--between-course-gap) 0; */
 	}
 	.bottomHalf {
 		display: flex;

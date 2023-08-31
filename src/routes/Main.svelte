@@ -1,9 +1,22 @@
 <script>
 	import Search from './courseComponents/Search.svelte';
+	import WAYSTracker from './courseComponents/WAYSTracker.svelte';
 	import Grid from './dnd/Grid.svelte';
 	import { onMount } from 'svelte';
-	import { years, quarters, allCourses, courseTable, searchResults, prefs } from './stores.js';
+	import {
+		years,
+		quarters,
+		allCourses,
+		courseTable,
+		searchResults,
+		prefs,
+		courseTableList,
+		selectedCourse
+	} from './stores.js';
 	import data from './data/courseDataFile.csv';
+	import GeneralizedDegreeTracker from './courseComponents/GeneralizedDegreeTracker.svelte';
+	import { Tally1 } from 'lucide-svelte';
+	import CourseDataPanel from './courseComponents/CourseDataPanel.svelte';
 
 	onMount(async () => {
 		$allCourses = data;
@@ -65,14 +78,46 @@
 			localStorage.setItem('prefs', JSON.stringify($prefs));
 		}
 	}
+
+	$: {
+		//Get all courses from courseTable and push to courseTableList
+		let courseTableListItems = [];
+
+		for (let i = 0; i < $courseTable.length; i++) {
+			for (let j = 0; j < $courseTable[i].quarters.length; j++) {
+				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					courseTableListItems.push($courseTable[i].quarters[j].courses[k]);
+				}
+			}
+		}
+		$courseTableList = courseTableListItems;
+	}
+
+	$: {
+		console.log($selectedCourse);
+	}
 </script>
 
 <section>
 	<div class="searchContainer">
 		<Search />
+		<WAYSTracker />
+		<GeneralizedDegreeTracker
+			data={{
+				rows: [
+					{ cells: [{ value: 'Credits' }, { value: 1 }] },
+					{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
+					{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
+					{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
+				]
+			}}
+		/>
 	</div>
 	<div class="gridContainer">
 		<Grid />
+	</div>
+	<div class="infoContainer">
+		<CourseDataPanel course={$selectedCourse} />
 	</div>
 </section>
 
@@ -89,6 +134,9 @@
 		margin: 0 1em;
 	}
 	.gridContainer {
+		margin: 0 1em;
+	}
+	.infoContainer {
 		margin: 0 1em;
 	}
 </style>

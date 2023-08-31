@@ -7,15 +7,33 @@
 	--color-bg: rgb(30, 30, 30);
 	--color-theme-1: #ff3e00;
 	--color-theme-2: #4075a6;
-	--color-text-dark: rgba(0, 0, 0, 0.7);
+	--color-text-dark: rgba(0, 0, 0, 1);
   --color-text-light: rgba(200, 200, 200);
+  --color-good: rgb(1, 182, 1);
 	font-family: var(--font-mono);
   background-color: var(--color-bg);
 	color: var(--color-text-light);
+  --aii: hsl(0, 100%, 50%);
+  --si: hsl(48, 100%, 50%);
+  --sma: hsl(66, 100%, 50%);
+  --ce: hsl(135, 100%, 50%);
+  --aqr: hsl(180, 100%, 50%);
+  --edp: hsl(225, 100%, 50%);
+  --er: hsl(270, 100%, 50%);
+  --fr: hsl(315, 100%, 50%);
+  --aii-text: var(--color-text-light);
+  --sma-text: var(--color-text-dark);
+  --si-text: var(--color-text-dark);
+  --aqr-text: var(--color-text-dark);
+  --ce-text: var(--color-text-dark);
+  --edp-text: var(--color-text-light);
+  --er-text: var(--color-text-light);
+  --fr-text: var(--color-text-light);
 }
 
 /* sizing variables */
 :root {
+  --course-width: 25rem;
   --between-course-gap: 1em;
 }
 

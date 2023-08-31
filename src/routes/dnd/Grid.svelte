@@ -4,11 +4,19 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import { years, quarters, courseTable, searchResults } from '../stores.js';
 	import QuarterDnd from '../courseComponents/QuarterDND.svelte';
+
+	let width = 1400;
+	if (typeof window !== 'undefined') {
+		width = document.body.clientWidth;
+		window.addEventListener('resize', () => {
+			width = document.body.clientWidth;
+		});
+	}
 </script>
 
 <section>
 	{#each $courseTable as year, y (year.id)}
-		<div class="yearContainer">
+		<div class={width >= 1400 ? 'yearContainer' : 'stackedYearContainer'}>
 			{#each year.quarters as quarter, q (quarter.id)}
 				<div class="quarterContainer">
 					<QuarterDND {quarter} {y} {q} />
@@ -29,6 +37,12 @@
 		flex-direction: row;
 		min-height: 8em;
 	}
+	.stackedYearContainer {
+		display: flex;
+		flex-direction: column;
+		min-height: 8em;
+	}
+
 	.quarterContainer {
 		padding: 0.5em 0.5em;
 		width: 100%;

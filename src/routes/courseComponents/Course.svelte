@@ -1,8 +1,10 @@
 <script>
-	import { prefs, courseWidth } from '../stores.js';
+	import { selectedCourse } from './../stores.js';
+	import { courseTable, prefs } from '../stores.js';
 	import { Link, Text } from 'lucide-svelte';
 	import WAYSIcon from './WAYSIcons.svelte';
 	export let course = {};
+	export let showDescription = false;
 
 	function aii(str) {
 		if (str == 'A-II') {
@@ -34,96 +36,83 @@
 		return 'background-color: hsl(' + hue + ', 100%, 50%)';
 	}
 
-	let iconSize = '16';
+	let iconSize = '24';
+	let linkSize = '14';
 
-	//Sizing:
-	//Left:
-	// 0.5 margin
-	// 1   desc icon
-	// 0.2 margin-right
-	// 9   class code
-	// 0.2 margin-right
+	function mulberry32(a) {
+		let t = (a += 0x6d2b79f5);
+		t = Math.imul(t ^ (t >>> 15), t | 1);
+		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	}
 
-	//Right:
-	// 0.2 margin-left
-	// 1.5 ways1
-	// 0.2 margin-left
-	// 1.5 ways2
-	// 0.2 margin-left
-	// 1.5 link
-	// 0.2 margin-left
-	// 1.5 hours
-	// 0.2 margin-left
-	// 1.5 units
-	// 0.5 margin
-	// let totalWidth = $courseWidth;
-	let elemWidth = 2.1;
-	let prefShows = $prefs.courseTableData;
-	$: {
-		let w = 28.5;
-		if (!prefShows.showWAYS) {
-			w -= elemWidth * 2;
+	function courseColor(courseName) {
+		let dept = courseName.split(' ')[0];
+		let deptInt = 0;
+		for (let i = 0; i < dept.length; i++) {
+			deptInt += dept.charCodeAt(i) * Math.pow(10, i);
 		}
-		if (!prefShows.showExploreCoursesLink) {
-			w -= elemWidth;
-		}
-		if (!prefShows.showCartaLink) {
-			w -= elemWidth;
-		}
-		if (!prefShows.showAverageEval) {
-			w -= elemWidth;
-		}
-		if (!prefShows.showPercentCompleted) {
-			w -= elemWidth;
-		}
-		$courseWidth = w;
+		deptInt += 10;
+		let rand = mulberry32(deptInt) * 360;
+		return 'background: linear-gradient(to right, hsl(' + rand + ', 50%, 20%), rgba(0, 0, 0, 0.13)';
 	}
 </script>
 
-<section style={`width: ${$courseWidth}em`}>
+<section style={courseColor(course.Class)}>
 	<div class="leftSide">
-		<div class="classDesc"><Text class="icon" size={iconSize} /></div>
-		<div class="classCode">{course.Class}</div>
+		<div class="classDesc" role="tooltip" on:mouseenter={() => ($selectedCourse = course)}>
+			<Text class="icon" size={iconSize} />
+		</div>
+		<div class="classCodeContainer">
+			<div class="classCodeSpanContainer">
+				<span class="classCode">{course.Class}</span>
+				<span class="className">{course.Name}</span>
+			</div>
+		</div>
 	</div>
 
 	<div class="rightSide">
 		{#if $prefs.courseTableData.showWAYS}
-			<div class={'ways ways1 ' + aii(course['WAYS 1'])}>
-				<WAYSIcon ways={aii(course['WAYS 1'])} />
-			</div>
-			<div class={'ways ways2 ' + aii(course['WAYS 2'])}>
-				<WAYSIcon ways={aii(course['WAYS 2'])} />
-			</div>
-		{/if}
-		{#if $prefs.courseTableData.showExploreCoursesLink}
-			<div class="classLink">
-				<a href={course.Link} target="_blank">
-					<Link size={iconSize} />
-				</a>
+			<div class="ways">
+				<div class={'ways1 ' + aii(course['WAYS 1'])}>
+					<WAYSIcon ways={aii(course['WAYS 1'])} />
+				</div>
+				<div class={'ways2 ' + aii(course['WAYS 2'])}>
+					<WAYSIcon ways={aii(course['WAYS 2'])} />
+				</div>
 			</div>
 		{/if}
-		{#if $prefs.courseTableData.showPercentCompleted}
-			<div class="percentCompleted" style={percentCompletedColor(course['Percent Completed'])}>
-				{course['Percent Completed'] == -1 ? '' : course['Percent Completed']}
+		{#if $prefs.courseTableData.showLinks}
+			<div class="classLinks">
+				<div class="classLink">
+					<a href={course.Link} target="_blank">
+						<Link size={linkSize} />
+					</a>
+				</div>
+				<div class="classLink">
+					<a href={course.Link} target="_blank">
+						<Link class="icon" size={linkSize} />
+					</a>
+				</div>
 			</div>
 		{/if}
-		{#if $prefs.courseTableData.showAverageEval}
-			<div class="averageEval" style={averageEvalColor(course['Average Eval'])}>
-				{course['Average Eval'] == -1 ? '' : course['Average Eval']}
+		{#if $prefs.courseTableData.showPercent}
+			<div class="percentCompletedAndAverageEval">
+				<div class="percentCompleted" style={percentCompletedColor(course['Percent Completed'])}>
+					{course['Percent Completed'] == -1 ? '' : course['Percent Completed']}
+				</div>
+				<div class="averageEval" style={averageEvalColor(course['Average Eval'])}>
+					{course['Average Eval'] == -1 ? '' : course['Average Eval']}
+				</div>
 			</div>
 		{/if}
-		{#if $prefs.courseTableData.showCartaLink}
-			<div class="classLink">
-				<a href={course.Link} target="_blank">
-					<Link class="icon" size={iconSize} />
-				</a>
-			</div>
-		{/if}
-
 		<div class="classHours">{course['Mean Hours'] == -1 ? 0 : course['Mean Hours']}</div>
 		<div class="classUnits">{course['Units Ceiling']}</div>
 	</div>
 </section>
+{#if showDescription}
+	<div class="classDescription">{course.Description}</div>
+{/if}
 
 <style>
 	section {
@@ -131,8 +120,18 @@
 		text-align: left;
 
 		border: 1px solid var(--color-text-light);
+		/* background: linear-gradient(to right, rgba(0, 0, 255, 0.1), rgba(0, 0, 0, 0.13)); */
+
 		border-radius: 1em;
-		height: 1.8em;
+		max-width: var(--course-width);
+		max-height: 3.5em;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 0.25em;
+	}
+
+	.topRow {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -141,28 +140,38 @@
 	.leftSide {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
-		vertical-align: text-bottom;
-		margin-left: 0.5em;
+		align-items: center;
+		justify-content: left;
+		margin-left: 0.2em;
 	}
 	.leftSide > * {
+		height: 100%;
 		margin-right: 0.2em;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		font-size: 1.2em;
 	}
-	.classDesc {
-		overflow: hidden;
-		width: 1em;
-		display: flex;
-		flex-direction: column;
-	}
-	.classCode {
+
+	.classCodeContainer {
 		/* Should be wide enough to fit 14 characters */
-		min-width: 9em;
+		min-width: 10em;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+	}
+
+	.classCodeSpanContainer {
+		display: inline;
+		overflow: auto;
+	}
+
+	.classCode {
+		font-size: 1.2em;
+		font-weight: bold;
+		font-style: italic;
+	}
+	.className {
+		font-size: 0.8em;
 	}
 
 	.rightSide {
@@ -179,26 +188,68 @@
 		margin-left: 0.2em;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 	}
 
 	.ways {
-		margin-left: 0.2em;
-		height: 1.2em;
-		border-radius: 0.3em;
+		height: 100%;
+		margin: 0 0.1em;
 		display: flex;
 		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.ways > * {
+		max-height: 44%;
+		width: 100%;
+		border-radius: 0.3em;
+		margin: 0.1em 0;
+		color: var(--color-text-dark);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		align-items: center;
+	}
+	.ways1 {
+		align-self: flex-start;
+	}
+
+	.ways2 {
+		align-self: flex-end;
+	}
+
+	.percentCompletedAndAverageEval {
+		height: 100%;
+		margin: 0 0.1em;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.percentCompletedAndAverageEval > * {
+		height: 50%;
+		width: 100%;
+		border-radius: 0.3em;
+		margin: 0.1em 0;
+		color: var(--color-text-dark);
+		display: flex;
+		flex-direction: column;
 		justify-content: center;
 	}
 
 	.percentCompleted {
-		border-radius: 0.3em;
-		color: var(--color-text-dark);
+		align-self: flex-start;
 	}
+
 	.averageEval {
-		border-radius: 0.3em;
-		color: var(--color-text-dark);
+		align-self: flex-end;
+	}
+
+	.classLinks {
+		height: 100%;
+		margin: 0 0.1em;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 	}
 
 	.classLink {
@@ -214,31 +265,40 @@
 		justify-content: center;
 	}
 
+	.classDescription {
+		font-size: 1em;
+	}
+
 	.AII {
-		background-color: hsl(0, 100%, 50%);
+		background-color: var(--aii);
+		color: var(--aii-text);
 	}
 	.SMA {
-		background-color: hsl(45, 100%, 50%);
+		background-color: var(--sma);
+		color: var(--sma-text);
 	}
 	.SI {
-		background-color: hsl(70, 100%, 50%);
-		color: var(--color-text-dark);
+		background-color: var(--si);
+		color: var(--si-text);
 	}
 	.AQR {
-		background-color: hsl(135, 100%, 50%);
-		color: var(--color-text-dark);
+		background-color: var(--aqr);
+		color: var(--aqr-text);
 	}
 	.CE {
-		background-color: hsl(180, 100%, 50%);
-		color: var(--color-text-dark);
+		background-color: var(--ce);
+		color: var(--ce-text);
 	}
 	.EDP {
-		background-color: hsl(225, 100%, 50%);
+		background-color: var(--edp);
+		color: var(--edp-text);
 	}
 	.ER {
-		background-color: hsl(270, 100%, 50%);
+		background-color: var(--er);
+		color: var(--er-text);
 	}
 	.FR {
-		background-color: hsl(315, 100%, 50%);
+		background-color: var(--fr);
+		color: var(--fr-text);
 	}
 </style>

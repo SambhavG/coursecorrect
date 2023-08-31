@@ -16,8 +16,13 @@
 - [ ] panel with ways requirements calculations
 - [ ] panel with bachelors in math calculations
 - [ ] panel with masters calculations
-- [ ] auto coloring
-- [ ] way to change data
+- [x] auto coloring
+- [ ] clear button
+- [ ] Ways to search (by course ID & desc (id match floats to top))
+- [ ] Search filters
+- [ ] Scrolling search results
+- [ ] Way to change data
+- [ ] Transfer units accounting
 
 ### Extra features
 
@@ -25,7 +30,6 @@
 - [ ] Workspace to park extra course objects
 - [ ] Rotate frosh/soph/junior/senior display order with animation
 - [ ] Check pwr/college/language
-- [ ] Transfer units accounting
 - [ ] Account for courses which can be taken for multiple units and different amounts each time
 - [ ] Notes workspace
 - [ ] Show/hide anything

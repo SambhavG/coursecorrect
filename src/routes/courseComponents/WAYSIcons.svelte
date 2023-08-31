@@ -10,14 +10,14 @@
 		TrainTrack,
 		Dices
 	} from 'lucide-svelte';
-	let iconSize = '18';
+	let iconSize = '14';
 	let smallerSize = '14';
 </script>
 
 {#if ways == 'AII'}
 	<Flower2 size={iconSize} />
 {:else if ways == 'SMA'}
-	<Microscope size={iconSize} />
+	<Microscope size={smallerSize} />
 {:else if ways == 'SI'}
 	<Users size={smallerSize} />
 {:else if ways == 'AQR'}
