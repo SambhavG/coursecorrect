@@ -28,7 +28,7 @@
 
 <style>
 	section {
-		border: 2px solid;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 	}
@@ -45,7 +45,6 @@
 
 	.quarterContainer {
 		padding: 0.5em 0.5em;
-		width: 100%;
 		border: 2px solid;
 	}
 </style>

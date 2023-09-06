@@ -81,6 +81,9 @@
 </script>
 
 <section>
+	<div class="title">
+		{$years[y] + ' ' + $quarters[q]}
+	</div>
 	<div
 		class="courseDndList"
 		use:dndzone={{ items: quarter.courses, flipDurationMs }}
@@ -127,6 +130,13 @@
 		flex-direction: column;
 		justify-content: space-between;
 		transition: height 0.3s ease, opacity 0.3s ease;
+	}
+	.title {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.4em;
 	}
 	.courseDndList {
 		height: 100%;

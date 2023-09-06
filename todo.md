@@ -11,10 +11,10 @@
 
 ### Minimum: what exists in spreadsheet
 
-- [ ] checkbox for masters
+- [ ] checkbox for masters; solid border is bachelors, dotted is masters
 - [ ] panel with course data of selected course
 - [ ] panel with ways requirements calculations
-- [ ] panel with bachelors in math calculations
+- [ ] panel with bachelors calculations
 - [ ] panel with masters calculations
 - [x] auto coloring
 - [ ] clear button
@@ -23,6 +23,7 @@
 - [ ] Scrolling search results
 - [ ] Way to change data
 - [ ] Transfer units accounting
+- [ ] Course view modal spreadsheet
 
 ### Extra features
 
@@ -30,6 +31,6 @@
 - [ ] Workspace to park extra course objects
 - [ ] Rotate frosh/soph/junior/senior display order with animation
 - [ ] Check pwr/college/language
-- [ ] Account for courses which can be taken for multiple units and different amounts each time
+- [ ] Account for courses which can be taken for multiple units and different amounts each time (will be done when we have a way to change data)
 - [ ] Notes workspace
 - [ ] Show/hide anything

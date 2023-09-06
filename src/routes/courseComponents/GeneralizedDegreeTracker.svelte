@@ -72,7 +72,7 @@
 	}
 	.cell {
 		/* flex grow provided by function */
-		border: 1px solid white;
+		border: 1px solid var(--color-text-light);
 	}
 	.progressBar {
 		position: absolute;

@@ -1,4 +1,5 @@
 <script>
+	import { searchFilters } from './../stores.js';
 	import { flip } from 'svelte/animate';
 	import { dndzone } from 'svelte-dnd-action';
 	import { allCourses, searchResults } from '../stores.js';
@@ -16,14 +17,47 @@
 	}
 	function SearchResults(event) {
 		let query = event.target.value;
+
+		//Get list of courses which match search filters
+		let workingList = $allCourses;
+		Object.keys($searchFilters).forEach((key) => {
+			let filters = $searchFilters[key];
+			let foundPos = false;
+			Object.keys(filters).forEach((filter) => {
+				if (filters[filter]) {
+					foundPos = true;
+				}
+			});
+			if (foundPos) {
+				Object.keys(filters).forEach((filter) => {
+					if (key == 'WAYS' && !filters[filter]) {
+						workingList = workingList.filter(
+							(course) => course['WAYS 1'] != filter && course['WAYS 2'] != filter
+						);
+					}
+					if (key == 'Units' && !filters[filter]) {
+						if (filter != '6+') {
+							workingList = workingList.filter(
+								(course) => course['Units Ceiling'] != parseInt(filter)
+							);
+						} else {
+							workingList = workingList.filter((course) => course['Units Ceiling'] < 6);
+						}
+					}
+				});
+			}
+		});
+
+		//We want results for exact match with class, then exact department, then match title, then match description
+
 		// let results = $allCourses.filter((course) => course.Description.includes(query) || course.Name.includes(query)).slice(0, 100);
-		let exactMatchResults = $allCourses
+		let exactMatchResults = workingList
 			.filter((course) => course.Class.includes(query))
 			.slice(0, 10);
-		let titleResults = $allCourses
+		let titleResults = workingList
 			.filter((course) => !course.Class.includes(query) && course.Name.includes(query))
 			.slice(0, 100);
-		let descriptionResults = $allCourses
+		let descriptionResults = workingList
 			.filter(
 				(course) =>
 					!course.Class.includes(query) &&

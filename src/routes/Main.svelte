@@ -55,7 +55,7 @@
 				coursesObj.push({ id: $years[i], quarters: [] });
 				for (let j = 0; j < $quarters.length; j++) {
 					coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
-					for (let k = 0; k < 3; k++) {
+					for (let k = 0; k < j + 2; k++) {
 						let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
 						coursesObj[i].quarters[j].courses.push(randomCourse);
 					}
@@ -92,10 +92,6 @@
 		}
 		$courseTableList = courseTableListItems;
 	}
-
-	$: {
-		console.log($selectedCourse);
-	}
 </script>
 
 <section>
@@ -123,12 +119,12 @@
 
 <style>
 	section {
+		width: 100%;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		width: 100%;
 		align-items: left;
-		font-size: 12px;
+		font-size: 0.7rem;
 	}
 	.searchContainer {
 		margin: 0 1em;

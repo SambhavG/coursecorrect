@@ -120,11 +120,13 @@
 		text-align: left;
 
 		border: 1px solid var(--color-text-light);
+		color: var(--color-text-light);
 		/* background: linear-gradient(to right, rgba(0, 0, 255, 0.1), rgba(0, 0, 0, 0.13)); */
 
 		border-radius: 1em;
 		max-width: var(--course-width);
-		max-height: 3.5em;
+		min-width: calc(var(--course-width) - 5em);
+		height: 3.5em;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
