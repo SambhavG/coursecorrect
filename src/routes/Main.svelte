@@ -1,7 +1,7 @@
 <script>
-	import Search from './courseComponents/Search.svelte';
-	import WAYSTracker from './courseComponents/WAYSTracker.svelte';
-	import Grid from './dnd/Grid.svelte';
+	import Search from './components/Search.svelte';
+	import WAYSTracker from './components/WAYSTracker.svelte';
+	import Grid from './components/Grid.svelte';
 	import { onMount } from 'svelte';
 	import {
 		years,
@@ -14,16 +14,56 @@
 		selectedCourse
 	} from './stores.js';
 	import data from './data/courseDataFile.csv';
-	import GeneralizedDegreeTracker from './courseComponents/GeneralizedDegreeTracker.svelte';
+	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import { Tally1 } from 'lucide-svelte';
-	import CourseDataPanel from './courseComponents/CourseDataPanel.svelte';
+	import CourseDataPanel from './components/CourseDataPanel.svelte';
 
 	onMount(async () => {
 		$allCourses = data;
+		//Some transformations to make the data more workable
 		//For each course, add id equal to random
+		//Add UnitsTaking property equal to 'Units Ceiling'
+		//Add 'WAYS' property equal to an empty array if 'WAYS 1' and 'WAYS 2' are empty, otherwise add an array with 'WAYS 1' and 'WAYS 2'
 		for (let i = 0; i < $allCourses.length; i++) {
 			$allCourses[i].id = i + '|' + Math.random().toString(36).substring(7);
+			$allCourses[i].unitsTaking = $allCourses[i]['Units Ceiling'];
+			if ($allCourses[i]['WAYS 1'] == '') {
+				$allCourses[i].WAYS = [];
+			} else if ($allCourses[i]['WAYS 2'] == '') {
+				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1']];
+			} else {
+				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1'], $allCourses[i]['WAYS 2']];
+			}
 		}
+		//Sort the courses by department, number, and modifier (the part after the number)
+		$allCourses.sort((a, b) => {
+			let aDept = a.Class.split(' ')[0];
+			let bDept = b.Class.split(' ')[0];
+			let aClassNum = a.Class.split(' ')[1];
+			let bClassNum = b.Class.split(' ')[1];
+			let aNumber = parseInt(aClassNum.match(/\d+/)[0]);
+			let bNumber = parseInt(bClassNum.match(/\d+/)[0]);
+			let aModifier = aClassNum.substring(aNumber.length);
+			let bModifier = bClassNum.substring(bNumber.length);
+			if (aDept < bDept) {
+				return -1;
+			}
+			if (aDept > bDept) {
+				return 1;
+			}
+			if (aNumber < bNumber) {
+				return -1;
+			}
+			if (aNumber > bNumber) {
+				return 1;
+			}
+			if (aModifier < bModifier) {
+				return -1;
+			}
+			if (aModifier > bModifier) {
+				return 1;
+			}
+		});
 
 		//Get data from local storage
 		const isBrowser = typeof window !== 'undefined';

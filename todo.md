@@ -11,7 +11,7 @@
 
 ### Minimum: what exists in spreadsheet
 
-- [ ] checkbox for masters; solid border is bachelors, dotted is masters
+- [ ] checkbox for masters; solid border is bachelors, dotted is masters. Checkbox is in info panel
 - [ ] panel with course data of selected course
 - [ ] panel with ways requirements calculations
 - [ ] panel with bachelors calculations

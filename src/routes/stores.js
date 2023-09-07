@@ -4,7 +4,12 @@ export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior']);
 export const quarters = writable(['Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
 export const courseTable = writable([]);
-export const searchResults = writable([]);
+export const searchResults = writable({
+	exactMatchResults: [],
+	sameDepartmentResults: [],
+	titleResults: [],
+	descriptionResults: []
+});
 export const courseTableList = writable([]);
 export const WAYSTables = writable([]);
 export const selectedCourse = writable({});
@@ -16,7 +21,7 @@ export const searchFilters = writable({
 		'CE': false,
 		'AQR': false,
 		'EDP': false,
-		'ER': true,
+		'ER': false,
 		'FR': false,
 	},
 	'Units': {

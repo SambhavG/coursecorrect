@@ -41,8 +41,20 @@
 :root {
   --course-width: 25rem;
   --between-course-gap: 1em;
+  scrollbar-width: none;
 }
 
+::-webkit-scrollbar {
+  width: 0em; /* Set the width of the scrollbar to zero */
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the background color of the track to transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Set the background color of the thumb (the draggable part) to transparent */
+}
 body {
 	min-height: 100vh;
 	margin: 0;
