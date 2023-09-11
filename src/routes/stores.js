@@ -33,6 +33,7 @@ export const searchFilters = writable({
 		'6+': false,
 	},
 });
+export const courseWidth = writable(15);
 
 //For course objects, always show the course number, hours, units
 //Optional: exploreCourses link, carta link, WAYS, description (shows popup on hover),
@@ -41,6 +42,13 @@ export const prefs = writable({
 	courseTableData: {
 		showLinks: true,
 		showWAYS: true,
-		showPercent: true
+		showPercent: true,
+		showCheckboxes: true,
+		yearsCollapsed: {
+			'Frosh': false,
+			'Sophomore': false,
+			'Junior': false,
+			'Senior': false
+		}
 	}
 });

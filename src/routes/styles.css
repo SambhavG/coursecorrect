@@ -6,7 +6,7 @@
 }
 
 :root {
-  
+  font-size: .8vw;
 	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'BergenMono-Regular', monospace;
@@ -39,7 +39,6 @@
 
 /* sizing variables */
 :root {
-  --course-width: 25rem;
   --between-course-gap: 1em;
   scrollbar-width: none;
 }

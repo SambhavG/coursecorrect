@@ -10,6 +10,28 @@
 			course = firstCourse;
 		}
 	}
+
+	/*
+	Data we want to show:
+		- Course code
+		- Course name
+		- Course units & unit selector
+		- WAYS reqs
+		- Average hours
+		- Grading options
+		- Explorecourses and carta link
+		- Course description
+		- Course terms offered
+		- Course grading
+		- Average reviews
+		- Average percent complete
+		- Most common year taken
+		- Button to open expanded view modal
+			- All of the above
+			- Review viewer with ai summary
+			- Hours, sequencing, enrollment outcomes graphs
+			- All past terms with professors and evals
+	*/
 </script>
 
 <section>
@@ -21,19 +43,17 @@
 <style>
 	section {
 		box-sizing: border-box;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: center;
-		text-align: center;
+		display: block;
 		border: 0.25em solid var(--color-text-light);
-		width: 30em;
 		padding: 1em;
 		overflow-x: scroll;
+		height: 20em;
+		width: 100%;
 	}
 	section > * {
 		width: 100%;
 		text-align: center;
+		flex: 0;
 	}
 	.courseCode {
 		font-size: 3em;

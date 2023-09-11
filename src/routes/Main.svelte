@@ -34,6 +34,8 @@
 			} else {
 				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1'], $allCourses[i]['WAYS 2']];
 			}
+			$allCourses[i].ms = false;
+			$allCourses[i].snc = false;
 		}
 		//Sort the courses by department, number, and modifier (the part after the number)
 		$allCourses.sort((a, b) => {
@@ -135,44 +137,67 @@
 </script>
 
 <section>
-	<div class="searchContainer">
-		<Search />
-		<WAYSTracker />
-		<GeneralizedDegreeTracker
-			data={{
-				rows: [
-					{ cells: [{ value: 'Credits' }, { value: 1 }] },
-					{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
-					{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
-					{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
-				]
-			}}
-		/>
+	<div class="searchAndDegreeTrackerContainer">
+		<div class="generalizedDegreeTrackerContainer">
+			<GeneralizedDegreeTracker
+				data={{
+					rows: [
+						{ cells: [{ value: 'Credits' }, { value: 1 }] },
+						{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
+						{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
+						{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
+					]
+				}}
+			/>
+		</div>
+		<div class="searchContainer">
+			<Search />
+		</div>
 	</div>
-	<div class="gridContainer">
-		<Grid />
-	</div>
-	<div class="infoContainer">
-		<CourseDataPanel course={$selectedCourse} />
+	<div class="gridAndInfoContainer">
+		<div class="dataHeader">
+			<div class="waysTrackerContainer">
+				<WAYSTracker />
+			</div>
+			<div class="courseDataPanelContainer">
+				<CourseDataPanel course={$selectedCourse} />
+			</div>
+		</div>
+		<div class="gridContainer">
+			<Grid />
+		</div>
 	</div>
 </section>
 
 <style>
 	section {
 		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 3.5fr;
+		/* font-size: 0.7rem; */
+	}
+
+	.searchAndDegreeTrackerContainer {
+		margin: 0 1em;
+	}
+	.searchAndDegreeTrackerContainer > * {
+		margin: 1em 0;
+	}
+	.gridAndInfoContainer {
+		margin: 0 1em;
+	}
+	.dataHeader {
+		margin-bottom: 1em;
+	}
+	.waysTrackerContainer {
+		margin-right: 1em;
+	}
+	.courseDataPanelContainer {
+		width: 100%;
+	}
+	.dataHeader {
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
-		align-items: left;
-		font-size: 0.7rem;
-	}
-	.searchContainer {
-		margin: 0 1em;
-	}
-	.gridContainer {
-		margin: 0 1em;
-	}
-	.infoContainer {
-		margin: 0 1em;
+		width: 100%;
 	}
 </style>

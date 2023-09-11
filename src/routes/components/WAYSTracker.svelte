@@ -151,7 +151,6 @@
 		justify-content: center;
 		text-align: center;
 		border: 0.25em solid var(--color-text-light);
-		margin: 1em 0;
 		box-sizing: border-box;
 	}
 	.title {

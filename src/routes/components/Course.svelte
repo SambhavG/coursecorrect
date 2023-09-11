@@ -1,17 +1,13 @@
 <script>
 	import { selectedCourse } from './../stores.js';
 	import { courseTable, prefs } from '../stores.js';
-	import { Link, Text } from 'lucide-svelte';
+	import { Link } from 'lucide-svelte';
 	import WAYSIcon from './WAYSIcons.svelte';
 	export let course = {};
 	export let showDescription = false;
-
-	function aii(str) {
-		if (str == 'A-II') {
-			return 'AII';
-		}
-		return str;
-	}
+	let msChecked = false;
+	let sncChecked = false;
+	let afterLoad = false;
 
 	function averageEvalColor(averageEval) {
 		//Gradient with 0-3 red, 4 yellow, 5 green
@@ -36,8 +32,38 @@
 		return 'background-color: hsl(' + hue + ', 100%, 50%)';
 	}
 
-	let iconSize = '24';
 	let linkSize = '14';
+
+	function updateCourseById(id, property, newValue) {
+		//Loop through all the courses in courseTable
+		for (let i = 0; i < $courseTable.length; i++) {
+			//Loop through all the quarters in the year
+			for (let j = 0; j < $courseTable[i].quarters.length; j++) {
+				//Loop through all the courses in the quarter
+				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					//If the course id matches the id we're looking for, update the property
+					if ($courseTable[i].quarters[j].courses[k].id == id) {
+						$courseTable[i].quarters[j].courses[k][property] = newValue;
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	function updateMs(e) {
+		//Lock updates via $
+		afterLoad = true;
+		msChecked = e.target.checked;
+		updateCourseById(course.id, 'ms', msChecked);
+	}
+
+	function updateSnc(e) {
+		//Lock updates via $
+		afterLoad = true;
+		sncChecked = e.target.checked;
+		updateCourseById(course.id, 'snc', sncChecked);
+	}
 
 	function mulberry32(a) {
 		let t = (a += 0x6d2b79f5);
@@ -55,31 +81,71 @@
 		}
 		deptInt += 10;
 		let rand = mulberry32(deptInt) * 360;
-		return 'background: linear-gradient(to right, hsl(' + rand + ', 50%, 35%), rgba(0, 0, 0, 0.13)';
+		if (!course?.ms) {
+			return (
+				'background: linear-gradient(to right, hsl(' + rand + ', 50%, 35%), rgba(0, 0, 0, 0.13)'
+			);
+		}
+		return (
+			'background: repeating-linear-gradient(45deg, hsl(' +
+			rand +
+			', 50%, 35%), hsl(' +
+			rand +
+			', 50%, 35%) 1em, hsl(' +
+			rand +
+			', 50%, 30%) 1em, hsl(' +
+			rand +
+			', 50%, 30%) 2em)'
+		);
+	}
+
+	//Update checkboxes on load
+	$: {
+		if (!afterLoad) {
+			msChecked = course?.ms;
+			if (msChecked == undefined) {
+				msChecked = false;
+			}
+			sncChecked = course?.snc;
+			if (sncChecked == undefined) {
+				sncChecked = false;
+			}
+		}
 	}
 </script>
 
-<section style={courseColor(course)}>
+<section
+	style={courseColor(course)}
+	role="tooltip"
+	on:mouseenter={() => ($selectedCourse = course)}
+>
 	<div class="leftSide">
-		<div class="classDesc" role="tooltip" on:mouseenter={() => ($selectedCourse = course)}>
-			<Text class="icon" size={iconSize} />
-		</div>
-		<div class="classCodeContainer">
-			<div class="classCodeSpanContainer">
-				<span class="classCode">{course.Class}</span>
-				<span class="className">{course.Name}</span>
+		{#if $prefs.courseTableData.showCheckboxes}
+			<div class="checkboxesContainer">
+				<div class="checkboxContainer">
+					<input type="checkbox" checked={msChecked} on:change={updateMs} />
+					MS
+				</div>
+				<div class="checkboxContainer">
+					<input type="checkbox" checked={sncChecked} on:change={updateSnc} />
+					SNC
+				</div>
 			</div>
+		{/if}
+		<div class="classCodeSpanContainer">
+			<span class="classCode">{course.Class}</span>
+			<span class="className">{course.Name}</span>
 		</div>
 	</div>
 
 	<div class="rightSide">
 		{#if $prefs.courseTableData.showWAYS}
 			<div class="ways">
-				<div class={'ways1 ' + aii(course['WAYS 1'])}>
-					<WAYSIcon ways={aii(course['WAYS 1'])} />
+				<div class={'ways1 ' + course['WAYS 1']}>
+					<WAYSIcon ways={course['WAYS 1']} />
 				</div>
-				<div class={'ways2 ' + aii(course['WAYS 2'])}>
-					<WAYSIcon ways={aii(course['WAYS 2'])} />
+				<div class={'ways2 ' + course['WAYS 2']}>
+					<WAYSIcon ways={course['WAYS 2']} />
 				</div>
 			</div>
 		{/if}
@@ -119,15 +185,9 @@
 	section {
 		box-sizing: border-box;
 		text-align: left;
-
-		/* border: 1px solid var(--color-text-light); */
 		border: 0px;
 		color: var(--color-text-light);
-		/* background: linear-gradient(to right, rgba(0, 0, 255, 0.1), rgba(0, 0, 0, 0.13)); */
-
 		border-radius: 1em;
-		max-width: var(--course-width);
-		min-width: calc(var(--course-width) - 5em);
 		height: 3.5em;
 		display: flex;
 		flex-direction: row;
@@ -156,10 +216,14 @@
 		justify-content: center;
 		font-size: 1.2em;
 	}
+	.checkboxContainer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: left;
+	}
 
 	.classCodeContainer {
-		/* Should be wide enough to fit 14 characters */
-		min-width: 10em;
 		display: flex;
 		flex-direction: column;
 	}
@@ -167,6 +231,7 @@
 	.classCodeSpanContainer {
 		display: inline;
 		overflow: auto;
+		margin-left: 0.2em;
 	}
 
 	.classCode {

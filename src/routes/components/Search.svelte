@@ -336,7 +336,7 @@
 	}
 
 	.results {
-		max-height: 16em;
+		max-height: 32em;
 		overflow: auto;
 	}
 

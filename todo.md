@@ -24,6 +24,8 @@
 - [ ] Way to change data
 - [ ] Transfer units accounting
 - [ ] Course view modal spreadsheet
+- [ ] Course can be dragged to bottom of screen
+- [ ] Sizing issues
 
 ### Extra features
 
