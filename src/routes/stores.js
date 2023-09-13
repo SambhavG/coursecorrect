@@ -14,7 +14,7 @@ export const courseTableList = writable([]);
 export const WAYSTables = writable([]);
 export const selectedCourse = writable({});
 export const searchFilters = writable({
-	'WAYS': {
+	WAYS: {
 		'AII': false,
 		'SI': false,
 		'SMA': false,
@@ -24,7 +24,7 @@ export const searchFilters = writable({
 		'ER': false,
 		'FR': false,
 	},
-	'Units': {
+	Units: {
 		'1': false,
 		'2': false,
 		'3': false,
@@ -32,6 +32,25 @@ export const searchFilters = writable({
 		'5': false,
 		'6+': false,
 	},
+	Hours: {
+		'min': 0,
+		'max': 24
+	},
+	Eval: {
+		'min': 0,
+		'max': 5
+	},
+	PercentCompleted: {
+		'min': 0,
+		'max': 100
+	},
+	QuartersOffered: {
+		'Fall': false,
+		'Winter': false,
+		'Spring': false,
+		'Summer': false
+	}
+
 });
 export const courseWidth = writable(15);
 

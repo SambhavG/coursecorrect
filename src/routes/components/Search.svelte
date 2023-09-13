@@ -85,7 +85,79 @@
 			}
 		}
 
+		//Check if course fits hours filter
+		if (filters.Hours.min != '' && parseInt(course['Mean Hours']) < filters.Hours.min) {
+			return false;
+		}
+		if (filters.Hours.max != '' && parseInt(course['Mean Hours']) > filters.Hours.max) {
+			return false;
+		}
+
+		//Check if course fits eval filter
+		if (course['Average Eval'] != '-1') {
+			if (filters.Eval.min != '' && parseInt(course['Average Eval']) < filters.Eval.min) {
+				return false;
+			}
+			if (filters.Eval.max != '' && parseInt(course['Average Eval']) > filters.Eval.max) {
+				return false;
+			}
+		}
+
+		//Check if course fits percent completed filter
+		if (
+			filters.PercentCompleted.min != '' &&
+			parseInt(course['Percent Completed']) < filters.PercentCompleted.min
+		) {
+			return false;
+		}
+		if (
+			filters.PercentCompleted.max != '' &&
+			parseInt(course['Percent Completed']) > filters.PercentCompleted.max
+		) {
+			return false;
+		}
+
+		//Check if quartersOffered filter is active
+		let quartersOfferedFilterActive = false;
+		Object.keys(filters.QuartersOffered).forEach((quarter) => {
+			if (filters.QuartersOffered[quarter]) {
+				quartersOfferedFilterActive = true;
+			}
+		});
+
+		//Check if course fits quartersOffered filter
+		if (quartersOfferedFilterActive) {
+			let quartersOfferedFilterFits = false;
+			Object.keys(filters.QuartersOffered).forEach((quarter) => {
+				//TODO: add logic for quarters offered once it's in the dataset
+				if (filters.QuartersOffered[quarter]) {
+					quartersOfferedFilterFits = true;
+				}
+			});
+			if (!quartersOfferedFilterFits) {
+				return false;
+			}
+		}
+
 		return true;
+	}
+	function clearFilters() {
+		//Set all values of WAYS, Units, and QuartersOffered to false
+		Object.keys($searchFilters.WAYS).forEach((way) => {
+			$searchFilters.WAYS[way] = false;
+		});
+		Object.keys($searchFilters.Units).forEach((unit) => {
+			$searchFilters.Units[unit] = false;
+		});
+		Object.keys($searchFilters.QuartersOffered).forEach((quarter) => {
+			$searchFilters.QuartersOffered[quarter] = false;
+		});
+		$searchFilters.Hours.min = 0;
+		$searchFilters.Hours.max = 24;
+		$searchFilters.Eval.min = 0;
+		$searchFilters.Eval.max = 5;
+		$searchFilters.PercentCompleted.min = 0;
+		$searchFilters.PercentCompleted.max = 100;
 	}
 
 	const flipDurationMs = 300;
@@ -217,38 +289,131 @@
 		<button class="filtersHeader" on:click={toggleShowFilters}> Filters </button>
 	</div>
 	{#if showFilters}
-		<div class="filtersPanel">
+		<div class="filtersMenuContainer">
 			<div class="filters">
-				<div class="filter">
-					<div class="title">Units</div>
-					<div class="options">
-						{#each Object.keys($searchFilters.Units) as unit}
-							<div class="option">
-								<input
-									type="checkbox"
-									id={unit}
-									name={unit}
-									on:click={searchResultsFunction}
-									bind:checked={$searchFilters.Units[unit]}
-								/>
-								<label for={unit}>{unit}</label>
+				<div class="filtersAndButton">
+					<button
+						class="filterButton"
+						on:click={() => {
+							clearFilters();
+							searchResultsFunction();
+						}}>Clear filters</button
+					>
+					<div class="filters">
+						<div class="filter">
+							<div class="title">Units</div>
+							<div class="options">
+								{#each Object.keys($searchFilters.Units) as unit}
+									<div class="option">
+										<input
+											type="checkbox"
+											id={unit}
+											name={unit}
+											on:click={searchResultsFunction}
+											bind:checked={$searchFilters.Units[unit]}
+										/>
+										<label for={unit}>{unit}</label>
+									</div>
+								{/each}
 							</div>
-						{/each}
+						</div>
+						<div class="filter">
+							<div class="title">WAYS</div>
+							<div class="options">
+								{#each Object.keys($searchFilters.WAYS) as way}
+									<div class="option">
+										<input
+											type="checkbox"
+											id={way}
+											name={way}
+											on:click={searchResultsFunction}
+											bind:checked={$searchFilters.WAYS[way]}
+										/>
+										<label for={way}>{way}</label>
+									</div>
+								{/each}
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="filter">
-					<div class="title">WAYS</div>
+					<div class="title">Hours</div>
+					<div class="fieldOptions">
+						Min:
+						<input
+							type="number"
+							id="minHours"
+							name="minHours"
+							placeholder="Min"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.Hours.min}
+						/>
+						Max:
+						<input
+							type="number"
+							id="maxHours"
+							name="maxHours"
+							placeholder="Max"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.Hours.max}
+						/>
+					</div>
+					<div class="title">Average Eval</div>
+					<div class="fieldOptions">
+						Min:
+						<input
+							type="number"
+							step=".1"
+							id="minEval"
+							name="minEval"
+							placeholder="Min"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.Eval.min}
+						/>
+						Max:
+						<input
+							type="number"
+							step=".1"
+							id="maxEval"
+							name="maxEval"
+							placeholder="Max"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.Eval.max}
+						/>
+					</div>
+					<div class="title">Percent Completed</div>
+					<div class="fieldOptions">
+						Min:
+						<input
+							type="number"
+							id="minPercentCompleted"
+							name="minPercentCompleted"
+							placeholder="Min"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.PercentCompleted.min}
+						/>
+						Max:
+						<input
+							type="number"
+							id="maxPercentCompleted"
+							name="maxPercentCompleted"
+							placeholder="Max"
+							on:input={searchResultsFunction}
+							bind:value={$searchFilters.PercentCompleted.max}
+						/>
+					</div>
+					<div class="title">Quarters Offered</div>
 					<div class="options">
-						{#each Object.keys($searchFilters.WAYS) as way}
+						{#each Object.keys($searchFilters.QuartersOffered) as quarter}
 							<div class="option">
 								<input
 									type="checkbox"
-									id={way}
-									name={way}
+									id={quarter}
+									name={quarter}
 									on:click={searchResultsFunction}
-									bind:checked={$searchFilters.WAYS[way]}
+									bind:checked={$searchFilters.QuartersOffered[quarter]}
 								/>
-								<label for={way}>{way}</label>
+								<label for={quarter}>{quarter}</label>
 							</div>
 						{/each}
 					</div>
@@ -298,6 +463,7 @@
 		font-size: 1.2em;
 		height: 1.8em;
 		padding-left: 0.5em;
+		padding-right: 0.1em;
 		margin-right: 0.5em;
 		border: 1px solid #ccc;
 		border-radius: 1em;
@@ -340,11 +506,7 @@
 		overflow: auto;
 	}
 
-	.filtersPanel {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start;
+	.filtersMenuContainer {
 		margin-top: 0.5em;
 		margin-bottom: 0.3em;
 		padding: 0.5em;
@@ -353,14 +515,30 @@
 		color: var(--color-text-dark);
 		font-family: var(--font-mono);
 	}
-
 	.filters {
 		display: flex;
 		flex-direction: row;
+	}
+
+	.filtersAndButton {
+		display: flex;
+		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
-		width: 100%;
 		padding: 0.5em;
+	}
+
+	button {
+		box-sizing: border-box;
+		height: 1.8em;
+		font-size: 1.2em;
+		padding-left: 0.5em;
+		margin-right: 0.5em;
+		border: 1px solid #ccc;
+		border-radius: 1em;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		font-family: var(--font-mono);
 	}
 
 	.filter {
@@ -379,6 +557,10 @@
 		width: 100%;
 	}
 
+	.title:not(:first-child) {
+		margin-top: 1em;
+	}
+
 	.options {
 		display: flex;
 		flex-direction: column;
@@ -392,5 +574,19 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+	}
+
+	.fieldOptions {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.fieldOptions > input {
+		width: 4em;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		text-align: right;
 	}
 </style>

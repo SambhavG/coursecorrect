@@ -15,7 +15,6 @@
 	} from './stores.js';
 	import data from './data/courseDataFile.csv';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
-	import { Tally1 } from 'lucide-svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 
 	onMount(async () => {
@@ -138,18 +137,6 @@
 
 <section>
 	<div class="searchAndDegreeTrackerContainer">
-		<div class="generalizedDegreeTrackerContainer">
-			<GeneralizedDegreeTracker
-				data={{
-					rows: [
-						{ cells: [{ value: 'Credits' }, { value: 1 }] },
-						{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
-						{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
-						{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
-					]
-				}}
-			/>
-		</div>
 		<div class="searchContainer">
 			<Search />
 		</div>
@@ -159,9 +146,33 @@
 			<div class="waysTrackerContainer">
 				<WAYSTracker />
 			</div>
-			<div class="courseDataPanelContainer">
-				<CourseDataPanel course={$selectedCourse} />
+			<div class="generalizedDegreeTrackerContainer">
+				<GeneralizedDegreeTracker
+					data={{
+						rows: [
+							{ cells: [{ value: 'Credits' }, { value: 1 }] },
+							{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
+							{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
+							{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
+						]
+					}}
+				/>
 			</div>
+			<div class="generalizedDegreeTrackerContainer">
+				<GeneralizedDegreeTracker
+					data={{
+						rows: [
+							{ cells: [{ value: 'Credits' }, { value: 1 }] },
+							{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
+							{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
+							{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
+						]
+					}}
+				/>
+			</div>
+		</div>
+		<div class="courseDataPanelContainer">
+			<CourseDataPanel course={$selectedCourse} />
 		</div>
 		<div class="gridContainer">
 			<Grid />
@@ -173,7 +184,7 @@
 	section {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 1fr 3.5fr;
+		grid-template-columns: 1fr 3.1fr;
 		/* font-size: 0.7rem; */
 	}
 

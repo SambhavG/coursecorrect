@@ -35,7 +35,12 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		font-size: 3em;
+		padding: 0.2em;
+		font: 900 3em 'TT Norms Pro';
+		background: linear-gradient(45deg, blue, turquoise);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 </style>

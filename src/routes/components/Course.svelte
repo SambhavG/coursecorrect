@@ -7,7 +7,6 @@
 	export let showDescription = false;
 	let msChecked = false;
 	let sncChecked = false;
-	let afterLoad = false;
 
 	function averageEvalColor(averageEval) {
 		//Gradient with 0-3 red, 4 yellow, 5 green
@@ -53,14 +52,12 @@
 
 	function updateMs(e) {
 		//Lock updates via $
-		afterLoad = true;
 		msChecked = e.target.checked;
 		updateCourseById(course.id, 'ms', msChecked);
 	}
 
 	function updateSnc(e) {
 		//Lock updates via $
-		afterLoad = true;
 		sncChecked = e.target.checked;
 		updateCourseById(course.id, 'snc', sncChecked);
 	}
@@ -101,11 +98,13 @@
 
 	//Update checkboxes on load
 	$: {
-		if (!afterLoad) {
+		if (msChecked != course?.ms) {
 			msChecked = course?.ms;
 			if (msChecked == undefined) {
 				msChecked = false;
 			}
+		}
+		if (sncChecked != course?.snc) {
 			sncChecked = course?.snc;
 			if (sncChecked == undefined) {
 				sncChecked = false;

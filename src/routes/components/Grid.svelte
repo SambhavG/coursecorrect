@@ -1,7 +1,9 @@
 <script>
+	import { flip } from 'svelte/animate';
 	import QuarterDND from './QuarterDND.svelte';
 	import { years, quarters, courseTable, prefs } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
+	import { fade, fly, scale, slide } from 'svelte/transition';
 
 	let gridChangeThreshold = 1000;
 	let width = 1400;
@@ -18,19 +20,15 @@
 	function rowStyle() {
 		return 'grid-template-columns: repeat(' + $quarters.length + ', 1fr)';
 	}
-	$: {
-		console.log($prefs.courseTableData.yearsCollapsed);
-	}
 </script>
 
 <section style={sectionStyle()}>
 	{#each $courseTable as year, y (year.id)}
-		<div class="yearAndCollapseButtonContainer">
+		<div class="yearAndCollapseButtonContainer" in:fly={{ y: 200, duration: 300, delay: y * 300 }}>
 			<button
 				on:click={() => {
 					$prefs.courseTableData.yearsCollapsed[year.id] =
 						!$prefs.courseTableData.yearsCollapsed[year.id];
-					console.log($prefs.courseTableData.yearsCollapsed);
 				}}
 			>
 				{#if $prefs.courseTableData.yearsCollapsed[year.id]}
@@ -46,6 +44,10 @@
 							<QuarterDND {quarter} {y} {q} />
 						</div>
 					{/each}
+				</div>
+			{:else}
+				<div class="hiddenNotif">
+					{year.id} year hidden
 				</div>
 			{/if}
 		</div>
@@ -74,5 +76,14 @@
 	.quarterContainer {
 		padding: 0.5em 0.5em;
 		border: 2px solid;
+	}
+	.hiddenNotif {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		border: 2px solid;
+		font-size: 1.5em;
 	}
 </style>

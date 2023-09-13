@@ -1,23 +1,44 @@
 <script>
+	import { ArrowLeft, ArrowRight } from 'lucide-svelte';
 	import { courseTableList, WAYSTables } from '../stores.js';
 	import WaysIcons from './WAYSIcons.svelte';
 	//Determine WAYS fulfilled
-	let waysGrid = [];
+	let waysGrids = [];
+	let currentSolution = 0;
+	let currentNumWaysFulfilled = 0;
+
+	function numWaysFulfilled(ways) {
+		let count = 0;
+		for (let i = 0; i < ways.length; i++) {
+			if (ways[i] == 'achieved') {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	$: {
+		currentNumWaysFulfilled = numWaysFulfilled(waysGrids[currentSolution]);
+	}
+
 	$: {
 		//Extract list of WAYS
 		let ways = [];
 
+		//We need to deal with CE as a special case
+		//Courses can either fulfill one CE (one units) or two CE (two + units)
+		//However, the courses which are double listed for WAYS where one is CE are strictly two + units
+		//So all we have to do is later on make sure when we add CE that it's always counting double
+		//and in the present, double count CE when the course is singly listed for it and two+ units
+
 		for (let i = 0; i < $courseTableList.length; i++) {
 			let course = $courseTableList[i];
-			let way = [];
-			if (course['WAYS 1'] != '') {
-				way.push(course['WAYS 1']);
-			}
-			if (course['WAYS 2'] != '') {
-				way.push(course['WAYS 2']);
-			}
-			if (way.length > 0) {
-				ways.push(way);
+			if (course.WAYS.length > 0) {
+				//Check if this is a two+ unit course with just CE
+				if (course.WAYS.length == 1 && course.WAYS[0] == 'CE' && course.unitsTaking > 1) {
+					ways.push(['CE']);
+				}
+				ways.push(course.WAYS);
 			}
 		}
 
@@ -43,99 +64,209 @@
 			});
 		ways = ways.filter((way) => way.length == 2);
 
-		//Repeat following operation 20 times:
 		//Loop through double ways. If one of them is fulfilled, add other and pop it
-		for (let i = 0; i < 20; i++) {
+		for (let i = 0; i < 1000; i++) {
 			let notDiscard = [];
+			let oldLength = ways.length;
 			ways.forEach((way) => {
 				let way1 = way[0];
 				let needWay1 = baselineWAYS[way1].have < baselineWAYS[way1].need;
 				let way2 = way[1];
 				let needWay2 = baselineWAYS[way2].have < baselineWAYS[way2].need;
+
+				//Discard these if not both are needed
 				let discard = false;
+				if (!(needWay1 && needWay2)) {
+					discard = true;
+				}
 				if (needWay1 && !needWay2) {
 					baselineWAYS[way1].have++;
-					discard = true;
+					if (way1 == 'CE' && baselineWAYS['CE'].have == 1) {
+						baselineWAYS['CE'].have++;
+					}
 				} else if (needWay2 && !needWay1) {
-					baselineWAYS[way1].have++;
-					discard = true;
-				} else if (!needWay1 && !needWay2) {
-					discard = true;
+					baselineWAYS[way2].have++;
+					if (way2 == 'CE' && baselineWAYS['CE'].have == 1) {
+						baselineWAYS['CE'].have++;
+					}
 				}
 				if (!discard) {
 					notDiscard.push(way);
 				}
 			});
 			ways = notDiscard;
-		}
-
-		//For key in baselineWAYS
-		waysGrid = [];
-		for (const key of ['AII', 'SI', 'SMA', 'CE', 'AQR', 'EDP', 'ER', 'FR']) {
-			for (let i = 0; i < baselineWAYS[key].need; i++) {
-				if (baselineWAYS[key].have > i) {
-					waysGrid.push('achieved');
-				} else {
-					waysGrid.push('notAchieved');
-				}
+			if (ways.length == oldLength) {
+				break;
 			}
 		}
+
+		//Compute all possible fillings
+		let possibleFillings = [];
+		possibleFillings.push(baselineWAYS);
+		for (let i = 0; i < ways.length; i++) {
+			let newFillings = [];
+			possibleFillings.forEach((filling) => {
+				let filling1 = JSON.parse(JSON.stringify(filling));
+				let filling2 = JSON.parse(JSON.stringify(filling));
+				let way1 = ways[i][0];
+				let way2 = ways[i][1];
+				if (filling1[way1].have < filling1[way1].need) {
+					filling1[way1].have++;
+					if (way1 == 'CE' && filling1['CE'].have == 1) {
+						filling1['CE'].have++;
+					}
+					newFillings.push(filling1);
+				}
+				if (filling2[way2].have < filling2[way2].need) {
+					filling2[way2].have++;
+					if (way2 == 'CE' && filling2['CE'].have == 1) {
+						filling2['CE'].have++;
+					}
+					newFillings.push(filling2);
+				}
+			});
+			possibleFillings = newFillings;
+			//Filter out duplicates
+			possibleFillings = possibleFillings.filter((filling, index) => {
+				let string = JSON.stringify(filling);
+				return (
+					possibleFillings.findIndex((filling2) => {
+						return JSON.stringify(filling2) == string;
+					}) == index
+				);
+			});
+		}
+
+		//Sort the possible fillings by number of ways fulfilled, then by farthest along in the list
+		possibleFillings.sort((a, b) => {
+			let aCount = 0;
+			let bCount = 0;
+			//By number of ways fulfilled
+			for (const key of ['AII', 'SI', 'SMA', 'CE', 'AQR', 'EDP', 'ER', 'FR']) {
+				aCount += a[key].have;
+				bCount += b[key].have;
+			}
+			if (aCount > bCount) {
+				return -1;
+			}
+			if (aCount < bCount) {
+				return 1;
+			}
+			//By farthest along in the list
+			for (const key of ['AII', 'SI', 'SMA', 'CE', 'AQR', 'EDP', 'ER', 'FR']) {
+				if (a[key].have > b[key].have) {
+					return -1;
+				}
+				if (a[key].have < b[key].have) {
+					return 1;
+				}
+			}
+			return 0;
+		});
+
+		//For key in baselineWAYS
+		waysGrids = [];
+		possibleFillings.forEach((filling) => {
+			let waysGrid = [];
+			for (const key of ['AII', 'SI', 'SMA', 'CE', 'AQR', 'EDP', 'ER', 'FR']) {
+				for (let i = 0; i < filling[key].need; i++) {
+					if (filling[key].have > i) {
+						waysGrid.push('achieved');
+					} else {
+						waysGrid.push('notAchieved');
+					}
+				}
+			}
+			waysGrids.push(waysGrid);
+		});
 	}
 </script>
 
 <section>
 	<div class="title">WAYS</div>
+	<div class="solutionTextContainer">
+		<button
+			on:click={() => {
+				currentSolution--;
+				if (currentSolution < 0) {
+					currentSolution = waysGrids.length - 1;
+				}
+			}}
+		>
+			<ArrowLeft size="1.5em" style="cursor: pointer;" />
+		</button>
+
+		<div class="textStack">
+			<div class="line1">
+				Showing solution {currentSolution + 1} of {waysGrids.length}
+			</div>
+			<div class="line2">
+				{currentNumWaysFulfilled}/12 WAYS fulfilled
+			</div>
+		</div>
+		<button
+			on:click={() => {
+				currentSolution++;
+				if (currentSolution >= waysGrids.length) {
+					currentSolution = 0;
+				}
+				console.log(currentSolution);
+			}}
+		>
+			<ArrowRight size="1.5em" style="cursor: pointer;" />
+		</button>
+	</div>
 	<div class="table">
 		<div class="row1">
-			<div class={'AII AII1 ' + waysGrid[0]}>
+			<div class={'AII AII1 ' + waysGrids[currentSolution][0]}>
 				<div class="text">AII</div>
 				<WaysIcons ways="AII" />
 			</div>
-			<div class={'AII AII1 ' + waysGrid[1]}>
+			<div class={'AII AII1 ' + waysGrids[currentSolution][1]}>
 				<div class="text">AII</div>
 				<WaysIcons ways="AII" />
 			</div>
-			<div class={'SI SI1 ' + waysGrid[2]}>
+			<div class={'SI SI1 ' + waysGrids[currentSolution][2]}>
 				<div class="text">SI</div>
 				<WaysIcons ways="SI" />
 			</div>
-			<div class={'SI SI2 ' + waysGrid[3]}>
+			<div class={'SI SI2 ' + waysGrids[currentSolution][3]}>
 				<div class="text">SI</div>
 				<WaysIcons ways="SI" />
 			</div>
 		</div>
 		<div class="row2">
-			<div class={'SMA SMA1 ' + waysGrid[4]}>
+			<div class={'SMA SMA1 ' + waysGrids[currentSolution][4]}>
 				<div class="text">SMA</div>
 				<WaysIcons ways="SMA" />
 			</div>
-			<div class={'SMA SMA2 ' + waysGrid[5]}>
+			<div class={'SMA SMA2 ' + waysGrids[currentSolution][5]}>
 				<div class="text">SMA</div>
 				<WaysIcons ways="SMA" />
 			</div>
-			<div class={'CE CE1 ' + waysGrid[6]}>
+			<div class={'CE CE1 ' + waysGrids[currentSolution][6]}>
 				<div class="text">CE</div>
 				<WaysIcons ways="CE" />
 			</div>
-			<div class={'CE CE2 ' + waysGrid[7]}>
+			<div class={'CE CE2 ' + waysGrids[currentSolution][7]}>
 				<div class="text">CE</div>
 				<WaysIcons ways="CE" />
 			</div>
 		</div>
 		<div class="row3">
-			<div class={'AQR ' + waysGrid[8]}>
+			<div class={'AQR ' + waysGrids[currentSolution][8]}>
 				<div class="text">AQR</div>
 				<WaysIcons ways="AQR" />
 			</div>
-			<div class={'EDP ' + waysGrid[9]}>
+			<div class={'EDP ' + waysGrids[currentSolution][9]}>
 				<div class="text">EDP</div>
 				<WaysIcons ways="EDP" />
 			</div>
-			<div class={'ER ' + waysGrid[10]}>
+			<div class={'ER ' + waysGrids[currentSolution][10]}>
 				<div class="text">ER</div>
 				<WaysIcons ways="ER" />
 			</div>
-			<div class={'FR ' + waysGrid[11]}>
+			<div class={'FR ' + waysGrids[currentSolution][11]}>
 				<div class="text">FR</div>
 				<WaysIcons ways="FR" />
 			</div>
@@ -155,30 +286,42 @@
 	}
 	.title {
 		width: 100%;
+		font-size: 1.5em;
 	}
+
+	.solutionTextContainer {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.solutionTextContainer > button {
+		background-color: transparent;
+		border: none;
+		color: var(--color-text-light);
+	}
+
 	.table {
 		width: 100%;
 		display: grid;
 	}
 	.table > * {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 	.table > * > * {
-		width: 25%;
 		border-radius: 0.2em;
 		margin: 0.25em;
-		padding: 0.25em 0.5em;
+		padding: 0.25em;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
 	}
 	.table > * > * > * {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		margin: 0.25em;
 	}
 
 	.notAchieved {
