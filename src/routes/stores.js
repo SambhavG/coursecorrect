@@ -49,10 +49,20 @@ export const searchFilters = writable({
 		'Winter': false,
 		'Spring': false,
 		'Summer': false
+	},
+	DegreeSpecific: {
+		'BS in Mathematics': {
+			'20 Series': [],
+			'50/60 Series': [],
+			'Core': [],
+			'Electives': [],
+			'WIM': []
+		}
 	}
-
 });
+
 export const courseWidth = writable(15);
+
 
 //For course objects, always show the course number, hours, units
 //Optional: exploreCourses link, carta link, WAYS, description (shows popup on hover),

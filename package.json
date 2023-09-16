@@ -45,6 +45,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.4.2",
+		"@leveluptuts/svelte-fit": "^1.0.3",
 		"csv": "^6.3.1",
 		"lucide-svelte": "^0.269.0",
 		"papaparse": "^5.4.1",

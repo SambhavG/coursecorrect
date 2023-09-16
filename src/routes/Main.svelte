@@ -16,6 +16,7 @@
 	import data from './data/courseDataFile.csv';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
+	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
 
 	onMount(async () => {
 		$allCourses = data;
@@ -35,6 +36,14 @@
 			}
 			$allCourses[i].ms = false;
 			$allCourses[i].snc = false;
+			//Split course number into department, number, and modifier
+			let courseDept = $allCourses[i].Class.split(' ')[0];
+			let courseNum = $allCourses[i].Class.split(' ')[1];
+			let number = parseInt(courseNum.match(/\d+/)[0]);
+			let modifier = courseNum.substring(number.length);
+			$allCourses[i].dept = courseDept;
+			$allCourses[i].number = number;
+			$allCourses[i].modifier = modifier;
 		}
 		//Sort the courses by department, number, and modifier (the part after the number)
 		$allCourses.sort((a, b) => {
@@ -148,26 +157,7 @@
 			</div>
 			<div class="generalizedDegreeTrackerContainer">
 				<GeneralizedDegreeTracker
-					data={{
-						rows: [
-							{ cells: [{ value: 'Credits' }, { value: 1 }] },
-							{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
-							{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
-							{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
-						]
-					}}
-				/>
-			</div>
-			<div class="generalizedDegreeTrackerContainer">
-				<GeneralizedDegreeTracker
-					data={{
-						rows: [
-							{ cells: [{ value: 'Credits' }, { value: 1 }] },
-							{ cells: [{ value: 'Credits' }, { value: 1 }, { value: 'Credits' }, { value: 1 }] },
-							{ cells: [{ value: 'Credits' }, { value: 'Credits' }, { value: 'Credits' }] },
-							{ cells: [{ value: 1 }, { value: 1 }, { value: 1 }] }
-						]
-					}}
+					data={BSMath($allCourses, $courseTable, $courseTableList, { totalUnits: 30, APCalc: 10 })}
 				/>
 			</div>
 		</div>

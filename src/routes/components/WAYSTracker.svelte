@@ -8,6 +8,9 @@
 	let currentNumWaysFulfilled = 0;
 
 	function numWaysFulfilled(ways) {
+		if (!ways) {
+			return 0;
+		}
 		let count = 0;
 		for (let i = 0; i < ways.length; i++) {
 			if (ways[i] == 'achieved') {
@@ -18,6 +21,9 @@
 	}
 
 	$: {
+		if (currentSolution >= waysGrids.length) {
+			currentSolution = 0;
+		}
 		currentNumWaysFulfilled = numWaysFulfilled(waysGrids[currentSolution]);
 	}
 
@@ -193,7 +199,7 @@
 				}
 			}}
 		>
-			<ArrowLeft size="1.5em" style="cursor: pointer;" />
+			<ArrowLeft size="2em" style="cursor: pointer;" />
 		</button>
 
 		<div class="textStack">
@@ -210,10 +216,9 @@
 				if (currentSolution >= waysGrids.length) {
 					currentSolution = 0;
 				}
-				console.log(currentSolution);
 			}}
 		>
-			<ArrowRight size="1.5em" style="cursor: pointer;" />
+			<ArrowRight size="2em" style="cursor: pointer;" />
 		</button>
 	</div>
 	<div class="table">
@@ -276,6 +281,7 @@
 
 <style>
 	section {
+		width: 20em;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -286,7 +292,8 @@
 	}
 	.title {
 		width: 100%;
-		font-size: 1.5em;
+		font-size: 2em;
+		font-weight: bold;
 	}
 
 	.solutionTextContainer {
@@ -295,6 +302,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+		font-size: 1.2em;
 	}
 
 	.solutionTextContainer > button {
@@ -319,6 +327,9 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+		font-weight: bold;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.table > * > * > * {
 		margin: 0.25em;

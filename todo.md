@@ -18,21 +18,22 @@
 - [ ] panel with masters calculations
 - [x] auto coloring
 - [ ] clear button
-- [ ] Ways to search (by course ID & desc (id match floats to top))
-- [ ] Search filters
+- [x] Ways to search (by course ID & desc (id match floats to top))
+- [x] Search filters
+  - [ ] Filters for each specific requirement in any degree
+  - [ ] Filter courses already in grid
 - [ ] Scrolling search results
 - [ ] Way to change data
 - [ ] Transfer units accounting
 - [ ] Course view modal spreadsheet
 - [ ] Course can be dragged to bottom of screen
-- [ ] Sizing issues
+- [ ] Fix reactivity css - scale to fit on at least 13 inch screen
 
 ### Extra features
 
 - [x] Draggable course objects
 - [ ] Workspace to park extra course objects
-- [ ] Rotate frosh/soph/junior/senior display order with animation
 - [ ] Check pwr/college/language
-- [ ] Account for courses which can be taken for multiple units and different amounts each time (will be done when we have a way to change data)
+- [ ] Account for courses which can be taken for multiple units and different amounts each time
 - [ ] Notes workspace
 - [ ] Show/hide anything

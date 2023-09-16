@@ -5,17 +5,30 @@
   src: url('/fonts/BergenMono-Regular.otf');
 }
 
+@font-face {
+  font-family: 'Duolingo';
+  src: url('/fonts/duolingo 2.otf');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/Outfit/Outfit-VariableFont_wght.ttf');
+}
+
 :root {
   font-size: .8vw;
 	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	--font-mono: 'TT Norms Pro', monospace;
+	--font-mono: 'Outfit', monospace;
+  font-weight: 100;
 	--color-theme-1: #ff3e00;
 	--color-theme-2: #4075a6;
 	--color-text-dark: rgb(30, 30, 30);
   --color-text-light: rgba(200, 200, 200);
 	--color-bg: var(--color-text-dark);
-  --color-good: rgb(1, 182, 1);
+  --color-bad: rgb(226, 21, 21);
+  --color-okay: rgb(248, 235, 2);
+  --color-good: rgb(84, 213, 14);
 	font-family: var(--font-mono);
   background-color: var(--color-bg);
 	color: var(--color-text-light);

@@ -221,6 +221,12 @@
 		align-items: center;
 		justify-content: left;
 	}
+	/* vertically center children of .classCodeSpanContainer  */
+	.classCodeSpanContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 
 	.classCodeContainer {
 		display: flex;
@@ -236,7 +242,6 @@
 	.classCode {
 		font-size: 1.2em;
 		font-weight: bold;
-		font-style: italic;
 	}
 	.className {
 		font-size: 0.8em;
@@ -248,6 +253,7 @@
 		align-items: center;
 		justify-content: right;
 		margin-right: 0.5em;
+		font-weight: bold;
 	}
 
 	.rightSide > * {
@@ -301,7 +307,10 @@
 		color: var(--color-text-dark);
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		justify-content: center;
+		text-align: center;
+		font-weight: bold;
 	}
 
 	.percentCompleted {

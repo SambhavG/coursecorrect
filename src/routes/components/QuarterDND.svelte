@@ -177,6 +177,7 @@
 		flex-direction: row;
 		justify-content: flex-end;
 		margin-right: 0.5em;
+		font-weight: bold;
 	}
 	.totals > * {
 		width: 1.95em;
