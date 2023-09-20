@@ -4,16 +4,14 @@ export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior']);
 export const quarters = writable(['Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
 export const courseTable = writable([]);
-export const searchResults = writable({
-	exactMatchResults: [],
-	sameDepartmentResults: [],
-	titleResults: [],
-	descriptionResults: []
-});
 export const courseTableList = writable([]);
 export const WAYSTables = writable([]);
 export const selectedCourse = writable({});
+export const selectedCoursePinned = writable(false);
 export const searchFilters = writable({
+	meta: {
+		'filterGridCourses': false,
+	},
 	WAYS: {
 		'AII': false,
 		'SI': false,
@@ -24,7 +22,7 @@ export const searchFilters = writable({
 		'ER': false,
 		'FR': false,
 	},
-	Units: {
+	units: {
 		'1': false,
 		'2': false,
 		'3': false,
@@ -32,15 +30,15 @@ export const searchFilters = writable({
 		'5': false,
 		'6+': false,
 	},
-	Hours: {
+	hours: {
 		'min': 0,
 		'max': 24
 	},
-	Eval: {
+	averageEval: {
 		'min': 0,
 		'max': 5
 	},
-	PercentCompleted: {
+	percentCompleted: {
 		'min': 0,
 		'max': 100
 	},
@@ -61,23 +59,68 @@ export const searchFilters = writable({
 	}
 });
 
-export const courseWidth = writable(15);
+export const resultCategories = writable([
+	{
+		type: 'exactMatchResults',
+		results: [],
+		title: 'Exact Match',
+		hide: false,
+		numResults: 100,
+		defaultNumResults: 100,
+		numResultsShowing: 0,
+		numResultsFound: 0
+	},
+	{
+		type: 'sameDepartmentResults',
+		results: [],
+		title: 'Same Department',
+		hide: false,
+		numResults: 9999,
+		defaultNumResults: 9999,
+		numResultsShowing: 0,
+		numResultsFound: 0
+	},
+	{
+		type: 'titleResults',
+		results: [],
+		title: 'Title Match',
+		hide: false,
+		numResults: 100,
+		defaultNumResults: 100,
+		numResultsShowing: 0,
+		numResultsFound: 0
+	},
+	{
+		type: 'descriptionResults',
+		results: [],
+		title: 'Description Match',
+		hide: false,
+		numResults: 100,
+		defaultNumResults: 100,
+		numResultsShowing: 0,
+		numResultsFound: 0
+	}
+]);
 
+export const courseWidth = writable(15);
+export const isDragging = writable(false);
 
 //For course objects, always show the course number, hours, units
 //Optional: exploreCourses link, carta link, WAYS, description (shows popup on hover),
 //eval, % completed
 export const prefs = writable({
 	courseTableData: {
-		showLinks: true,
-		showWAYS: true,
-		showPercent: true,
-		showCheckboxes: true,
+		showLinks: false,
+		showWAYS: false,
+		showPercent: false,
+		showCheckboxes: false,
 		yearsCollapsed: {
 			'Frosh': false,
 			'Sophomore': false,
 			'Junior': false,
 			'Senior': false
-		}
-	}
+		},
+	},
+	courseDataPanelCollapsed: false,
+	searchCollapsed: false,
 });

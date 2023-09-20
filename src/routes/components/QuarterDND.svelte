@@ -1,7 +1,7 @@
 <script>
 	import { flip } from 'svelte/animate';
 	import { dndzone } from 'svelte-dnd-action';
-	import { years, quarters, allCourses, courseTable, searchResults } from '../stores.js';
+	import { years, quarters, allCourses, courseTable, isDragging } from '../stores.js';
 	import { CornerDownLeft } from 'lucide-svelte';
 
 	import Course from './Course.svelte';
@@ -18,15 +18,17 @@
 
 	function handleDndConsider(e, y, q) {
 		$courseTable[y].quarters[q].courses = e.detail.items;
+		$isDragging = true;
 	}
-	function handleDndFinalize(e, yearId, quarterId) {
-		handleDndConsider(e, yearId, quarterId);
+	function handleDndFinalize(e, y, q) {
+		$courseTable[y].quarters[q].courses = e.detail.items;
+		$isDragging = false;
 	}
 
 	function calculateTotalHours(courses) {
 		let total = 0;
 		for (let i = 0; i < courses.length; i++) {
-			let thisHours = courses[i]['Mean Hours'];
+			let thisHours = courses[i].hours;
 			if (thisHours != '-1') {
 				total += parseInt(thisHours);
 			}
@@ -36,7 +38,7 @@
 	function calculateTotalUnits(courses) {
 		let total = 0;
 		for (let i = 0; i < courses.length; i++) {
-			let thisUnits = courses[i]['Units Ceiling'];
+			let thisUnits = courses[i].unitsTaking;
 			if (thisUnits != '-1') {
 				total += parseInt(thisUnits);
 			}
@@ -86,7 +88,11 @@
 	</div>
 	<div
 		class="courseDndList"
-		use:dndzone={{ items: quarter.courses, flipDurationMs }}
+		use:dndzone={{
+			items: quarter.courses,
+			flipDurationMs,
+			dropTargetStyle: {}
+		}}
 		on:consider={(e) => handleDndConsider(e, y, q)}
 		on:finalize={(e) => handleDndFinalize(e, y, q)}
 	>
@@ -104,12 +110,8 @@
 				on:input={updateSearchCourse}
 				on:keydown={handleKeyDown}
 			/>
-			<button on:click={handleClick} style={'all: unset'}>
-				<CornerDownLeft
-					size="1.5em"
-					color={searchCourse ? 'green' : 'gray'}
-					on:click={handleClick}
-				/>
+			<button on:click={handleClick}>
+				<CornerDownLeft size="2em" color={searchCourse ? 'green' : 'gray'} on:click={handleClick} />
 			</button>
 		</div>
 		<div class="totals">
@@ -125,22 +127,24 @@
 
 <style>
 	section {
-		display: flex;
 		height: 100%;
+		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		transition: height 0.3s ease, opacity 0.3s ease;
 	}
 	.title {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.4em;
+		max-width: 100%;
+		height: 2em;
+		font-size: 2em;
+		font-weight: bold;
+		text-align: center;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.courseDndList {
 		height: 100%;
-		min-height: 8em;
 		display: flex;
 		flex-direction: column;
 	}
@@ -149,7 +153,6 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
-		height: 1.8em;
 		margin-top: 1em;
 	}
 	.addCourse {
@@ -157,19 +160,23 @@
 		flex-direction: row;
 		align-items: center;
 		width: 100%;
+		max-width: 14em;
 	}
 	input {
 		box-sizing: border-box;
-		width: 11em;
-		height: 1.8em;
+		width: 100%;
 		padding-left: 0.5em;
+		margin-right: 0.5em;
 		border: 1px solid #ccc;
+		font-size: 1.5em;
 		border-radius: 1em;
 		background-color: var(--color-text-light);
 		color: var(--color-text-dark);
 		font-family: var(--font-mono);
 	}
-
+	button {
+		all: unset;
+	}
 	.totals {
 		box-sizing: border-box;
 		height: 1.8em;

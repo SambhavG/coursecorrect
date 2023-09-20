@@ -1,49 +1,26 @@
 <script>
 	import { flip } from 'svelte/animate';
 	import { dndzone } from 'svelte-dnd-action';
-	import { allCourses, searchResults, searchFilters } from '../stores.js';
+	import { allCourses, searchFilters, isDragging, courseTableList } from '../stores.js';
 	import Course from './Course.svelte';
-
-	let showFilters = false;
+	import { checkIfListOfCoursesIncludesCourseByCode } from '../utils/utils.js';
+	import { resultCategories } from '../stores.js';
+	let showFilters = true;
 	let query = '';
-	let resultCategories = [
-		{
-			type: 'exactMatchResults',
-			title: 'Exact Match',
-			show: true,
-			numResults: 25
-		},
-		{
-			type: 'sameDepartmentResults',
-			title: 'Same Department',
-			show: true,
-			numResults: 10000
-		},
-		{
-			type: 'titleResults',
-			title: 'Title Match',
-			show: true,
-			numResults: 25
-		},
-		{
-			type: 'descriptionResults',
-			title: 'Description Match',
-			show: true,
-			numResults: 25
-		}
-	];
-
-	let allDepartmentCodes = [];
-
-	function toggleShowFilters() {
-		showFilters = !showFilters;
-	}
 
 	function doesCourseFitFilters(course, filters) {
+		//Check if meta filterGridCourses is active and filter if so
+		if (
+			filters.meta.filterGridCourses &&
+			checkIfListOfCoursesIncludesCourseByCode($courseTableList, course)
+		) {
+			return false;
+		}
+
 		//Check if units filter is active
 		let unitsFilterActive = false;
-		Object.keys(filters.Units).forEach((unit) => {
-			if (filters.Units[unit]) {
+		Object.keys(filters.units).forEach((unit) => {
+			if (filters.units[unit]) {
 				unitsFilterActive = true;
 			}
 		});
@@ -52,10 +29,10 @@
 		if (unitsFilterActive) {
 			let unitsTaking = parseInt(course.unitsTaking);
 			let unitsFilterFits = false;
-			Object.keys(filters.Units).forEach((unit) => {
-				if (filters.Units[unit] && unit == '6+' && unitsTaking >= 6) {
+			Object.keys(filters.units).forEach((unit) => {
+				if (filters.units[unit] && unit == '6+' && unitsTaking >= 6) {
 					unitsFilterFits = true;
-				} else if (filters.Units[unit] && unitsTaking == parseInt(unit)) {
+				} else if (filters.units[unit] && unitsTaking == parseInt(unit)) {
 					unitsFilterFits = true;
 				}
 			});
@@ -86,33 +63,33 @@
 		}
 
 		//Check if course fits hours filter
-		if (filters.Hours.min != '' && parseInt(course['Mean Hours']) < filters.Hours.min) {
+		if (filters.hours.min != '' && course.hours < filters.hours.min) {
 			return false;
 		}
-		if (filters.Hours.max != '' && parseInt(course['Mean Hours']) > filters.Hours.max) {
+		if (filters.hours.max != '' && course.hours > filters.hours.max) {
 			return false;
 		}
 
 		//Check if course fits eval filter
-		if (course['Average Eval'] != '-1') {
-			if (filters.Eval.min != '' && parseInt(course['Average Eval']) < filters.Eval.min) {
+		if (course.averageEval != '-1') {
+			if (filters.averageEval.min != '' && course.averageEval < filters.averageEval.min) {
 				return false;
 			}
-			if (filters.Eval.max != '' && parseInt(course['Average Eval']) > filters.Eval.max) {
+			if (filters.averageEval.max != '' && course.averageEval > filters.averageEval.max) {
 				return false;
 			}
 		}
 
 		//Check if course fits percent completed filter
 		if (
-			filters.PercentCompleted.min != '' &&
-			parseInt(course['Percent Completed']) < filters.PercentCompleted.min
+			filters.percentCompleted.min != '' &&
+			course.percentCompleted < filters.percentCompleted.min
 		) {
 			return false;
 		}
 		if (
-			filters.PercentCompleted.max != '' &&
-			parseInt(course['Percent Completed']) > filters.PercentCompleted.max
+			filters.percentCompleted.max != '' &&
+			course.percentCompleted > filters.percentCompleted.max
 		) {
 			return false;
 		}
@@ -138,34 +115,51 @@
 				return false;
 			}
 		}
-
 		return true;
 	}
-	function clearFilters() {
-		//Set all values of WAYS, Units, and QuartersOffered to false
-		Object.keys($searchFilters.WAYS).forEach((way) => {
-			$searchFilters.WAYS[way] = false;
-		});
-		Object.keys($searchFilters.Units).forEach((unit) => {
-			$searchFilters.Units[unit] = false;
-		});
-		Object.keys($searchFilters.QuartersOffered).forEach((quarter) => {
-			$searchFilters.QuartersOffered[quarter] = false;
-		});
-		$searchFilters.Hours.min = 0;
-		$searchFilters.Hours.max = 24;
-		$searchFilters.Eval.min = 0;
-		$searchFilters.Eval.max = 5;
-		$searchFilters.PercentCompleted.min = 0;
-		$searchFilters.PercentCompleted.max = 100;
+	function clearFilters(filter) {
+		if (filter == 0) {
+			$searchFilters.meta.filterGridCourses = false;
+			for (let i = 0; i < $resultCategories.length; i++) {
+				$resultCategories[i].hide = false;
+				$resultCategories[i].numResults = $resultCategories[i].defaultNumResults;
+			}
+		} else if (filter == 1) {
+			Object.keys($searchFilters.WAYS).forEach((way) => {
+				$searchFilters.WAYS[way] = false;
+			});
+			Object.keys($searchFilters.units).forEach((unit) => {
+				$searchFilters.units[unit] = false;
+			});
+			Object.keys($searchFilters.QuartersOffered).forEach((quarter) => {
+				$searchFilters.QuartersOffered[quarter] = false;
+			});
+			$searchFilters.hours.min = 0;
+			$searchFilters.hours.max = 24;
+			$searchFilters.averageEval.min = 0;
+			$searchFilters.averageEval.max = 5;
+			$searchFilters.percentCompleted.min = 0;
+			$searchFilters.percentCompleted.max = 100;
+		}
 	}
 
 	const flipDurationMs = 300;
 	function handleDndConsider(e, type) {
-		$searchResults[type] = e.detail.items;
+		$resultCategories.forEach((category) => {
+			if (category.type == type) {
+				category.results = e.detail.items;
+			}
+		});
+		$resultCategories = $resultCategories;
 	}
 	function handleDndFinalize(e, type) {
-		$searchResults[type] = e.detail.items;
+		$resultCategories.forEach((category) => {
+			if (category.type == type) {
+				category.results = e.detail.items;
+			}
+		});
+		$resultCategories = $resultCategories;
+		$isDragging = false;
 	}
 	function randomizeId(course) {
 		return {
@@ -173,34 +167,27 @@
 			id: course.id.split('|')[0] + '|' + Math.random().toString(36).substring(7)
 		};
 	}
-	// function searchResultsFunction() {
-	// 	$searchResults = {
-	// 		exactMatchResults: [],
-	// 		sameDepartmentResults: [],
-	// 		titleResults: [],
-	// 		descriptionResults: []
-	// 	};
-	// }
+
 	function searchResultsFunction() {
 		let queryUpper = query.toUpperCase().trim();
 		let queryLower = query.toLowerCase().trim();
 		let workingList = $allCourses.filter((course) => doesCourseFitFilters(course, $searchFilters));
 
 		let exactMatchResults = [];
+		let totalExactMatchResults = 0;
 		let sameDepartmentResults = [];
+		let totalSameDepartmentResults = 0;
 		let titleResults = [];
+		let totalTitleResults = 0;
 		let descriptionResults = [];
-		//We want this logic to be smart
-		//If the user types in just the department code, we want to show all courses in that department
+		let totalDescriptionResults = 0;
 
 		//Empty search
 		if (query == '') {
-			$searchResults = {
-				exactMatchResults,
-				sameDepartmentResults,
-				titleResults,
-				descriptionResults
-			};
+			$resultCategories.forEach((category) => {
+				category.results = [];
+			});
+			$resultCategories = $resultCategories;
 			return;
 		}
 
@@ -210,65 +197,70 @@
 			queryLower = '';
 		}
 
-		//Build list of all department codes
-		$allCourses.forEach((course) => {
-			if (!allDepartmentCodes.includes(course.Class.split(' ')[0])) {
-				allDepartmentCodes.push(course.Class.split(' ')[0]);
-			}
-		});
-		allDepartmentCodes.sort();
-
-		//Check if query is a department code
-		let isDepartment = allDepartmentCodes.includes(queryUpper);
-
 		//Get numResults value corresponding to each category
 		let numResults = {};
-		resultCategories.forEach((category) => {
+		let hidden = {};
+		$resultCategories.forEach((category) => {
 			numResults[category.type] = category.numResults;
+			hidden[category.type] = category.hide;
 		});
 
-		if (isDepartment) {
-			//Filter to department and return
-			sameDepartmentResults = workingList
-				.filter((course) => course.Class.split(' ')[0] == queryUpper)
-				.slice(0, numResults.sameDepartmentResults)
-				.map(randomizeId);
-			$searchResults = {
-				exactMatchResults,
-				sameDepartmentResults,
-				titleResults,
-				descriptionResults
-			};
-			return;
+		if (!hidden.sameDepartmentResults) {
+			sameDepartmentResults = workingList.filter(
+				(course) => course.dept === queryUpper.split(' ')[0]
+			);
+			totalSameDepartmentResults = sameDepartmentResults.length;
+			sameDepartmentResults = sameDepartmentResults.slice(0, numResults.sameDepartmentResults);
 		}
-		//Otherwise, filter to courses that fit filters
-		//We want results for exact match with class, then exact department, then match title, then match description
 
-		exactMatchResults = workingList
-			.filter((course) => course.Class.toLowerCase().includes(queryLower))
-			.slice(0, numResults.exactMatchResults);
+		if (!hidden.exactMatchResults) {
+			exactMatchResults = workingList.filter((course) => course.Class.includes(queryUpper));
+			totalExactMatchResults = exactMatchResults.length;
+			exactMatchResults = exactMatchResults.slice(0, numResults.exactMatchResults);
+		}
 
-		titleResults = workingList
-			.filter((course) => !exactMatchResults.includes(course))
-			.filter((course) => course.Name.toLowerCase().includes(queryLower))
-			.slice(0, numResults.titleResults);
+		if (!hidden.titleResults) {
+			titleResults = workingList
+				.filter((course) => !exactMatchResults.includes(course))
+				.filter((course) => course.Name.toLowerCase().includes(queryLower));
+			totalTitleResults = titleResults.length;
+			titleResults = titleResults.slice(0, numResults.titleResults);
+		}
 
-		descriptionResults = workingList
-			.filter((course) => !exactMatchResults.includes(course))
-			.filter((course) => !titleResults.includes(course))
-			.filter((course) => course.Description.includes(queryLower))
-			.slice(0, numResults.descriptionResults);
+		if (!hidden.descriptionResults) {
+			descriptionResults = workingList
+				.filter((course) => !exactMatchResults.includes(course))
+				.filter((course) => !titleResults.includes(course))
+				.filter((course) => course.Description.includes(queryLower));
+			totalDescriptionResults = descriptionResults.length;
+			descriptionResults = descriptionResults.slice(0, numResults.descriptionResults);
+		}
 
 		exactMatchResults = exactMatchResults.map(randomizeId);
+		sameDepartmentResults = sameDepartmentResults.map(randomizeId);
 		titleResults = titleResults.map(randomizeId);
 		descriptionResults = descriptionResults.map(randomizeId);
 
-		$searchResults = {
-			exactMatchResults,
-			sameDepartmentResults,
-			titleResults,
-			descriptionResults
-		};
+		$resultCategories.forEach((category) => {
+			if (category.type == 'exactMatchResults') {
+				category.results = exactMatchResults;
+				category.numResultsFound = totalExactMatchResults;
+				category.numResultsShowing = exactMatchResults.length;
+			} else if (category.type == 'sameDepartmentResults') {
+				category.results = sameDepartmentResults;
+				category.numResultsFound = totalSameDepartmentResults;
+				category.numResultsShowing = sameDepartmentResults.length;
+			} else if (category.type == 'titleResults') {
+				category.results = titleResults;
+				category.numResultsFound = totalTitleResults;
+				category.numResultsShowing = titleResults.length;
+			} else if (category.type == 'descriptionResults') {
+				category.results = descriptionResults;
+				category.numResultsFound = totalDescriptionResults;
+				category.numResultsShowing = descriptionResults.length;
+			}
+		});
+		$resultCategories = $resultCategories;
 	}
 
 	$: {
@@ -286,16 +278,73 @@
 			on:input={searchResultsFunction}
 		/>
 
-		<button class="filtersHeader" on:click={toggleShowFilters}> Filters </button>
+		<button
+			class="filtersHeaderButton"
+			on:click={() => {
+				showFilters = !showFilters;
+			}}
+		>
+			Filters
+		</button>
 	</div>
 	{#if showFilters}
 		<div class="filtersMenuContainer">
+			<div class="filter">
+				<button
+					class="clearFilterButton"
+					on:click={() => {
+						clearFilters(0);
+						clearFilters(1);
+						searchResultsFunction();
+					}}>Reset all filter settings</button
+				>
+				<div class="option">
+					<input
+						type="checkbox"
+						id="filterGridCourses"
+						name="filterGridCourses"
+						on:click={searchResultsFunction}
+						bind:checked={$searchFilters.meta.filterGridCourses}
+					/>
+					<label for="filterGridCourses">Don't show courses already added to planner</label>
+				</div>
+				<div class="filter">
+					<div class="title">Match type settings</div>
+					<div class="title">Showing too many courses may slow search</div>
+					<div class="filters">
+						<div class="filter">
+							{#each $resultCategories as category}
+								<div class="option">
+									<label for={category.type}>Hide</label>
+									<input
+										type="checkbox"
+										id={category.type}
+										name={category.type}
+										on:click={searchResultsFunction}
+										bind:checked={category.hide}
+									/>
+									<input
+										class="numResultsInput"
+										type="number"
+										id={category.type}
+										name={category.type}
+										on:change={searchResultsFunction}
+										bind:value={category.numResults}
+									/>
+									<label for={category.type}># results - {category.title.toLowerCase()}</label>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="horizontalLine" />
 			<div class="filters">
-				<div class="filtersAndButton">
+				<div class="filter">
 					<button
-						class="filterButton"
+						class="clearFilterButton"
 						on:click={() => {
-							clearFilters();
+							clearFilters(1);
 							searchResultsFunction();
 						}}>Clear filters</button
 					>
@@ -303,14 +352,14 @@
 						<div class="filter">
 							<div class="title">Units</div>
 							<div class="options">
-								{#each Object.keys($searchFilters.Units) as unit}
+								{#each Object.keys($searchFilters.units) as unit}
 									<div class="option">
 										<input
 											type="checkbox"
 											id={unit}
 											name={unit}
 											on:click={searchResultsFunction}
-											bind:checked={$searchFilters.Units[unit]}
+											bind:checked={$searchFilters.units[unit]}
 										/>
 										<label for={unit}>{unit}</label>
 									</div>
@@ -346,7 +395,7 @@
 							name="minHours"
 							placeholder="Min"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.Hours.min}
+							bind:value={$searchFilters.hours.min}
 						/>
 						Max:
 						<input
@@ -355,7 +404,7 @@
 							name="maxHours"
 							placeholder="Max"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.Hours.max}
+							bind:value={$searchFilters.hours.max}
 						/>
 					</div>
 					<div class="title">Average Eval</div>
@@ -368,7 +417,7 @@
 							name="minEval"
 							placeholder="Min"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.Eval.min}
+							bind:value={$searchFilters.averageEval.min}
 						/>
 						Max:
 						<input
@@ -378,7 +427,7 @@
 							name="maxEval"
 							placeholder="Max"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.Eval.max}
+							bind:value={$searchFilters.averageEval.max}
 						/>
 					</div>
 					<div class="title">Percent Completed</div>
@@ -390,7 +439,7 @@
 							name="minPercentCompleted"
 							placeholder="Min"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.PercentCompleted.min}
+							bind:value={$searchFilters.percentCompleted.min}
 						/>
 						Max:
 						<input
@@ -399,7 +448,7 @@
 							name="maxPercentCompleted"
 							placeholder="Max"
 							on:input={searchResultsFunction}
-							bind:value={$searchFilters.PercentCompleted.max}
+							bind:value={$searchFilters.percentCompleted.max}
 						/>
 					</div>
 					<div class="title">Quarters Offered</div>
@@ -419,25 +468,29 @@
 					</div>
 				</div>
 			</div>
+			<div class="horizontalLine" />
 		</div>
 	{/if}
 
-	{#each resultCategories as category}
-		{#if $searchResults && $searchResults[category.type] && $searchResults[category.type]?.length != 0}
+	{#each $resultCategories as category}
+		{#if category.results && category.results.length != 0}
 			<div class="resultsHeader {category.type}header">
-				<div class="horizontalLine" />
+				<div class="resultsHorizontalLine" />
 				{category.title}
-				<div class="horizontalLine" />
+				<div class="resultsHorizontalLine" />
+			</div>
+			<div class="resultsHeader resultsHeaderShowing">
+				Showing {category.numResultsShowing} of {category.numResultsFound}
 			</div>
 			<div
 				class="results {category.type}"
-				use:dndzone={{ items: $searchResults[category.type], flipDurationMs }}
+				use:dndzone={{ items: category.results, flipDurationMs, dropTargetStyle: {} }}
 				on:consider={(e) => handleDndConsider(e, category.type)}
 				on:finalize={(e) => handleDndFinalize(e, category.type)}
 			>
-				{#each $searchResults[category.type] as item (item.id)}
+				{#each category.results as course (course.id)}
 					<div animate:flip={{ duration: flipDurationMs }}>
-						<Course course={item} showDescription={false} />
+						<Course {course} />
 					</div>
 				{/each}
 			</div>
@@ -448,6 +501,7 @@
 <style>
 	section {
 		box-sizing: border-box;
+		font-weight: 400;
 	}
 
 	.inputContainer {
@@ -457,9 +511,12 @@
 		justify-content: space-between;
 	}
 
+	.inputContainer > input {
+		flex-grow: 1;
+	}
+
 	input {
 		box-sizing: border-box;
-		flex-grow: 1;
 		font-size: 1.2em;
 		height: 1.8em;
 		padding-left: 0.5em;
@@ -472,7 +529,16 @@
 		font-family: var(--font-mono);
 	}
 
-	.filtersHeader {
+	.numResultsInput {
+		width: 4em;
+		padding: 0;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		text-align: right;
+	}
+
+	.filtersHeaderButton {
+		padding: 0 0.5em;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -495,10 +561,21 @@
 		font-size: 1.2em;
 		margin: 0.5em 0;
 	}
+
+	.resultsHeaderShowing {
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
+
 	.horizontalLine {
-		flex-grow: 1;
-		height: 1px;
-		background-color: #ccc;
+		width: 100%;
+		height: 0.5em;
+		background-color: var(--color-text-dark);
+		border-radius: 0.5em;
 	}
 
 	.results {
@@ -515,12 +592,15 @@
 		color: var(--color-text-dark);
 		font-family: var(--font-mono);
 	}
+
 	.filters {
 		display: flex;
 		flex-direction: row;
+		justify-content: space-around;
+		flex-wrap: wrap;
 	}
 
-	.filtersAndButton {
+	.filtersAndClearFilterButton {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -528,7 +608,8 @@
 		padding: 0.5em;
 	}
 
-	button {
+	.clearFilterButton {
+		width: 100%;
 		box-sizing: border-box;
 		height: 1.8em;
 		font-size: 1.2em;
@@ -546,7 +627,8 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
-		padding: 0.5em;
+		/* padding: 0.5em; */
+		padding: 0.5em 0;
 	}
 
 	.title {
@@ -588,5 +670,13 @@
 		background-color: var(--color-text-dark);
 		color: var(--color-text-light);
 		text-align: right;
+	}
+
+	.resultsHorizontalLine {
+		flex: 1;
+		margin: 0 0.5em;
+		height: 0.5em;
+		background-color: var(--color-text-light);
+		border-radius: 0.5em;
 	}
 </style>

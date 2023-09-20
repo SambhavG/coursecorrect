@@ -4,6 +4,8 @@ function CourseRegexMatch(allCourses, regex) {
   if (typeof regex === 'string') {
     return allCourses.filter((course) => {
       return course.Class.match(regex);
+    }).map((course) => {
+      return course.Class;
     });
   }
 
@@ -46,7 +48,9 @@ function CourseRegexMatch(allCourses, regex) {
     }
   }
 
-  return allMatchingCourses;
+  return allMatchingCourses.map((course) => {
+    return course.Class;
+  });
 }
 
 export default CourseRegexMatch;

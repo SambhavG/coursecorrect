@@ -1,35 +1,36 @@
 <script>
 	export let ways = '';
 	import {
-		Flower2,
-		Microscope,
-		Users,
 		Rocket,
 		Music,
-		BatteryCharging,
 		TrainTrack,
-		Dices
+		Zap,
+		Sigma,
+		Flower,
+		FlaskConical,
+		User,
+		Contact2
 	} from 'lucide-svelte';
-	let iconSize = '14';
-	let smallerSize = '14';
+	let iconSize = '18';
+	let smallerSize = '18';
 </script>
 
 {#if ways == 'AII'}
-	<Flower2 size={iconSize} />
+	<Flower size={iconSize} />
 {:else if ways == 'SMA'}
-	<Microscope size={smallerSize} />
+	<FlaskConical size={smallerSize} />
 {:else if ways == 'SI'}
-	<Users size={smallerSize} />
+	<Contact2 size={smallerSize} />
 {:else if ways == 'AQR'}
 	<Rocket size={smallerSize} />
 {:else if ways == 'CE'}
 	<Music size={iconSize} />
 {:else if ways == 'EDP'}
-	<BatteryCharging size={iconSize} />
+	<Zap size={iconSize} />
 {:else if ways == 'ER'}
 	<TrainTrack size={iconSize} />
 {:else if ways == 'FR'}
-	<Dices size={iconSize} />
+	<Sigma size={iconSize} />
 {:else}
 	<div />
 {/if}

@@ -88,7 +88,7 @@
 						<div class="infoIcon">
 							<Info
 								size="1.3em"
-								on:hover={() => {
+								on:click={() => {
 									alert(cell.info);
 								}}
 							/>
@@ -107,7 +107,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 30em;
-		height: 40em;
+		/* height: 40em; */
 		padding: 0.25em 0.25em;
 	}
 	.row {
@@ -131,6 +131,7 @@
 		margin: 0.25em 0.25em;
 		font-weight: bold;
 	}
+
 	.progressBar {
 		position: absolute;
 		height: 100%;

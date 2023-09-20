@@ -11,29 +11,31 @@
 
 ### Minimum: what exists in spreadsheet
 
-- [ ] checkbox for masters; solid border is bachelors, dotted is masters. Checkbox is in info panel
-- [ ] panel with course data of selected course
-- [ ] panel with ways requirements calculations
-- [ ] panel with bachelors calculations
+- [ ] Configuration menu
+  - [ ] Hide search
+  - [ ] Clear button
+  - [ ] Transfer units
+  - [ ] Way to change data
+- [x] Add info to search
+- [ ] Light mode
+- [ ] Show/hide data panels
+- [ ] Fix progress bar colors
+- [ ] Fix hide buttons in search
+
+- [x] checkbox for masters; solid border is bachelors, dotted is masters.
+- [x] panel with course data of selected course
+- [x] panel with ways requirements calculations
+- [x] panel with bachelors calculations
 - [ ] panel with masters calculations
 - [x] auto coloring
-- [ ] clear button
 - [x] Ways to search (by course ID & desc (id match floats to top))
 - [x] Search filters
   - [ ] Filters for each specific requirement in any degree
-  - [ ] Filter courses already in grid
-- [ ] Scrolling search results
-- [ ] Way to change data
-- [ ] Transfer units accounting
-- [ ] Course view modal spreadsheet
-- [ ] Course can be dragged to bottom of screen
-- [ ] Fix reactivity css - scale to fit on at least 13 inch screen
+  - [x] Filter courses already in grid
+- [x] Scrolling search results
 
 ### Extra features
 
 - [x] Draggable course objects
-- [ ] Workspace to park extra course objects
-- [ ] Check pwr/college/language
-- [ ] Account for courses which can be taken for multiple units and different amounts each time
-- [ ] Notes workspace
-- [ ] Show/hide anything
+- [x] Account for courses which can be taken for multiple units and different amounts each time
+- [x] Show/hide anything

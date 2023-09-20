@@ -1,12 +1,12 @@
 <script>
-	import { selectedCourse } from './../stores.js';
+	import { selectedCourse, selectedCoursePinned } from './../stores.js';
 	import { courseTable, prefs } from '../stores.js';
 	import { Link } from 'lucide-svelte';
+	import { courseColor } from '../utils/utils.js';
 	import WAYSIcon from './WAYSIcons.svelte';
 	export let course = {};
-	export let showDescription = false;
 	let msChecked = false;
-	let sncChecked = false;
+	let csncChecked = false;
 
 	function averageEvalColor(averageEval) {
 		//Gradient with 0-3 red, 4 yellow, 5 green
@@ -20,13 +20,13 @@
 		return 'background-color: hsl(' + hue + ', 100%, 50%)';
 	}
 
-	function percentCompletedColor(averageEval) {
-		if (averageEval == -1) {
+	function percentCompletedColor(percentCompleted) {
+		if (percentCompleted == -1) {
 			return '';
 		}
 		let hue = 0;
-		if (averageEval > 50) {
-			hue = ((averageEval - 50) / 50) * 120;
+		if (percentCompleted > 50) {
+			hue = ((percentCompleted - 50) / 50) * 120;
 		}
 		return 'background-color: hsl(' + hue + ', 100%, 50%)';
 	}
@@ -58,42 +58,8 @@
 
 	function updateSnc(e) {
 		//Lock updates via $
-		sncChecked = e.target.checked;
-		updateCourseById(course.id, 'snc', sncChecked);
-	}
-
-	function mulberry32(a) {
-		let t = (a += 0x6d2b79f5);
-		t = Math.imul(t ^ (t >>> 15), t | 1);
-		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-	}
-
-	function courseColor(course) {
-		let courseName = course.Class;
-		let dept = courseName.split(' ')[0];
-		let deptInt = 0;
-		for (let i = 0; i < dept.length; i++) {
-			deptInt += dept.charCodeAt(i) * Math.pow(10, i);
-		}
-		deptInt += 10;
-		let rand = mulberry32(deptInt) * 360;
-		if (!course?.ms) {
-			return (
-				'background: linear-gradient(to right, hsl(' + rand + ', 50%, 35%), rgba(0, 0, 0, 0.13)'
-			);
-		}
-		return (
-			'background: repeating-linear-gradient(45deg, hsl(' +
-			rand +
-			', 50%, 35%), hsl(' +
-			rand +
-			', 50%, 35%) 1em, hsl(' +
-			rand +
-			', 50%, 30%) 1em, hsl(' +
-			rand +
-			', 50%, 30%) 2em)'
-		);
+		csncChecked = e.target.checked;
+		updateCourseById(course.id, 'csnc', csncChecked);
 	}
 
 	//Update checkboxes on load
@@ -104,94 +70,113 @@
 				msChecked = false;
 			}
 		}
-		if (sncChecked != course?.snc) {
-			sncChecked = course?.snc;
-			if (sncChecked == undefined) {
-				sncChecked = false;
+		if (csncChecked != course?.csnc) {
+			csncChecked = course?.csnc;
+			if (csncChecked == undefined) {
+				csncChecked = false;
 			}
 		}
 	}
 </script>
 
-<section
-	style={courseColor(course)}
-	role="tooltip"
-	on:mouseenter={() => ($selectedCourse = course)}
+<button
+	class="section"
+	on:mouseenter={() => {
+		if (!$selectedCoursePinned) {
+			$selectedCourse = course;
+		}
+	}}
+	on:click={() => {
+		$selectedCourse = course;
+		$selectedCoursePinned = true;
+	}}
 >
-	<div class="leftSide">
-		{#if $prefs.courseTableData.showCheckboxes}
-			<div class="checkboxesContainer">
-				<div class="checkboxContainer">
-					<input type="checkbox" checked={msChecked} on:change={updateMs} />
-					MS
+	<div class="coverUpButton" style={courseColor(course)}>
+		<div class="leftSide">
+			{#if $prefs.courseTableData.showCheckboxes}
+				<div class="checkboxesContainer">
+					<div class="checkboxContainer">
+						<input type="checkbox" checked={msChecked} on:change={updateMs} />
+						MS
+					</div>
+					<div class="checkboxContainer">
+						<input type="checkbox" checked={csncChecked} on:change={updateSnc} />
+						C/SNC
+					</div>
 				</div>
-				<div class="checkboxContainer">
-					<input type="checkbox" checked={sncChecked} on:change={updateSnc} />
-					SNC
-				</div>
+			{/if}
+			<div class="classCodeSpanContainer">
+				<span class="classCode">{course.Class}</span>
+				<span class="className">{course.Name}</span>
 			</div>
-		{/if}
-		<div class="classCodeSpanContainer">
-			<span class="classCode">{course.Class}</span>
-			<span class="className">{course.Name}</span>
+		</div>
+		<div class="rightSide">
+			{#if $prefs.courseTableData.showWAYS}
+				<div class="ways">
+					{#if course.WAYS.length >= 1}
+						<div class={'ways1 ' + course.WAYS[0]}>
+							<WAYSIcon ways={course.WAYS[0]} />
+						</div>
+					{/if}
+					{#if course.WAYS.length >= 2}
+						<div class={'ways2 ' + course.WAYS[1]}>
+							<WAYSIcon ways={course.WAYS[1]} />
+						</div>
+					{:else}
+						<div class="ways2" />
+					{/if}
+				</div>
+			{/if}
+			{#if $prefs.courseTableData.showLinks}
+				<div class="classLinks">
+					<div class="classLink">
+						<a href={course.Link} target="_blank">
+							<Link size={linkSize} />
+						</a>
+					</div>
+					<div class="classLink">
+						<a href={course.Link} target="_blank">
+							<Link class="icon" size={linkSize} />
+						</a>
+					</div>
+				</div>
+			{/if}
+			{#if $prefs.courseTableData.showPercent}
+				<div class="percentCompletedAndAverageEval">
+					<div class="percentCompleted" style={percentCompletedColor(course.percentCompleted)}>
+						{course.percentCompleted == -1 ? '' : course.percentCompleted}
+					</div>
+					<div class="averageEval" style={averageEvalColor(course.averageEval)}>
+						{course.averageEval == -1 ? '' : course.averageEval}
+					</div>
+				</div>
+			{/if}
+			<div class="classHours">{course.hours == -1 ? 0 : course.hours}</div>
+			<div class="classUnits">{course.unitsTaking}</div>
 		</div>
 	</div>
-
-	<div class="rightSide">
-		{#if $prefs.courseTableData.showWAYS}
-			<div class="ways">
-				<div class={'ways1 ' + course['WAYS 1']}>
-					<WAYSIcon ways={course['WAYS 1']} />
-				</div>
-				<div class={'ways2 ' + course['WAYS 2']}>
-					<WAYSIcon ways={course['WAYS 2']} />
-				</div>
-			</div>
-		{/if}
-		{#if $prefs.courseTableData.showLinks}
-			<div class="classLinks">
-				<div class="classLink">
-					<a href={course.Link} target="_blank">
-						<Link size={linkSize} />
-					</a>
-				</div>
-				<div class="classLink">
-					<a href={course.Link} target="_blank">
-						<Link class="icon" size={linkSize} />
-					</a>
-				</div>
-			</div>
-		{/if}
-		{#if $prefs.courseTableData.showPercent}
-			<div class="percentCompletedAndAverageEval">
-				<div class="percentCompleted" style={percentCompletedColor(course['Percent Completed'])}>
-					{course['Percent Completed'] == -1 ? '' : course['Percent Completed']}
-				</div>
-				<div class="averageEval" style={averageEvalColor(course['Average Eval'])}>
-					{course['Average Eval'] == -1 ? '' : course['Average Eval']}
-				</div>
-			</div>
-		{/if}
-		<div class="classHours">{course['Mean Hours'] == -1 ? 0 : course['Mean Hours']}</div>
-		<div class="classUnits">{course['Units Ceiling']}</div>
-	</div>
-</section>
-{#if showDescription}
-	<div class="classDescription">{course.Description}</div>
-{/if}
+</button>
 
 <style>
-	section {
+	.section {
+		all: unset;
+		width: 100%;
 		box-sizing: border-box;
 		text-align: left;
 		border: 0px;
 		color: var(--color-text-light);
 		border-radius: 1em;
-		height: 3.5em;
+		height: 3.9em;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		margin-top: 0.25em;
+	}
+
+	.coverUpButton {
+		all: inherit;
+		width: 100%;
+		height: 100%;
 	}
 
 	.topRow {
@@ -213,19 +198,12 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		font-size: 1.2em;
 	}
 	.checkboxContainer {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: left;
-	}
-	/* vertically center children of .classCodeSpanContainer  */
-	.classCodeSpanContainer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
 	}
 
 	.classCodeContainer {
@@ -240,11 +218,12 @@
 	}
 
 	.classCode {
-		font-size: 1.2em;
+		font-size: 1.6em;
 		font-weight: bold;
 	}
 	.className {
-		font-size: 0.8em;
+		font-size: 1em;
+		text-shadow: var(--color-text-dark) 0 0 0.4em;
 	}
 
 	.rightSide {
@@ -273,15 +252,16 @@
 	}
 
 	.ways > * {
-		max-height: 44%;
+		height: 50%;
 		width: 100%;
 		border-radius: 0.3em;
 		margin: 0.1em 0;
 		color: var(--color-text-dark);
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
+		justify-content: center;
+		text-align: center;
 	}
 	.ways1 {
 		align-self: flex-start;
@@ -340,10 +320,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
-
-	.classDescription {
-		font-size: 1em;
 	}
 
 	.AII {

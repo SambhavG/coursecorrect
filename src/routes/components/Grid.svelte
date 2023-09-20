@@ -18,7 +18,7 @@
 		return 'grid-template-rows: repeat(' + $years.length + ', 1fr)';
 	}
 	function rowStyle() {
-		return 'grid-template-columns: repeat(' + $quarters.length + ', 1fr)';
+		return 'grid-template-columns: repeat(' + $quarters.length + ', minmax(0, 1fr))';
 	}
 </script>
 
@@ -61,29 +61,41 @@
 	.yearAndCollapseButtonContainer {
 		display: flex;
 		flex-direction: row;
+		border: 0.25em solid;
+	}
+	/* all but last don't have bottom border */
+	.yearAndCollapseButtonContainer:not(:last-child) {
+		border-bottom: none;
 	}
 	button {
 		background-color: var(--color-text-dark);
 		color: var(--color-text-light);
-		border: none;
-		border: 2px solid;
+		border-style: none;
+		border-right: 0.25em solid;
 		padding: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	.yearContainer {
 		display: grid;
-		min-height: 8em;
+		min-height: 20em;
+		width: 100%;
 	}
 	.quarterContainer {
 		padding: 0.5em 0.5em;
-		border: 2px solid;
 	}
+	/* apply to all but last quarterContainer */
+	.quarterContainer:not(:last-child) {
+		border-right: 0.25em solid;
+	}
+
 	.hiddenNotif {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		border: 2px solid;
 		font-size: 1.5em;
 	}
 </style>

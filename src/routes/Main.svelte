@@ -1,22 +1,15 @@
 <script>
+	import { dndzone } from 'svelte-dnd-action';
 	import Search from './components/Search.svelte';
 	import WAYSTracker from './components/WAYSTracker.svelte';
 	import Grid from './components/Grid.svelte';
 	import { onMount } from 'svelte';
-	import {
-		years,
-		quarters,
-		allCourses,
-		courseTable,
-		searchResults,
-		prefs,
-		courseTableList,
-		selectedCourse
-	} from './stores.js';
+	import { years, quarters, allCourses, courseTable, prefs, courseTableList } from './stores.js';
 	import data from './data/courseDataFile.csv';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
+	import Trash from './components/Trash.svelte';
 
 	onMount(async () => {
 		$allCourses = data;
@@ -26,7 +19,6 @@
 		//Add 'WAYS' property equal to an empty array if 'WAYS 1' and 'WAYS 2' are empty, otherwise add an array with 'WAYS 1' and 'WAYS 2'
 		for (let i = 0; i < $allCourses.length; i++) {
 			$allCourses[i].id = i + '|' + Math.random().toString(36).substring(7);
-			$allCourses[i].unitsTaking = $allCourses[i]['Units Ceiling'];
 			if ($allCourses[i]['WAYS 1'] == '') {
 				$allCourses[i].WAYS = [];
 			} else if ($allCourses[i]['WAYS 2'] == '') {
@@ -35,7 +27,7 @@
 				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1'], $allCourses[i]['WAYS 2']];
 			}
 			$allCourses[i].ms = false;
-			$allCourses[i].snc = false;
+			$allCourses[i].csnc = false;
 			//Split course number into department, number, and modifier
 			let courseDept = $allCourses[i].Class.split(' ')[0];
 			let courseNum = $allCourses[i].Class.split(' ')[1];
@@ -44,6 +36,16 @@
 			$allCourses[i].dept = courseDept;
 			$allCourses[i].number = number;
 			$allCourses[i].modifier = modifier;
+			//Parse units ceiling and floor
+			$allCourses[i].unitsCeiling = parseInt($allCourses[i]['Units Ceiling']);
+			$allCourses[i].unitsFloor = parseInt($allCourses[i]['Units Floor']);
+			$allCourses[i].unitsTaking = $allCourses[i].unitsCeiling;
+			//Rename 'Mean Hours' to hours and parse it
+			$allCourses[i].hours = parseInt($allCourses[i]['Mean Hours']);
+			//Same for 'Average Eval' but parse as float
+			$allCourses[i].averageEval = parseFloat($allCourses[i]['Average Eval']);
+			//Same for 'Percent Complete' as int
+			$allCourses[i].percentCompleted = parseInt($allCourses[i]['Percent Completed']);
 		}
 		//Sort the courses by department, number, and modifier (the part after the number)
 		$allCourses.sort((a, b) => {
@@ -113,7 +115,6 @@
 			}
 			$courseTable = coursesObj;
 		}
-		$searchResults = $allCourses.slice(0, 10);
 	});
 
 	//Save to local storage
@@ -142,14 +143,25 @@
 		}
 		$courseTableList = courseTableListItems;
 	}
+
+	function sectionStyle() {
+		if ($prefs.searchCollapsed) {
+			return 'grid-template-columns: minmax(0, 1fr);';
+		} else {
+			return 'grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);';
+		}
+	}
 </script>
 
-<section>
-	<div class="searchAndDegreeTrackerContainer">
+<section
+	style={sectionStyle()}
+	use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }}
+>
+	{#if !$prefs.searchCollapsed}
 		<div class="searchContainer">
 			<Search />
 		</div>
-	</div>
+	{/if}
 	<div class="gridAndInfoContainer">
 		<div class="dataHeader">
 			<div class="waysTrackerContainer">
@@ -157,14 +169,21 @@
 			</div>
 			<div class="generalizedDegreeTrackerContainer">
 				<GeneralizedDegreeTracker
-					data={BSMath($allCourses, $courseTable, $courseTableList, { totalUnits: 30, APCalc: 10 })}
+					data={BSMath($allCourses, $courseTable, $courseTableList, {
+						totalUnits: 30,
+						APCalc: 10,
+						additionalMath: 0
+					})}
 				/>
 			</div>
 		</div>
 		<div class="courseDataPanelContainer">
-			<CourseDataPanel course={$selectedCourse} />
+			<CourseDataPanel />
 		</div>
 		<div class="gridContainer">
+			<div class="trashContainer">
+				<Trash />
+			</div>
 			<Grid />
 		</div>
 	</div>
@@ -174,31 +193,45 @@
 	section {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 1fr 3.1fr;
-		/* font-size: 0.7rem; */
+		grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);
+		overflow: scroll;
 	}
 
-	.searchAndDegreeTrackerContainer {
+	.searchContainer {
 		margin: 0 1em;
-	}
-	.searchAndDegreeTrackerContainer > * {
-		margin: 1em 0;
 	}
 	.gridAndInfoContainer {
 		margin: 0 1em;
+		max-width: 100%;
 	}
 	.dataHeader {
 		margin-bottom: 1em;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
 	.waysTrackerContainer {
 		margin-right: 1em;
 	}
 	.courseDataPanelContainer {
 		width: 100%;
+		margin-bottom: 1em;
 	}
 	.dataHeader {
 		display: flex;
 		flex-direction: row;
 		width: 100%;
+	}
+
+	.gridContainer {
+		position: relative;
+	}
+	.trashContainer {
+		position: absolute;
+		top: 50%;
+		left: 0%;
+		/* the centerpoint of the object should be at the middle right */
+		transform: translate(-100%, 0%);
+		padding-right: 1em;
 	}
 </style>
