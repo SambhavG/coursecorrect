@@ -21,6 +21,9 @@
 - [ ] Show/hide data panels
 - [ ] Fix progress bar colors
 - [ ] Fix hide buttons in search
+- [ ] Explorecourses link
+- [ ] Add ways, checkboxes, and quarters offered to search
+- [ ] Filter for courses not offered at all
 
 - [x] checkbox for masters; solid border is bachelors, dotted is masters.
 - [x] panel with course data of selected course
