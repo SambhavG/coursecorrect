@@ -64,17 +64,13 @@
 
 	//Update checkboxes on load
 	$: {
-		if (msChecked != course?.ms) {
-			msChecked = course?.ms;
-			if (msChecked == undefined) {
-				msChecked = false;
-			}
+		//We don't want to trigger an update
+		//if there is no update
+		if (msChecked != course.ms) {
+			msChecked = course.ms;
 		}
-		if (csncChecked != course?.csnc) {
-			csncChecked = course?.csnc;
-			if (csncChecked == undefined) {
-				csncChecked = false;
-			}
+		if (csncChecked != course.csnc) {
+			csncChecked = course.csnc;
 		}
 	}
 </script>
@@ -106,21 +102,21 @@
 				</div>
 			{/if}
 			<div class="classCodeSpanContainer">
-				<span class="classCode">{course.Class}</span>
-				<span class="className">{course.Name}</span>
+				<span class="classCode">{course.code}</span>
+				<span class="className">{course.short_title}</span>
 			</div>
 		</div>
 		<div class="rightSide">
 			{#if $prefs.courseTableData.showWAYS}
 				<div class="ways">
-					{#if course.WAYS.length >= 1}
-						<div class={'ways1 ' + course.WAYS[0]}>
-							<WAYSIcon ways={course.WAYS[0]} />
+					{#if course.ways.length >= 1}
+						<div class={'ways1 ' + course.ways[0]}>
+							<WAYSIcon ways={course.ways[0]} />
 						</div>
 					{/if}
-					{#if course.WAYS.length >= 2}
-						<div class={'ways2 ' + course.WAYS[1]}>
-							<WAYSIcon ways={course.WAYS[1]} />
+					{#if course.ways.length >= 2}
+						<div class={'ways2 ' + course.ways[1]}>
+							<WAYSIcon ways={course.ways[1]} />
 						</div>
 					{:else}
 						<div class="ways2" />
@@ -130,12 +126,12 @@
 			{#if $prefs.courseTableData.showLinks}
 				<div class="classLinks">
 					<div class="classLink">
-						<a href={course.Link} target="_blank">
+						<a href={course.carta_link} target="_blank">
 							<Link size={linkSize} />
 						</a>
 					</div>
 					<div class="classLink">
-						<a href={course.Link} target="_blank">
+						<a href={course.carta_link} target="_blank">
 							<Link class="icon" size={linkSize} />
 						</a>
 					</div>
@@ -143,16 +139,19 @@
 			{/if}
 			{#if $prefs.courseTableData.showPercent}
 				<div class="percentCompletedAndAverageEval">
-					<div class="percentCompleted" style={percentCompletedColor(course.percentCompleted)}>
-						{course.percentCompleted == -1 ? '' : course.percentCompleted}
+					<div
+						class="percentCompleted"
+						style={percentCompletedColor(course.percent_outcomes_completed)}
+					>
+						{course.percent_outcomes_completed == -1 ? '' : course.percent_outcomes_completed}
 					</div>
-					<div class="averageEval" style={averageEvalColor(course.averageEval)}>
-						{course.averageEval == -1 ? '' : course.averageEval}
+					<div class="averageEval" style={averageEvalColor(course.average_rating)}>
+						{course.average_rating == -1 ? '' : course.average_rating}
 					</div>
 				</div>
 			{/if}
-			<div class="classHours">{course.hours == -1 ? 0 : course.hours}</div>
-			<div class="classUnits">{course.unitsTaking}</div>
+			<div class="classHours">{course.int_hours == -1 ? 0 : course.int_hours}</div>
+			<div class="classUnits">{course.units_taking}</div>
 		</div>
 	</div>
 </button>

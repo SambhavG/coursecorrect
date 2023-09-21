@@ -8,6 +8,7 @@
 	const flipDurationMs = 300;
 	function handleDndConsider(e) {
 		items = e.detail.items;
+		$isDragging = true;
 	}
 	function handleDndFinalize(e) {
 		items = [];

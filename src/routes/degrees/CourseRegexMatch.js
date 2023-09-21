@@ -3,9 +3,9 @@ function CourseRegexMatch(allCourses, regex) {
   //If regex is a string, just do a regex match
   if (typeof regex === 'string') {
     return allCourses.filter((course) => {
-      return course.Class.match(regex);
+      return course.code.match(regex);
     }).map((course) => {
-      return course.Class;
+      return course.code;
     });
   }
 
@@ -17,7 +17,7 @@ function CourseRegexMatch(allCourses, regex) {
     if (thisRegexObject.method == 'regex') {
       //Get all the courses that match this regex
       thisMatchingCourses = allCourses.filter((course) => {
-        return course.Class.match(thisRegexObject.string);
+        return course.code.match(thisRegexObject.string);
       });
     } else if (thisRegexObject.method == 'number') {
       let number = thisRegexObject.number;
@@ -49,7 +49,7 @@ function CourseRegexMatch(allCourses, regex) {
   }
 
   return allMatchingCourses.map((course) => {
-    return course.Class;
+    return course.code;
   });
 }
 

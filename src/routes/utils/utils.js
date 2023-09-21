@@ -7,7 +7,7 @@ function mulberry32(a) {
 
 function courseColor(course) {
   if (!course) return;
-  if (!course.Class) return;
+  if (!course.code) return;
   let dept = course.dept;
   let deptInt = 0;
   for (let i = 0; i < dept.length; i++) {
@@ -35,7 +35,7 @@ function courseColor(course) {
 }
 
 function checkIfListOfCoursesIncludesCourseByCode(list, course) {
-  if (list.map((c) => c.Class).includes(course.Class)) {
+  if (list.map((c) => c.Class).includes(course.code)) {
     return true;
   }
   return false;

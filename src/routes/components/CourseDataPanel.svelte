@@ -1,14 +1,89 @@
 <script>
 	import WAYSIcons from './WAYSIcons.svelte';
-	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
-	import { allCourses, prefs, selectedCourse, selectedCoursePinned } from '../stores';
+	import { ChevronsDownUp, ChevronsUpDown, PinOff } from 'lucide-svelte';
+	import { allCourses, prefs, selectedCourse, selectedCoursePinned, courseTable } from '../stores';
 	import { courseColor } from '../utils/utils.js';
+	import {} from 'lucide-svelte';
+	import reviews0 from '../data/reviews/reviews0.json';
+	import reviews1 from '../data/reviews/reviews1000.json';
+	import reviews2 from '../data/reviews/reviews2000.json';
+	import reviews3 from '../data/reviews/reviews3000.json';
+	import reviews4 from '../data/reviews/reviews4000.json';
+	import reviews5 from '../data/reviews/reviews5000.json';
+	import reviews6 from '../data/reviews/reviews6000.json';
+	import reviews7 from '../data/reviews/reviews7000.json';
+	import reviews8 from '../data/reviews/reviews8000.json';
+	import reviews9 from '../data/reviews/reviews9000.json';
+	import reviews10 from '../data/reviews/reviews10000.json';
+	import reviews11 from '../data/reviews/reviews11000.json';
+	import reviews12 from '../data/reviews/reviews12000.json';
+	import reviews13 from '../data/reviews/reviews13000.json';
+
 	let course = {};
 	$: course = $selectedCourse;
+	let unitsTaking = 0;
+	//Update unitsTaking on load
+	$: {
+		//We don't want to trigger an update
+		//if they are already in sync
+		if (unitsTaking != course.units_taking) {
+			unitsTaking = course.units_taking;
+		}
+	}
+
+	function updateUnitsTaking(e) {
+		updateCourseById(course.id, 'units_taking', +e.target.value);
+		course = course;
+	}
+
+	let reviewData = undefined;
+	$: {
+		if (course.code) {
+			reviewData = [
+				reviews0[course.code],
+				reviews1[course.code],
+				reviews2[course.code],
+				reviews3[course.code],
+				reviews4[course.code],
+				reviews5[course.code],
+				reviews6[course.code],
+				reviews7[course.code],
+				reviews8[course.code],
+				reviews9[course.code],
+				reviews10[course.code],
+				reviews11[course.code],
+				reviews12[course.code],
+				reviews13[course.code]
+			].filter((r) => r)[0];
+		}
+	}
+
+	let positiveReviews = [];
+	let neutralReviews = [];
+	let negativeReviews = [];
+	$: {
+		if (reviewData) {
+			positiveReviews = [];
+			neutralReviews = [];
+			negativeReviews = [];
+			reviewData.forEach((r) => {
+				let sentiment = parseFloat(r.substring(1, r.indexOf(']')));
+				let rNoSentiment = r.substring(r.indexOf(']') + 1);
+				if (sentiment > 0.05) {
+					positiveReviews.push(rNoSentiment);
+				} else if (sentiment < -0.05) {
+					negativeReviews.push(rNoSentiment);
+				} else {
+					neutralReviews.push(rNoSentiment);
+				}
+			});
+		}
+	}
 
 	//Set default value on load
 	$: {
-		if (!course.Class) {
+		//console.log(reviewData['CS 106B'][0]);
+		if (!course.code) {
 			let firstCourse = $allCourses.find((c) => c.Class === 'CS 106A');
 			firstCourse = $allCourses[0];
 			if (firstCourse) {
@@ -21,9 +96,26 @@
 	let hoursArray = [];
 	$: {
 		hoursArray = Array.from(
-			{ length: course.unitsCeiling - course.unitsFloor + 1 },
-			(_, i) => course.unitsFloor + i
+			{ length: course.max_units - course.min_units + 1 },
+			(_, i) => course.min_units + i
 		);
+	}
+
+	function updateCourseById(id, property, newValue) {
+		//Loop through all the courses in courseTable
+		for (let i = 0; i < $courseTable.length; i++) {
+			//Loop through all the quarters in the year
+			for (let j = 0; j < $courseTable[i].quarters.length; j++) {
+				//Loop through all the courses in the quarter
+				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					//If the course id matches the id we're looking for, update the property
+					if ($courseTable[i].quarters[j].courses[k].id == id) {
+						$courseTable[i].quarters[j].courses[k][property] = newValue;
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	/*
@@ -65,44 +157,82 @@
 		<div class="content">
 			<div class="header">
 				<div class="courseCodeAndNameContainer" style={courseColor(course)}>
-					<span class="courseCode">{course.Class}</span>
-					<span class="courseName">{course.Name}</span>
+					<span class="courseCode">{course.code}</span>
+					<span class="courseName">{course.short_title}</span>
 				</div>
 				<div class="hoursUnitsWaysData">
-					<div class="courseHours"><b>{course.hours == -1 ? 0 : course.hours}</b> h/week</div>
+					<div class="courseHours">
+						<b>{course.int_hours == -1 ? 0 : course.int_hours}</b> h/week
+					</div>
 
-					{#if course.unitsFloor != course.unitsCeiling}
+					{#if course.min_units != course.max_units}
 						<div class="courseUnits">
-							<select value={course.unitsTaking}>
+							<select value={unitsTaking} on:change={updateUnitsTaking}>
 								{#each hoursArray as i (i)}
 									<option value={i}>{i}</option>
 								{/each}
-							</select> units
+							</select>
+							unit{unitsTaking == 1 ? '' : 's'}
 						</div>
 					{:else}
-						<div class="courseUnits"><b>{course.unitsCeiling}</b> units</div>
-					{/if}
-					{#if course.WAYS && course.WAYS.length >= 1}
-						<div class={'WAYS ' + course.WAYS[0]}>
-							<WAYSIcons ways={course.WAYS[0]} />
+						<div class="courseUnits">
+							<b>{course.max_units}</b> unit{unitsTaking == 1 ? '' : 's'}
 						</div>
 					{/if}
-					{#if course.WAYS && course.WAYS.length >= 2}
-						<div class={'WAYS ' + course.WAYS[1]}>
-							<WAYSIcons ways={course.WAYS[1]} />
+					{#if course.ways && course.ways.length >= 1}
+						<div class={'WAYS ' + course.ways[0]}>
+							<WAYSIcons ways={course.ways[0]} />
+						</div>
+					{/if}
+					{#if course.ways && course.ways.length >= 2}
+						<div class={'WAYS ' + course.ways[1]}>
+							<WAYSIcons ways={course.ways[1]} />
 						</div>
 					{/if}
 				</div>
 				<div class="ratingCompletionData">
-					{#if course.averageEval != -1}
-						<div class="averageEval">Rated {course.averageEval}/5</div>
+					{#if course.average_rating != -1}
+						<div class="averageEval">Rated {course.average_rating}/5</div>
 					{/if}
-					{#if course.percentCompleted != -1}
-						<div class="percentCompleted">Completion rate: {course.percentCompleted}%</div>
+					{#if course.percent_outcomes_completed != -1}
+						<div class="percentCompleted">
+							Completion rate: {course.percent_outcomes_completed}%
+						</div>
 					{/if}
 				</div>
 			</div>
-			<p class="courseDesc">{course.Description}</p>
+			<p class="courseDesc">{course.description}</p>
+			<div class="courseReviews">
+				<div class="disclaimer">
+					Sentiment classification is AI-generated - categorizations may be inaccurate
+				</div>
+				<div class="courseReviewsColumns">
+					<div class="positiveReviews">
+						<div class="positiveReviewCount">
+							{positiveReviews.length} positive
+						</div>
+						{#each positiveReviews as r}
+							<div class="review">{r}</div>
+						{/each}
+					</div>
+					<div class="neutralReviews">
+						<div class="neutralReviewCount">
+							{neutralReviews.length} neutral
+						</div>
+						{#each neutralReviews as r}
+							<div class="review">{r}</div>
+						{/each}
+					</div>
+					<div class="negativeReviews">
+						<div class="negativeReviewCount">
+							{negativeReviews.length} negative
+						</div>
+						{#each negativeReviews as r}
+							<div class="review">{r}</div>
+						{/each}
+					</div>
+				</div>
+			</div>
 			{#if $selectedCoursePinned}
 				<button
 					class="unpinButton"
@@ -110,7 +240,7 @@
 						$selectedCoursePinned = false;
 					}}
 				>
-					Course pinned; click to unpin
+					<PinOff />
 				</button>
 			{/if}
 		</div>
@@ -143,13 +273,16 @@
 
 	.content {
 		position: relative;
-		height: 20em;
+		box-sizing: content-box;
+		height: 30em;
 		padding: 1em;
+
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
+		overflow-y: auto;
 	}
 
 	.hiddenNotif {
@@ -206,6 +339,7 @@
 	.hoursUnitsWaysData > * {
 		margin-right: 0.5em;
 	}
+
 	.ratingCompletionData {
 		width: 100%;
 		font-size: 1.5em;
@@ -235,7 +369,9 @@
 		font-size: 1.5em;
 		max-height: 10em;
 		width: 100%;
-		overflow-y: scroll;
+		overflow-y: auto;
+		flex-grow: 0;
+		flex-shrink: 0;
 	}
 
 	.WAYS {
@@ -249,18 +385,62 @@
 		text-align: center;
 	}
 
+	.courseReviews {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		flex-basis: 0;
+		flex-grow: 1;
+	}
+
+	.disclaimer {
+		margin-bottom: 0.5em;
+	}
+
+	.courseReviewsColumns {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	.courseReviewsColumns > * {
+		margin: 0 0.5em;
+		flex: 1;
+		height: 100%;
+		overflow-y: scroll;
+	}
+
+	.positiveReviewCount,
+	.neutralReviewCount,
+	.negativeReviewCount {
+		font-size: 1.5em;
+		font-weight: bold;
+		margin-bottom: 0.5em;
+		text-align: center;
+	}
+
+	.review {
+		border: 1px solid var(--color-text-light);
+		margin: 0.5em 0;
+		padding: 0.5em;
+	}
+
 	.unpinButton {
-		position: absolute;
+		position: sticky;
 		bottom: 0;
 		left: 0;
+		width: 4em;
+		height: 4em;
+		padding: 1em;
+		box-sizing: border-box;
 		background-color: var(--color-text-dark);
-		color: var(--color-text-light);
-		border-top: 0.25em solid var(--color-text-light);
-		border-right: 0.25em solid var(--color-text-light);
-		font: inherit;
-		font-size: 1.2em;
-		font-weight: bold;
-		width: 14em;
+		border: 0.25em solid var(--color-text-light);
+		border-radius: 50%;
 	}
 
 	.AII {

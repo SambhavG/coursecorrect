@@ -39,12 +39,12 @@
 
 		for (let i = 0; i < $courseTableList.length; i++) {
 			let course = $courseTableList[i];
-			if (course.WAYS.length > 0) {
+			if (course.ways.length > 0) {
 				//Check if this is a two+ unit course with just CE
-				if (course.WAYS.length == 1 && course.WAYS[0] == 'CE' && course.unitsTaking > 1) {
+				if (course.ways.length == 1 && course.ways[0] == 'CE' && course.units_taking > 1) {
 					ways.push(['CE']);
 				}
-				ways.push(course.WAYS);
+				ways.push(course.ways);
 			}
 		}
 

@@ -28,9 +28,9 @@
 	function calculateTotalHours(courses) {
 		let total = 0;
 		for (let i = 0; i < courses.length; i++) {
-			let thisHours = courses[i].hours;
-			if (thisHours != '-1') {
-				total += parseInt(thisHours);
+			let thisHours = courses[i].int_hours;
+			if (thisHours != -1) {
+				total += thisHours;
 			}
 		}
 		return total;
@@ -38,10 +38,8 @@
 	function calculateTotalUnits(courses) {
 		let total = 0;
 		for (let i = 0; i < courses.length; i++) {
-			let thisUnits = courses[i].unitsTaking;
-			if (thisUnits != '-1') {
-				total += parseInt(thisUnits);
-			}
+			let thisUnits = courses[i].units_taking;
+			total += thisUnits;
 		}
 		return total;
 	}
@@ -50,7 +48,7 @@
 		//Find course in allCourses
 		let course = $allCourses.find(
 			(course) =>
-				course.Class.toLowerCase().replace(/\s+/g, '') === search.toLowerCase().replace(/\s+/g, '')
+				course.code.toLowerCase().replace(/\s+/g, '') === search.toLowerCase().replace(/\s+/g, '')
 		);
 		if (course === undefined) {
 			searchCourse = null;

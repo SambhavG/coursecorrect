@@ -1,11 +1,9 @@
 <script>
-	import { flip } from 'svelte/animate';
 	import QuarterDND from './QuarterDND.svelte';
 	import { years, quarters, courseTable, prefs } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
-	import { fade, fly, scale, slide } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
-	let gridChangeThreshold = 1000;
 	let width = 1400;
 	if (typeof window !== 'undefined') {
 		width = document.body.clientWidth;

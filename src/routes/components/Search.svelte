@@ -27,12 +27,12 @@
 
 		//Check if course fits units filter
 		if (unitsFilterActive) {
-			let unitsTaking = parseInt(course.unitsTaking);
+			let units_taking = parseInt(course.units_taking);
 			let unitsFilterFits = false;
 			Object.keys(filters.units).forEach((unit) => {
-				if (filters.units[unit] && unit == '6+' && unitsTaking >= 6) {
+				if (filters.units[unit] && unit == '6+' && units_taking >= 6) {
 					unitsFilterFits = true;
-				} else if (filters.units[unit] && unitsTaking == parseInt(unit)) {
+				} else if (filters.units[unit] && units_taking == parseInt(unit)) {
 					unitsFilterFits = true;
 				}
 			});
@@ -53,7 +53,7 @@
 		if (waysFilterActive) {
 			let waysFilterFits = false;
 			Object.keys(filters.WAYS).forEach((way) => {
-				if (filters.WAYS[way] && course.WAYS.includes(way)) {
+				if (filters.WAYS[way] && course.ways.includes(way)) {
 					waysFilterFits = true;
 				}
 			});
@@ -63,19 +63,19 @@
 		}
 
 		//Check if course fits hours filter
-		if (filters.hours.min != '' && course.hours < filters.hours.min) {
+		if (filters.hours.min != '' && course.int_hours < filters.hours.min) {
 			return false;
 		}
-		if (filters.hours.max != '' && course.hours > filters.hours.max) {
+		if (filters.hours.max != '' && course.int_hours > filters.hours.max) {
 			return false;
 		}
 
 		//Check if course fits eval filter
-		if (course.averageEval != '-1') {
-			if (filters.averageEval.min != '' && course.averageEval < filters.averageEval.min) {
+		if (course.average_rating != '-1') {
+			if (filters.averageEval.min != '' && course.average_rating < filters.averageEval.min) {
 				return false;
 			}
-			if (filters.averageEval.max != '' && course.averageEval > filters.averageEval.max) {
+			if (filters.averageEval.max != '' && course.average_rating > filters.averageEval.max) {
 				return false;
 			}
 		}
@@ -83,13 +83,13 @@
 		//Check if course fits percent completed filter
 		if (
 			filters.percentCompleted.min != '' &&
-			course.percentCompleted < filters.percentCompleted.min
+			course.percent_outcomes_completed < filters.percentCompleted.min
 		) {
 			return false;
 		}
 		if (
 			filters.percentCompleted.max != '' &&
-			course.percentCompleted > filters.percentCompleted.max
+			course.percent_outcomes_completed > filters.percentCompleted.max
 		) {
 			return false;
 		}
@@ -151,6 +151,7 @@
 			}
 		});
 		$resultCategories = $resultCategories;
+		$isDragging = true;
 	}
 	function handleDndFinalize(e, type) {
 		$resultCategories.forEach((category) => {
@@ -214,7 +215,7 @@
 		}
 
 		if (!hidden.exactMatchResults) {
-			exactMatchResults = workingList.filter((course) => course.Class.includes(queryUpper));
+			exactMatchResults = workingList.filter((course) => course.code.includes(queryUpper));
 			totalExactMatchResults = exactMatchResults.length;
 			exactMatchResults = exactMatchResults.slice(0, numResults.exactMatchResults);
 		}
@@ -222,7 +223,7 @@
 		if (!hidden.titleResults) {
 			titleResults = workingList
 				.filter((course) => !exactMatchResults.includes(course))
-				.filter((course) => course.Name.toLowerCase().includes(queryLower));
+				.filter((course) => course.short_title.toLowerCase().includes(queryLower));
 			totalTitleResults = titleResults.length;
 			titleResults = titleResults.slice(0, numResults.titleResults);
 		}
@@ -231,7 +232,7 @@
 			descriptionResults = workingList
 				.filter((course) => !exactMatchResults.includes(course))
 				.filter((course) => !titleResults.includes(course))
-				.filter((course) => course.Description.includes(queryLower));
+				.filter((course) => course.description.includes(queryLower));
 			totalDescriptionResults = descriptionResults.length;
 			descriptionResults = descriptionResults.slice(0, numResults.descriptionResults);
 		}
@@ -266,6 +267,16 @@
 	$: {
 		searchResultsFunction();
 		$searchFilters = $searchFilters;
+	}
+
+	function checkboxFunction(type) {
+		$resultCategories.forEach((category) => {
+			if (category.type == type) {
+				category.hide = !category.hide;
+			}
+		});
+		$resultCategories = $resultCategories;
+		searchResultsFunction();
 	}
 </script>
 
@@ -306,13 +317,13 @@
 						on:click={searchResultsFunction}
 						bind:checked={$searchFilters.meta.filterGridCourses}
 					/>
-					<label for="filterGridCourses">Don't show courses already added to planner</label>
+					<label for="filterGridCourses">Hide courses already added to planner</label>
 				</div>
 				<div class="filter">
 					<div class="title">Match type settings</div>
 					<div class="title">Showing too many courses may slow search</div>
 					<div class="filters">
-						<div class="filter">
+						<div class="filter matchTypeGridFilter">
 							{#each $resultCategories as category}
 								<div class="option">
 									<label for={category.type}>Hide</label>
@@ -320,7 +331,10 @@
 										type="checkbox"
 										id={category.type}
 										name={category.type}
-										on:click={searchResultsFunction}
+										on:click={() => {
+											checkboxFunction(category.type);
+											searchResultsFunction;
+										}}
 										bind:checked={category.hide}
 									/>
 									<input
@@ -348,7 +362,7 @@
 							searchResultsFunction();
 						}}>Clear filters</button
 					>
-					<div class="filters">
+					<div class="unitsAndWays">
 						<div class="filter">
 							<div class="title">Units</div>
 							<div class="options">
@@ -625,10 +639,11 @@
 	.filter {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: center;
 		justify-content: flex-start;
 		/* padding: 0.5em; */
 		padding: 0.5em 0;
+		flex: 1;
 	}
 
 	.title {
@@ -678,5 +693,19 @@
 		height: 0.5em;
 		background-color: var(--color-text-light);
 		border-radius: 0.5em;
+	}
+
+	.unitsAndWays {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.matchTypeGridFilter {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 </style>

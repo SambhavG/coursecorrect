@@ -176,7 +176,7 @@ function BSMath(allCourses, grid, list, transfer) {
   //Step 3: Compute the total number of units taken
   let totalUnits = 0;
   listCopy.forEach((course) => {
-    totalUnits += parseInt(course.unitsTaking);
+    totalUnits += parseInt(course.units_taking);
   });
   totalUnits+=transfer.totalUnits;
 
@@ -185,11 +185,11 @@ function BSMath(allCourses, grid, list, transfer) {
   let totalMathUnits = 0;
   let totalOutOf = 57;
   let allMathCoursesTaken = listCopy.filter((course) => {
-    return mathCoursesLut.includes(course.Class);
+    return mathCoursesLut.includes(course.code);
   });
   allMathCoursesTaken.forEach((course) => {
-    totalMathUnits += parseInt(course.unitsTaking);
-    if (graduateCoursesLut.includes(course.Class)) {
+    totalMathUnits += parseInt(course.units_taking);
+    if (graduateCoursesLut.includes(course.code)) {
       totalOutOf--;
     }
   });
@@ -199,7 +199,7 @@ function BSMath(allCourses, grid, list, transfer) {
 
   //Step 5: Compute WIM
   let wim = listCopy.filter((course) => {
-    return wimCoursesLut.includes(course.Class);
+    return wimCoursesLut.includes(course.code);
   });
   if (wim.length > 0) {
     wim = { value: wim[0].Class };
@@ -212,7 +212,7 @@ function BSMath(allCourses, grid, list, transfer) {
   let eightCoreCourses = [];
   //Compare only by course number
   let coreNonElectiveCourses = listCopy.filter((course) => {
-    return coreButNotElectiveCoursesLut.includes(course.Class);
+    return coreButNotElectiveCoursesLut.includes(course.code);
   });
   //Shorten it to be at most 8 long
   coreNonElectiveCourses = coreNonElectiveCourses.slice(0, 8);
@@ -225,7 +225,7 @@ function BSMath(allCourses, grid, list, transfer) {
   //6.2: Apply the rest of the core courses
   let coreCoursesLeft = 8 - eightCoreCourses.length;
   let coreCourses = listCopy.filter((course) => {
-    return coreCoursesLut.includes(course.Class);
+    return coreCoursesLut.includes(course.code);
   });
   //Shorten it to be at most remaining length long
   coreCourses = coreCourses.slice(0, coreCoursesLeft);
@@ -237,7 +237,7 @@ function BSMath(allCourses, grid, list, transfer) {
   eightCoreCourses = eightCoreCourses.concat(coreCourses);
   //6.3: Convert to a format for the table
   eightCoreCourses = eightCoreCourses.map((course) => {
-    return { value: course.Class };
+    return { value: course.code };
   });
   //Extend to be 8 long
   while (eightCoreCourses.length < 8) {
@@ -247,7 +247,7 @@ function BSMath(allCourses, grid, list, transfer) {
   //Step 7: Compute the 4 math elective requirement
   //7.1: Find all math elective courses which haven't been used for the core
   let mathElectives = listCopy.filter((course) => {
-    return electiveCoursesLut.includes(course.Class);
+    return electiveCoursesLut.includes(course.code);
   });
   //Shorten it to be at most 4 long
   mathElectives = mathElectives.slice(0, 4);
@@ -257,7 +257,7 @@ function BSMath(allCourses, grid, list, transfer) {
   });
   //7.2: Convert to a format for the table
   mathElectives = mathElectives.map((course) => {
-    return { value: course.Class };
+    return { value: course.code };
   });
   //Extend to be 4 long
   while (mathElectives.length < 4) {

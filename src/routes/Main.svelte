@@ -4,8 +4,16 @@
 	import WAYSTracker from './components/WAYSTracker.svelte';
 	import Grid from './components/Grid.svelte';
 	import { onMount } from 'svelte';
-	import { years, quarters, allCourses, courseTable, prefs, courseTableList } from './stores.js';
-	import data from './data/courseDataFile.csv';
+	import {
+		years,
+		quarters,
+		allCourses,
+		courseTable,
+		prefs,
+		courseTableList,
+		isDragging
+	} from './stores.js';
+	import data from './data/final_data_no_reviews.json';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
@@ -13,69 +21,12 @@
 
 	onMount(async () => {
 		$allCourses = data;
-		//Some transformations to make the data more workable
-		//For each course, add id equal to random
-		//Add UnitsTaking property equal to 'Units Ceiling'
-		//Add 'WAYS' property equal to an empty array if 'WAYS 1' and 'WAYS 2' are empty, otherwise add an array with 'WAYS 1' and 'WAYS 2'
 		for (let i = 0; i < $allCourses.length; i++) {
 			$allCourses[i].id = i + '|' + Math.random().toString(36).substring(7);
-			if ($allCourses[i]['WAYS 1'] == '') {
-				$allCourses[i].WAYS = [];
-			} else if ($allCourses[i]['WAYS 2'] == '') {
-				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1']];
-			} else {
-				$allCourses[i].WAYS = [$allCourses[i]['WAYS 1'], $allCourses[i]['WAYS 2']];
-			}
 			$allCourses[i].ms = false;
 			$allCourses[i].csnc = false;
-			//Split course number into department, number, and modifier
-			let courseDept = $allCourses[i].Class.split(' ')[0];
-			let courseNum = $allCourses[i].Class.split(' ')[1];
-			let number = parseInt(courseNum.match(/\d+/)[0]);
-			let modifier = courseNum.substring(number.length);
-			$allCourses[i].dept = courseDept;
-			$allCourses[i].number = number;
-			$allCourses[i].modifier = modifier;
-			//Parse units ceiling and floor
-			$allCourses[i].unitsCeiling = parseInt($allCourses[i]['Units Ceiling']);
-			$allCourses[i].unitsFloor = parseInt($allCourses[i]['Units Floor']);
-			$allCourses[i].unitsTaking = $allCourses[i].unitsCeiling;
-			//Rename 'Mean Hours' to hours and parse it
-			$allCourses[i].hours = parseInt($allCourses[i]['Mean Hours']);
-			//Same for 'Average Eval' but parse as float
-			$allCourses[i].averageEval = parseFloat($allCourses[i]['Average Eval']);
-			//Same for 'Percent Complete' as int
-			$allCourses[i].percentCompleted = parseInt($allCourses[i]['Percent Completed']);
+			$allCourses[i].units_taking = $allCourses[i].max_units;
 		}
-		//Sort the courses by department, number, and modifier (the part after the number)
-		$allCourses.sort((a, b) => {
-			let aDept = a.Class.split(' ')[0];
-			let bDept = b.Class.split(' ')[0];
-			let aClassNum = a.Class.split(' ')[1];
-			let bClassNum = b.Class.split(' ')[1];
-			let aNumber = parseInt(aClassNum.match(/\d+/)[0]);
-			let bNumber = parseInt(bClassNum.match(/\d+/)[0]);
-			let aModifier = aClassNum.substring(aNumber.length);
-			let bModifier = bClassNum.substring(bNumber.length);
-			if (aDept < bDept) {
-				return -1;
-			}
-			if (aDept > bDept) {
-				return 1;
-			}
-			if (aNumber < bNumber) {
-				return -1;
-			}
-			if (aNumber > bNumber) {
-				return 1;
-			}
-			if (aModifier < bModifier) {
-				return -1;
-			}
-			if (aModifier > bModifier) {
-				return 1;
-			}
-		});
 
 		//Get data from local storage
 		const isBrowser = typeof window !== 'undefined';
@@ -144,6 +95,19 @@
 		$courseTableList = courseTableListItems;
 	}
 
+	let threshold = 100; // pixels from the bottom
+
+	function handleMouseMove(event) {
+		if (!$isDragging) {
+			return;
+		}
+		let windowHeight = window.innerHeight;
+
+		if (event.clientY > windowHeight - threshold) {
+			window.scrollBy(0, 20); // scroll down by 10 pixels
+		}
+	}
+
 	function sectionStyle() {
 		if ($prefs.searchCollapsed) {
 			return 'grid-template-columns: minmax(0, 1fr);';
@@ -152,6 +116,8 @@
 		}
 	}
 </script>
+
+<svelte:window on:mousemove={handleMouseMove} />
 
 <section
 	style={sectionStyle()}
