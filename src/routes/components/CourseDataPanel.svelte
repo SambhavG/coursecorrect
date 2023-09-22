@@ -59,20 +59,20 @@
 
 			//Try each of the 14 files via fetch, and use the first one that works
 			let reviewDataPromise = Promise.all([
-				fetch('/reviews/reviews0000.json'),
-				fetch('/reviews/reviews1000.json'),
-				fetch('/reviews/reviews2000.json'),
-				fetch('/reviews/reviews3000.json'),
-				fetch('/reviews/reviews4000.json'),
-				fetch('/reviews/reviews5000.json'),
-				fetch('/reviews/reviews6000.json'),
-				fetch('/reviews/reviews7000.json'),
-				fetch('/reviews/reviews8000.json'),
-				fetch('/reviews/reviews9000.json'),
-				fetch('/reviews/reviews10000.json'),
-				fetch('/reviews/reviews11000.json'),
-				fetch('/reviews/reviews12000.json'),
-				fetch('/reviews/reviews13000.json')
+				fetch('./reviews/reviews0000.json'),
+				fetch('./reviews/reviews1000.json'),
+				fetch('./reviews/reviews2000.json'),
+				fetch('./reviews/reviews3000.json'),
+				fetch('./reviews/reviews4000.json'),
+				fetch('./reviews/reviews5000.json'),
+				fetch('./reviews/reviews6000.json'),
+				fetch('./reviews/reviews7000.json'),
+				fetch('./reviews/reviews8000.json'),
+				fetch('./reviews/reviews9000.json'),
+				fetch('./reviews/reviews10000.json'),
+				fetch('./reviews/reviews11000.json'),
+				fetch('./reviews/reviews12000.json'),
+				fetch('./reviews/reviews13000.json')
 			])
 				.then((responses) => {
 					return Promise.all(

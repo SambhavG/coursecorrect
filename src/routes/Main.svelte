@@ -22,7 +22,7 @@
 	onMount(async () => {
 		let data;
 		try {
-			const res = await fetch('/final_data_no_reviews.json');
+			const res = await fetch('./final_data_no_reviews.json');
 			data = await res.json();
 		} catch (err) {
 			console.log(err);
