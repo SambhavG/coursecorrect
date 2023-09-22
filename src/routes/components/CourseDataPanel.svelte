@@ -4,20 +4,20 @@
 	import { allCourses, prefs, selectedCourse, selectedCoursePinned, courseTable } from '../stores';
 	import { courseColor } from '../utils/utils.js';
 	import {} from 'lucide-svelte';
-	import reviews0 from '../data/reviews/reviews0.json';
-	import reviews1 from '../data/reviews/reviews1000.json';
-	import reviews2 from '../data/reviews/reviews2000.json';
-	import reviews3 from '../data/reviews/reviews3000.json';
-	import reviews4 from '../data/reviews/reviews4000.json';
-	import reviews5 from '../data/reviews/reviews5000.json';
-	import reviews6 from '../data/reviews/reviews6000.json';
-	import reviews7 from '../data/reviews/reviews7000.json';
-	import reviews8 from '../data/reviews/reviews8000.json';
-	import reviews9 from '../data/reviews/reviews9000.json';
-	import reviews10 from '../data/reviews/reviews10000.json';
-	import reviews11 from '../data/reviews/reviews11000.json';
-	import reviews12 from '../data/reviews/reviews12000.json';
-	import reviews13 from '../data/reviews/reviews13000.json';
+	// import reviews0 from '../../../static/reviews/reviews0000.json';
+	// import reviews1 from '../../../static/reviews/reviews1000.json';
+	// import reviews2 from '../../../static/reviews/reviews2000.json';
+	// import reviews3 from '../../../static/reviews/reviews3000.json';
+	// import reviews4 from '../../../static/reviews/reviews4000.json';
+	// import reviews5 from '../../../static/reviews/reviews5000.json';
+	// import reviews6 from '../../../static/reviews/reviews6000.json';
+	// import reviews7 from '../../../static/reviews/reviews7000.json';
+	// import reviews8 from '../../../static/reviews/reviews8000.json';
+	// import reviews9 from '../../../static/reviews/reviews9000.json';
+	// import reviews10 from '../../../static/reviews/reviews10000.json';
+	// import reviews11 from '../../../static/reviews/reviews11000.json';
+	// import reviews12 from '../../../static/reviews/reviews12000.json';
+	// import reviews13 from '../../../static/reviews/reviews13000.json';
 
 	let course = {};
 	$: course = $selectedCourse;
@@ -39,22 +39,59 @@
 	let reviewData = undefined;
 	$: {
 		if (course.code) {
-			reviewData = [
-				reviews0[course.code],
-				reviews1[course.code],
-				reviews2[course.code],
-				reviews3[course.code],
-				reviews4[course.code],
-				reviews5[course.code],
-				reviews6[course.code],
-				reviews7[course.code],
-				reviews8[course.code],
-				reviews9[course.code],
-				reviews10[course.code],
-				reviews11[course.code],
-				reviews12[course.code],
-				reviews13[course.code]
-			].filter((r) => r)[0];
+			reviewData = undefined;
+			// reviewData = [
+			// 	reviews0[course.code],
+			// 	reviews1[course.code],
+			// 	reviews2[course.code],
+			// 	reviews3[course.code],
+			// 	reviews4[course.code],
+			// 	reviews5[course.code],
+			// 	reviews6[course.code],
+			// 	reviews7[course.code],
+			// 	reviews8[course.code],
+			// 	reviews9[course.code],
+			// 	reviews10[course.code],
+			// 	reviews11[course.code],
+			// 	reviews12[course.code],
+			// 	reviews13[course.code]
+			// ].filter((r) => r)[0];
+
+			//Try each of the 14 files via fetch, and use the first one that works
+			let reviewDataPromise = Promise.all([
+				fetch('/reviews/reviews0000.json'),
+				fetch('/reviews/reviews1000.json'),
+				fetch('/reviews/reviews2000.json'),
+				fetch('/reviews/reviews3000.json'),
+				fetch('/reviews/reviews4000.json'),
+				fetch('/reviews/reviews5000.json'),
+				fetch('/reviews/reviews6000.json'),
+				fetch('/reviews/reviews7000.json'),
+				fetch('/reviews/reviews8000.json'),
+				fetch('/reviews/reviews9000.json'),
+				fetch('/reviews/reviews10000.json'),
+				fetch('/reviews/reviews11000.json'),
+				fetch('/reviews/reviews12000.json'),
+				fetch('/reviews/reviews13000.json')
+			])
+				.then((responses) => {
+					return Promise.all(
+						responses.map((response) => {
+							return response.json();
+						})
+					);
+				})
+				.then((data) => {
+					console.log(data.filter((r) => r[course.code])[0][course.code]);
+					return data.filter((r) => r[course.code])[0][course.code];
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			reviewDataPromise.then((data) => {
+				reviewData = data;
+			});
 		}
 	}
 

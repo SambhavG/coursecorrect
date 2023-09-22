@@ -13,13 +13,21 @@
 		courseTableList,
 		isDragging
 	} from './stores.js';
-	import data from './data/final_data_no_reviews.json';
+	// import data from './data/final_data_no_reviews.json';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
 	import Trash from './components/Trash.svelte';
 
 	onMount(async () => {
+		let data;
+		try {
+			const res = await fetch('/final_data_no_reviews.json');
+			data = await res.json();
+		} catch (err) {
+			console.log(err);
+		}
+
 		$allCourses = data;
 		for (let i = 0; i < $allCourses.length; i++) {
 			$allCourses[i].id = i + '|' + Math.random().toString(36).substring(7);
