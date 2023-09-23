@@ -8,6 +8,7 @@
 		years,
 		quarters,
 		allCourses,
+		reviewData,
 		courseTable,
 		prefs,
 		courseTableList,
@@ -18,7 +19,9 @@
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
 	import Trash from './components/Trash.svelte';
-
+	import ConfigPanel from './components/ConfigPanel.svelte';
+	let mounted = false;
+	let oneColumn = false;
 	onMount(async () => {
 		let data;
 		try {
@@ -27,6 +30,45 @@
 		} catch (err) {
 			console.log(err);
 		}
+
+		let reviewDataPromise = Promise.all([
+			fetch('./reviews/reviews0000.json'),
+			fetch('./reviews/reviews1000.json'),
+			fetch('./reviews/reviews2000.json'),
+			fetch('./reviews/reviews3000.json'),
+			fetch('./reviews/reviews4000.json'),
+			fetch('./reviews/reviews5000.json'),
+			fetch('./reviews/reviews6000.json'),
+			fetch('./reviews/reviews7000.json'),
+			fetch('./reviews/reviews8000.json'),
+			fetch('./reviews/reviews9000.json'),
+			fetch('./reviews/reviews10000.json'),
+			fetch('./reviews/reviews11000.json'),
+			fetch('./reviews/reviews12000.json'),
+			fetch('./reviews/reviews13000.json')
+		])
+			.then((responses) => {
+				return Promise.all(
+					responses.map((response) => {
+						return response.json();
+					})
+				);
+			})
+			.then((data) => {
+				//Combine all reviews into one dict
+				let allReviews = {};
+				for (let i = 0; i < data.length; i++) {
+					allReviews = { ...allReviews, ...data[i] };
+				}
+				return allReviews;
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+		reviewDataPromise.then((data) => {
+			$reviewData = data;
+		});
 
 		$allCourses = data;
 		for (let i = 0; i < $allCourses.length; i++) {
@@ -43,10 +85,10 @@
 		let storedQuarters = null;
 		let storedPrefs = null;
 		if (isBrowser) {
-			storedCourseTable = localStorage.getItem('courseTable');
-			storedYears = localStorage.getItem('years');
-			storedQuarters = localStorage.getItem('quarters');
-			storedPrefs = localStorage.getItem('prefs');
+			// storedCourseTable = localStorage.getItem('courseTable');
+			// storedYears = localStorage.getItem('years');
+			// storedQuarters = localStorage.getItem('quarters');
+			// storedPrefs = localStorage.getItem('prefs');
 		}
 		if (storedYears) {
 			$years = JSON.parse(storedYears);
@@ -74,12 +116,13 @@
 			}
 			$courseTable = coursesObj;
 		}
+		mounted = true;
 	});
 
 	//Save to local storage
 	$: {
 		const isBrowser = typeof window !== 'undefined';
-		if (isBrowser) {
+		if (isBrowser && mounted) {
 			if ($courseTable.length != 0) {
 				localStorage.setItem('courseTable', JSON.stringify($courseTable));
 			}
@@ -116,11 +159,19 @@
 		}
 	}
 
-	function sectionStyle() {
-		if ($prefs.searchCollapsed) {
-			return 'grid-template-columns: minmax(0, 1fr);';
+	function sectionStyle(isOneColumn) {
+		if (isOneColumn) {
+			return 'grid-template-columns: minmax(0, 1fr); width: 100%;';
 		} else {
 			return 'grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);';
+		}
+	}
+
+	$: {
+		if ($prefs.panelCollapsed.search) {
+			oneColumn = true;
+		} else {
+			oneColumn = false;
 		}
 	}
 </script>
@@ -128,15 +179,20 @@
 <svelte:window on:mousemove={handleMouseMove} />
 
 <section
-	style={sectionStyle()}
+	style={sectionStyle(oneColumn)}
 	use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }}
 >
-	{#if !$prefs.searchCollapsed}
+	{#if !$prefs.panelCollapsed.search}
 		<div class="searchContainer">
 			<Search />
 		</div>
 	{/if}
 	<div class="gridAndInfoContainer">
+		<div class="dataHeader">
+			<div class="configPanelContain">
+				<ConfigPanel />
+			</div>
+		</div>
 		<div class="dataHeader">
 			<div class="waysTrackerContainer">
 				<WAYSTracker />
@@ -167,7 +223,6 @@
 	section {
 		width: 100%;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);
 		overflow: scroll;
 	}
 
@@ -176,9 +231,9 @@
 	}
 	.gridAndInfoContainer {
 		margin: 0 1em;
-		max-width: 100%;
 	}
 	.dataHeader {
+		width: 100%;
 		margin-bottom: 1em;
 		display: flex;
 		flex-direction: row;
@@ -187,14 +242,12 @@
 	.waysTrackerContainer {
 		margin-right: 1em;
 	}
+	.generalizedDegreeTrackerContainer {
+		margin-right: 1em;
+	}
 	.courseDataPanelContainer {
 		width: 100%;
 		margin-bottom: 1em;
-	}
-	.dataHeader {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
 	}
 
 	.gridContainer {

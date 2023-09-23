@@ -291,9 +291,11 @@
 		box-sizing: border-box;
 	}
 	.title {
+		box-sizing: border-box;
 		width: 100%;
 		font-size: 2em;
 		font-weight: bold;
+		padding-top: 0.5em;
 	}
 
 	.solutionTextContainer {

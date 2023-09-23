@@ -17,6 +17,11 @@
 			return false;
 		}
 
+		//Check if meta filterNotOffered is active and filter if so
+		if (filters.meta.filterNotOffered && course.quarters_offered.length == 0) {
+			return false;
+		}
+
 		//Check if units filter is active
 		let unitsFilterActive = false;
 		Object.keys(filters.units).forEach((unit) => {
@@ -106,8 +111,7 @@
 		if (quartersOfferedFilterActive) {
 			let quartersOfferedFilterFits = false;
 			Object.keys(filters.QuartersOffered).forEach((quarter) => {
-				//TODO: add logic for quarters offered once it's in the dataset
-				if (filters.QuartersOffered[quarter]) {
+				if (course.seasons_offered.includes(quarter.toLowerCase())) {
 					quartersOfferedFilterFits = true;
 				}
 			});
@@ -120,6 +124,7 @@
 	function clearFilters(filter) {
 		if (filter == 0) {
 			$searchFilters.meta.filterGridCourses = false;
+			$searchFilters.meta.filterNotOffered = false;
 			for (let i = 0; i < $resultCategories.length; i++) {
 				$resultCategories[i].hide = false;
 				$resultCategories[i].numResults = $resultCategories[i].defaultNumResults;
@@ -309,7 +314,7 @@
 						searchResultsFunction();
 					}}>Reset all filter settings</button
 				>
-				<div class="option">
+				<div class="option leftAlign">
 					<input
 						type="checkbox"
 						id="filterGridCourses"
@@ -318,6 +323,16 @@
 						bind:checked={$searchFilters.meta.filterGridCourses}
 					/>
 					<label for="filterGridCourses">Hide courses already added to planner</label>
+				</div>
+				<div class="option leftAlign">
+					<input
+						type="checkbox"
+						id="filterGridCourses"
+						name="filterGridCourses"
+						on:click={searchResultsFunction}
+						bind:checked={$searchFilters.meta.filterNotOffered}
+					/>
+					<label for="filterGridCourses">Hide courses not offered</label>
 				</div>
 				<div class="filter">
 					<div class="title">Match type settings</div>
@@ -588,7 +603,7 @@
 	.horizontalLine {
 		width: 100%;
 		height: 0.5em;
-		background-color: var(--color-text-dark);
+		background-color: var(--color-text-light);
 		border-radius: 0.5em;
 	}
 
@@ -602,9 +617,10 @@
 		margin-bottom: 0.3em;
 		padding: 0.5em;
 		border-radius: 1em;
-		background-color: var(--color-text-light);
-		color: var(--color-text-dark);
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
 		font-family: var(--font-mono);
+		border: 0.25em solid var(--color-text-light);
 	}
 
 	.filters {
@@ -707,5 +723,9 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
+	}
+
+	.leftAlign {
+		align-self: flex-start;
 	}
 </style>

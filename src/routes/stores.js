@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior']);
 export const quarters = writable(['Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
+export const reviewData = writable(undefined);
 export const courseTable = writable([]);
 export const courseTableList = writable([]);
 export const WAYSTables = writable([]);
@@ -11,6 +12,7 @@ export const selectedCoursePinned = writable(false);
 export const searchFilters = writable({
 	meta: {
 		'filterGridCourses': false,
+		'filterNotOffered': false,
 	},
 	WAYS: {
 		'AII': false,
@@ -110,17 +112,47 @@ export const isDragging = writable(false);
 //eval, % completed
 export const prefs = writable({
 	courseTableData: {
-		showLinks: false,
-		showWAYS: false,
-		showPercent: false,
-		showCheckboxes: false,
-		yearsCollapsed: {
+		showLinks: true,
+		showWAYS: true,
+		showPercent: true,
+		showCheckboxes: true,
+		
+	},
+	panelCollapsed: {
+		courseData: false,
+		search: false,
+		years: {
 			'Frosh': false,
 			'Sophomore': false,
 			'Junior': false,
 			'Senior': false
 		},
 	},
-	courseDataPanelCollapsed: false,
-	searchCollapsed: false,
+	darkMode: true,
+	transferUnits: [
+		{'name': 'Total',
+		'value': 0},
+		{'name': 'Math AP',
+		'value': 0},
+		{'name': 'Other math',
+		'value': 0},
+		{'name': 'Chemistry AP',
+		'value': 0},
+		{'name': 'Other chemistry',
+		'value': 0},
+		{'name': 'Physics AP',
+		'value': 0},
+		{'name': 'Other physics',
+		'value': 0},
+		{'name': 'CS AP',
+		'value': 0},
+		{'name': 'Other CS',
+		'value': 0},
+		{'name': 'Language AP',
+		'value': 0},
+		{'name': 'Other language',
+		'value': 0}
+	],
+	courseModifications: [],
+	courseAdditions: []
 });

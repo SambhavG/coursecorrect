@@ -50,6 +50,12 @@
   --edp-text: var(--color-text-light);
   --er-text: var(--color-text-light);
   --fr-text: var(--color-text-light);
+  --autumn: hsl(30, 100%, 50%);
+  --winter: hsl(210, 100%, 50%);
+  --spring: hsl(90, 100%, 50%);
+  --spring-text: var(--color-text-dark);
+  --summer: hsl(0, 100%, 50%);
+  --not-offered: hsl(0, 0%, 50%);
 }
 
 /* sizing variables */

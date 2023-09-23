@@ -25,17 +25,16 @@
 		<div class="yearAndCollapseButtonContainer" in:fly={{ y: 200, duration: 300, delay: y * 300 }}>
 			<button
 				on:click={() => {
-					$prefs.courseTableData.yearsCollapsed[year.id] =
-						!$prefs.courseTableData.yearsCollapsed[year.id];
+					$prefs.panelCollapsed.years[year.id] = !$prefs.panelCollapsed.years[year.id];
 				}}
 			>
-				{#if $prefs.courseTableData.yearsCollapsed[year.id]}
+				{#if $prefs.panelCollapsed.years[year.id]}
 					<ChevronsUpDown />
 				{:else}
 					<ChevronsDownUp />
 				{/if}
 			</button>
-			{#if !$prefs.courseTableData.yearsCollapsed[year.id]}
+			{#if !$prefs.panelCollapsed.years[year.id]}
 				<div class="yearContainer" style={rowStyle()}>
 					{#each year.quarters as quarter, q (quarter.id)}
 						<div class="quarterContainer">

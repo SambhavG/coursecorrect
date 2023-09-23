@@ -178,18 +178,13 @@
 		height: 100%;
 	}
 
-	.topRow {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
 	.leftSide {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: left;
 		margin-left: 0.2em;
+		margin: 0.2em 0;
 	}
 	.leftSide > * {
 		height: 100%;
@@ -205,15 +200,10 @@
 		justify-content: left;
 	}
 
-	.classCodeContainer {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.classCodeSpanContainer {
 		display: inline;
 		overflow: auto;
-		margin-left: 0.2em;
+		margin-left: 0.5em;
 	}
 
 	.classCode {

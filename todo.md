@@ -11,16 +11,15 @@
 
 ### Minimum: what exists in spreadsheet
 
-- [ ] Configuration menu
-  - [ ] Hide search
-  - [ ] Clear button
-  - [ ] Transfer units
-  - [ ] Way to change data
+- [x] Configuration menu
+  - [x] Hide search
+  - [x] Clear button
+  - [x] Transfer units
 - [x] Add info to search
 - [ ] Light mode
 - [ ] Show/hide data panels
 - [ ] Fix progress bar colors
-- [ ] Fix hide buttons in search
+- [x] Fix hide buttons in search
 - [ ] Explorecourses link
 - [ ] Add ways, checkboxes, and quarters offered to search
 - [ ] Filter for courses not offered at all
