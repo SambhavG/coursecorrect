@@ -3,22 +3,19 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import { allCourses, searchFilters, isDragging, courseTableList } from '../stores.js';
 	import Course from './Course.svelte';
-	import { checkIfListOfCoursesIncludesCourseByCode } from '../utils/utils.js';
+	import { listOfCourseObjsIncludesCode } from '../utils/utils.js';
 	import { resultCategories } from '../stores.js';
 	let showFilters = true;
-	let query = '';
+	let query = '%';
 
 	function doesCourseFitFilters(course, filters) {
 		//Check if meta filterGridCourses is active and filter if so
-		if (
-			filters.meta.filterGridCourses &&
-			checkIfListOfCoursesIncludesCourseByCode($courseTableList, course)
-		) {
+		if (filters.meta.filterGridCourses && listOfCourseObjsIncludesCode($courseTableList, course)) {
 			return false;
 		}
 
 		//Check if meta filterNotOffered is active and filter if so
-		if (filters.meta.filterNotOffered && course.quarters_offered.length == 0) {
+		if (filters.meta.filterNotOffered && course.seasons_offered.length == 0) {
 			return false;
 		}
 
@@ -111,7 +108,10 @@
 		if (quartersOfferedFilterActive) {
 			let quartersOfferedFilterFits = false;
 			Object.keys(filters.QuartersOffered).forEach((quarter) => {
-				if (course.seasons_offered.includes(quarter.toLowerCase())) {
+				if (
+					filters.QuartersOffered[quarter] &&
+					course.seasons_offered.includes(quarter.toLowerCase())
+				) {
 					quartersOfferedFilterFits = true;
 				}
 			});
@@ -119,6 +119,31 @@
 				return false;
 			}
 		}
+
+		//Check if degree specific filter is active
+		let degreeSpecificFilterActive = false;
+		Object.keys(filters.degreeSpecific.checkboxes).forEach((checkbox) => {
+			if (filters.degreeSpecific.checkboxes[checkbox]) {
+				degreeSpecificFilterActive = true;
+			}
+		});
+
+		//Check if course fits degree specific filter
+		if (degreeSpecificFilterActive) {
+			let degreeSpecificFilterFits = false;
+			Object.keys(filters.degreeSpecific.luts).forEach((lut) => {
+				if (
+					filters.degreeSpecific.checkboxes[lut] &&
+					filters.degreeSpecific.luts[lut].includes(course.code)
+				) {
+					degreeSpecificFilterFits = true;
+				}
+			});
+			if (!degreeSpecificFilterFits) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 	function clearFilters(filter) {
@@ -145,6 +170,10 @@
 			$searchFilters.averageEval.max = 5;
 			$searchFilters.percentCompleted.min = 0;
 			$searchFilters.percentCompleted.max = 100;
+		} else if (filter == 2) {
+			Object.keys($searchFilters.degreeSpecific.checkboxes).forEach((checkbox) => {
+				$searchFilters.degreeSpecific.checkboxes[checkbox] = false;
+			});
 		}
 	}
 
@@ -311,6 +340,7 @@
 					on:click={() => {
 						clearFilters(0);
 						clearFilters(1);
+						clearFilters(2);
 						searchResultsFunction();
 					}}>Reset all filter settings</button
 				>
@@ -498,6 +528,32 @@
 				</div>
 			</div>
 			<div class="horizontalLine" />
+			<div class="filtersAndClearFilterButton">
+				<button
+					class="clearFilterButton"
+					on:click={() => {
+						clearFilters(2);
+						searchResultsFunction();
+					}}>Clear filters</button
+				>
+				<div class="filter">
+					<div class="title">Degree requirements</div>
+					<div class="options">
+						{#each Object.keys($searchFilters.degreeSpecific.checkboxes) as thisDegreeFilter}
+							<div class="option">
+								<input
+									type="checkbox"
+									id={thisDegreeFilter}
+									name={thisDegreeFilter}
+									on:click={searchResultsFunction}
+									bind:checked={$searchFilters.degreeSpecific.checkboxes[thisDegreeFilter]}
+								/>
+								<label for={thisDegreeFilter}>{thisDegreeFilter}</label>
+							</div>
+						{/each}
+					</div>
+				</div>
+			</div>
 		</div>
 	{/if}
 
@@ -657,9 +713,9 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-start;
-		/* padding: 0.5em; */
 		padding: 0.5em 0;
 		flex: 1;
+		width: 100%;
 	}
 
 	.title {

@@ -34,13 +34,64 @@ function courseColor(course) {
   );
 }
 
-function checkIfListOfCoursesIncludesCourseByCode(list, course) {
-  if (list.map((c) => c.Class).includes(course.code)) {
+function listOfCourseObjsIncludesCode(list, course) {
+  if (list.map((c) => c.code).includes(course.code)) {
     return true;
   }
   return false;
 }
 
+function listOfCourseCodesIncludesCode(list, course) {
+  if (list.includes(course.code)) {
+    return true;
+  }
+  return false;
+}
 
+function filterCourseObjsByLut(list, lut) {
+  return list.filter((course) => {
+    return lut.includes(course.code);
+  });
+}
 
-export { courseColor, checkIfListOfCoursesIncludesCourseByCode }
+function getTransferUnits(transfer, key) {
+  return transfer.filter((obj) => {
+    return obj.name === key;
+  })[0]?.value;
+}
+
+function calculateTotalUnits(courses, transfer) {
+  let totalUnits = 0;
+  courses.forEach((course) => {
+    totalUnits += course.units_taking;
+  });
+  totalUnits+=getTransferUnits(transfer, 'Total');
+  return totalUnits;
+}
+
+function extractAndCreateCells(courseList, lut, numExtract) {
+  //Find all courses in courseList which are in lut
+  let courses = courseList.filter((course) => {
+    return lut.includes(course.code);
+  });
+  //Check if anything was found
+  let wasFound = courses.length > 0;
+  let numFound = courses.length;
+  //Shorten it to be at most numExtract
+  courses = courses.slice(0, numExtract);
+  //Remove these courses from the list
+  courseList = courseList.filter((course) => {
+    return !courses.includes(course);
+  });
+  //Convert to cells
+  courses = courses.map((course) => {
+    return { value: course.code };
+  });
+  //Extend to be numExtract long
+  while (courses.length < numExtract) {
+    courses.push({ value: 'ㅤ' });
+  }
+  return { courseList, courses, wasFound, numFound };
+}
+
+export { courseColor, listOfCourseObjsIncludesCode, listOfCourseCodesIncludesCode, filterCourseObjsByLut, getTransferUnits, calculateTotalUnits, extractAndCreateCells}

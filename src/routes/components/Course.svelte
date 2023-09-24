@@ -89,7 +89,7 @@
 >
 	<div class="coverUpButton" style={courseColor(course)}>
 		<div class="leftSide">
-			{#if $prefs.courseTableData.showCheckboxes}
+			{#if $prefs.courseTableData['Checkboxes']}
 				<div class="checkboxesContainer">
 					<div class="checkboxContainer">
 						<input type="checkbox" checked={msChecked} on:change={updateMs} />
@@ -107,7 +107,7 @@
 			</div>
 		</div>
 		<div class="rightSide">
-			{#if $prefs.courseTableData.showWAYS}
+			{#if $prefs.courseTableData['WAYS']}
 				<div class="ways">
 					{#if course.ways.length >= 1}
 						<div class={'ways1 ' + course.ways[0]}>
@@ -123,10 +123,13 @@
 					{/if}
 				</div>
 			{/if}
-			{#if $prefs.courseTableData.showLinks}
+			{#if $prefs.courseTableData['Links']}
 				<div class="classLinks">
 					<div class="classLink">
-						<a href={course.carta_link} target="_blank">
+						<a
+							href={'https://explorecourses.stanford.edu/search?q="' + course.code + '"'}
+							target="_blank"
+						>
 							<Link size={linkSize} />
 						</a>
 					</div>
@@ -137,7 +140,7 @@
 					</div>
 				</div>
 			{/if}
-			{#if $prefs.courseTableData.showPercent}
+			{#if $prefs.courseTableData['Percent completed & eval']}
 				<div class="percentCompletedAndAverageEval">
 					<div
 						class="percentCompleted"
@@ -165,7 +168,7 @@
 		border: 0px;
 		color: var(--color-text-light);
 		border-radius: 1em;
-		height: 3.9em;
+		height: 4em;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -184,7 +187,7 @@
 		align-items: center;
 		justify-content: left;
 		margin-left: 0.2em;
-		margin: 0.2em 0;
+		margin: 0.3em 0;
 	}
 	.leftSide > * {
 		height: 100%;
@@ -207,7 +210,7 @@
 	}
 
 	.classCode {
-		font-size: 1.6em;
+		font-size: 1.5em;
 		font-weight: bold;
 	}
 	.className {

@@ -1,6 +1,7 @@
 <script>
-	import { Info } from 'lucide-svelte';
+	import { ChevronsDownUp, ChevronsUpDown, Info } from 'lucide-svelte';
 	import '../styles.css';
+	import { prefs } from '../stores';
 	export let data = {};
 	//Takes as prop an object describing
 	//(1) what fields should be made
@@ -76,37 +77,85 @@
 </script>
 
 <section>
-	{#each data.rows as row, i (i)}
-		<div class="row" style={rowGridStyle(row)}>
-			{#each row.cells as cell, j (j)}
-				<div class="cell" style={generateCellStyle(cell)}>
-					{cell.value}
-					{#if cell?.progress}
-						<div class="progressBar" style={generateProgressStyle(cell)} />
-					{/if}
-					{#if cell?.info}
-						<div class="infoIcon">
-							<Info
-								size="1.3em"
-								on:click={() => {
-									alert(cell.info);
-								}}
-							/>
+	<button
+		class="switchPanelButton"
+		on:click={() => {
+			$prefs.panelCollapsed.bsTracker = !$prefs.panelCollapsed.bsTracker;
+		}}
+	>
+		{#if $prefs.panelCollapsed.bsTracker}
+			<ChevronsUpDown />
+		{:else}
+			<ChevronsDownUp />
+		{/if}
+	</button>
+	{#if !$prefs.panelCollapsed.bsTracker}
+		<div class="content">
+			{#each data.rows as row, i (i)}
+				<div class="row" style={rowGridStyle(row)}>
+					{#each row.cells as cell, j (j)}
+						<div class="cell" style={generateCellStyle(cell)}>
+							{cell.value ? cell.value : ''}
+							{#if cell?.progress}
+								<div class="progressBar" style={generateProgressStyle(cell)} />
+							{/if}
+							{#if cell?.info}
+								<div class="infoIcon">
+									<Info
+										size="1.3em"
+										on:click={() => {
+											alert(cell.info);
+										}}
+									/>
+								</div>
+							{/if}
 						</div>
-					{/if}
+					{/each}
 				</div>
 			{/each}
 		</div>
-	{/each}
+	{:else}
+		<div class="hiddenNotif">Degree tracker hidden</div>
+	{/if}
 </section>
 
 <style>
 	section {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
 		border: 0.25em solid var(--color-text-light);
+	}
+
+	.switchPanelButton {
+		all: unset;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		border-style: none;
+		border-right: 0.25em solid;
+		padding: 0;
+		width: 2em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hiddenNotif {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		font-size: 1.5em;
+	}
+
+	.content {
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
-		width: 30em;
+		width: 35em;
 		/* height: 40em; */
 		padding: 0.25em 0.25em;
 	}
@@ -134,9 +183,9 @@
 
 	.progressBar {
 		position: absolute;
-		height: 100%;
+		height: 20%;
 		background-color: var(--color-good);
-		top: 0;
+		bottom: 0;
 		left: 0;
 		z-index: -1;
 	}

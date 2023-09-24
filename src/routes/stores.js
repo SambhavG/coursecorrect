@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior']);
+export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior', 'Coterm']);
 export const quarters = writable(['Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
 export const reviewData = writable(undefined);
@@ -45,7 +45,7 @@ export const searchFilters = writable({
 		'max': 100
 	},
 	QuartersOffered: {
-		'Fall': false,
+		'Autumn': false,
 		'Winter': false,
 		'Spring': false,
 		'Summer': false
@@ -112,15 +112,18 @@ export const isDragging = writable(false);
 //eval, % completed
 export const prefs = writable({
 	courseTableData: {
-		showLinks: true,
-		showWAYS: true,
-		showPercent: true,
-		showCheckboxes: true,
-		
+		'Links': true,
+		'WAYS': true,
+		'Percent completed & eval': true,
+		'Checkboxes': true
 	},
 	panelCollapsed: {
 		courseData: false,
 		search: false,
+		ways: false,
+		bsTracker: false,
+		msTracker: false,
+		config: false,
 		years: {
 			'Frosh': false,
 			'Sophomore': false,
@@ -128,7 +131,6 @@ export const prefs = writable({
 			'Senior': false
 		},
 	},
-	darkMode: true,
 	transferUnits: [
 		{'name': 'Total',
 		'value': 0},
@@ -153,6 +155,15 @@ export const prefs = writable({
 		{'name': 'Other language',
 		'value': 0}
 	],
-	courseModifications: [],
-	courseAdditions: []
+	bachelorsDegreeChoice: 0,
+	mastersDegreeChoice: 0,
 });
+
+export const bachelorsDegreeChoices = writable([
+	'BS in Mathematics',
+	'BS in Computer Science (AI Track)'
+]);
+
+export const mastersDegreeChoices = writable([
+
+]);

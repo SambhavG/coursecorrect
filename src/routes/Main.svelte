@@ -1,8 +1,5 @@
 <script>
 	import { dndzone } from 'svelte-dnd-action';
-	import Search from './components/Search.svelte';
-	import WAYSTracker from './components/WAYSTracker.svelte';
-	import Grid from './components/Grid.svelte';
 	import { onMount } from 'svelte';
 	import {
 		years,
@@ -12,21 +9,40 @@
 		courseTable,
 		prefs,
 		courseTableList,
-		isDragging
+		isDragging,
+		searchFilters
 	} from './stores.js';
-	// import data from './data/final_data_no_reviews.json';
+	import Search from './components/Search.svelte';
+	import WAYSTracker from './components/WAYSTracker.svelte';
+	import Grid from './components/Grid.svelte';
 	import GeneralizedDegreeTracker from './components/GeneralizedDegreeTracker.svelte';
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
-	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
 	import Trash from './components/Trash.svelte';
 	import ConfigPanel from './components/ConfigPanel.svelte';
+
+	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
+	import { BSCSAILUT, BSCSAI } from './degrees/BSCSAI.js';
+	import CourseRegexMatch from './degrees/CourseRegexMatch.js';
+	import { X } from 'lucide-svelte';
+
 	let mounted = false;
 	let oneColumn = false;
 	onMount(async () => {
-		let data;
 		try {
 			const res = await fetch('./final_data_no_reviews.json');
-			data = await res.json();
+			$allCourses = await res.json();
+			//Sort by course dept, then number, then modifier
+			$allCourses.sort((a, b) => {
+				if (a.dept != b.dept) {
+					return a.dept.localeCompare(b.dept);
+				}
+				if (a.number != b.number) {
+					return a.number - b.number;
+				}
+				if (a.modifier != b.modifier) {
+					return a.modifier.localeCompare(b.modifier);
+				}
+			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -70,7 +86,6 @@
 			$reviewData = data;
 		});
 
-		$allCourses = data;
 		for (let i = 0; i < $allCourses.length; i++) {
 			$allCourses[i].id = i + '|' + Math.random().toString(36).substring(7);
 			$allCourses[i].ms = false;
@@ -85,10 +100,10 @@
 		let storedQuarters = null;
 		let storedPrefs = null;
 		if (isBrowser) {
-			// storedCourseTable = localStorage.getItem('courseTable');
-			// storedYears = localStorage.getItem('years');
-			// storedQuarters = localStorage.getItem('quarters');
-			// storedPrefs = localStorage.getItem('prefs');
+			storedCourseTable = localStorage.getItem('courseTable');
+			storedYears = localStorage.getItem('years');
+			storedQuarters = localStorage.getItem('quarters');
+			storedPrefs = localStorage.getItem('prefs');
 		}
 		if (storedYears) {
 			$years = JSON.parse(storedYears);
@@ -99,7 +114,6 @@
 		if (storedPrefs) {
 			$prefs = JSON.parse(storedPrefs);
 		}
-
 		if (storedCourseTable && storedCourseTable !== '[]') {
 			$courseTable = JSON.parse(storedCourseTable);
 		} else {
@@ -146,6 +160,42 @@
 		$courseTableList = courseTableListItems;
 	}
 
+	let degreeTrackerData;
+
+	function setDegreeSpecificSearchFilters(lutsInput) {
+		//Reset it first
+		$searchFilters.degreeSpecific = { checkboxes: {}, luts: {} };
+		//For key in lut
+		for (let key in lutsInput) {
+			$searchFilters.degreeSpecific.luts[key] = CourseRegexMatch($allCourses, lutsInput[key]);
+			$searchFilters.degreeSpecific.checkboxes[key] = false;
+		}
+		$searchFilters = $searchFilters;
+	}
+
+	$: {
+		switch ($prefs.bachelorsDegreeChoice) {
+			case 0:
+				degreeTrackerData = BSMath(
+					$allCourses,
+					$courseTable,
+					$courseTableList,
+					$prefs.transferUnits
+				);
+				setDegreeSpecificSearchFilters(BSMathLUT());
+				break;
+			case 1:
+				degreeTrackerData = BSCSAI(
+					$allCourses,
+					$courseTable,
+					$courseTableList,
+					$prefs.transferUnits
+				);
+				setDegreeSpecificSearchFilters(BSCSAILUT());
+				break;
+		}
+	}
+
 	let threshold = 100; // pixels from the bottom
 
 	function handleMouseMove(event) {
@@ -174,10 +224,53 @@
 			oneColumn = false;
 		}
 	}
+
+	let showModal = true;
+
+	function close() {
+		showModal = false;
+	}
 </script>
 
 <svelte:window on:mousemove={handleMouseMove} />
 
+{#if showModal}
+	<div class="overlay" />
+	<div class="modal">
+		<button class="close-button" on:click={close}>
+			<X size="3em" />
+		</button>
+		<div>
+			<h1>Welcome to CourseCorrect</h1>
+			<p>
+				This is a fully automatic 4 year course planning tool. It is specialized for long-term
+				planning and is not a replacement for Explorecourses, Carta, or Oncourse but rather should
+				be used alongside them.
+			</p>
+			<h2>To start</h2>
+			<p>
+				Configure your preferences in the config panel, including your degree and transfer units. At
+				time of writing only a few popular degrees are implememented; however, if you've taken CS
+				106B, you can write a degree checking file yourself and submit a pull request.
+			</p>
+			<p>
+				Search for courses in the top left or in each quarter box. Search updates on keystroke and
+				may take a moment to update.
+			</p>
+			<h2>Info</h2>
+			<p>
+				CourseCorrect was made to be used full-screen on laptops; if the site is jumbled, zoom out.
+			</p>
+			<p>If the entire website breaks, clear your cache and cookies.</p>
+			<p>Data is stored locally on your browser.</p>
+			<h2>Disclaimer</h2>
+			<p>
+				All data and calculations may contain errors. Consult official university materials for
+				ground truths.
+			</p>
+		</div>
+	</div>
+{/if}
 <section
 	style={sectionStyle(oneColumn)}
 	use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }}
@@ -188,23 +281,16 @@
 		</div>
 	{/if}
 	<div class="gridAndInfoContainer">
-		<div class="dataHeader">
-			<div class="configPanelContain">
-				<ConfigPanel />
-			</div>
-		</div>
+		<div class="dataHeader" />
 		<div class="dataHeader">
 			<div class="waysTrackerContainer">
 				<WAYSTracker />
 			</div>
-			<div class="generalizedDegreeTrackerContainer">
-				<GeneralizedDegreeTracker
-					data={BSMath($allCourses, $courseTable, $courseTableList, {
-						totalUnits: 30,
-						APCalc: 10,
-						additionalMath: 0
-					})}
-				/>
+			<!-- <div class="generalizedDegreeTrackerContainer">
+				<GeneralizedDegreeTracker data={degreeTrackerData} />
+			</div> -->
+			<div class="configPanelContain">
+				<ConfigPanel />
 			</div>
 		</div>
 		<div class="courseDataPanelContainer">
@@ -260,5 +346,44 @@
 		/* the centerpoint of the object should be at the middle right */
 		transform: translate(-100%, 0%);
 		padding-right: 1em;
+	}
+
+	.modal {
+		position: fixed;
+		top: 10%;
+		right: 25%;
+		width: 50%;
+		box-sizing: border-box;
+		background-color: var(--color-text-light);
+		padding: 4em 1em;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		z-index: 2;
+		border-radius: 4em;
+		font-size: 1.2em;
+	}
+	.modal > * {
+		color: var(--color-text-dark);
+	}
+
+	.close-button {
+		border: none;
+		background: var(--color-text-light);
+		position: absolute;
+		top: 5%;
+		right: 5%;
+		cursor: pointer;
+	}
+
+	.overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1;
 	}
 </style>

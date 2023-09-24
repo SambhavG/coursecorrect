@@ -1,5 +1,6 @@
 <script>
-	import { ArrowLeft, ArrowRight } from 'lucide-svelte';
+	import { prefs } from './../stores.js';
+	import { ArrowLeft, ArrowRight, ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { courseTableList, WAYSTables } from '../stores.js';
 	import WaysIcons from './WAYSIcons.svelte';
 	//Determine WAYS fulfilled
@@ -189,105 +190,153 @@
 </script>
 
 <section>
-	<div class="title">WAYS</div>
-	<div class="solutionTextContainer">
-		<button
-			on:click={() => {
-				currentSolution--;
-				if (currentSolution < 0) {
-					currentSolution = waysGrids.length - 1;
-				}
-			}}
-		>
-			<ArrowLeft size="2em" style="cursor: pointer;" />
-		</button>
+	<button
+		class="switchPanelButton"
+		on:click={() => {
+			$prefs.panelCollapsed.ways = !$prefs.panelCollapsed.ways;
+		}}
+	>
+		{#if $prefs.panelCollapsed.ways}
+			<ChevronsUpDown />
+		{:else}
+			<ChevronsDownUp />
+		{/if}
+	</button>
+	{#if !$prefs.panelCollapsed.ways}
+		<div class="content">
+			<div class="title">WAYS</div>
+			<div class="solutionTextContainer">
+				<button
+					on:click={() => {
+						currentSolution--;
+						if (currentSolution < 0) {
+							currentSolution = waysGrids.length - 1;
+						}
+					}}
+				>
+					<ArrowLeft size="2em" style="cursor: pointer;" />
+				</button>
 
-		<div class="textStack">
-			<div class="line1">
-				Showing solution {currentSolution + 1} of {waysGrids.length}
+				<div class="textStack">
+					<div class="line1">
+						Showing solution {currentSolution + 1} of {waysGrids.length}
+					</div>
+					<div class="line2">
+						{currentNumWaysFulfilled}/12 WAYS fulfilled
+					</div>
+				</div>
+				<button
+					on:click={() => {
+						currentSolution++;
+						if (currentSolution >= waysGrids.length) {
+							currentSolution = 0;
+						}
+					}}
+				>
+					<ArrowRight size="2em" style="cursor: pointer;" />
+				</button>
 			</div>
-			<div class="line2">
-				{currentNumWaysFulfilled}/12 WAYS fulfilled
+			<div class="table">
+				<div class="row1">
+					<div class={'AII AII1 ' + waysGrids[currentSolution][0]}>
+						<div class="text">AII</div>
+						<WaysIcons ways="AII" />
+					</div>
+					<div class={'AII AII1 ' + waysGrids[currentSolution][1]}>
+						<div class="text">AII</div>
+						<WaysIcons ways="AII" />
+					</div>
+					<div class={'SI SI1 ' + waysGrids[currentSolution][2]}>
+						<div class="text">SI</div>
+						<WaysIcons ways="SI" />
+					</div>
+					<div class={'SI SI2 ' + waysGrids[currentSolution][3]}>
+						<div class="text">SI</div>
+						<WaysIcons ways="SI" />
+					</div>
+				</div>
+				<div class="row2">
+					<div class={'SMA SMA1 ' + waysGrids[currentSolution][4]}>
+						<div class="text">SMA</div>
+						<WaysIcons ways="SMA" />
+					</div>
+					<div class={'SMA SMA2 ' + waysGrids[currentSolution][5]}>
+						<div class="text">SMA</div>
+						<WaysIcons ways="SMA" />
+					</div>
+					<div class={'CE CE1 ' + waysGrids[currentSolution][6]}>
+						<div class="text">CE</div>
+						<WaysIcons ways="CE" />
+					</div>
+					<div class={'CE CE2 ' + waysGrids[currentSolution][7]}>
+						<div class="text">CE</div>
+						<WaysIcons ways="CE" />
+					</div>
+				</div>
+				<div class="row3">
+					<div class={'AQR ' + waysGrids[currentSolution][8]}>
+						<div class="text">AQR</div>
+						<WaysIcons ways="AQR" />
+					</div>
+					<div class={'EDP ' + waysGrids[currentSolution][9]}>
+						<div class="text">EDP</div>
+						<WaysIcons ways="EDP" />
+					</div>
+					<div class={'ER ' + waysGrids[currentSolution][10]}>
+						<div class="text">ER</div>
+						<WaysIcons ways="ER" />
+					</div>
+					<div class={'FR ' + waysGrids[currentSolution][11]}>
+						<div class="text">FR</div>
+						<WaysIcons ways="FR" />
+					</div>
+				</div>
 			</div>
 		</div>
-		<button
-			on:click={() => {
-				currentSolution++;
-				if (currentSolution >= waysGrids.length) {
-					currentSolution = 0;
-				}
-			}}
-		>
-			<ArrowRight size="2em" style="cursor: pointer;" />
-		</button>
-	</div>
-	<div class="table">
-		<div class="row1">
-			<div class={'AII AII1 ' + waysGrids[currentSolution][0]}>
-				<div class="text">AII</div>
-				<WaysIcons ways="AII" />
-			</div>
-			<div class={'AII AII1 ' + waysGrids[currentSolution][1]}>
-				<div class="text">AII</div>
-				<WaysIcons ways="AII" />
-			</div>
-			<div class={'SI SI1 ' + waysGrids[currentSolution][2]}>
-				<div class="text">SI</div>
-				<WaysIcons ways="SI" />
-			</div>
-			<div class={'SI SI2 ' + waysGrids[currentSolution][3]}>
-				<div class="text">SI</div>
-				<WaysIcons ways="SI" />
-			</div>
-		</div>
-		<div class="row2">
-			<div class={'SMA SMA1 ' + waysGrids[currentSolution][4]}>
-				<div class="text">SMA</div>
-				<WaysIcons ways="SMA" />
-			</div>
-			<div class={'SMA SMA2 ' + waysGrids[currentSolution][5]}>
-				<div class="text">SMA</div>
-				<WaysIcons ways="SMA" />
-			</div>
-			<div class={'CE CE1 ' + waysGrids[currentSolution][6]}>
-				<div class="text">CE</div>
-				<WaysIcons ways="CE" />
-			</div>
-			<div class={'CE CE2 ' + waysGrids[currentSolution][7]}>
-				<div class="text">CE</div>
-				<WaysIcons ways="CE" />
-			</div>
-		</div>
-		<div class="row3">
-			<div class={'AQR ' + waysGrids[currentSolution][8]}>
-				<div class="text">AQR</div>
-				<WaysIcons ways="AQR" />
-			</div>
-			<div class={'EDP ' + waysGrids[currentSolution][9]}>
-				<div class="text">EDP</div>
-				<WaysIcons ways="EDP" />
-			</div>
-			<div class={'ER ' + waysGrids[currentSolution][10]}>
-				<div class="text">ER</div>
-				<WaysIcons ways="ER" />
-			</div>
-			<div class={'FR ' + waysGrids[currentSolution][11]}>
-				<div class="text">FR</div>
-				<WaysIcons ways="FR" />
-			</div>
-		</div>
-	</div>
+	{:else}
+		<div class="hiddenNotif">WAYS table hidden</div>
+	{/if}
 </section>
 
 <style>
 	section {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		border: 0.25em solid var(--color-text-light);
+	}
+
+	.switchPanelButton {
+		all: unset;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		border-style: none;
+		border-right: 0.25em solid;
+		padding: 0;
+		width: 2em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hiddenNotif {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		font-size: 1.5em;
+	}
+
+	.content {
 		width: 20em;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: center;
 		text-align: center;
-		border: 0.25em solid var(--color-text-light);
 		box-sizing: border-box;
 	}
 	.title {

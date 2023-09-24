@@ -16,23 +16,21 @@
   - [x] Clear button
   - [x] Transfer units
 - [x] Add info to search
-- [ ] Light mode
-- [ ] Show/hide data panels
-- [ ] Fix progress bar colors
+- [x] Show/hide data panels
+- [x] Fix progress bar colors
 - [x] Fix hide buttons in search
-- [ ] Explorecourses link
-- [ ] Add ways, checkboxes, and quarters offered to search
-- [ ] Filter for courses not offered at all
+- [x] Explorecourses link
+- [x] Add ways, checkboxes, and quarters offered to search
+- [x] Filter for courses not offered at all
 
 - [x] checkbox for masters; solid border is bachelors, dotted is masters.
 - [x] panel with course data of selected course
 - [x] panel with ways requirements calculations
 - [x] panel with bachelors calculations
-- [ ] panel with masters calculations
 - [x] auto coloring
 - [x] Ways to search (by course ID & desc (id match floats to top))
 - [x] Search filters
-  - [ ] Filters for each specific requirement in any degree
+  - [x] Filters for each specific requirement in any degree
   - [x] Filter courses already in grid
 - [x] Scrolling search results
 

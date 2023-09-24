@@ -61,7 +61,7 @@
 	//Set default value on load
 	$: {
 		if (!course.code) {
-			let firstCourse = $allCourses.find((c) => c.Class === 'CS 106A');
+			let firstCourse = $allCourses.find((c) => c.code === 'CS 106A');
 			firstCourse = $allCourses[0];
 			if (firstCourse) {
 				course = firstCourse;
