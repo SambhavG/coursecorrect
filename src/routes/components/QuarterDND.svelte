@@ -3,6 +3,7 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import { years, quarters, allCourses, courseTable, isDragging } from '../stores.js';
 	import { CornerDownLeft } from 'lucide-svelte';
+	import { tick } from 'svelte';
 
 	import Course from './Course.svelte';
 
@@ -16,13 +17,23 @@
 
 	const flipDurationMs = 200;
 
+	let scrollPosition = 0;
+
 	function handleDndConsider(e, y, q) {
+		scrollPosition = document.scrollingElement.scrollTop;
 		$courseTable[y].quarters[q].courses = e.detail.items;
 		$isDragging = true;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}
 	function handleDndFinalize(e, y, q) {
+		scrollPosition = document.scrollingElement.scrollTop;
 		$courseTable[y].quarters[q].courses = e.detail.items;
 		$isDragging = false;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}
 
 	function calculateTotalHours(courses) {
@@ -72,6 +83,10 @@
 		if (searchCourse != null) {
 			addCourse();
 		}
+		const scrollPosition = document.scrollingElement.scrollTop;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}
 
 	$: {

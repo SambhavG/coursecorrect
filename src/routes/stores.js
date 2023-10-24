@@ -67,8 +67,8 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Exact Match',
 		hide: false,
-		numResults: 100,
-		defaultNumResults: 100,
+		numResults: 10,
+		defaultNumResults: 10,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	},
@@ -87,8 +87,8 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Title Match',
 		hide: false,
-		numResults: 100,
-		defaultNumResults: 100,
+		numResults: 10,
+		defaultNumResults: 10,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	},
@@ -97,14 +97,13 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Description Match',
 		hide: false,
-		numResults: 100,
-		defaultNumResults: 100,
+		numResults: 10,
+		defaultNumResults: 10,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	}
 ]);
 
-export const courseWidth = writable(15);
 export const isDragging = writable(false);
 
 //For course objects, always show the course number, hours, units
@@ -161,7 +160,8 @@ export const prefs = writable({
 
 export const bachelorsDegreeChoices = writable([
 	'BS in Mathematics',
-	'BS in Computer Science (AI Track)'
+	'BS in Computer Science (AI Track)',
+	'BS in Computer Science (Systems Track)',
 ]);
 
 export const mastersDegreeChoices = writable([

@@ -1,6 +1,6 @@
 <script>
 	import WAYSIcons from './WAYSIcons.svelte';
-	import { ChevronsDownUp, ChevronsUpDown, PinOff } from 'lucide-svelte';
+	import { ChevronsDownUp, ChevronsUpDown, Link, PinOff } from 'lucide-svelte';
 	import {
 		allCourses,
 		reviewData,
@@ -11,10 +11,13 @@
 	} from '../stores';
 	import { courseColor } from '../utils/utils.js';
 	import {} from 'lucide-svelte';
+	import { tick } from 'svelte';
 
 	let course = {};
 	$: course = $selectedCourse;
 	let unitsTaking = 0;
+	let linkSize = '20';
+
 	//Update unitsTaking on load
 	$: {
 		//We don't want to trigger an update
@@ -36,25 +39,77 @@
 		}
 	}
 
-	let positiveReviews = [];
-	let neutralReviews = [];
-	let negativeReviews = [];
+	let reviewDataParsed = {
+		totals: {
+			numPositive: 0,
+			numNegative: 0
+		},
+		data: {}
+	};
 	$: {
 		if (thisReviewData) {
-			positiveReviews = [];
-			neutralReviews = [];
-			negativeReviews = [];
+			//Go through each review. Determine if it is positive or negative, and determine
+			//if its teacher is known, multiple, or unknown. If it is known, add it to the
+			reviewDataParsed = {
+				totals: {
+					numPositive: 0,
+					numNegative: 0
+				},
+				data: {}
+			};
+
 			thisReviewData.forEach((r) => {
 				let sentiment = parseFloat(r.substring(1, r.indexOf(']')));
 				let rNoSentiment = r.substring(r.indexOf(']') + 1);
-				if (sentiment > 0.05) {
-					positiveReviews.push(rNoSentiment);
-				} else if (sentiment < -0.05) {
-					negativeReviews.push(rNoSentiment);
-				} else {
-					neutralReviews.push(rNoSentiment);
+				//Term is substring up to ], not including first [
+				let term = rNoSentiment.substring(2, rNoSentiment.indexOf(']'));
+				//Log course data
+				const pastOfferings = course.past_offerings;
+				let instructors = [];
+				let thisInstructor = '';
+
+				pastOfferings.forEach((offering) => {
+					if (offering.term === term) {
+						instructors.push(offering.instructor_name);
+					}
+				});
+
+				if (instructors.length == 0) {
+					thisInstructor = 'Unknown';
+				} else if (instructors.length == 1) {
+					thisInstructor = instructors[0];
+				} else if (instructors.length > 1) {
+					thisInstructor = 'One of several';
+				}
+
+				if (reviewDataParsed.data[thisInstructor] == undefined) {
+					reviewDataParsed.data[thisInstructor] = {
+						positive: [],
+						negative: []
+					};
+				}
+				const sentimentThreshold = -0.5;
+				rNoSentiment = '[' + thisInstructor + '] ' + rNoSentiment;
+				if (sentiment > sentimentThreshold) {
+					reviewDataParsed.totals.numPositive++;
+					reviewDataParsed.data[thisInstructor].positive.push(rNoSentiment);
+				} else if (sentiment <= sentimentThreshold) {
+					reviewDataParsed.totals.numNegative++;
+					reviewDataParsed.data[thisInstructor].negative.push(rNoSentiment);
 				}
 			});
+			//In reviewDataParsed.data, move "One of several" to the end, then move "Unknown" to the end
+			//If they exist
+			if (reviewDataParsed.data['One of several'] != undefined) {
+				let val = reviewDataParsed.data['One of several'];
+				delete reviewDataParsed.data['One of several'];
+				reviewDataParsed.data['One of several'] = val;
+			}
+			if (reviewDataParsed.data['Unknown'] != undefined) {
+				let val = reviewDataParsed.data['Unknown'];
+				delete reviewDataParsed.data['Unknown'];
+				reviewDataParsed.data['Unknown'] = val;
+			}
 		}
 	}
 
@@ -122,6 +177,10 @@
 	<button
 		on:click={() => {
 			$prefs.panelCollapsed.courseData = !$prefs.panelCollapsed.courseData;
+			const scrollPosition = document.scrollingElement.scrollTop;
+			tick().then(() => {
+				document.scrollingElement.scrollTop = scrollPosition;
+			});
 		}}
 	>
 		{#if $prefs.panelCollapsed.courseData}
@@ -135,7 +194,9 @@
 			<div class="header">
 				<div class="courseCodeAndNameContainer" style={courseColor(course)}>
 					<span class="courseCode">{course.code}</span>
-					<span class="courseName">{course.short_title}</span>
+					<span class="courseName"
+						>{course?.long_title?.substring(course.long_title.indexOf(':') + 2)}</span
+					>
 				</div>
 				<div class="hoursUnitsWaysData">
 					<div class="courseHours">
@@ -168,6 +229,19 @@
 							<WAYSIcons ways={course.ways[1]} />
 						</div>
 					{/if}
+					<div class="classLink">
+						<a
+							href={'https://explorecourses.stanford.edu/search?q="' + course.code + '"'}
+							target="_blank"
+						>
+							<Link size={linkSize} />
+						</a>
+					</div>
+					<div class="classLink">
+						<a href={course.carta_link} target="_blank">
+							<Link class="icon" size={linkSize} />
+						</a>
+					</div>
 				</div>
 				<div class="ratingCompletionData">
 					{#if course.average_rating != -1}
@@ -198,31 +272,39 @@
 				<div class="disclaimer">
 					Sentiment classification is AI-generated - categorizations may be inaccurate
 				</div>
-				<div class="courseReviewsColumns">
-					<div class="positiveReviews">
-						<div class="positiveReviewCount">
-							{positiveReviews.length} positive
-						</div>
-						{#each positiveReviews as r}
-							<div class="review">{r}</div>
-						{/each}
+				<div class="courseReviewsBlocks">
+					<div class="totalsHeader">Overall review count:</div>
+					<div class="totalsHeaderNonBold">
+						{reviewDataParsed.totals?.numPositive} likely positive,
+						{reviewDataParsed.totals?.numNegative} potentially negative
 					</div>
-					<div class="neutralReviews">
-						<div class="neutralReviewCount">
-							{neutralReviews.length} neutral
+					<div class="horizontalLine" />
+					{#each Object.keys(reviewDataParsed?.data) as instructor}
+						<div class="teachersBlock">
+							<div class="teacherName">{instructor}</div>
+							<div class="reviewsBlock">
+								<div class="positiveReviews">
+									<div class="positiveReviewCount">
+										{reviewDataParsed.data[instructor].positive.length} likely positive
+									</div>
+									{#each reviewDataParsed.data[instructor].positive as r}
+										<div class="review">{r}</div>
+									{/each}
+								</div>
+								<div class="negativeReviews">
+									<div class="negativeReviewCount">
+										{reviewDataParsed.data[instructor].negative.length} potentially negative
+									</div>
+									{#each reviewDataParsed.data[instructor].negative as r}
+										<div class="review">{r}</div>
+									{/each}
+								</div>
+							</div>
 						</div>
-						{#each neutralReviews as r}
-							<div class="review">{r}</div>
-						{/each}
-					</div>
-					<div class="negativeReviews">
-						<div class="negativeReviewCount">
-							{negativeReviews.length} negative
-						</div>
-						{#each negativeReviews as r}
-							<div class="review">{r}</div>
-						{/each}
-					</div>
+						{#if instructor != Object.keys(reviewDataParsed.data)[Object.keys(reviewDataParsed.data).length - 1]}
+							<div class="horizontalLine" />
+						{/if}
+					{/each}
 				</div>
 			</div>
 			{#if $selectedCoursePinned}
@@ -230,6 +312,10 @@
 					class="unpinButton"
 					on:click={() => {
 						$selectedCoursePinned = false;
+						const scrollPosition = document.scrollingElement.scrollTop;
+						tick().then(() => {
+							document.scrollingElement.scrollTop = scrollPosition;
+						});
 					}}
 				>
 					<PinOff />
@@ -391,34 +477,59 @@
 		margin-bottom: 0.5em;
 	}
 
-	.courseReviewsColumns {
+	.courseReviewsBlocks {
 		width: 100%;
 		height: 100%;
+	}
+	.totalsBlock,
+	.reviewsBlock {
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
 		justify-content: space-between;
 	}
 
-	.courseReviewsColumns > * {
-		margin: 0 0.5em;
+	.reviewsBlock > * {
 		flex: 1;
-		height: 100%;
-		overflow-y: scroll;
+	}
+	.totalsContainer {
+		border: 1px solid var(--color-text-light);
+	}
+	.totalsHeader,
+	.totalsHeaderNonBold,
+	.teacherName {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.5em;
+		font-style: italic;
+	}
+	.totalsHeader {
+		font-weight: bold;
+		font-style: normal;
+	}
+
+	.horizontalLine {
+		width: 100%;
+		height: 0.5em;
+		background-color: var(--color-text-light);
+		border-radius: 0.5em;
+		margin: 1em 0;
 	}
 
 	.positiveReviewCount,
-	.neutralReviewCount,
 	.negativeReviewCount {
 		font-size: 1.5em;
-		font-weight: bold;
+		/* font-weight: bold; */
 		margin-bottom: 0.5em;
 		text-align: center;
 	}
 
 	.review {
 		border: 1px solid var(--color-text-light);
-		margin: 0.5em 0;
+		margin: 0.5em 0.25em;
 		padding: 0.5em;
 	}
 

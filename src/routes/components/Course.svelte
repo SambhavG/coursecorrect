@@ -4,6 +4,7 @@
 	import { Link } from 'lucide-svelte';
 	import { courseColor } from '../utils/utils.js';
 	import WAYSIcon from './WAYSIcons.svelte';
+	import { tick } from 'svelte';
 	export let course = {};
 	let msChecked = false;
 	let csncChecked = false;
@@ -85,6 +86,10 @@
 	on:click={() => {
 		$selectedCourse = course;
 		$selectedCoursePinned = true;
+		const scrollPosition = document.scrollingElement.scrollTop;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}}
 >
 	<div class="coverUpButton" style={courseColor(course)}>

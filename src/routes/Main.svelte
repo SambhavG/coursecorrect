@@ -24,9 +24,25 @@
 	import { BSCSAILUT, BSCSAI } from './degrees/BSCSAI.js';
 	import CourseRegexMatch from './degrees/CourseRegexMatch.js';
 	import { X } from 'lucide-svelte';
+	import { BSCSSystems, BSCSSystemsLUT } from './degrees/BSCSSystems.js';
 
 	let mounted = false;
 	let oneColumn = false;
+	let overallStyle = '';
+	$: {
+		if ($isDragging) {
+			overallStyle = 'overflow: hidden;';
+			console.log('dragging');
+		} else {
+			overallStyle = '';
+		}
+		if (oneColumn) {
+			overallStyle += 'grid-template-columns: minmax(0, 1fr); width: 100%;';
+		} else {
+			overallStyle += 'grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);';
+		}
+	}
+
 	onMount(async () => {
 		try {
 			const res = await fetch('./final_data_no_reviews.json');
@@ -174,26 +190,30 @@
 	}
 
 	$: {
+		//Set
+		let degreeTrackerFunction = null;
+		let degreeFiltersFunction = null;
 		switch ($prefs.bachelorsDegreeChoice) {
 			case 0:
-				degreeTrackerData = BSMath(
-					$allCourses,
-					$courseTable,
-					$courseTableList,
-					$prefs.transferUnits
-				);
-				setDegreeSpecificSearchFilters(BSMathLUT());
+				degreeTrackerFunction = BSMath;
+				degreeFiltersFunction = BSMathLUT;
 				break;
 			case 1:
-				degreeTrackerData = BSCSAI(
-					$allCourses,
-					$courseTable,
-					$courseTableList,
-					$prefs.transferUnits
-				);
-				setDegreeSpecificSearchFilters(BSCSAILUT());
+				degreeTrackerFunction = BSCSAI;
+				degreeFiltersFunction = BSCSAILUT;
+				break;
+			case 2:
+				degreeTrackerFunction = BSCSSystems;
+				degreeFiltersFunction = BSCSSystemsLUT;
 				break;
 		}
+		degreeTrackerData = degreeTrackerFunction(
+			$allCourses,
+			$courseTable,
+			$courseTableList,
+			$prefs.transferUnits
+		);
+		setDegreeSpecificSearchFilters(degreeFiltersFunction());
 	}
 
 	let threshold = 100; // pixels from the bottom
@@ -203,17 +223,11 @@
 			return;
 		}
 		let windowHeight = window.innerHeight;
-
+		// console.log(event.clientY);
+		// console.log(windowHeight - threshold);
 		if (event.clientY > windowHeight - threshold) {
-			window.scrollBy(0, 20); // scroll down by 10 pixels
-		}
-	}
-
-	function sectionStyle(isOneColumn) {
-		if (isOneColumn) {
-			return 'grid-template-columns: minmax(0, 1fr); width: 100%;';
-		} else {
-			return 'grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);';
+			console.log('scrolling');
+			window.scrollBy(0, 10); // scroll down by 10 pixels
 		}
 	}
 
@@ -232,63 +246,73 @@
 	}
 </script>
 
-<svelte:window on:mousemove={handleMouseMove} />
+<!-- <svelte:window on:mousemove={handleMouseMove} /> -->
 
-{#if showModal}
-	<div class="overlay" />
-	<div class="modal">
-		<button class="close-button" on:click={close}>
-			<X size="3em" />
-		</button>
-		<div>
-			<h1>Welcome to CourseCorrect</h1>
-			<p>
-				This is a fully automatic 4 year course planning tool. It is specialized for long-term
-				planning and is not a replacement for Explorecourses, Carta, or Oncourse but rather should
-				be used alongside them.
-			</p>
-			<h2>To start</h2>
-			<p>
-				Configure your preferences in the config panel, including your degree and transfer units. At
-				time of writing only a few popular degrees are implememented; however, if you've taken CS
-				106B, you can write a degree checking file yourself and submit a pull request.
-			</p>
-			<p>
-				Search for courses in the top left or in each quarter box. Search updates on keystroke and
-				may take a moment to update.
-			</p>
-			<h2>Info</h2>
-			<p>
-				CourseCorrect was made to be used full-screen on laptops; if the site is jumbled, zoom out.
-			</p>
-			<p>If the entire website breaks, clear your cache and cookies.</p>
-			<p>Data is stored locally on your browser.</p>
-			<h2>Disclaimer</h2>
-			<p>
-				All data and calculations may contain errors. Consult official university materials for
-				ground truths.
-			</p>
-		</div>
-	</div>
-{/if}
-<section
-	style={sectionStyle(oneColumn)}
-	use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }}
->
+<!-- use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }} -->
+<section style={overallStyle}>
 	{#if !$prefs.panelCollapsed.search}
 		<div class="searchContainer">
 			<Search />
 		</div>
 	{/if}
 	<div class="gridAndInfoContainer">
-		<div class="dataHeader" />
+		<!-- <div class="dataHeader" /> -->
+		{#if showModal}
+			<div class="modal">
+				<button class="close-button" on:click={close}>
+					<X size="3em" />
+				</button>
+				<div>
+					<h2>Welcome to CourseCorrect</h2>
+					<p>
+						This is a 5 year course planning tool. It is specialized for long-term planning and is
+						not a replacement for Explorecourses, Carta, or Oncourse but rather should be used
+						alongside them. Ideally you should plan your current quarter first, then use this tool
+						to plan all future years.
+					</p>
+					<h2>To start</h2>
+					<p>
+						Configure your preferences in the config panel, including your degree and transfer
+						units. Only a few popular degrees are implememented, but if you've taken CS 106B, you
+						are more than capable of write a degree checking file yourself (in ~1 hour depending on
+						how complex it is) and submit a pull request (<a
+							href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
+							target="_blank"
+						>
+							src/routes/degrees
+						</a>)
+					</p>
+					<p>
+						Search for courses in the top left or within each quarter. Search updates on keystroke
+						and may take a moment to update. Use filters aggressively to find extremely particular
+						courses.
+					</p>
+					<h2>Other info</h2>
+					<p>
+						CourseCorrect was made to be used full-screen on laptops; if the site is jumbled, zoom
+						out.
+					</p>
+					<p>If the entire website breaks, clear your cache and cookies.</p>
+					<p>Data is stored locally on your browser.</p>
+					<p>
+						The site is broken on Firefox (and potentially other browsers) because of how Github
+						Pages handles hosting; use Chrome/Chromium-based browsers.
+					</p>
+					<h2>Disclaimer</h2>
+					<p>
+						All data and calculations may contain errors. Consult official university materials for
+						ground truths.
+					</p>
+				</div>
+			</div>
+		{/if}
 		<div class="dataHeader">
 			<div class="waysTrackerContainer">
 				<WAYSTracker />
 			</div>
-			<!-- <div class="generalizedDegreeTrackerContainer">
+			<div class="generalizedDegreeTrackerContainer">
 				<GeneralizedDegreeTracker data={degreeTrackerData} />
-			</div> -->
+			</div>
 			<div class="configPanelContain">
 				<ConfigPanel />
 			</div>
@@ -349,10 +373,7 @@
 	}
 
 	.modal {
-		position: fixed;
-		top: 10%;
-		right: 25%;
-		width: 50%;
+		position: relative;
 		box-sizing: border-box;
 		background-color: var(--color-text-light);
 		padding: 4em 1em;
@@ -360,9 +381,9 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
-		z-index: 2;
 		border-radius: 4em;
 		font-size: 1.2em;
+		margin-bottom: 1em;
 	}
 	.modal > * {
 		color: var(--color-text-dark);
@@ -375,15 +396,5 @@
 		top: 5%;
 		right: 5%;
 		cursor: pointer;
-	}
-
-	.overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 1;
 	}
 </style>

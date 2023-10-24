@@ -2,6 +2,7 @@
 	import { ChevronsDownUp, ChevronsUpDown, Info } from 'lucide-svelte';
 	import '../styles.css';
 	import { prefs } from '../stores';
+	import { tick } from 'svelte';
 	export let data = {};
 	//Takes as prop an object describing
 	//(1) what fields should be made
@@ -81,6 +82,10 @@
 		class="switchPanelButton"
 		on:click={() => {
 			$prefs.panelCollapsed.bsTracker = !$prefs.panelCollapsed.bsTracker;
+			const scrollPosition = document.scrollingElement.scrollTop;
+			tick().then(() => {
+				document.scrollingElement.scrollTop = scrollPosition;
+			});
 		}}
 	>
 		{#if $prefs.panelCollapsed.bsTracker}

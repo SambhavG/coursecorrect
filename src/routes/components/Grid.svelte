@@ -3,6 +3,7 @@
 	import { years, quarters, courseTable, prefs } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
+	import { tick } from 'svelte';
 
 	let width = 1400;
 	if (typeof window !== 'undefined') {
@@ -26,6 +27,10 @@
 			<button
 				on:click={() => {
 					$prefs.panelCollapsed.years[year.id] = !$prefs.panelCollapsed.years[year.id];
+					const scrollPosition = document.scrollingElement.scrollTop;
+					tick().then(() => {
+						document.scrollingElement.scrollTop = scrollPosition;
+					});
 				}}
 			>
 				{#if $prefs.panelCollapsed.years[year.id]}

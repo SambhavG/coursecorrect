@@ -3,6 +3,7 @@
 	import { ArrowLeft, ArrowRight, ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { courseTableList, WAYSTables } from '../stores.js';
 	import WaysIcons from './WAYSIcons.svelte';
+	import { tick } from 'svelte';
 	//Determine WAYS fulfilled
 	let waysGrids = [];
 	let currentSolution = 0;
@@ -194,6 +195,10 @@
 		class="switchPanelButton"
 		on:click={() => {
 			$prefs.panelCollapsed.ways = !$prefs.panelCollapsed.ways;
+			const scrollPosition = document.scrollingElement.scrollTop;
+			tick().then(() => {
+				document.scrollingElement.scrollTop = scrollPosition;
+			});
 		}}
 	>
 		{#if $prefs.panelCollapsed.ways}
@@ -212,6 +217,10 @@
 						if (currentSolution < 0) {
 							currentSolution = waysGrids.length - 1;
 						}
+						const scrollPosition = document.scrollingElement.scrollTop;
+						tick().then(() => {
+							document.scrollingElement.scrollTop = scrollPosition;
+						});
 					}}
 				>
 					<ArrowLeft size="2em" style="cursor: pointer;" />
@@ -231,6 +240,10 @@
 						if (currentSolution >= waysGrids.length) {
 							currentSolution = 0;
 						}
+						const scrollPosition = document.scrollingElement.scrollTop;
+						tick().then(() => {
+							document.scrollingElement.scrollTop = scrollPosition;
+						});
 					}}
 				>
 					<ArrowRight size="2em" style="cursor: pointer;" />

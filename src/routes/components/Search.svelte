@@ -5,7 +5,9 @@
 	import Course from './Course.svelte';
 	import { listOfCourseObjsIncludesCode } from '../utils/utils.js';
 	import { resultCategories } from '../stores.js';
-	let showFilters = true;
+	import { tick } from 'svelte';
+
+	let showFilters = false;
 	let query = '%';
 
 	function doesCourseFitFilters(course, filters) {
@@ -178,7 +180,10 @@
 	}
 
 	const flipDurationMs = 300;
+	let scrollPosition = 0;
+
 	function handleDndConsider(e, type) {
+		scrollPosition = document.scrollingElement.scrollTop;
 		$resultCategories.forEach((category) => {
 			if (category.type == type) {
 				category.results = e.detail.items;
@@ -186,8 +191,12 @@
 		});
 		$resultCategories = $resultCategories;
 		$isDragging = true;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}
 	function handleDndFinalize(e, type) {
+		scrollPosition = document.scrollingElement.scrollTop;
 		$resultCategories.forEach((category) => {
 			if (category.type == type) {
 				category.results = e.detail.items;
@@ -195,6 +204,9 @@
 		});
 		$resultCategories = $resultCategories;
 		$isDragging = false;
+		tick().then(() => {
+			document.scrollingElement.scrollTop = scrollPosition;
+		});
 	}
 	function randomizeId(course) {
 		return {
@@ -204,6 +216,12 @@
 	}
 
 	function searchResultsFunction() {
+		if (typeof window !== 'undefined') {
+			const scrollPosition = document.scrollingElement.scrollTop;
+			tick().then(() => {
+				document.scrollingElement.scrollTop = scrollPosition;
+			});
+		}
 		let queryUpper = query.toUpperCase().trim();
 		let queryLower = query.toLowerCase().trim();
 		let workingList = $allCourses.filter((course) => doesCourseFitFilters(course, $searchFilters));
@@ -378,7 +396,7 @@
 										name={category.type}
 										on:click={() => {
 											checkboxFunction(category.type);
-											searchResultsFunction;
+											searchResultsFunction();
 										}}
 										bind:checked={category.hide}
 									/>

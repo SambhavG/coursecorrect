@@ -8,6 +8,7 @@
 		quarters,
 		years
 	} from '../stores';
+	import { tick } from 'svelte';
 
 	function clearCourses() {
 		let coursesObj = [];
@@ -29,6 +30,10 @@
 		class="switchPanelButton"
 		on:click={() => {
 			$prefs.panelCollapsed.config = !$prefs.panelCollapsed.config;
+			const scrollPosition = document.scrollingElement.scrollTop;
+			tick().then(() => {
+				document.scrollingElement.scrollTop = scrollPosition;
+			});
 		}}
 	>
 		{#if $prefs.panelCollapsed.config}
@@ -45,6 +50,10 @@
 					on:click={() => {
 						$prefs.panelCollapsed.search = !$prefs.panelCollapsed.search;
 						$prefs = $prefs;
+						const scrollPosition = document.scrollingElement.scrollTop;
+						tick().then(() => {
+							document.scrollingElement.scrollTop = scrollPosition;
+						});
 					}}
 				>
 					{#if $prefs.panelCollapsed.search}
@@ -58,6 +67,10 @@
 				<button
 					on:click={() => {
 						showClearCoursesModal = !showClearCoursesModal;
+						const scrollPosition = document.scrollingElement.scrollTop;
+						tick().then(() => {
+							document.scrollingElement.scrollTop = scrollPosition;
+						});
 					}}
 				>
 					Clear all courses
@@ -73,6 +86,10 @@
 										on:click={() => {
 											clearCourses();
 											showClearCoursesModal = false;
+											const scrollPosition = document.scrollingElement.scrollTop;
+											tick().then(() => {
+												document.scrollingElement.scrollTop = scrollPosition;
+											});
 										}}
 									>
 										Yes
@@ -80,6 +97,10 @@
 									<button
 										on:click={() => {
 											showClearCoursesModal = false;
+											const scrollPosition = document.scrollingElement.scrollTop;
+											tick().then(() => {
+												document.scrollingElement.scrollTop = scrollPosition;
+											});
 										}}
 									>
 										No
@@ -126,6 +147,9 @@
 					placeholder="Transfer unit units"
 				/>
 			</div>
+			<div class="info">
+				<b> Set your total units, then set each individual category.</b>
+			</div>
 			<div class="degreeCheckerConfig">
 				<div class="header">Degree checker</div>
 				<div class="bachelorsDegreeDropdown">
@@ -149,7 +173,10 @@
 				</div>
 				<div class="info">
 					If your degree is not listed and you've taken CS 106B, you can write it and submit a pull
-					request: go to <a href="https://github.com/SambhavG/coursecorrect">
+					request: go to <a
+						href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
+						target="_blank"
+					>
 						src/routes/degrees
 					</a> and read the existing implementations to see how.
 				</div>
@@ -231,6 +258,9 @@
 		margin: 0.5em 0;
 	}
 
+	.clearContainer {
+		margin: 0.5em 0;
+	}
 	select {
 		box-sizing: border-box;
 		height: 1.8em;

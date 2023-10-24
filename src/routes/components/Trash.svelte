@@ -17,7 +17,7 @@
 </script>
 
 {#if $isDragging}
-	<section class:isVisisble={$isDragging}>
+	<section class:isVisisble={true}>
 		<div class="trashIcon">
 			<Trash2 size="10em" />
 		</div>
@@ -41,9 +41,10 @@
 		width: 15em;
 		height: 15em;
 		position: relative;
-		display: none;
+		/* display: hidden; */
+		/* visibility: hidden; */
 		/* make it not respond to pointer events */
-		pointer-events: none;
+		/* pointer-events: none; */
 	}
 	section > * {
 		position: absolute;
@@ -53,7 +54,8 @@
 		height: 100%;
 	}
 	.isVisisble {
-		display: block;
+		display: flex;
+		visibility: visible;
 		pointer-events: auto;
 	}
 </style>
