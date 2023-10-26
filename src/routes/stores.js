@@ -154,7 +154,7 @@ export const prefs = writable({
 		{'name': 'Other language',
 		'value': 0}
 	],
-	bachelorsDegreeChoice: 0,
+	bachelorsDegreeChoice: 1,
 	mastersDegreeChoice: 0,
 });
 
