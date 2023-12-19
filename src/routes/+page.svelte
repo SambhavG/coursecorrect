@@ -21,7 +21,7 @@
 
 <section>
 	{#if width < 1000}
-		<h1>CourseCorrect only works on desktop.</h1>
+		<h1>CourseCorrect only works on 💻 🖥️</h1>
 	{:else}
 		<Main />
 	{/if}

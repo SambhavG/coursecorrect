@@ -1,5 +1,4 @@
 <script>
-	import { dndzone } from 'svelte-dnd-action';
 	import { onMount } from 'svelte';
 	import {
 		years,
@@ -10,7 +9,14 @@
 		prefs,
 		courseTableList,
 		isDragging,
-		searchFilters
+		searchFilters,
+		showWelcomeModalOnLoad,
+		panelCollapsed,
+		bachelorsDegreeChoice,
+		bachelorsDegreeChoices,
+		mastersDegreeChoice,
+		mastersDegreeChoices,
+		compiledDegree
 	} from './stores.js';
 	import Search from './components/Search.svelte';
 	import WAYSTracker from './components/WAYSTracker.svelte';
@@ -19,24 +25,24 @@
 	import CourseDataPanel from './components/CourseDataPanel.svelte';
 	import Trash from './components/Trash.svelte';
 	import ConfigPanel from './components/ConfigPanel.svelte';
+	import OnStartInfoModal from './components/OnStartInfoModal.svelte';
+	import PanelCollapseContainer from './components/PanelCollapseContainer.svelte';
+	import LoadInAllDegrees from './degrees/LoadInAllDegrees.svelte';
 
-	import { BSMathLUT, BSMath } from './degrees/BSMath.js';
-	import { BSCSAILUT, BSCSAI } from './degrees/BSCSAI.js';
-	import CourseRegexMatch from './degrees/CourseRegexMatch.js';
-	import { X } from 'lucide-svelte';
-	import { BSCSSystems, BSCSSystemsLUT } from './degrees/BSCSSystems.js';
+	import GeneralizedDegreeCheck from './degrees/GeneralizedDegreeCheck.js';
+	import compileDegree from './degrees/compileDegree.js';
 
 	let mounted = false;
-	let oneColumn = false;
+	let dumpLocalStorage = false;
+
 	let overallStyle = '';
 	$: {
 		if ($isDragging) {
 			overallStyle = 'overflow: hidden;';
-			console.log('dragging');
 		} else {
 			overallStyle = '';
 		}
-		if (oneColumn) {
+		if ($panelCollapsed.search) {
 			overallStyle += 'grid-template-columns: minmax(0, 1fr); width: 100%;';
 		} else {
 			overallStyle += 'grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);';
@@ -115,11 +121,19 @@
 		let storedYears = null;
 		let storedQuarters = null;
 		let storedPrefs = null;
-		if (isBrowser) {
+		let storedShowWelcomeModalOnLoad = null;
+		let storedPanelCollapsed = null;
+		let storedBachelorsDegreeChoice = null;
+		let storedMastersDegreeChoice = null;
+		if (isBrowser && !dumpLocalStorage) {
 			storedCourseTable = localStorage.getItem('courseTable');
 			storedYears = localStorage.getItem('years');
 			storedQuarters = localStorage.getItem('quarters');
 			storedPrefs = localStorage.getItem('prefs');
+			storedShowWelcomeModalOnLoad = localStorage.getItem('showWelcomeModalOnLoad');
+			storedPanelCollapsed = localStorage.getItem('panelCollapsed');
+			storedBachelorsDegreeChoice = localStorage.getItem('bachelorsDegreeChoice');
+			storedMastersDegreeChoice = localStorage.getItem('mastersDegreeChoice');
 		}
 		if (storedYears) {
 			$years = JSON.parse(storedYears);
@@ -129,6 +143,18 @@
 		}
 		if (storedPrefs) {
 			$prefs = JSON.parse(storedPrefs);
+		}
+		if (storedShowWelcomeModalOnLoad) {
+			$showWelcomeModalOnLoad = JSON.parse(storedShowWelcomeModalOnLoad);
+		}
+		if (storedPanelCollapsed) {
+			$panelCollapsed = JSON.parse(storedPanelCollapsed);
+		}
+		if (storedBachelorsDegreeChoice) {
+			$bachelorsDegreeChoice = JSON.parse(storedBachelorsDegreeChoice);
+		}
+		if (storedMastersDegreeChoice) {
+			$mastersDegreeChoice = JSON.parse(storedMastersDegreeChoice);
 		}
 		if (storedCourseTable && storedCourseTable !== '[]') {
 			$courseTable = JSON.parse(storedCourseTable);
@@ -159,11 +185,15 @@
 			localStorage.setItem('years', JSON.stringify($years));
 			localStorage.setItem('quarters', JSON.stringify($quarters));
 			localStorage.setItem('prefs', JSON.stringify($prefs));
+			localStorage.setItem('showWelcomeModalOnLoad', JSON.stringify($showWelcomeModalOnLoad));
+			localStorage.setItem('panelCollapsed', JSON.stringify($panelCollapsed));
+			localStorage.setItem('bachelorsDegreeChoice', JSON.stringify($bachelorsDegreeChoice));
+			localStorage.setItem('mastersDegreeChoice', JSON.stringify($mastersDegreeChoice));
 		}
 	}
 
+	//Keep courseTableList updated
 	$: {
-		//Get all courses from courseTable and push to courseTableList
 		let courseTableListItems = [];
 
 		for (let i = 0; i < $courseTable.length; i++) {
@@ -176,155 +206,101 @@
 		$courseTableList = courseTableListItems;
 	}
 
-	let degreeTrackerData;
-
-	function setDegreeSpecificSearchFilters(lutsInput) {
-		//Reset it first
+	function setDegreeSpecificSearchFilters(compiledDegree) {
 		$searchFilters.degreeSpecific = { checkboxes: {}, luts: {} };
-		//For key in lut
-		for (let key in lutsInput) {
-			$searchFilters.degreeSpecific.luts[key] = CourseRegexMatch($allCourses, lutsInput[key]);
-			$searchFilters.degreeSpecific.checkboxes[key] = false;
+		// console.log(compiledDegree);
+		if (compiledDegree == {}) {
+			return;
 		}
+		Object.keys(compiledDegree.lookuptables).forEach((key) => {
+			$searchFilters.degreeSpecific.luts[key] = compiledDegree.lookuptables[key];
+			$searchFilters.degreeSpecific.checkboxes[key] = false;
+		});
 		$searchFilters = $searchFilters;
 	}
 
+	//This is the raw data passed to the degree check panel
+	let degreeTrackerData;
+
+	//Whenever the selected degree changes, recompile the degree
 	$: {
-		//Set
-		let degreeTrackerFunction = null;
-		let degreeFiltersFunction = null;
-		switch ($prefs.bachelorsDegreeChoice) {
-			case 0:
-				degreeTrackerFunction = BSMath;
-				degreeFiltersFunction = BSMathLUT;
-				break;
-			case 1:
-				degreeTrackerFunction = BSCSAI;
-				degreeFiltersFunction = BSCSAILUT;
-				break;
-			case 2:
-				degreeTrackerFunction = BSCSSystems;
-				degreeFiltersFunction = BSCSSystemsLUT;
-				break;
-		}
-		degreeTrackerData = degreeTrackerFunction(
-			$allCourses,
-			$courseTable,
-			$courseTableList,
-			$prefs.transferUnits
-		);
-		setDegreeSpecificSearchFilters(degreeFiltersFunction());
-	}
-
-	let threshold = 100; // pixels from the bottom
-
-	function handleMouseMove(event) {
-		if (!$isDragging) {
-			return;
-		}
-		let windowHeight = window.innerHeight;
-		// console.log(event.clientY);
-		// console.log(windowHeight - threshold);
-		if (event.clientY > windowHeight - threshold) {
-			console.log('scrolling');
-			window.scrollBy(0, 10); // scroll down by 10 pixels
+		if ($bachelorsDegreeChoices.length !== 0) {
+			let choiceFullDegree = $bachelorsDegreeChoices.find(
+				(degree) => degree.uniqueID == $bachelorsDegreeChoice
+			);
+			$compiledDegree = compileDegree(choiceFullDegree, $allCourses);
 		}
 	}
 
+	//Whenever the course table changes, use the compiled degree to check it
 	$: {
-		if ($prefs.panelCollapsed.search) {
-			oneColumn = true;
-		} else {
-			oneColumn = false;
+		//Load only once bachelorsDegreeChoices is loaded
+		if ($bachelorsDegreeChoices.length !== 0) {
+			degreeTrackerData = GeneralizedDegreeCheck(
+				$compiledDegree,
+				$allCourses,
+				$courseTable,
+				$courseTableList,
+				$prefs.transferUnits
+			);
+			setDegreeSpecificSearchFilters($compiledDegree);
 		}
-	}
-
-	let showModal = true;
-
-	function close() {
-		showModal = false;
 	}
 </script>
 
 <!-- <svelte:window on:mousemove={handleMouseMove} /> -->
 
 <!-- use:dndzone={{ items: [], dropFromOthersDisabled: true, dragDisabled: true }} -->
+<LoadInAllDegrees />
 <section style={overallStyle}>
-	{#if !$prefs.panelCollapsed.search}
+	{#if !$panelCollapsed.search}
 		<div class="searchContainer">
 			<Search />
+			<div class="scrollArea" />
 		</div>
 	{/if}
-	<div class="gridAndInfoContainer">
-		<!-- <div class="dataHeader" /> -->
-		{#if showModal}
-			<div class="modal">
-				<button class="close-button" on:click={close}>
-					<X size="3em" />
-				</button>
-				<div>
-					<h2>Welcome to CourseCorrect</h2>
-					<p>
-						This is a 5 year course planning tool. It is specialized for long-term planning and is
-						not a replacement for Explorecourses, Carta, or Oncourse but rather should be used
-						alongside them. Ideally you should plan your current quarter first, then use this tool
-						to plan all future years.
-					</p>
-					<h2>To start</h2>
-					<p>
-						Configure your preferences in the config panel, including your degree and transfer
-						units. Only a few popular degrees are implememented, but if you've taken CS 106B, you
-						are more than capable of write a degree checking file yourself (in ~1 hour depending on
-						how complex it is) and submit a pull request (<a
-							href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
-							target="_blank"
-						>
-							src/routes/degrees
-						</a>)
-					</p>
-					<p>
-						Search for courses in the top left or within each quarter. Search updates on keystroke
-						and may take a moment to update. Use filters aggressively to find extremely particular
-						courses.
-					</p>
-					<h2>Other info</h2>
-					<p>
-						CourseCorrect was made to be used full-screen on laptops; if the site is jumbled, zoom
-						out.
-					</p>
-					<p>If the entire website breaks, clear your cache and cookies.</p>
-					<p>Data is stored locally on your browser.</p>
-					<p>
-						The site is broken on Firefox (and potentially other browsers) because of how Github
-						Pages handles hosting; use Chrome/Chromium-based browsers.
-					</p>
-					<h2>Disclaimer</h2>
-					<p>
-						All data and calculations may contain errors. Consult official university materials for
-						ground truths.
-					</p>
+	<div class="gridAndInfoAndScrollContainer">
+		<div class="scrollArea" />
+		<div class="gridAndInfoContainer">
+			<div class="dataHeader">
+				<OnStartInfoModal />
+				<div class="waysTrackerContainer">
+					<PanelCollapseContainer panelId="ways" panelName={'WAYS'} content={WAYSTracker} />
+				</div>
+				<div class="generalizedDegreeTrackerContainer">
+					{#if $bachelorsDegreeChoices.length == 0}
+						<div class="title" />
+					{:else}
+						<PanelCollapseContainer
+							panelId="generalizedDegreeTracker"
+							panelName={'Degree Check'}
+							content={GeneralizedDegreeTracker}
+							props={{ data: degreeTrackerData }}
+						/>
+						<!-- <GeneralizedDegreeTracker data={degreeTrackerData} /> -->
+					{/if}
+				</div>
+				<div class="configPanelContainer">
+					<PanelCollapseContainer panelId="config" panelName={'Config'} content={ConfigPanel} />
 				</div>
 			</div>
-		{/if}
-		<div class="dataHeader">
-			<div class="waysTrackerContainer">
-				<WAYSTracker />
+			<div class="courseDataPanelContainer">
+				<PanelCollapseContainer
+					panelId="courseData"
+					panelName={'Course Data'}
+					content={CourseDataPanel}
+				/>
 			</div>
-			<div class="generalizedDegreeTrackerContainer">
-				<GeneralizedDegreeTracker data={degreeTrackerData} />
+			<div class="gridContainer">
+				<div class="trashContainer">
+					<Trash />
+				</div>
+				<Grid />
 			</div>
-			<div class="configPanelContain">
-				<ConfigPanel />
-			</div>
-		</div>
-		<div class="courseDataPanelContainer">
-			<CourseDataPanel />
-		</div>
-		<div class="gridContainer">
-			<div class="trashContainer">
-				<Trash />
-			</div>
-			<Grid />
+			<footer>
+				<p>Made by <a href="https://www.sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
+			</footer>
+			<div class="giantSpace" />
 		</div>
 	</div>
 </section>
@@ -333,14 +309,33 @@
 	section {
 		width: 100%;
 		display: grid;
-		overflow: scroll;
+		overflow: hidden;
+		max-height: 100vh;
+		padding-top: 0.5em;
 	}
 
 	.searchContainer {
-		margin: 0 1em;
+		margin-left: 1em;
+		overflow: scroll;
+		max-height: 100vh;
+		display: flex;
+		flex-direction: row;
+	}
+	.scrollArea {
+		width: 2em;
+		height: inherit;
+		opacity: 0.1;
+	}
+	.gridAndInfoAndScrollContainer {
+		display: flex;
+		flex-direction: row;
+		overflow: scroll;
+		max-height: 100vh;
+		margin-right: 1em;
 	}
 	.gridAndInfoContainer {
-		margin: 0 1em;
+		/* overflow: scroll; */
+		/* max-height: 100vh; */
 	}
 	.dataHeader {
 		width: 100%;
@@ -371,30 +366,18 @@
 		transform: translate(-100%, 0%);
 		padding-right: 1em;
 	}
-
-	.modal {
-		position: relative;
-		box-sizing: border-box;
-		background-color: var(--color-text-light);
-		padding: 4em 1em;
+	footer {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
-		justify-content: flex-start;
-		border-radius: 4em;
-		font-size: 1.2em;
-		margin-bottom: 1em;
-	}
-	.modal > * {
-		color: var(--color-text-dark);
+		justify-content: center;
+		align-items: center;
+		padding: 0.5em;
 	}
 
-	.close-button {
-		border: none;
-		background: var(--color-text-light);
-		position: absolute;
-		top: 5%;
-		right: 5%;
-		cursor: pointer;
+	footer a {
+		font-weight: bold;
+	}
+	.giantSpace {
+		height: 50vh;
 	}
 </style>

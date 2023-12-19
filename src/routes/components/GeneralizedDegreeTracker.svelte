@@ -1,9 +1,10 @@
 <script>
 	import { ChevronsDownUp, ChevronsUpDown, Info } from 'lucide-svelte';
 	import '../styles.css';
-	import { prefs } from '../stores';
+	import { panelCollapsed } from '../stores';
 	import { tick } from 'svelte';
-	export let data = {};
+	export let data;
+
 	//Takes as prop an object describing
 	//(1) what fields should be made
 	//(2) how they should be filled out in this case
@@ -77,52 +78,30 @@
 	}
 </script>
 
-<section>
-	<button
-		class="switchPanelButton"
-		on:click={() => {
-			$prefs.panelCollapsed.bsTracker = !$prefs.panelCollapsed.bsTracker;
-			const scrollPosition = document.scrollingElement.scrollTop;
-			tick().then(() => {
-				document.scrollingElement.scrollTop = scrollPosition;
-			});
-		}}
-	>
-		{#if $prefs.panelCollapsed.bsTracker}
-			<ChevronsUpDown />
-		{:else}
-			<ChevronsDownUp />
-		{/if}
-	</button>
-	{#if !$prefs.panelCollapsed.bsTracker}
-		<div class="content">
-			{#each data.rows as row, i (i)}
-				<div class="row" style={rowGridStyle(row)}>
-					{#each row.cells as cell, j (j)}
-						<div class="cell" style={generateCellStyle(cell)}>
-							{cell.value ? cell.value : ''}
-							{#if cell?.progress}
-								<div class="progressBar" style={generateProgressStyle(cell)} />
-							{/if}
-							{#if cell?.info}
-								<div class="infoIcon">
-									<Info
-										size="1.3em"
-										on:click={() => {
-											alert(cell.info);
-										}}
-									/>
-								</div>
-							{/if}
+<div class="content">
+	{#each data.rows as row, i (i)}
+		<div class="row" style={rowGridStyle(row)}>
+			{#each row.cells as cell, j (j)}
+				<div class="cell" style={generateCellStyle(cell)}>
+					{cell.value ? cell.value : ''}
+					{#if cell?.progress}
+						<div class="progressBar" style={generateProgressStyle(cell)} />
+					{/if}
+					{#if cell?.info}
+						<div class="infoIcon">
+							<Info
+								size="1.3em"
+								on:click={() => {
+									alert(cell.info);
+								}}
+							/>
 						</div>
-					{/each}
+					{/if}
 				</div>
 			{/each}
 		</div>
-	{:else}
-		<div class="hiddenNotif">Degree tracker hidden</div>
-	{/if}
-</section>
+	{/each}
+</div>
 
 <style>
 	section {

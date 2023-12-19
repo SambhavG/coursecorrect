@@ -1,0 +1,578 @@
+function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requirement) {
+  //requirement has the following information
+  //type: consume (default), observe, transfer, and, or
+    //warning: AND/OR subrequirements can not have a progress bar
+    //Assume OR requirements don't have nested AND requirements
+  //name: name of the requirement; use lut if not provided
+  //lut: a thing to convert to a list of course codes via courseRegexMatch
+  //lutList: a list of luts to convert to a list of course codes via courseRegexMatch
+  //amount: the amount of courses to consume or observe
+  //minUnits: the number of units needed to fulfill
+  //csnc: number of c/nc or s/nc courses allowed to be used
+  //bundle: only for "and" requirements; bundle courses together in final display into one line
+
+  //If type is and or or:
+    //content: all requirements to fulfill, each must be fulfilled if "and", at least one must be fulfilled if "or"
+      //Note: we can have a lutList instead of content. Can use at most 1 course from each lut
+    //Note: "amount" and "minUnits" still work. The minUnits remaining is applied to the last requirement if "and"
+    
+  //If type is tranfer:
+    //id: the id of the transfer requirement
+    //cutoff: the number of units needed to fulfill
+
+  //Here's what this function returns:
+  //An object with the following properties:
+    //fulfilled: true/false
+    //numericFulfilled: if this is a numeric requirement, {name: s, numNeeded: x, numHas: y}
+    //cellValues: the strings to go in each cell
+    //cellValuesArray: an array of cellValues (for and requirements)
+    //coursesExtracted: the courses extracted from the list in full object form
+    //numUnits: the number of units taken within these courses
+    //list: the new list of courses after fulfilling this requirement
+
+  //If type is nothing, this is a "consume" requirement
+  let type = requirement?.type || 'consume';
+  let name = requirement?.name || requirement?.lut || requirement?.id || "unnamed requirement";
+  let lut = requirement?.lut;
+  let lutList = requirement?.lutList;
+  let amount = requirement?.amount || 1;
+  let minUnits = requirement?.minUnits || 0;
+  let csnc = requirement?.csnc || 0;
+  //and/or req vars
+  let content = requirement?.content;
+  let bundle = requirement?.bundle || false;
+  //transfer req vars
+  let id = requirement?.id;
+  let cutoff = requirement?.cutoff;
+
+  //Make list a deep copy
+  list = JSON.parse(JSON.stringify(list));
+
+  if (type === 'consume' || type === 'observe') {
+    //Get all the courses we're allowed to take
+    let coursesAllowed = [];
+    if (lut) {
+      coursesAllowed = compiledDegree.lookuptables[lut];
+    } else if (lutList) {
+      lutList.forEach((lut) => {
+        coursesAllowed = [...coursesAllowed, ...compiledDegree.lookuptables[lut]];
+      });
+    }
+    
+
+    let coursesExtracted = [];
+    let amountStillNeeded = amount;
+    //Find all valid courses
+    let coursesMatching = filterCourseObjsByLut(list, coursesAllowed);
+    
+    //Filter out courses that are c/nc or s/nc past the limit
+    coursesMatching = coursesMatching.filter((course) => {
+      if (course.csnc && csnc > 0) {
+        csnc--;
+        return true;
+      }
+      if (course.csnc) {
+        return false;
+      }
+      return true;
+    });
+    
+
+    //Extract courses until we have enough
+    let numUnits = 0;
+    while ((amountStillNeeded > 0 || numUnits < minUnits) && coursesMatching.length > 0) {
+      //Extract first course and remove from list
+      let course = coursesMatching[0];
+      coursesMatching = coursesMatching.slice(1);
+      //Remove from list (consume) if this is a consume requirement
+      //(otherwise we're just observing)
+      if (type === 'consume') {
+        list = list.filter((course2) => {
+          return course2.code !== course.code;
+        });
+        //Add to courses extracted only if we're consuming
+        coursesExtracted.push(course);
+        amountStillNeeded--;
+        //Add units only if we're consuming
+        numUnits += course.units_taking;
+      }
+    }
+
+    //If we have enough courses, fulfill the requirement
+    let fulfilled = amountStillNeeded <= 0 && numUnits >= minUnits;
+    //Create the cell values array
+    let cellValues = [name];
+    
+    coursesExtracted.forEach((course) => {
+      cellValues.push(course.code);
+    });
+    //Add empty cells if we don't have enough courses
+    while (cellValues.length < amount + 1) {
+      cellValues.push('');
+    }
+    //Add one additional cell if we don't have enough units
+    //to show that we're not fulfilling the requirement
+    if (numUnits < minUnits && cellValues[cellValues.length-1] !== '') {
+      cellValues.push('');
+    }
+
+    let retVal = {
+      fulfilled: fulfilled,
+      cellValues: cellValues,
+      coursesExtracted: coursesExtracted, //These are course objects
+      numUnits: numUnits,
+      list: list
+    };
+
+    if (minUnits > 0) {
+      retVal.numericFulfilled = {
+        name: name,
+        numNeeded: minUnits,
+        numHas: numUnits
+      }
+    }
+
+    return retVal;
+
+  } else if (type === 'and') {
+    //We need to run checkRequirement on each of the requirements in content
+    //If the requirement has a minUnits property, we need to keep track of the number of units taken
+      //On the final requirement, it's fulfilled if the number of units taken is >= minUnits
+    
+    let requirementChecks = [];
+    content.forEach((req) => {
+      //If this is the last req, set minUnits to the number of units we still need
+      if (req === content[content.length-1] && req.minUnits) {
+        let numUnitsAlreadyTaken = requirementChecks.map((check) => {
+          return check.numUnits;
+        }).reduce((a, b) => {return a + b;} , 0);
+        let numUnitsRemaining = minUnits - numUnitsAlreadyTaken;
+        //Account for when the last requirement has its own minUnits property
+          //(Will probably never happen though)
+        req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
+      }
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, list, transfer, req));
+      list = requirementChecks[requirementChecks.length-1].list;
+    });
+    //Count how many units we've taken
+    let numUnits = requirementChecks.map((check) => {
+      return check.numUnits;
+    }).reduce((a, b) => {return a + b;} , 0);
+    //If we have a minUnits property, check if we've fulfilled it
+    //fulfilled is true if all requirements are fulfilled and we have enough units
+    let fulfilled = requirementChecks.every((check) => {
+      return check.fulfilled;
+    }) && numUnits >= minUnits;
+    //Create the cell values array
+    let cellValuesArray = [];
+    requirementChecks.forEach((check) => {
+      if (check.cellValues) {
+        cellValuesArray.push(check.cellValues);
+      } else {
+        check.cellValuesArray.forEach((cellValues) => {
+          cellValuesArray.push(cellValues);
+        });
+      }
+    });
+
+    let cellValues = [name];
+    if (bundle) {
+      //Cut first element off of each cellValuesArray and add to cellValues
+      cellValuesArray.forEach((cellValuesElem) => {
+        cellValuesElem = cellValuesElem.slice(1);
+        //Don't remove empty cells
+        cellValues = [...cellValues, ...cellValuesElem];
+      });
+    }
+
+    let retVal = {
+      fulfilled: fulfilled,
+      cellValuesArray: cellValuesArray,
+      coursesExtracted: requirementChecks.map((check) => {
+        return check.coursesExtracted;
+      }).flat(),
+      numUnits: numUnits,
+      list: list
+    }
+
+    if (bundle) {
+      retVal.cellValues = cellValues;
+      //Remove cellValuesArray
+      delete retVal.cellValuesArray;
+    }
+
+    if (minUnits > 0) {
+      retVal.numericFulfilled = {
+        name: name,
+        numNeeded: minUnits,
+        numHas: numUnits
+      }
+    }
+
+    return retVal;
+
+
+  } else if (type === 'or') {
+    //Go through each of either the content or the lutList
+    //We check requirements in the same fashion as "and" requirements
+    //until all of the following occur:
+      //We fulfilled at least one requirement
+      //We have enough units (if minUnits is specified)
+      //We have taken enough courses (if amount is specified)
+
+    let requirementChecks = [];
+    let fulfilled = false;
+    let numUnits = 0;
+    let coursesExtracted = [];
+    if (!content) {
+      content = lutList.map((lut) => {
+        return {lut: lut};
+      });
+    }
+
+    let done = false;
+    content.forEach((req) => {
+      if (done) return;
+      //If this is the last req, set minUnits to the number of units we still need
+      if (req === content[content.length-1] && req.minUnits) {
+        let numUnitsAlreadyTaken = requirementChecks.map((check) => {
+          return check.numUnits;
+        }).reduce((a, b) => {return a + b;} , 0);
+        req.minUnits = minUnits - numUnitsAlreadyTaken;
+        let numUnitsRemaining = minUnits - numUnitsAlreadyTaken;
+        //Account for when the last requirement has its own minUnits property
+          //(Will probably never happen though)
+        req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
+      }
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, list, transfer, req));
+      list = requirementChecks[requirementChecks.length-1].list;
+
+      //Check if we're done
+      fulfilled = requirementChecks.some((check) => {return check.fulfilled;});
+      numUnits = requirementChecks.map((check) => {
+        return check.numUnits;
+      }).reduce((a, b) => {return a + b;} , 0);
+      coursesExtracted = requirementChecks.map((check) => {
+        return check.coursesExtracted;
+      }).flat();
+      done = fulfilled && numUnits >= minUnits && (coursesExtracted.length >= amount || amount == 1);
+    });
+
+    //If we have a minUnits property, check if we've fulfilled it
+    let minUnitsFulfilled = numUnits >= minUnits;
+    //Check that we've taken enough courses
+    let amountFulfilled = coursesExtracted.length >= amount;
+    //fulfilled is true if at least one requirement is fulfilled and we have enough units
+    //and courses
+    fulfilled = requirementChecks.some((check) => {
+      return check.fulfilled;
+    }) && minUnitsFulfilled && amountFulfilled;
+
+    //Create the cell values array. OR conditions don't preserve the internal conditions like AND
+    let cellValues = [name];
+    requirementChecks.forEach((check) => {
+      //Remove first element of check.cellValues
+      let cellValues2 = check.cellValues.slice(1);
+      //Remove any empty cells at the end
+      while (cellValues2[cellValues2.length-1] === '') {
+        cellValues2 = cellValues2.slice(0, cellValues2.length-1);
+      }
+      //Add to cellValues
+      cellValues = [...cellValues, ...cellValues2];
+    });
+
+    //Add empty cells if we don't have enough courses
+    while (cellValues.length < amount+1) {
+      cellValues.push(['']);
+    }
+    //Add one additional cell if we don't have enough units
+    //to show that we're not fulfilling the requirement
+    if (numUnits < minUnits && cellValues[cellValues.length-1] !== '') {
+      cellValues.push(['']);
+    }
+
+    let retVal = {
+      fulfilled: fulfilled,
+      cellValues: cellValues,
+      coursesExtracted: requirementChecks.map((check) => {
+        return check.coursesExtracted;
+      }).flat(),
+      numUnits: numUnits,
+      list: list
+    }
+
+    if (minUnits > 0) {
+      retVal.numericFulfilled = {
+        name: name,
+        numNeeded: minUnits,
+        numHas: numUnits
+      }
+    }
+
+    return retVal;
+
+  } else if (type === 'transfer') {
+    //Look at id of transfer and see if it's enough for cutoff
+    let numUnits = getTransferUnits(transfer, id);
+    if (numUnits >= cutoff) {
+      return {
+        fulfilled: true,
+        cellValues: [name, 'Transfer'],
+        coursesExtracted: [],
+        numUnits: numUnits,
+        list: list
+      }
+    } else {
+      return {
+        fulfilled: false,
+        cellValues: [name, ''],
+        coursesExtracted: [],
+        numUnits: numUnits,
+        list: list
+      }
+    }
+  } else {
+    //Throw an error
+    console.log("Invalid requirement type");
+    throw "Invalid requirement type";
+  }
+}
+
+function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
+  //Make a copy of the list so we can modify it
+  let listCopy = JSON.parse(JSON.stringify(list));
+  //Also filter out ms courses so we don't have to do it later
+  listCopy = listCopy.filter((course) => {
+    return !course.ms;
+  });
+
+  let totalUnits = 0;
+  //If level is undergraduate, add 180 credit check
+  if (degree.level === "undergraduate") {
+    totalUnits = calculateTotalUnits(listCopy, transfer);
+  }
+
+  //Compute requirements for everything
+  let reqResults = [];
+  //initialize the results
+  degree.requirements.forEach((_) => {
+    reqResults.push({});
+  });
+
+  //Compute the results for each requirement that is of type "observe"
+  degree.requirements.forEach((req, i) => {
+    if (req?.type === 'observe') {
+      reqResults[i] = checkRequirement(degree, allCourses, grid, listCopy, transfer, req);
+    }
+  });
+
+  //Do the rest
+  degree.requirements.forEach((req, i) => {
+    if (req?.type !== 'observe') {
+      reqResults[i] = checkRequirement(degree, allCourses, grid, listCopy, transfer, req);
+      listCopy = reqResults[i].list;
+    }
+  });
+
+  //For each reqResult, unpack it correctly
+  let unprocessedRows = [];
+  reqResults.forEach((reqResult) => {
+    if (reqResult?.numericFulfilled) {
+      unprocessedRows.push([
+        "PROGRESSBAR", 
+        reqResult.numericFulfilled.name, 
+        reqResult.numericFulfilled.numHas, 
+        reqResult.numericFulfilled.numNeeded
+      ]);
+    }
+    if (reqResult?.cellValues) {
+      let thingToPush = reqResult.cellValues;
+      //Add a "✔" to beginning if fulfilled, otherwise hangul filler
+      if (reqIsFulfilled(reqResult.cellValues)) {
+        thingToPush = ["✔", ...thingToPush];
+      } else {
+        thingToPush = ["ㅤ", ...thingToPush];
+      }
+      unprocessedRows.push(thingToPush);
+    } else if (reqResult?.cellValuesArray) {
+      reqResult.cellValuesArray.forEach((cellValues) => {
+        let thingToPush = cellValues;
+        //Add a "✔" to beginning if fulfilled, otherwise hangul filler
+        //We don't have access to fulfilled for each subreq of AND reqs so we have to check
+        //if the last cell value is empty
+        if (reqIsFulfilled(cellValues)) {
+          thingToPush = ["✔", ...thingToPush];
+        } else {
+          thingToPush = ["ㅤ", ...thingToPush];
+        }
+        unprocessedRows.push(thingToPush);
+      });
+    }
+  });
+
+  //Process the rows into a displayable format
+  let rows = [];
+
+  //Title
+  rows.push({
+    cells: [
+      {
+        value: degree.degree,
+        isTitle: true,
+        noBorder: true
+      }
+    ]
+  });
+  
+  //Total units counter
+  rows.push({
+    cells: [
+      { value: totalUnits > 180 ? '✔' : 'ㅤ', noBorder: true, weight: .25 },
+      { value: 'Total Units', noBorder: true },
+      { value: totalUnits + '/180', progress: totalUnits/180 , weight: 3}
+    ]
+  });
+
+  //Add the rest of the rows
+  unprocessedRows.forEach((row) => {
+    let cells = [];
+
+    //Handle differently if this is a PROGRESSBAR
+    if (row[0] === "PROGRESSBAR") {
+      cells.push({value: row[2]>=row[3] ? '✔' : 'ㅤ', noBorder: true, weight: .25});
+      cells.push({value: row[1], noBorder: true, weight: 1});
+      cells.push({value: row[2] + '/' + row[3], progress: row[2]/row[3], weight: 3});
+    } else {
+      cells.push({value: row[0], noBorder: true, weight: .25});
+      cells.push({value: row[1], noBorder: true, weight: 1})
+      for (let i = 2; i < row.length; i++) {
+        cells.push({value: row[i], weight: 3/(row.length-2)});
+      }
+    }
+    rows.push({cells: cells});
+
+  });
+  rows = {rows: rows};
+  return rows;
+
+  
+}
+
+function reqIsFulfilled(cellValues) {
+  let res = true;
+  cellValues.forEach((cellValue) => {
+    if (cellValue == '' || cellValue == 'ㅤ' || cellValue == [""]) {
+      res = false;
+    }
+  });
+  return res;
+}
+
+//This function takes a list of course objects and a list of course codes and returns a list of course objects
+//which are in the list of course codes
+function filterCourseObjsByLut(list, lut) {
+  return list.filter((course) => {
+    return lut.includes(course.code);
+  });
+}
+
+function getTransferUnits(transfer, key) {
+  return transfer.filter((obj) => {
+    return obj.name === key;
+  })[0]?.value;
+}
+
+function calculateTotalUnits(courses, transfer) {
+  let totalUnits = 0;
+  courses.forEach((course) => {
+    totalUnits += course.units_taking;
+  });
+  totalUnits+=getTransferUnits(transfer, 'Total');
+  return totalUnits;
+}
+
+// //Applies courseRegexMatch to a list of course objects
+// function courseRegexListMatch(allCourses, lutList) {
+//   let coursesAllowed = [];
+//   lutList.forEach((lut) => {
+//     coursesAllowed = [...coursesAllowed, ...courseRegexMatch(allCourses, lut)];
+//   });
+//   return [...new Set(coursesAllowed)];
+// }
+
+// //This function takes the entire course list and filters it via regex
+// //regex is either a list of strings, or a list of fancy objects for advanced filtering
+// function courseRegexMatch(allCourses, regex) {
+//   //If regex is an array, check if it is an array of strings
+//   if (Array.isArray(regex) && typeof regex[0] === 'string') {
+//     //Normalize the regex strings
+//     regex = regex.map((str) => {
+//       //If they're already regexes, just return them
+//       if (str[0] === '^' || str[str.length-1] === '$') {
+//         return str;
+//       }
+//       return '^' + str + '$';
+//     });
+
+//     //Make a list of every course which matches any of the regexes
+//     let coursesMatchingARegex = [];
+//     regex.forEach((str) => {
+//       coursesMatchingARegex = [...coursesMatchingARegex, ...allCourses.filter((course) => {
+//         return course.code.match(str);
+//       })];
+//     });
+
+//     //Convert to just codes
+//     coursesMatchingARegex = coursesMatchingARegex.map((course) => {
+//       return course.code;
+//     });
+
+//     //Remove duplicates
+//     return [...new Set(coursesMatchingARegex)];
+//   }
+
+//   //Otherwise it's an array of objects
+//   let allMatchingCourses = [];
+//   for (let i = 0; i < regex.length; i++) {
+//     let thisRegexObject = regex[i];
+//     let thisMatchingCourses = [];
+//     if (thisRegexObject.method == 'regex') {
+//       //Get all the courses that match this regex
+//       thisMatchingCourses = allCourses.filter((course) => {
+//         return course.code.match(thisRegexObject.string);
+//       });
+//     } else if (thisRegexObject.method == 'number') {
+//       let number = thisRegexObject.number;
+//       let comparator = thisRegexObject.comparator;
+//       //Get all the courses which are greater than or less than this number based on the comparator
+//       thisMatchingCourses = allCourses.filter((course) => {
+//         if (comparator == '>=') {
+//           return course.number >= number;
+//         } else if (comparator == '<=') {
+//           return course.number <= number;
+//         } else if (comparator == '>') {
+//           return course.number > number;
+//         } else if (comparator == '<') {
+//           return course.number < number;
+//         }
+//       });
+//     }
+
+//     //If type is add, do a union
+//     if (thisRegexObject.type == 'add') {
+//       allMatchingCourses = [...allMatchingCourses, ...thisMatchingCourses];
+//     }
+//     //If type is remove, do a difference
+//     else if (thisRegexObject.type == 'remove') {
+//       allMatchingCourses = allMatchingCourses.filter((course) => {
+//         return !thisMatchingCourses.includes(course);
+//       });
+//     }
+//   }
+
+//   return allMatchingCourses.map((course) => {
+//     return course.code;
+//   });
+// }
+
+export default GeneralizedDegreeCheck;

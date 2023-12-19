@@ -1,10 +1,9 @@
 <script>
 	import WAYSIcons from './WAYSIcons.svelte';
-	import { ChevronsDownUp, ChevronsUpDown, Link, PinOff } from 'lucide-svelte';
+	import { Link, PinOff } from 'lucide-svelte';
 	import {
 		allCourses,
 		reviewData,
-		prefs,
 		selectedCourse,
 		selectedCoursePinned,
 		courseTable
@@ -173,169 +172,140 @@
 	*/
 </script>
 
-<section>
-	<button
-		on:click={() => {
-			$prefs.panelCollapsed.courseData = !$prefs.panelCollapsed.courseData;
-			const scrollPosition = document.scrollingElement.scrollTop;
-			tick().then(() => {
-				document.scrollingElement.scrollTop = scrollPosition;
-			});
-		}}
-	>
-		{#if $prefs.panelCollapsed.courseData}
-			<ChevronsUpDown />
-		{:else}
-			<ChevronsDownUp />
-		{/if}
-	</button>
-	{#if !$prefs.panelCollapsed.courseData}
-		<div class="content">
-			<div class="header">
-				<div class="courseCodeAndNameContainer" style={courseColor(course)}>
-					<span class="courseCode">{course.code}</span>
-					<span class="courseName"
-						>{course?.long_title?.substring(course.long_title.indexOf(':') + 2)}</span
-					>
-				</div>
-				<div class="hoursUnitsWaysData">
-					<div class="courseHours">
-						<b>{course.int_hours == -1 ? 0 : course.int_hours}</b> h/week
-					</div>
-
-					{#if course.min_units != course.max_units}
-						<div class="courseUnits">
-							<select value={unitsTaking} on:change={updateUnitsTaking}>
-								{#each hoursArray as i (i)}
-									<option value={i}>{i}</option>
-								{/each}
-							</select>
-							unit{unitsTaking == 1 ? '' : 's'}
-						</div>
-					{:else}
-						<div class="courseUnits">
-							<b>{course.max_units}</b> unit{unitsTaking == 1 ? '' : 's'}
-						</div>
-					{/if}
-					{#if course.ways && course.ways.length >= 1}
-						<div class={'WAYS ' + course.ways[0]}>
-							{course.ways[0]}
-							<WAYSIcons ways={course.ways[0]} />
-						</div>
-					{/if}
-					{#if course.ways && course.ways.length >= 2}
-						<div class={'WAYS ' + course.ways[1]}>
-							{course.ways[1]}
-							<WAYSIcons ways={course.ways[1]} />
-						</div>
-					{/if}
-					<div class="classLink">
-						<a
-							href={'https://explorecourses.stanford.edu/search?q="' + course.code + '"'}
-							target="_blank"
-						>
-							<Link size={linkSize} />
-						</a>
-					</div>
-					<div class="classLink">
-						<a href={course.carta_link} target="_blank">
-							<Link class="icon" size={linkSize} />
-						</a>
-					</div>
-				</div>
-				<div class="ratingCompletionData">
-					{#if course.average_rating != -1}
-						<div class="averageEval">Rated {course.average_rating}/5</div>
-					{/if}
-					{#if course.percent_outcomes_completed != -1}
-						<div class="percentCompleted">
-							Completion rate: {course.percent_outcomes_completed}%
-						</div>
-					{/if}
-					{#if course?.seasons_offered?.length > 0}
-						<div class="seasonsOffered">
-							{#each course.seasons_offered as season, s}
-								<div class={'season ' + season}>
-									{season}
-								</div>
-							{/each}
-						</div>
-					{:else}
-						<div class="seasonsOffered">
-							<div class="season notOffered">Not offered</div>
-						</div>
-					{/if}
-				</div>
+<div class="content">
+	<div class="header">
+		<div class="courseCodeAndNameContainer" style={courseColor(course)}>
+			<span class="courseCode">{course.code}</span>
+			<span class="courseName"
+				>{course?.long_title?.substring(course.long_title.indexOf(':') + 2)}</span
+			>
+		</div>
+		<div class="hoursUnitsWaysData">
+			<div class="courseHours">
+				<b>{course.int_hours == -1 ? 0 : course.int_hours}</b> h/week
 			</div>
-			<p class="courseDesc">{course.description}</p>
-			<div class="courseReviews">
-				<div class="disclaimer">
-					Sentiment classification is AI-generated - categorizations may be inaccurate
+
+			{#if course.min_units != course.max_units}
+				<div class="courseUnits">
+					<select value={unitsTaking} on:change={updateUnitsTaking}>
+						{#each hoursArray as i (i)}
+							<option value={i}>{i}</option>
+						{/each}
+					</select>
+					unit{unitsTaking == 1 ? '' : 's'}
 				</div>
-				<div class="courseReviewsBlocks">
-					<div class="totalsHeader">Overall review count:</div>
-					<div class="totalsHeaderNonBold">
-						{reviewDataParsed.totals?.numPositive} likely positive,
-						{reviewDataParsed.totals?.numNegative} potentially negative
-					</div>
-					<div class="horizontalLine" />
-					{#each Object.keys(reviewDataParsed?.data) as instructor}
-						<div class="teachersBlock">
-							<div class="teacherName">{instructor}</div>
-							<div class="reviewsBlock">
-								<div class="positiveReviews">
-									<div class="positiveReviewCount">
-										{reviewDataParsed.data[instructor].positive.length} likely positive
-									</div>
-									{#each reviewDataParsed.data[instructor].positive as r}
-										<div class="review">{r}</div>
-									{/each}
-								</div>
-								<div class="negativeReviews">
-									<div class="negativeReviewCount">
-										{reviewDataParsed.data[instructor].negative.length} potentially negative
-									</div>
-									{#each reviewDataParsed.data[instructor].negative as r}
-										<div class="review">{r}</div>
-									{/each}
-								</div>
-							</div>
+			{:else}
+				<div class="courseUnits">
+					<b>{course.max_units}</b> unit{unitsTaking == 1 ? '' : 's'}
+				</div>
+			{/if}
+			{#if course.ways && course.ways.length >= 1}
+				<div class={'WAYS ' + course.ways[0]}>
+					{course.ways[0]}
+					<WAYSIcons ways={course.ways[0]} />
+				</div>
+			{/if}
+			{#if course.ways && course.ways.length >= 2}
+				<div class={'WAYS ' + course.ways[1]}>
+					{course.ways[1]}
+					<WAYSIcons ways={course.ways[1]} />
+				</div>
+			{/if}
+			<div class="classLink">
+				<a
+					href={'https://explorecourses.stanford.edu/search?q="' + course.code + '"'}
+					target="_blank"
+				>
+					<Link size={linkSize} />
+				</a>
+			</div>
+			<div class="classLink">
+				<a href={course.carta_link} target="_blank">
+					<Link class="icon" size={linkSize} />
+				</a>
+			</div>
+		</div>
+		<div class="ratingCompletionData">
+			{#if course.average_rating != -1}
+				<div class="averageEval">Rated {course.average_rating}/5</div>
+			{/if}
+			{#if course.percent_outcomes_completed != -1}
+				<div class="percentCompleted">
+					Completion rate: {course.percent_outcomes_completed}%
+				</div>
+			{/if}
+			{#if course?.seasons_offered?.length > 0}
+				<div class="seasonsOffered">
+					{#each course.seasons_offered as season, s}
+						<div class={'season ' + season}>
+							{season}
 						</div>
-						{#if instructor != Object.keys(reviewDataParsed.data)[Object.keys(reviewDataParsed.data).length - 1]}
-							<div class="horizontalLine" />
-						{/if}
 					{/each}
 				</div>
-			</div>
-			{#if $selectedCoursePinned}
-				<button
-					class="unpinButton"
-					on:click={() => {
-						$selectedCoursePinned = false;
-						const scrollPosition = document.scrollingElement.scrollTop;
-						tick().then(() => {
-							document.scrollingElement.scrollTop = scrollPosition;
-						});
-					}}
-				>
-					<PinOff />
-				</button>
+			{:else}
+				<div class="seasonsOffered">
+					<div class="season notOffered">Not offered</div>
+				</div>
 			{/if}
 		</div>
-	{:else}
-		<div class="hiddenNotif">Course data hidden</div>
+	</div>
+	<p class="courseDesc">{course.description}</p>
+	<div class="courseReviews">
+		<div class="disclaimer">
+			Sentiment classification is AI-generated - categorizations may be inaccurate
+		</div>
+		<div class="courseReviewsBlocks">
+			<div class="totalsHeader">Overall review count:</div>
+			<div class="totalsHeaderNonBold">
+				{reviewDataParsed.totals?.numPositive} likely positive,
+				{reviewDataParsed.totals?.numNegative} potentially negative
+			</div>
+			<div class="horizontalLine" />
+			{#each Object.keys(reviewDataParsed?.data) as instructor}
+				<div class="teachersBlock">
+					<div class="teacherName">{instructor}</div>
+					<div class="reviewsBlock">
+						<div class="positiveReviews">
+							<div class="positiveReviewCount">
+								{reviewDataParsed.data[instructor].positive.length} likely positive
+							</div>
+							{#each reviewDataParsed.data[instructor].positive as r}
+								<div class="review">{r}</div>
+							{/each}
+						</div>
+						<div class="negativeReviews">
+							<div class="negativeReviewCount">
+								{reviewDataParsed.data[instructor].negative.length} potentially negative
+							</div>
+							{#each reviewDataParsed.data[instructor].negative as r}
+								<div class="review">{r}</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+				{#if instructor != Object.keys(reviewDataParsed.data)[Object.keys(reviewDataParsed.data).length - 1]}
+					<div class="horizontalLine" />
+				{/if}
+			{/each}
+		</div>
+	</div>
+	{#if $selectedCoursePinned}
+		<button
+			class="unpinButton"
+			on:click={() => {
+				$selectedCoursePinned = false;
+				const scrollPosition = document.scrollingElement.scrollTop;
+				tick().then(() => {
+					document.scrollingElement.scrollTop = scrollPosition;
+				});
+			}}
+		>
+			<PinOff />
+		</button>
 	{/if}
-</section>
+</div>
 
 <style>
-	section {
-		box-sizing: border-box;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		border: 0.25em solid var(--color-text-light);
-	}
-
 	button {
 		background-color: var(--color-text-dark);
 		color: var(--color-text-light);

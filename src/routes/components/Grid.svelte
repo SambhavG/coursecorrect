@@ -1,6 +1,6 @@
 <script>
 	import QuarterDND from './QuarterDND.svelte';
-	import { years, quarters, courseTable, prefs } from '../stores.js';
+	import { years, quarters, courseTable, panelCollapsed } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import { tick } from 'svelte';
@@ -23,23 +23,24 @@
 
 <section style={sectionStyle()}>
 	{#each $courseTable as year, y (year.id)}
-		<div class="yearAndCollapseButtonContainer" in:fly={{ y: 200, duration: 300, delay: y * 300 }}>
+		<div class="yearAndCollapseButtonContainer">
+			<!--in above div: in:fly={{ y: 200, duration: 300, delay: y * 300 }} -->
 			<button
 				on:click={() => {
-					$prefs.panelCollapsed.years[year.id] = !$prefs.panelCollapsed.years[year.id];
+					$panelCollapsed.years[year.id] = !$panelCollapsed.years[year.id];
 					const scrollPosition = document.scrollingElement.scrollTop;
 					tick().then(() => {
 						document.scrollingElement.scrollTop = scrollPosition;
 					});
 				}}
 			>
-				{#if $prefs.panelCollapsed.years[year.id]}
+				{#if $panelCollapsed.years[year.id]}
 					<ChevronsUpDown />
 				{:else}
 					<ChevronsDownUp />
 				{/if}
 			</button>
-			{#if !$prefs.panelCollapsed.years[year.id]}
+			{#if !$panelCollapsed.years[year.id]}
 				<div class="yearContainer" style={rowStyle()}>
 					{#each year.quarters as quarter, q (quarter.id)}
 						<div class="quarterContainer">

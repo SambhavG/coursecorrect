@@ -114,21 +114,7 @@ export const prefs = writable({
 		'Links': true,
 		'WAYS': true,
 		'Percent completed & eval': true,
-		'Checkboxes': true
-	},
-	panelCollapsed: {
-		courseData: false,
-		search: false,
-		ways: false,
-		bsTracker: false,
-		msTracker: false,
-		config: false,
-		years: {
-			'Frosh': false,
-			'Sophomore': false,
-			'Junior': false,
-			'Senior': false
-		},
+		'Checkboxes': false
 	},
 	transferUnits: [
 		{'name': 'Total',
@@ -153,17 +139,36 @@ export const prefs = writable({
 		'value': 0},
 		{'name': 'Other language',
 		'value': 0}
-	],
-	bachelorsDegreeChoice: 1,
-	mastersDegreeChoice: 0,
+	]
 });
 
-export const bachelorsDegreeChoices = writable([
-	'BS in Mathematics',
-	'BS in Computer Science (AI Track)',
-	'BS in Computer Science (Systems Track)',
-]);
+//Set by LoaadInAllDegrees
+export const bachelorsDegreeChoices = writable([]);
+export const mastersDegreeChoices = writable([]);
 
-export const mastersDegreeChoices = writable([
+//This is refreshed only when bachelorsDegreeChoice changes
+export const compiledDegree = writable({});
 
-]);
+//These contain the uniqueID of the degree selected
+export const bachelorsDegreeChoice = writable('BLANK'); //PERSISTENT
+export const mastersDegreeChoice = writable('BLANK'); //PERSISTENT
+
+//Random prefs
+export const showWelcomeModalOnLoad = writable(true); //PERSISTENT
+export const showWelcomeModal = writable(true);
+
+export const panelCollapsed = writable({ //PERSISTENT
+	courseData: false,
+	search: false,
+	ways: false,
+	bsTracker: false,
+	msTracker: false,
+	config: false,
+	years: {
+		'Frosh': false,
+		'Sophomore': false,
+		'Junior': false,
+		'Senior': false,
+		'Coterm': false
+	},
+});

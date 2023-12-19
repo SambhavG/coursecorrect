@@ -5,7 +5,7 @@
 </script>
 
 <header>
-	<div class="corner">CourseCorrect</div>
+	<!-- <div class="corner">CourseCorrect</div> -->
 
 	<!-- <nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

@@ -1,12 +1,13 @@
 <script>
-	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import {
 		allCourses,
-		bachelorsDegreeChoices,
+		bachelorsDegreeChoice,
 		courseTable,
 		prefs,
 		quarters,
-		years
+		years,
+		panelCollapsed,
+		bachelorsDegreeChoices
 	} from '../stores';
 	import { tick } from 'svelte';
 
@@ -25,200 +26,148 @@
 	let selectedTransferUnit = 0;
 </script>
 
-<section>
-	<button
-		class="switchPanelButton"
-		on:click={() => {
-			$prefs.panelCollapsed.config = !$prefs.panelCollapsed.config;
-			const scrollPosition = document.scrollingElement.scrollTop;
-			tick().then(() => {
-				document.scrollingElement.scrollTop = scrollPosition;
-			});
-		}}
-	>
-		{#if $prefs.panelCollapsed.config}
-			<ChevronsUpDown />
-		{:else}
-			<ChevronsDownUp />
-		{/if}
-	</button>
-	{#if !$prefs.panelCollapsed.config}
-		<div class="content">
-			<div class="title">Config panel</div>
-			<div class="showHideSearch">
-				<button
-					on:click={() => {
-						$prefs.panelCollapsed.search = !$prefs.panelCollapsed.search;
-						$prefs = $prefs;
-						const scrollPosition = document.scrollingElement.scrollTop;
-						tick().then(() => {
-							document.scrollingElement.scrollTop = scrollPosition;
-						});
-					}}
-				>
-					{#if $prefs.panelCollapsed.search}
-						Show search
-					{:else}
-						Hide search
-					{/if}
-				</button>
-			</div>
-			<div class="clearContainer">
-				<button
-					on:click={() => {
-						showClearCoursesModal = !showClearCoursesModal;
-						const scrollPosition = document.scrollingElement.scrollTop;
-						tick().then(() => {
-							document.scrollingElement.scrollTop = scrollPosition;
-						});
-					}}
-				>
-					Clear all courses
-				</button>
+<div class="content">
+	<div class="title">Config panel</div>
+	<div class="showHideSearch">
+		<button
+			on:click={() => {
+				$panelCollapsed.search = !$panelCollapsed.search;
+				$prefs = $prefs;
+				const scrollPosition = document.scrollingElement.scrollTop;
+				tick().then(() => {
+					document.scrollingElement.scrollTop = scrollPosition;
+				});
+			}}
+		>
+			{#if $panelCollapsed.search}
+				Show search
+			{:else}
+				Hide search
+			{/if}
+		</button>
+	</div>
+	<div class="clearContainer">
+		<button
+			on:click={() => {
+				showClearCoursesModal = !showClearCoursesModal;
+				const scrollPosition = document.scrollingElement.scrollTop;
+				tick().then(() => {
+					document.scrollingElement.scrollTop = scrollPosition;
+				});
+			}}
+		>
+			Clear all courses
+		</button>
 
-				{#if showClearCoursesModal}
-					<div class="clearCoursesModal">
-						<div class="modal">
-							<div class="modalContent">
-								<div class="modalTitle">Clear all courses?</div>
-								<div class="modalButtons">
-									<button
-										on:click={() => {
-											clearCourses();
-											showClearCoursesModal = false;
-											const scrollPosition = document.scrollingElement.scrollTop;
-											tick().then(() => {
-												document.scrollingElement.scrollTop = scrollPosition;
-											});
-										}}
-									>
-										Yes
-									</button>
-									<button
-										on:click={() => {
-											showClearCoursesModal = false;
-											const scrollPosition = document.scrollingElement.scrollTop;
-											tick().then(() => {
-												document.scrollingElement.scrollTop = scrollPosition;
-											});
-										}}
-									>
-										No
-									</button>
-								</div>
-							</div>
+		{#if showClearCoursesModal}
+			<div class="clearCoursesModal">
+				<div class="modal">
+					<div class="modalContent">
+						<div class="modalTitle">Clear all courses?</div>
+						<div class="modalButtons">
+							<button
+								on:click={() => {
+									clearCourses();
+									showClearCoursesModal = false;
+									const scrollPosition = document.scrollingElement.scrollTop;
+									tick().then(() => {
+										document.scrollingElement.scrollTop = scrollPosition;
+									});
+								}}
+							>
+								Yes
+							</button>
+							<button
+								on:click={() => {
+									showClearCoursesModal = false;
+									const scrollPosition = document.scrollingElement.scrollTop;
+									tick().then(() => {
+										document.scrollingElement.scrollTop = scrollPosition;
+									});
+								}}
+							>
+								No
+							</button>
 						</div>
 					</div>
-				{/if}
+				</div>
 			</div>
-			<div class="header">Show course data</div>
-			<div class="courseTableDataCheckboxes">
-				{#each Object.keys($prefs.courseTableData) as courseTableData, i}
-					<div class="checkbox">
-						<input
-							type="checkbox"
-							bind:checked={$prefs.courseTableData[courseTableData]}
-							on:change={() => {
-								$prefs = $prefs;
-							}}
-						/>
-						{courseTableData}
-					</div>
-				{/each}
-			</div>
-			<div class="transferUnits">
-				<div class="header">Transfer units</div>
-				<select
-					on:change={(e) => {
-						selectedTransferUnit = e.target.value;
-					}}
-				>
-					{#each $prefs.transferUnits as transferUnit, i}
-						<option value={i}>{transferUnit.name}</option>
-					{/each}
-				</select>
+		{/if}
+	</div>
+	<div class="header">Show course data</div>
+	<div class="courseTableDataCheckboxes">
+		{#each Object.keys($prefs.courseTableData) as courseTableData, i}
+			<div class="checkbox">
 				<input
-					class="transferUnitUnits"
-					type="number"
-					bind:value={$prefs.transferUnits[selectedTransferUnit].value}
+					type="checkbox"
+					bind:checked={$prefs.courseTableData[courseTableData]}
 					on:change={() => {
 						$prefs = $prefs;
 					}}
-					placeholder="Transfer unit units"
 				/>
+				{courseTableData}
 			</div>
-			<div class="info">
-				<b> Set your total units, then set each individual category.</b>
-			</div>
-			<div class="degreeCheckerConfig">
-				<div class="header">Degree checker</div>
-				<div class="bachelorsDegreeDropdown">
-					<select
-						on:change={(e) => {
-							$prefs.bachelorsDegreeChoice = parseInt(e.target.value);
-							$prefs = $prefs;
-						}}
-						value={$prefs.bachelorsDegreeChoice}
-					>
-						{#each $bachelorsDegreeChoices as bachelorsDegreeChoice, i}
-							<option value={i}>{bachelorsDegreeChoice}</option>
-						{/each}
-					</select>
-				</div>
-				<div class="info">
-					<b>
-						The degree checker does not consider edge cases, cross listed courses, C/SNC
-						requirements, or double counting. Read your program sheet.</b
-					>
-				</div>
-				<div class="info">
-					If your degree is not listed and you've taken CS 106B, you can write it and submit a pull
-					request: go to <a
-						href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
-						target="_blank"
-					>
-						src/routes/degrees
-					</a> and read the existing implementations to see how.
-				</div>
-			</div>
+		{/each}
+	</div>
+	<div class="transferUnits">
+		<div class="header">Transfer units</div>
+		<select
+			on:change={(e) => {
+				selectedTransferUnit = e.target.value;
+			}}
+		>
+			{#each $prefs.transferUnits as transferUnit, i}
+				<option value={i}>{transferUnit.name}</option>
+			{/each}
+		</select>
+		<input
+			class="transferUnitUnits"
+			type="number"
+			bind:value={$prefs.transferUnits[selectedTransferUnit].value}
+			on:change={() => {
+				$prefs = $prefs;
+			}}
+			placeholder="Transfer unit units"
+		/>
+	</div>
+	<div class="info">
+		<b> Set your total units, then set each individual category.</b>
+	</div>
+	<div class="degreeCheckerConfig">
+		<div class="header">Degree checker</div>
+		<div class="bachelorsDegreeDropdown">
+			<select
+				on:change={(e) => {
+					$bachelorsDegreeChoice = e.target.value;
+				}}
+				value={//Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+				$bachelorsDegreeChoices.find((choice) => choice.uniqueID === $bachelorsDegreeChoice)
+					?.uniqueID}
+			>
+				{#each $bachelorsDegreeChoices as choice}
+					<option value={choice.uniqueID}>{choice.degree}</option>
+				{/each}
+			</select>
 		</div>
-	{:else}
-		<div class="hiddenNotif">Config hidden</div>
-	{/if}
-</section>
+		<div class="info">
+			<b>
+				The degree checker does not consider edge cases, cross listed courses, C/SNC requirements,
+				or double counting. Read your program sheet.</b
+			>
+		</div>
+		<div class="info">
+			If your degree is not listed and you've taken CS 106B, you can write it and submit a pull
+			request: go to <a
+				href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
+				target="_blank"
+			>
+				src/routes/degrees
+			</a> and read the existing implementations to see how.
+		</div>
+	</div>
+</div>
 
 <style>
-	section {
-		box-sizing: border-box;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		border: 0.25em solid var(--color-text-light);
-	}
-
-	.switchPanelButton {
-		all: unset;
-		background-color: var(--color-text-dark);
-		color: var(--color-text-light);
-		border-style: none;
-		border-right: 0.25em solid;
-		padding: 0;
-		width: 2em;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.hiddenNotif {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		font-size: 1.5em;
-	}
-
 	.content {
 		width: 25em;
 		display: flex;
