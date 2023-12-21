@@ -23,15 +23,16 @@
 		</button>
 		<button class="dont-show-again-button" on:click={dontShowAgain}>Don't show again</button>
 		<div>
-			<h2>Welcome to CourseCorrect</h2>
+			<h2>CourseCorrect</h2>
 			<p>
-				This is a 5 year course planning tool. It is specialized for long-term planning and is not a
-				replacement for Explorecourses, Carta, or Oncourse but rather should be used alongside them.
-				Ideally you should plan your current quarter first, then use this tool to plan future years.
+				This is a 5 year course planner. Use in conjuction with other services (Explorecourses,
+				Carta, etc.) for best results.
 			</p>
-			<h2>To start</h2>
+			<h2>Start</h2>
 			<p>
-				Configure your preferences, degree, and transfer units in the config panel. Only a few
+				Configure your preferences, degree, and transfer units in the config panel. Make sure to
+				configure "Total" transfer units.
+				<!-- Only a few
 				popular degrees are implememented, but if you've taken CS 106B, you are more than capable of
 				write a degree checking file yourself (in ~1 hour depending on how complex it is) and submit
 				a pull request (<a
@@ -39,17 +40,17 @@
 					target="_blank"
 				>
 					src/routes/degrees
-				</a>)
+				</a>) -->
 			</p>
 			<p>
-				Search for courses in the top left or within each quarter. Search updates on keystroke and
-				may take a moment to update. Use filters aggressively to find extremely particular courses.
+				Search for courses in the top left or directly in each quarter. Use filters aggressively.
 			</p>
 			<h2>Other info</h2>
 			<p>
-				CourseCorrect was made to be used full-screen on laptops; if the site is jumbled, zoom out.
+				CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
+				out.
 			</p>
-			<p>If the entire website breaks, clear your cache and cookies.</p>
+			<p>If the entire website breaks, clear the cache and cookies.</p>
 			<p>Data is stored locally on your browser.</p>
 			<p>
 				The site is broken on Firefox (and potentially other browsers) because of how Github Pages
@@ -58,7 +59,7 @@
 			<h2>Disclaimer</h2>
 			<p>
 				All data and calculations may contain errors. Consult official university materials for
-				ground truths.
+				ground truths. There are no guarantees on the correctness of anything on this website.
 			</p>
 		</div>
 	</div>

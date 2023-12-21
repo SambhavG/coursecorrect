@@ -20,10 +20,10 @@ let degree = {
     "CS 111": ["CS 111"],
     "CS 161": ["CS 161"],
     "A": ["CS 221"],
-    "B1": ["CS 224R", "CS 228", "CS 229", "CS 229M", "CS 229T", "CS 234", "CS 238"],
-    "B2": ["CS 124", "CS 224N", "CS 224S", "CS 224U", "CS 224V"],
-    "B3": ["CS 131", "CS 231A", "CS 231N"],
-    "B4": ["CS 123", "CS 223A", "CS 237A"],
+    "B AI Methods": ["CS 224R", "CS 228", "CS 229", "CS 229M", "CS 229T", "CS 234", "CS 238"],
+    "B NLP": ["CS 124", "CS 224N", "CS 224S", "CS 224U", "CS 224V"],
+    "B Vision": ["CS 131", "CS 231A", "CS 231N"],
+    "B Robotics": ["CS 123", "CS 223A", "CS 237A"],
     "C AI Methods": ["CS 157", "CS 205L", "CS 230", "CS 236", "CS 257", "STATS 315A", "STATS 315B"],
     "C Comp Bio": ["CS 235", "CS 279", "CS 371"],
     "C Info & Web": ["CS 224W", "CS 276"],
@@ -193,20 +193,18 @@ let degree = {
             },
             {
               "type": "or",
-              "name": "B",
               "amount": 2,
-              "lutList": ["B1", "B2", "B3", "B4"]
+              "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics"]
             },
             {
-              "name": "C",
-              "lutList": ["C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other"]
+              "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics", "C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other"]
             }
           ]
         },
         {
           "name": "Elective",
           "amount": 3,
-          "lutList": ["B1", "B2", "B3", "B4", "C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other", "Track Elective", "General CS Elective"]
+          "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics", "C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other", "Track Elective", "General CS Elective"]
         }
       ]
     },

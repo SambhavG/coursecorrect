@@ -113,6 +113,7 @@
 			$allCourses[i].ms = false;
 			$allCourses[i].csnc = false;
 			$allCourses[i].units_taking = $allCourses[i].max_units;
+			$allCourses[i].bump = 0; //Number of slots to bump this course down when tabulating degree
 		}
 
 		//Get data from local storage
@@ -229,6 +230,7 @@
 				(degree) => degree.uniqueID == $bachelorsDegreeChoice
 			);
 			$compiledDegree = compileDegree(choiceFullDegree, $allCourses);
+			setDegreeSpecificSearchFilters($compiledDegree);
 		}
 	}
 
@@ -243,7 +245,6 @@
 				$courseTableList,
 				$prefs.transferUnits
 			);
-			setDegreeSpecificSearchFilters($compiledDegree);
 		}
 	}
 </script>
@@ -277,7 +278,6 @@
 							content={GeneralizedDegreeTracker}
 							props={{ data: degreeTrackerData }}
 						/>
-						<!-- <GeneralizedDegreeTracker data={degreeTrackerData} /> -->
 					{/if}
 				</div>
 				<div class="configPanelContainer">

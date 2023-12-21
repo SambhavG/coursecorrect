@@ -1,4 +1,4 @@
-function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requirement) {
+function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
   //requirement has the following information
   //type: consume (default), observe, transfer, and, or
     //warning: AND/OR subrequirements can not have a progress bar
@@ -44,6 +44,8 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
   //transfer req vars
   let id = requirement?.id;
   let cutoff = requirement?.cutoff;
+  //Modifiers, like countGradAsFour
+  let modifiers = requirement?.modifiers || [];
 
   //Make list a deep copy
   list = JSON.parse(JSON.stringify(list));
@@ -58,12 +60,16 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
         coursesAllowed = [...coursesAllowed, ...compiledDegree.lookuptables[lut]];
       });
     }
-    
+    //Extend lut to include crosslisted courses
+    coursesAllowed = extendLutToCrosslisted(allCourses, coursesAllowed);
 
-    let coursesExtracted = [];
-    let amountStillNeeded = amount;
     //Find all valid courses
     let coursesMatching = filterCourseObjsByLut(list, coursesAllowed);
+    if (type === 'observe') {
+      coursesMatching = filterCourseObjsByLut(originalList, coursesAllowed);
+    }
+    let coursesExtracted = [];
+    let amountStillNeeded = amount;
     
     //Filter out courses that are c/nc or s/nc past the limit
     coursesMatching = coursesMatching.filter((course) => {
@@ -71,11 +77,27 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
         csnc--;
         return true;
       }
-      if (course.csnc) {
-        return false;
+      return !course.csnc;
+    });
+
+    //Filter any courses that have a nonzero "bump"
+    let coursesToDeBump = [];
+    coursesMatching = coursesMatching.filter((course) => {
+      if (course.bump > 0) {
+        coursesToDeBump.push(course);
+        return false || type === 'observe'; //Don't do any bump filtering if we're observing
       }
       return true;
     });
+    //Debump the courses
+    coursesToDeBump.forEach((course) => {
+      list.map((course2) => {
+        if (course2.id === course.id) {
+          course2.bump--;
+        }
+      });
+    });
+
     
 
     //Extract courses until we have enough
@@ -83,20 +105,26 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
     while ((amountStillNeeded > 0 || numUnits < minUnits) && coursesMatching.length > 0) {
       //Extract first course and remove from list
       let course = coursesMatching[0];
+      
       coursesMatching = coursesMatching.slice(1);
+      coursesExtracted.push(course);
+      amountStillNeeded--;
+      numUnits += course.units_taking;
+      //If we have the "countGradAsFour" modifier, add 1 unit if the course is >200 level math ("Includes" the characters "MATH" in code)
+      if (modifiers.includes('countGradAsFour') && course.code.includes('MATH')) {
+        numUnits++;
+      }
       //Remove from list (consume) if this is a consume requirement
       //(otherwise we're just observing)
       if (type === 'consume') {
+        //Remove from list only if we're consuming
         list = list.filter((course2) => {
-          return course2.code !== course.code;
+          return course2.id !== course.id;
         });
-        //Add to courses extracted only if we're consuming
-        coursesExtracted.push(course);
-        amountStillNeeded--;
-        //Add units only if we're consuming
-        numUnits += course.units_taking;
+        
       }
     }
+    
 
     //If we have enough courses, fulfill the requirement
     let fulfilled = amountStillNeeded <= 0 && numUnits >= minUnits;
@@ -142,7 +170,7 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
     let requirementChecks = [];
     content.forEach((req) => {
       //If this is the last req, set minUnits to the number of units we still need
-      if (req === content[content.length-1] && req.minUnits) {
+      if (req === content[content.length-1]) {
         let numUnitsAlreadyTaken = requirementChecks.map((check) => {
           return check.numUnits;
         }).reduce((a, b) => {return a + b;} , 0);
@@ -151,7 +179,7 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
           //(Will probably never happen though)
         req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
       list = requirementChecks[requirementChecks.length-1].list;
     });
     //Count how many units we've taken
@@ -244,7 +272,7 @@ function checkRequirement(compiledDegree, allCourses, grid, list, transfer, requ
           //(Will probably never happen though)
         req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
       list = requirementChecks[requirementChecks.length-1].list;
 
       //Check if we're done
@@ -352,26 +380,12 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
     totalUnits = calculateTotalUnits(listCopy, transfer);
   }
 
-  //Compute requirements for everything
+  //Compute requirements
   let reqResults = [];
-  //initialize the results
-  degree.requirements.forEach((_) => {
-    reqResults.push({});
-  });
 
-  //Compute the results for each requirement that is of type "observe"
   degree.requirements.forEach((req, i) => {
-    if (req?.type === 'observe') {
-      reqResults[i] = checkRequirement(degree, allCourses, grid, listCopy, transfer, req);
-    }
-  });
-
-  //Do the rest
-  degree.requirements.forEach((req, i) => {
-    if (req?.type !== 'observe') {
-      reqResults[i] = checkRequirement(degree, allCourses, grid, listCopy, transfer, req);
+      reqResults = [...reqResults, checkRequirement(degree, allCourses, grid, list, listCopy, transfer, req)];
       listCopy = reqResults[i].list;
-    }
   });
 
   //For each reqResult, unpack it correctly
@@ -476,6 +490,22 @@ function filterCourseObjsByLut(list, lut) {
   });
 }
 
+function extendLutToCrosslisted(allCourses, lut) {
+  let newLut = [];
+  lut.forEach((course) => {
+    //Find course in allCourses
+    let foundCourse = allCourses.filter((c) => {
+      return c.code === course;
+    })[0];
+
+    //Extend newLut by foundLut.codes
+    newLut = newLut.concat(foundCourse.codes);
+  });
+  //Remove duplicates
+  newLut = [...new Set(newLut)];
+  return newLut;
+}
+
 function getTransferUnits(transfer, key) {
   return transfer.filter((obj) => {
     return obj.name === key;
@@ -484,6 +514,7 @@ function getTransferUnits(transfer, key) {
 
 function calculateTotalUnits(courses, transfer) {
   let totalUnits = 0;
+  //Note that we don't worry about the repeatable edge case
   courses.forEach((course) => {
     totalUnits += course.units_taking;
   });
@@ -491,88 +522,5 @@ function calculateTotalUnits(courses, transfer) {
   return totalUnits;
 }
 
-// //Applies courseRegexMatch to a list of course objects
-// function courseRegexListMatch(allCourses, lutList) {
-//   let coursesAllowed = [];
-//   lutList.forEach((lut) => {
-//     coursesAllowed = [...coursesAllowed, ...courseRegexMatch(allCourses, lut)];
-//   });
-//   return [...new Set(coursesAllowed)];
-// }
-
-// //This function takes the entire course list and filters it via regex
-// //regex is either a list of strings, or a list of fancy objects for advanced filtering
-// function courseRegexMatch(allCourses, regex) {
-//   //If regex is an array, check if it is an array of strings
-//   if (Array.isArray(regex) && typeof regex[0] === 'string') {
-//     //Normalize the regex strings
-//     regex = regex.map((str) => {
-//       //If they're already regexes, just return them
-//       if (str[0] === '^' || str[str.length-1] === '$') {
-//         return str;
-//       }
-//       return '^' + str + '$';
-//     });
-
-//     //Make a list of every course which matches any of the regexes
-//     let coursesMatchingARegex = [];
-//     regex.forEach((str) => {
-//       coursesMatchingARegex = [...coursesMatchingARegex, ...allCourses.filter((course) => {
-//         return course.code.match(str);
-//       })];
-//     });
-
-//     //Convert to just codes
-//     coursesMatchingARegex = coursesMatchingARegex.map((course) => {
-//       return course.code;
-//     });
-
-//     //Remove duplicates
-//     return [...new Set(coursesMatchingARegex)];
-//   }
-
-//   //Otherwise it's an array of objects
-//   let allMatchingCourses = [];
-//   for (let i = 0; i < regex.length; i++) {
-//     let thisRegexObject = regex[i];
-//     let thisMatchingCourses = [];
-//     if (thisRegexObject.method == 'regex') {
-//       //Get all the courses that match this regex
-//       thisMatchingCourses = allCourses.filter((course) => {
-//         return course.code.match(thisRegexObject.string);
-//       });
-//     } else if (thisRegexObject.method == 'number') {
-//       let number = thisRegexObject.number;
-//       let comparator = thisRegexObject.comparator;
-//       //Get all the courses which are greater than or less than this number based on the comparator
-//       thisMatchingCourses = allCourses.filter((course) => {
-//         if (comparator == '>=') {
-//           return course.number >= number;
-//         } else if (comparator == '<=') {
-//           return course.number <= number;
-//         } else if (comparator == '>') {
-//           return course.number > number;
-//         } else if (comparator == '<') {
-//           return course.number < number;
-//         }
-//       });
-//     }
-
-//     //If type is add, do a union
-//     if (thisRegexObject.type == 'add') {
-//       allMatchingCourses = [...allMatchingCourses, ...thisMatchingCourses];
-//     }
-//     //If type is remove, do a difference
-//     else if (thisRegexObject.type == 'remove') {
-//       allMatchingCourses = allMatchingCourses.filter((course) => {
-//         return !thisMatchingCourses.includes(course);
-//       });
-//     }
-//   }
-
-//   return allMatchingCourses.map((course) => {
-//     return course.code;
-//   });
-// }
 
 export default GeneralizedDegreeCheck;
