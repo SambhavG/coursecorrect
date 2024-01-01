@@ -4,7 +4,7 @@ import CourseRegexMatch from './CourseRegexMatch.js';
 import { filterCourseObjsByLut, calculateTotalUnits, extractAndCreateCells, getTransferUnits } from '../utils/utils.js';
 function BSMathLUT() {
   return {
-			'Core above 63, counts towards 57 req': [
+			'Core above 63, satisfies 57 and 8': [
         {
           type: 'add',
           method: 'regex',
@@ -27,7 +27,7 @@ function BSMathLUT() {
           string: '^(MATH 56|STATS 116|PHIL 15[12])$'
         }
       ],
-      'All Math, counts towards 57 req': [
+      'All Math, satisfies 57': [
         {
           type: 'add',
           method: 'regex',

@@ -1,8 +1,8 @@
 let degree = {
-  "degree": "B.S. Computer Science (AI track)",
+  "degree": "B.S. Computer Science (HCI)",
   "level": "undergraduate",
   "year": 2023,
-  "uniqueID": "BS_CS_AI_UG_2023",
+  "uniqueID": "2023_UG_CS_BS_HCI",
   "lookuptables": {
     "MATH 19": ["MATH 19"],
     "MATH 20": ["MATH 20"],
@@ -19,18 +19,12 @@ let degree = {
     "CS 107": ["CS 107", "CS 107E"],
     "CS 111": ["CS 111"],
     "CS 161": ["CS 161"],
-    "A": ["CS 221"],
-    "B AI Methods": ["CS 224R", "CS 228", "CS 229", "CS 229M", "CS 229T", "CS 234", "CS 238"],
-    "B NLP": ["CS 124", "CS 224N", "CS 224S", "CS 224U", "CS 224V"],
-    "B Vision": ["CS 131", "CS 231A", "CS 231N"],
-    "B Robotics": ["CS 123", "CS 223A", "CS 237A"],
-    "C AI Methods": ["CS 157", "CS 205L", "CS 230", "CS 236", "CS 257", "STATS 315A", "STATS 315B"],
-    "C Comp Bio": ["CS 235", "CS 279", "CS 371"],
-    "C Info & Web": ["CS 224W", "CS 276"],
-    "C Ethics": ["CS 256"],
-    "C Robotics & Control": ["CS 225A", "CS 327A", "CS 329", "ENGR 205", "MS&E 251", "MS&E 351"],
-    "C Other": ["CS 151", "CS 227B"],
-    "Track Elective": ["CS 325B", "CS 326", "CS 329D", "CS 330", "CS 428", "EE 263", "EE 28", "EE 364A", "EE 364B", "MS&E 252", "MS&E 352", "MS&E 355", "PHIL 152", "PSYCH 204A", "PSYCH 204B", "PSYCH 209", "STATS 200", "STATS 202", "STATS 203", "STATS 205", "STATS 271"],
+    "A1": ["CS 147"],
+    "A2": ["CS 247[A-Z]"],
+    "A3": ["CS 347"],
+    "B": ["CS 142", "CS 147L"],
+    "C": ["CS 177", "CS 278", "CS 448B"],
+    "Track Elective": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 247[A-Z]", "CS 377"],
     "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
@@ -151,10 +145,7 @@ let degree = {
         },
       ]
     },
-    {
-      "type": "observe", 
-      "lut": "TIS"
-    },
+    
     {
       "type": "and",
       "name": "106B/07/11/61",
@@ -185,40 +176,57 @@ let degree = {
       "content": [
         {
           "type": "and",
-          "name": "A, B, C",
+          "name": "A, B",
           "bundle": true,
           "content": [
             {
-              "lut": "A"
+              "lut": "A1"
             },
             {
-              "type": "or",
-              "amount": 2,
-              "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics"]
+              "lut": "A2"
             },
             {
-              "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics", "C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other"]
-            }
+              "lut": "A3"
+            },
+            {
+              "lut": "B"
+            },
           ]
         },
         {
-          "name": "Elective",
+          "type": "and",
+          "name": "C, Electives",
           "amount": 3,
-          "lutList": ["B AI Methods", "B NLP", "B Vision", "B Robotics", "C AI Methods", "C Comp Bio", "C Info & Web", "C Ethics", "C Robotics & Control", "C Other", "Track Elective", "General CS Elective"]
+          "bundle": true,
+          "content": [
+            {
+              "lut": "C"
+            },
+            {
+              "lutList": ["C", "Track Elective"]
+            },
+            {
+              "lutList": ["C", "Track Elective", "General CS Elective"]
+            },
+          ]
         }
       ]
     },
     {
       "type": "and",
-      "name": "Project, WIM",
+      "name": "TIS/WIM/Proj",
       "bundle": true,
       "content": [
         {
-          "lut": "Senior Project"
+          "type": "observe",
+          "lut": "TIS"
         },
         {
           "type": "observe",
           "lut": "WIM"
+        },
+        {
+          "lut": "Senior Project"
         }
       ]
     }

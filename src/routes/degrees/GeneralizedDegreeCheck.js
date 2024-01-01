@@ -1,4 +1,7 @@
 function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
+  //console.log("Checking requirement")
+  //console.log(requirement)
+
   //requirement has the following information
   //type: consume (default), observe, transfer, and, or
     //warning: AND/OR subrequirements can not have a progress bar
@@ -30,6 +33,8 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     //numUnits: the number of units taken within these courses
     //list: the new list of courses after fulfilling this requirement
 
+  //Deep copy requirement
+  requirement = JSON.parse(JSON.stringify(requirement));
   //If type is nothing, this is a "consume" requirement
   let type = requirement?.type || 'consume';
   let name = requirement?.name || requirement?.lut || requirement?.id || "unnamed requirement";
@@ -43,7 +48,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   let bundle = requirement?.bundle || false;
   //transfer req vars
   let id = requirement?.id;
-  let cutoff = requirement?.cutoff;
+  let cutoff = requirement?.cutoff || 0;
   //Modifiers, like countGradAsFour
   let modifiers = requirement?.modifiers || [];
 
@@ -61,7 +66,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       });
     }
     //Extend lut to include crosslisted courses
-    coursesAllowed = extendLutToCrosslisted(allCourses, coursesAllowed);
+    //coursesAllowed = extendLutToCrosslisted(allCourses, coursesAllowed);
 
     //Find all valid courses
     let coursesMatching = filterCourseObjsByLut(list, coursesAllowed);
@@ -98,8 +103,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       });
     });
 
-    
-
     //Extract courses until we have enough
     let numUnits = 0;
     while ((amountStillNeeded > 0 || numUnits < minUnits) && coursesMatching.length > 0) {
@@ -110,8 +113,8 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       coursesExtracted.push(course);
       amountStillNeeded--;
       numUnits += course.units_taking;
-      //If we have the "countGradAsFour" modifier, add 1 unit if the course is >200 level math ("Includes" the characters "MATH" in code)
-      if (modifiers.includes('countGradAsFour') && course.code.includes('MATH')) {
+      //If we have the "countGradAsFour" modifier, add 1 unit if the course is >200 level math
+      if (modifiers.includes('countGradAsFour') && course.dept == "MATH" && course.number >= 200) {
         numUnits++;
       }
       //Remove from list (consume) if this is a consume requirement
@@ -125,7 +128,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       }
     }
     
-
     //If we have enough courses, fulfill the requirement
     let fulfilled = amountStillNeeded <= 0 && numUnits >= minUnits;
     //Create the cell values array
@@ -174,10 +176,9 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         let numUnitsAlreadyTaken = requirementChecks.map((check) => {
           return check.numUnits;
         }).reduce((a, b) => {return a + b;} , 0);
-        let numUnitsRemaining = minUnits - numUnitsAlreadyTaken;
         //Account for when the last requirement has its own minUnits property
           //(Will probably never happen though)
-        req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
+        req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
       requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
       list = requirementChecks[requirementChecks.length-1].list;
@@ -202,6 +203,8 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         });
       }
     });
+    
+
 
     let cellValues = [name];
     if (bundle) {
@@ -262,15 +265,12 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     content.forEach((req) => {
       if (done) return;
       //If this is the last req, set minUnits to the number of units we still need
-      if (req === content[content.length-1] && req.minUnits) {
+      if (req === content[content.length-1]) {
         let numUnitsAlreadyTaken = requirementChecks.map((check) => {
           return check.numUnits;
         }).reduce((a, b) => {return a + b;} , 0);
-        req.minUnits = minUnits - numUnitsAlreadyTaken;
-        let numUnitsRemaining = minUnits - numUnitsAlreadyTaken;
         //Account for when the last requirement has its own minUnits property
-          //(Will probably never happen though)
-        req.minUnits = Math.max(numUnitsRemaining, req.minUnits || 0);
+        req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
       requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
       list = requirementChecks[requirementChecks.length-1].list;
@@ -296,6 +296,16 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       return check.fulfilled;
     }) && minUnitsFulfilled && amountFulfilled;
 
+    //If done was triggered, return the used courses from the unfulfilled requirements
+    if (done) {
+      let coursesExtracted = requirementChecks.filter((check) => {
+        return !check.fulfilled;
+      }).map((check) => {
+        return check.coursesExtracted;
+      }).flat();
+      list = list.concat(coursesExtracted);
+    }
+
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
     let cellValues = [name];
     requirementChecks.forEach((check) => {
@@ -311,12 +321,12 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 
     //Add empty cells if we don't have enough courses
     while (cellValues.length < amount+1) {
-      cellValues.push(['']);
+      cellValues.push('');
     }
-    //Add one additional cell if we don't have enough units
+    //Add one additional cell if we don't have enough units or aren't fulfilled
     //to show that we're not fulfilling the requirement
-    if (numUnits < minUnits && cellValues[cellValues.length-1] !== '') {
-      cellValues.push(['']);
+    if ((numUnits < minUnits || !fulfilled) && cellValues[cellValues.length-1] !== '') {
+      cellValues.push('');
     }
 
     let retVal = {
@@ -359,6 +369,17 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         list: list
       }
     }
+  } else if (type === 'transferUnits') {
+    //Look at id of transfer and see if it's enough for cutoff
+    let numUnits = getTransferUnits(transfer, id);
+    return {
+      fulfilled: true,
+      cellValues: [name, numUnits > 0 ? 'Transfer' : ''],
+      coursesExtracted: [],
+      numUnits: numUnits,
+      list: list
+    }
+    
   } else {
     //Throw an error
     console.log("Invalid requirement type");
@@ -447,6 +468,15 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
     ]
   });
 
+  //Text row
+  if (degree.infoText) {
+    rows.push({
+      cells: [
+        { value: degree.infoText, noBorder: true, weight: 4 }
+      ]
+    });
+  }
+
   //Add the rest of the rows
   unprocessedRows.forEach((row) => {
     let cells = [];
@@ -488,22 +518,6 @@ function filterCourseObjsByLut(list, lut) {
   return list.filter((course) => {
     return lut.includes(course.code);
   });
-}
-
-function extendLutToCrosslisted(allCourses, lut) {
-  let newLut = [];
-  lut.forEach((course) => {
-    //Find course in allCourses
-    let foundCourse = allCourses.filter((c) => {
-      return c.code === course;
-    })[0];
-
-    //Extend newLut by foundLut.codes
-    newLut = newLut.concat(foundCourse.codes);
-  });
-  //Remove duplicates
-  newLut = [...new Set(newLut)];
-  return newLut;
 }
 
 function getTransferUnits(transfer, key) {

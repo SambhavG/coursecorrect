@@ -52,13 +52,36 @@
 			}
 			style += 'width: ' + progressVal * 100 + '%; ';
 			//Color based on progressVal
-			if (progressVal < 0.5) {
-				style += 'background-color: var(--color-bad);';
-			} else if (progressVal < 0.75) {
-				style += 'background-color: var(--color-okay);';
-			} else {
-				style += 'background-color: var(--color-good);';
+			// if (progressVal < 0.5) {
+			// 	style += 'background-color: var(--color-bad);';
+			// } else if (progressVal < 0.75) {
+			// 	style += 'background-color: var(--color-okay);';
+			// } else {
+			// 	style += 'background-color: var(--color-good);';
+			// }
+			//Instead of hard coding the color, generate smooth gradient color from 0 (red) to 50 (yellow) to 100 (green)
+			let redStop = 0;
+			let yellowStop = 0.5;
+			let greenStop = 1;
+			let red = 255;
+			let green = 0;
+			let blue = 0;
+			if (progressVal > yellowStop) {
+				red = 255 - ((progressVal - yellowStop) / (greenStop - yellowStop)) * 255;
+				green = 255;
 			}
+			if (progressVal > redStop && progressVal < yellowStop) {
+				red = 255;
+				green = (progressVal / yellowStop) * 255;
+			}
+			style +=
+				'background-color: rgb(' +
+				Math.round(red) +
+				',' +
+				Math.round(green) +
+				',' +
+				Math.round(blue) +
+				');';
 		}
 		return style;
 	}
@@ -104,37 +127,6 @@
 </div>
 
 <style>
-	section {
-		box-sizing: border-box;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		border: 0.25em solid var(--color-text-light);
-	}
-
-	.switchPanelButton {
-		all: unset;
-		background-color: var(--color-text-dark);
-		color: var(--color-text-light);
-		border-style: none;
-		border-right: 0.25em solid;
-		padding: 0;
-		width: 2em;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.hiddenNotif {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		font-size: 1.5em;
-	}
-
 	.content {
 		box-sizing: border-box;
 		display: flex;

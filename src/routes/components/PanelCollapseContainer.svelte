@@ -48,7 +48,7 @@
 		border-style: none;
 		border-right: 0.25em solid;
 		padding: 0;
-		width: 2em;
+		width: 1em;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

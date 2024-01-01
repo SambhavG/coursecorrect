@@ -96,7 +96,7 @@
 	</div>
 	<div class="header">Show course data</div>
 	<div class="courseTableDataCheckboxes">
-		{#each Object.keys($prefs.courseTableData) as courseTableData, i}
+		{#each Object.keys($prefs.courseTableData) as courseTableData}
 			<div class="checkbox">
 				<input
 					type="checkbox"

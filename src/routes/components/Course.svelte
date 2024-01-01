@@ -51,6 +51,15 @@
 		}
 	}
 
+	function bump() {
+		updateCourseById(course.id, 'bump', course.bump + 1);
+		console.log(course.bump);
+	}
+
+	function resetBump() {
+		updateCourseById(course.id, 'bump', 0);
+	}
+
 	function updateMs(e) {
 		//Lock updates via $
 		msChecked = e.target.checked;
@@ -94,6 +103,16 @@
 >
 	<div class="coverUpButton" style={courseColor(course)}>
 		<div class="leftSide">
+			{#if $prefs.courseTableData['Bump button']}
+				<div class="checkboxesContainer">
+					<div class="checkboxContainer">
+						<button on:click={bump}>Bump</button>
+					</div>
+					<div class="checkboxContainer">
+						<button on:click={resetBump}>Reset</button>
+					</div>
+				</div>
+			{/if}
 			{#if $prefs.courseTableData['Checkboxes']}
 				<div class="checkboxesContainer">
 					<div class="checkboxContainer">
@@ -206,6 +225,23 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: left;
+		margin-left: 0.3em;
+	}
+
+	button {
+		all: inherit;
+		padding: 0 0.5em;
+		width: 100%;
+		height: 80%;
+		border: 1px solid var(--color-text-light);
+		border-radius: 1em;
+		margin: 0.1em 0;
+		color: var(--color-text-light);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
 	}
 
 	.classCodeSpanContainer {

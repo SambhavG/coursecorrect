@@ -16,7 +16,8 @@
 		bachelorsDegreeChoices,
 		mastersDegreeChoice,
 		mastersDegreeChoices,
-		compiledDegree
+		compiledDegree,
+		compressedTable
 	} from './stores.js';
 	import Search from './components/Search.svelte';
 	import WAYSTracker from './components/WAYSTracker.svelte';
@@ -159,6 +160,7 @@
 		}
 		if (storedCourseTable && storedCourseTable !== '[]') {
 			$courseTable = JSON.parse(storedCourseTable);
+			cleanCourseTable();
 		} else {
 			let coursesObj = [];
 			for (let i = 0; i < $years.length; i++) {
@@ -220,6 +222,20 @@
 		$searchFilters = $searchFilters;
 	}
 
+	//Used to remove error where one of the courses in courseTable has a dnd tag
+	function cleanCourseTable() {
+		for (let i = 0; i < $courseTable.length; i++) {
+			for (let j = 0; j < $courseTable[i].quarters.length; j++) {
+				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					//Delete the "isDndShadowItem" tag if it exists
+					if ($courseTable[i].quarters[j].courses[k]?.isDndShadowItem != undefined) {
+						delete $courseTable[i].quarters[j].courses[k].isDndShadowItem;
+					}
+				}
+			}
+		}
+	}
+
 	//This is the raw data passed to the degree check panel
 	let degreeTrackerData;
 
@@ -246,6 +262,23 @@
 				$prefs.transferUnits
 			);
 		}
+	}
+
+	//Whenever the course table changes, compress it
+	$: {
+		$compressedTable = [];
+		let coursesObj = [];
+		for (let i = 0; i < $years.length; i++) {
+			coursesObj.push({ id: $years[i], quarters: [] });
+			for (let j = 0; j < $quarters.length; j++) {
+				coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
+				for (let k = 0; k < j + 2; k++) {
+					let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
+					coursesObj[i].quarters[j].courses.push(randomCourse);
+				}
+			}
+		}
+		//$compressedTable = coursesObj;
 	}
 </script>
 
@@ -315,11 +348,18 @@
 	}
 
 	.searchContainer {
-		margin-left: 1em;
+		padding-left: 1em;
+		padding-top: 1em;
+		padding-right: 2em;
 		overflow: scroll;
 		max-height: 100vh;
 		display: flex;
 		flex-direction: row;
+		background-image: linear-gradient(
+			to right,
+			var(--color-text-dark) 99%,
+			var(--color-text-light) 99%
+		);
 	}
 	.scrollArea {
 		width: 2em;
@@ -336,25 +376,31 @@
 	.gridAndInfoContainer {
 		/* overflow: scroll; */
 		/* max-height: 100vh; */
+		width: 100%;
 	}
 	.dataHeader {
 		width: 100%;
 		margin-bottom: 1em;
 		display: flex;
 		flex-direction: row;
+		align-items: flex-end;
 		flex-wrap: wrap;
 	}
 	.waysTrackerContainer {
 		margin-right: 1em;
+		margin-bottom: 1em;
 	}
 	.generalizedDegreeTrackerContainer {
 		margin-right: 1em;
+		margin-bottom: 1em;
+	}
+	.configPanelContainer {
+		margin-bottom: 1em;
 	}
 	.courseDataPanelContainer {
 		width: 100%;
 		margin-bottom: 1em;
 	}
-
 	.gridContainer {
 		position: relative;
 	}

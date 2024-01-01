@@ -34,7 +34,7 @@ export const searchFilters = writable({
 	},
 	hours: {
 		'min': 0,
-		'max': 24
+		'max': 100
 	},
 	averageEval: {
 		'min': 0,
@@ -114,7 +114,8 @@ export const prefs = writable({
 		'Links': true,
 		'WAYS': true,
 		'Percent completed & eval': true,
-		'Checkboxes': false
+		'Checkboxes': false,
+		'Bump button': false,
 	},
 	transferUnits: [
 		{'name': 'Total',
@@ -142,7 +143,7 @@ export const prefs = writable({
 	]
 });
 
-//Set by LoaadInAllDegrees
+//Set by LoadInAllDegrees
 export const bachelorsDegreeChoices = writable([]);
 export const mastersDegreeChoices = writable([]);
 
@@ -172,3 +173,6 @@ export const panelCollapsed = writable({ //PERSISTENT
 		'Coterm': false
 	},
 });
+
+//Compressed data (for db)
+export const compressedTable = writable([]);

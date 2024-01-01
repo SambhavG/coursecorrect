@@ -3,6 +3,7 @@
 	import { years, quarters, courseTable, panelCollapsed } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
+	import PanelCollapseContainer from './PanelCollapseContainer.svelte';
 	import { tick } from 'svelte';
 
 	let width = 1400;
@@ -78,8 +79,11 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		justify-content: center;
+		width: 1.3em;
 	}
+
 	.yearContainer {
 		display: grid;
 		min-height: 20em;

@@ -123,15 +123,15 @@
 					if (way1 == 'CE' && filling1['CE'].have == 1) {
 						filling1['CE'].have++;
 					}
-					newFillings.push(filling1);
 				}
+				newFillings.push(filling1);
 				if (filling2[way2].have < filling2[way2].need) {
 					filling2[way2].have++;
 					if (way2 == 'CE' && filling2['CE'].have == 1) {
 						filling2['CE'].have++;
 					}
-					newFillings.push(filling2);
 				}
+				newFillings.push(filling2);
 			});
 			possibleFillings = newFillings;
 			//Filter out duplicates
@@ -210,10 +210,10 @@
 
 		<div class="textStack">
 			<div class="line1">
-				Showing solution {currentSolution + 1} of {waysGrids.length}
+				Solution {currentSolution + 1} of {waysGrids.length}
 			</div>
 			<div class="line2">
-				{currentNumWaysFulfilled}/12 WAYS fulfilled
+				{currentNumWaysFulfilled} fulfilled
 			</div>
 		</div>
 		<button
