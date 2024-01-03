@@ -17,9 +17,9 @@
 </script>
 
 {#if $isDragging}
-	<section class:isVisisble={true}>
+	<section class="isVisible">
 		<div class="trashIcon">
-			<Trash2 size="10em" />
+			<Trash2 size="15em" />
 		</div>
 		<div
 			class="dndzone"
@@ -41,10 +41,6 @@
 		width: 15em;
 		height: 15em;
 		position: relative;
-		/* display: hidden; */
-		/* visibility: hidden; */
-		/* make it not respond to pointer events */
-		/* pointer-events: none; */
 	}
 	section > * {
 		position: absolute;

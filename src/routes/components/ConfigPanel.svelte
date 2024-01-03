@@ -32,7 +32,7 @@
 		<button
 			on:click={() => {
 				$panelCollapsed.search = !$panelCollapsed.search;
-				$prefs = $prefs;
+				$panelCollapsed = $panelCollapsed;
 				const scrollPosition = document.scrollingElement.scrollTop;
 				tick().then(() => {
 					document.scrollingElement.scrollTop = scrollPosition;
@@ -43,6 +43,24 @@
 				Show search
 			{:else}
 				Hide search
+			{/if}
+		</button>
+	</div>
+	<div class="showHideSummer">
+		<button
+			on:click={() => {
+				$panelCollapsed.summer = !$panelCollapsed.summer;
+				$panelCollapsed = $panelCollapsed;
+				const scrollPosition = document.scrollingElement.scrollTop;
+				tick().then(() => {
+					document.scrollingElement.scrollTop = scrollPosition;
+				});
+			}}
+		>
+			{#if $panelCollapsed.summer}
+				Show summer
+			{:else}
+				Hide summer
 			{/if}
 		</button>
 	</div>
@@ -207,8 +225,9 @@
 		margin: 0.5em 0;
 	}
 
-	.clearContainer {
-		margin: 0.5em 0;
+	.clearContainer,
+	.showHideSummer {
+		margin-top: 0.5em;
 	}
 	select {
 		box-sizing: border-box;

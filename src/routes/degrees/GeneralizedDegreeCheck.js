@@ -1,6 +1,6 @@
 function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
-  //console.log("Checking requirement")
-  //console.log(requirement)
+  // console.log("Checking requirement")
+  // console.log(requirement)
 
   //requirement has the following information
   //type: consume (default), observe, transfer, and, or
@@ -46,11 +46,20 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   //and/or req vars
   let content = requirement?.content;
   let bundle = requirement?.bundle || false;
+  let bundleName = requirement?.bundleName ?? name;
   //transfer req vars
   let id = requirement?.id;
   let cutoff = requirement?.cutoff || 0;
   //Modifiers, like countGradAsFour
   let modifiers = requirement?.modifiers || [];
+
+  //Check if there are any unrecognized keys in requirement
+  let validKeys = ['type', 'name', 'lut', 'lutList', 'amount', 'minUnits', 'csnc', 'content', 'bundle', 'bundleName', 'id', 'cutoff', 'modifiers'];
+  Object.keys(requirement).forEach((key) => {
+    if (!validKeys.includes(key)) {
+      console.log("Unrecognized key in requirement: " + key);
+    }
+  });
 
   //Make list a deep copy
   list = JSON.parse(JSON.stringify(list));
@@ -208,6 +217,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 
     let cellValues = [name];
     if (bundle) {
+      cellValues[0] = bundleName;
       //Cut first element off of each cellValuesArray and add to cellValues
       cellValuesArray.forEach((cellValuesElem) => {
         cellValuesElem = cellValuesElem.slice(1);
@@ -244,9 +254,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 
 
   } else if (type === 'or') {
-    if (name == "MATH 19") {
-      console.log("MATH 19");
-    }
     //Go through each of either the content or the lutList
     //We check requirements in the same fashion as "and" requirements
     //until all of the following occur:
@@ -294,11 +301,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     fulfilled = requirementChecks.some((check) => {
       return check.fulfilled;
     }) && numUnits >= minUnits && coursesExtracted.length >= amount;
-    console.log(requirement)
-    console.log(numUnits >= minUnits)
-    console.log(coursesExtracted.length >= amount)
-    console.log(coursesExtracted.length)
-    console.log(amount)
     //If done was triggered, return the used courses from the unfulfilled requirements
     if (done) {
       let coursesExtracted = requirementChecks.filter((check) => {
@@ -307,6 +309,10 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         return check.coursesExtracted;
       }).flat();
       list = list.concat(coursesExtracted);
+    }
+
+    if (name == "AAAAA") {
+      console.log(requirementChecks)
     }
 
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
@@ -326,14 +332,11 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     while (cellValues.length < amount+1) {
       cellValues.push('');
     }
-    console.log(cellValues);
-    console.log(fulfilled)
     //Add one additional cell if we don't have enough units or aren't fulfilled
     //to show that we're not fulfilling the requirement
     if ((numUnits < minUnits || !fulfilled) && cellValues[cellValues.length-1] !== '') {
       cellValues.push('');
     }
-    console.log(cellValues)
 
     let retVal = {
       fulfilled: fulfilled,
@@ -353,8 +356,8 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       }
     }
 
-    if (name == "MATH 19") {
-      console.log(retVal);
+    if (name == "AAAAA") {
+      console.log(retVal)
     }
 
     return retVal;
@@ -365,8 +368,8 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     if (numUnits >= cutoff) {
       return {
         fulfilled: true,
-        cellValues: [name, 'Transfer'],
-        coursesExtracted: [],
+        cellValues: [name, id],
+        coursesExtracted: ["TRANSFER COURSE"],
         numUnits: numUnits,
         list: list
       }

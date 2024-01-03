@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import Blank_degree from './Blank_degree.js';
 
+	import _2023_UG_BioE_BS_Standard from './2023_UG_BioE_BS_Standard.js';
+
 	import _2023_UG_CS_BS_AI from './2023_UG_CS_BS_AI.js';
 	import _2023_UG_CS_BS_Biocomp from './2023_UG_CS_BS_Biocomp.js';
 	import _2023_UG_CS_BS_CompEng from './2023_UG_CS_BS_CompEng.js';
@@ -18,6 +20,11 @@
 	import _2023_UG_Humbio_BS_Standard from './2023_UG_Humbio_BS_Standard.js';
 
 	import _2023_UG_Math_BS_Standard from './2023_UG_Math_BS_Standard.js';
+
+	import _2023_UG_MechE_BS_DynamicSystems from './2023_UG_MechE_BS_DynamicSystems.js';
+	import _2023_UG_MechE_BS_Materials from './2023_UG_MechE_BS_Materials.js';
+	import _2023_UG_MechE_BS_ProductRealization from './2023_UG_MechE_BS_ProductRealization.js';
+	import _2023_UG_MechE_BS_ThermoFluidsHeat from './2023_UG_MechE_BS_ThermoFluidsHeat.js';
 
 	import _2023_UG_Symsys_BS_AI from './2023_UG_Symsys_BS_AI.js';
 	import _2023_UG_Symsys_BS_AppliedLogic from './2023_UG_Symsys_BS_AppliedLogic.js';
@@ -40,6 +47,9 @@
 
 	let ug_degrees = [
 		Blank_degree,
+
+		_2023_UG_BioE_BS_Standard,
+
 		_2023_UG_CS_BS_AI,
 		_2023_UG_CS_BS_Biocomp,
 		_2023_UG_CS_BS_CompEng,
@@ -55,6 +65,11 @@
 		_2023_UG_Humbio_BS_Standard,
 
 		_2023_UG_Math_BS_Standard,
+
+		_2023_UG_MechE_BS_DynamicSystems,
+		_2023_UG_MechE_BS_Materials,
+		_2023_UG_MechE_BS_ProductRealization,
+		_2023_UG_MechE_BS_ThermoFluidsHeat,
 
 		_2023_UG_Symsys_BS_AI,
 		_2023_UG_Symsys_BS_AppliedLogic,

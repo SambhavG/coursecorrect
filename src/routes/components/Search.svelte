@@ -227,11 +227,9 @@
 		}
 		let queryUpper = query.toUpperCase().trim();
 		let queryLower = query.toLowerCase().trim();
-		let workingList = $allCourses.filter((course) => doesCourseFitFilters(course, $searchFilters));
-		console.log($searchFilters.sortOrder);
-		console.log(workingList);
-		workingList = sortCourses(workingList);
-		console.log(workingList);
+		let workingList = sortCourses(
+			$allCourses.filter((course) => doesCourseFitFilters(course, $searchFilters))
+		);
 		let exactMatchResults = [];
 		let totalExactMatchResults = 0;
 		let sameDepartmentResults = [];
@@ -628,15 +626,15 @@
 				</div>
 			</div>
 			<div class="horizontalLine" />
-			<div class="filtersAndClearFilterButton">
-				<button
-					class="clearFilterButton"
-					on:click={() => {
-						clearFilters(2);
-						searchResultsFunction();
-					}}>Clear filters</button
-				>
+			<div class="filters">
 				<div class="filter">
+					<button
+						class="clearFilterButton"
+						on:click={() => {
+							clearFilters(2);
+							searchResultsFunction();
+						}}>Clear filters</button
+					>
 					<div class="title">Degree requirements</div>
 					<div class="options">
 						{#each Object.keys($searchFilters.degreeSpecific.checkboxes) as thisDegreeFilter}
@@ -705,6 +703,7 @@
 	section {
 		box-sizing: border-box;
 		font-weight: 400;
+		width: 100%;
 	}
 
 	.inputContainer {
@@ -822,7 +821,7 @@
 		height: 1.8em;
 		font-size: 1.2em;
 		padding-left: 0.5em;
-		margin-right: 0.5em;
+		padding-right: 0.5em;
 		border: 1px solid #ccc;
 		border-radius: 1em;
 		background-color: var(--color-text-dark);

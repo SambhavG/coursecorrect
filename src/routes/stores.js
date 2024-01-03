@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const years = writable(['Frosh', 'Sophomore', 'Junior', 'Senior', 'Coterm']);
-export const quarters = writable(['Fall', 'Winter', 'Spring']);
+export const quarters = writable(['Summer', 'Fall', 'Winter', 'Spring']);
 export const allCourses = writable([]);
 export const reviewData = writable(undefined);
 export const courseTable = writable([]);
@@ -148,8 +148,8 @@ export const bachelorsDegreeChoice = writable('BLANK'); //PERSISTENT
 export const mastersDegreeChoice = writable('BLANK'); //PERSISTENT
 
 //Random prefs
-export const showWelcomeModalOnLoad = writable(true); //PERSISTENT
-export const showWelcomeModal = writable(true);
+export const showWelcomeModalOnLoad = writable(false); //PERSISTENT
+export const showWelcomeModal = writable(false);
 
 export const panelCollapsed = writable({ //PERSISTENT
 	courseData: false,
@@ -158,6 +158,7 @@ export const panelCollapsed = writable({ //PERSISTENT
 	bsTracker: false,
 	msTracker: false,
 	config: false,
+	summer: true,
 	years: {
 		'Frosh': false,
 		'Sophomore': false,

@@ -1,6 +1,6 @@
 <script>
 	import QuarterDND from './QuarterDND.svelte';
-	import { years, quarters, courseTable, panelCollapsed } from '../stores.js';
+	import { years, quarters, courseTable, panelCollapsed, prefs } from '../stores.js';
 	import { ChevronsDownUp, ChevronsUpDown } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import PanelCollapseContainer from './PanelCollapseContainer.svelte';
@@ -17,8 +17,12 @@
 	function sectionStyle() {
 		return 'grid-template-rows: repeat(' + $years.length + ', 1fr)';
 	}
-	function rowStyle() {
-		return 'grid-template-columns: repeat(' + $quarters.length + ', minmax(0, 1fr))';
+	let rowStyle = '';
+	$: {
+		rowStyle =
+			'grid-template-columns: repeat(' +
+			($quarters.length - ($panelCollapsed.summer ? 1 : 0)) +
+			', minmax(0, 1fr))';
 	}
 </script>
 
@@ -42,16 +46,18 @@
 				{/if}
 			</button>
 			{#if !$panelCollapsed.years[year.id]}
-				<div class="yearContainer" style={rowStyle()}>
+				<div class="yearContainer" style={rowStyle}>
 					{#each year.quarters as quarter, q (quarter.id)}
-						<div class="quarterContainer">
-							<QuarterDND {quarter} {y} {q} />
-						</div>
+						{#if !$panelCollapsed.summer || !quarter.id.includes('Summer')}
+							<div class="quarterContainer">
+								<QuarterDND {quarter} {y} {q} />
+							</div>
+						{/if}
 					{/each}
 				</div>
 			{:else}
 				<div class="hiddenNotif">
-					{year.id} year hidden
+					{year.id} year
 				</div>
 			{/if}
 		</div>

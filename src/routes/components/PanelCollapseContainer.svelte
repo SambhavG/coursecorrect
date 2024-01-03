@@ -29,7 +29,7 @@
 	{#if !$panelCollapsed[panelId]}
 		<svelte:component this={content} {...props} />
 	{:else}
-		<div class="hiddenNotif">{panelName} hidden</div>
+		<div class="hiddenNotif">{panelName}</div>
 	{/if}
 </section>
 
@@ -62,5 +62,6 @@
 		justify-content: center;
 		width: 100%;
 		font-size: 1.5em;
+		margin: 0 0.25em;
 	}
 </style>

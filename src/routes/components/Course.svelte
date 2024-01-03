@@ -53,7 +53,6 @@
 
 	function bump() {
 		updateCourseById(course.id, 'bump', course.bump + 1);
-		console.log(course.bump);
 	}
 
 	function resetBump() {
@@ -202,7 +201,8 @@
 
 	.coverUpButton {
 		all: inherit;
-		width: 100%;
+		width: 10000%;
+
 		height: 100%;
 	}
 

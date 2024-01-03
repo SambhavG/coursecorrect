@@ -3,7 +3,7 @@
 	import { showWelcomeModal, showWelcomeModalOnLoad } from '../stores';
 
 	$: {
-		$showWelcomeModal = $showWelcomeModalOnLoad && $showWelcomeModal;
+		$showWelcomeModal = $showWelcomeModalOnLoad;
 	}
 
 	function close() {

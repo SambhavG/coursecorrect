@@ -1,8 +1,6 @@
 <script>
-	import { ChevronsDownUp, ChevronsUpDown, Info } from 'lucide-svelte';
+	import { Info } from 'lucide-svelte';
 	import '../styles.css';
-	import { panelCollapsed } from '../stores';
-	import { tick } from 'svelte';
 	export let data;
 
 	//Takes as prop an object describing
@@ -37,6 +35,26 @@
 		if (!cell?.noBorder) {
 			style += 'border: 1px solid var(--color-text-light);';
 		}
+		/*
+		@keyframes moveBackground {
+			0% { background-position: 0% 50%; }
+			100% { background-position: 100% 50%; }
+		}
+
+		.stripe-background {
+			background: linear-gradient(45deg, black 25%, white 25%, white 50%, black 50%, black 75%, white 75%, white);
+			background-size: 56.57px 56.57px;
+			animation: moveBackground 2s linear infinite;
+		}
+		*/
+		if (!cell?.noBorder && !cell?.isTitle && !cell?.progress && !cell?.toggle) {
+			//If the cell is blank, make it black and gray diagonal stripes which move left to right.
+			if (!cell?.value) {
+				style +=
+					'background: linear-gradient(45deg, var(--color-text-dark) 35%, var(--color-text-light) 35%, var(--color-text-light) 50%, var(--color-text-dark) 50%, var(--color-text-dark) 85%, var(--color-text-light) 85%, var(--color-text-light)); background-size: 1.5em 1.5em; animation: moveBackground 2s linear infinite;';
+			}
+		}
+
 		return style;
 	}
 
@@ -169,5 +187,14 @@
 		position: absolute;
 		right: 0;
 		top: 0;
+	}
+
+	@keyframes moveBackground {
+		0% {
+			background-position: 0% 50%;
+		}
+		100% {
+			background-position: 100% 50%;
+		}
 	}
 </style>

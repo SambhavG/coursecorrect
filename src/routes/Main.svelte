@@ -120,8 +120,6 @@
 		//Get data from local storage
 		const isBrowser = typeof window !== 'undefined';
 		let storedCourseTable = null;
-		let storedYears = null;
-		let storedQuarters = null;
 		let storedPrefs = null;
 		let storedShowWelcomeModalOnLoad = null;
 		let storedPanelCollapsed = null;
@@ -129,25 +127,19 @@
 		let storedMastersDegreeChoice = null;
 		if (isBrowser && !dumpLocalStorage) {
 			storedCourseTable = localStorage.getItem('courseTable');
-			storedYears = localStorage.getItem('years');
-			storedQuarters = localStorage.getItem('quarters');
 			storedPrefs = localStorage.getItem('prefs');
 			storedShowWelcomeModalOnLoad = localStorage.getItem('showWelcomeModalOnLoad');
 			storedPanelCollapsed = localStorage.getItem('panelCollapsed');
 			storedBachelorsDegreeChoice = localStorage.getItem('bachelorsDegreeChoice');
 			storedMastersDegreeChoice = localStorage.getItem('mastersDegreeChoice');
 		}
-		if (storedYears) {
-			$years = JSON.parse(storedYears);
-		}
-		if (storedQuarters) {
-			$quarters = JSON.parse(storedQuarters);
-		}
 		if (storedPrefs) {
 			$prefs = JSON.parse(storedPrefs);
 		}
 		if (storedShowWelcomeModalOnLoad) {
 			$showWelcomeModalOnLoad = JSON.parse(storedShowWelcomeModalOnLoad);
+		} else {
+			$showWelcomeModalOnLoad = true;
 		}
 		if (storedPanelCollapsed) {
 			$panelCollapsed = JSON.parse(storedPanelCollapsed);
@@ -176,7 +168,6 @@
 			$courseTable = coursesObj;
 		}
 		mounted = true;
-		console.log($allCourses[0]);
 	});
 
 	//Save to local storage
@@ -296,6 +287,9 @@
 	{/if}
 	<div class="gridAndInfoAndScrollContainer">
 		<div class="scrollArea" />
+		<div class="trashContainer">
+			<Trash />
+		</div>
 		<div class="gridAndInfoContainer">
 			<div class="dataHeader">
 				<OnStartInfoModal />
@@ -326,13 +320,10 @@
 				/>
 			</div>
 			<div class="gridContainer">
-				<div class="trashContainer">
-					<Trash />
-				</div>
 				<Grid />
 			</div>
 			<footer>
-				<p>Made by <a href="https://www.sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
+				<p>Made by <a href="https://sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
 			</footer>
 			<div class="giantSpace" />
 		</div>
@@ -381,7 +372,6 @@
 	}
 	.dataHeader {
 		width: 100%;
-		margin-bottom: 1em;
 		display: flex;
 		flex-direction: row;
 		align-items: flex-end;
@@ -407,11 +397,13 @@
 	}
 	.trashContainer {
 		position: absolute;
+		left: 5%;
 		top: 50%;
-		left: 0%;
-		/* the centerpoint of the object should be at the middle right */
-		transform: translate(-100%, 0%);
-		padding-right: 1em;
+		transform: translateY(-25%);
+		/* background-color: red; */
+		width: 15em;
+		height: 15em;
+		pointer-events: none;
 	}
 	footer {
 		display: flex;

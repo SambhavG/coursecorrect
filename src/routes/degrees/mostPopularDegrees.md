@@ -10,13 +10,13 @@ Political science
 ✔️ Math
 International relations
 Psychology
-MechE
+✔️ MechE
 Biology
 MS&E
 English
 
 50 or less
-Bioengineering
+✔️ Bioengineering
 Physics
 Mathematical and Computational Science (Datascience)
 Electrical Engineering
@@ -42,7 +42,7 @@ Anthropology
 Art history
 Theater and performance studies
 Music
-Art paractice
+Art practice
 American studies
 
 5 or less
