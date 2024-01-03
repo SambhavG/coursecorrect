@@ -67,6 +67,7 @@ let degree = {
         {
           "type": "or",
           "name": "MATH 19",
+          "amount": 0,
           "content": [
             {
               "type": "transfer",
@@ -81,6 +82,7 @@ let degree = {
         {
           "type": "or",
           "name": "MATH 20",
+          "amount": 0,
           "content": [
             {
               "type": "transfer",
@@ -95,6 +97,7 @@ let degree = {
         {
           "type": "or",
           "name": "MATH 21",
+          "amount": 0,
           "content": [
             {
               "type": "transfer",

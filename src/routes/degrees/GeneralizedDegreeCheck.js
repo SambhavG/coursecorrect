@@ -1,6 +1,6 @@
 function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
-  console.log("Checking requirement")
-  console.log(requirement)
+  //console.log("Checking requirement")
+  //console.log(requirement)
 
   //requirement has the following information
   //type: consume (default), observe, transfer, and, or
@@ -40,7 +40,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   let name = requirement?.name || requirement?.lut || requirement?.id || "unnamed requirement";
   let lut = requirement?.lut;
   let lutList = requirement?.lutList;
-  let amount = requirement?.amount || 1;
+  let amount = requirement?.amount ?? 1;
   let minUnits = requirement?.minUnits || 0;
   let csnc = requirement?.csnc || 0;
   //and/or req vars
@@ -244,6 +244,9 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 
 
   } else if (type === 'or') {
+    if (name == "MATH 19") {
+      console.log("MATH 19");
+    }
     //Go through each of either the content or the lutList
     //We check requirements in the same fashion as "and" requirements
     //until all of the following occur:
@@ -286,16 +289,16 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       done = fulfilled && numUnits >= minUnits && (coursesExtracted.length >= amount || amount == 1);
     });
 
-    //If we have a minUnits property, check if we've fulfilled it
-    let minUnitsFulfilled = numUnits >= minUnits;
-    //Check that we've taken enough courses
-    let amountFulfilled = coursesExtracted.length >= amount;
     //fulfilled is true if at least one requirement is fulfilled and we have enough units
     //and courses
     fulfilled = requirementChecks.some((check) => {
       return check.fulfilled;
-    }) && minUnitsFulfilled && amountFulfilled;
-
+    }) && numUnits >= minUnits && coursesExtracted.length >= amount;
+    console.log(requirement)
+    console.log(numUnits >= minUnits)
+    console.log(coursesExtracted.length >= amount)
+    console.log(coursesExtracted.length)
+    console.log(amount)
     //If done was triggered, return the used courses from the unfulfilled requirements
     if (done) {
       let coursesExtracted = requirementChecks.filter((check) => {
@@ -305,7 +308,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       }).flat();
       list = list.concat(coursesExtracted);
     }
-    console.log(requirementChecks)
 
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
     let cellValues = [name];
@@ -324,11 +326,14 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     while (cellValues.length < amount+1) {
       cellValues.push('');
     }
+    console.log(cellValues);
+    console.log(fulfilled)
     //Add one additional cell if we don't have enough units or aren't fulfilled
     //to show that we're not fulfilling the requirement
     if ((numUnits < minUnits || !fulfilled) && cellValues[cellValues.length-1] !== '') {
       cellValues.push('');
     }
+    console.log(cellValues)
 
     let retVal = {
       fulfilled: fulfilled,
@@ -347,7 +352,11 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         numHas: numUnits
       }
     }
-    console.log(retVal)
+
+    if (name == "MATH 19") {
+      console.log(retVal);
+    }
+
     return retVal;
 
   } else if (type === 'transfer') {
