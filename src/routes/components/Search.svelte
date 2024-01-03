@@ -176,6 +176,9 @@
 			Object.keys($searchFilters.degreeSpecific.checkboxes).forEach((checkbox) => {
 				$searchFilters.degreeSpecific.checkboxes[checkbox] = false;
 			});
+		} else if (filter == 3) {
+			$searchFilters.sortBy = 'alphabetical';
+			$searchFilters.sortOrder = 'ascending';
 		}
 	}
 
@@ -225,7 +228,10 @@
 		let queryUpper = query.toUpperCase().trim();
 		let queryLower = query.toLowerCase().trim();
 		let workingList = $allCourses.filter((course) => doesCourseFitFilters(course, $searchFilters));
-
+		console.log($searchFilters.sortOrder);
+		console.log(workingList);
+		workingList = sortCourses(workingList);
+		console.log(workingList);
 		let exactMatchResults = [];
 		let totalExactMatchResults = 0;
 		let sameDepartmentResults = [];
@@ -316,6 +322,55 @@
 		$resultCategories = $resultCategories;
 	}
 
+	function sortCourses(courses) {
+		//If alpha ascending, do nothing
+		if ($searchFilters.sortBy == 'alphabetical' && $searchFilters.sortOrder == 'ascending') {
+			return courses;
+		}
+		//If alpha descending, reverse
+		else if ($searchFilters.sortBy == 'alphabetical' && $searchFilters.sortOrder == 'descending') {
+			return courses.reverse();
+		}
+		//If units ascending, sort by units ascending
+		else if ($searchFilters.sortBy == 'units' && $searchFilters.sortOrder == 'ascending') {
+			return courses.sort((a, b) => a.units_taking - b.units_taking);
+		}
+		//If units descending, sort by units descending
+		else if ($searchFilters.sortBy == 'units' && $searchFilters.sortOrder == 'descending') {
+			return courses.sort((a, b) => b.units_taking - a.units_taking);
+		}
+		//If hours ascending, sort by hours ascending
+		else if ($searchFilters.sortBy == 'hours' && $searchFilters.sortOrder == 'ascending') {
+			return courses.sort((a, b) => a.hours - b.hours);
+		}
+		//If hours descending, sort by hours descending
+		else if ($searchFilters.sortBy == 'hours' && $searchFilters.sortOrder == 'descending') {
+			return courses.sort((a, b) => b.hours - a.hours);
+		}
+		//If eval ascending, sort by eval ascending
+		else if ($searchFilters.sortBy == 'eval' && $searchFilters.sortOrder == 'ascending') {
+			return courses.sort((a, b) => a.average_rating - b.average_rating);
+		}
+		//If eval descending, sort by eval descending
+		else if ($searchFilters.sortBy == 'eval' && $searchFilters.sortOrder == 'descending') {
+			return courses.sort((a, b) => b.average_rating - a.average_rating);
+		}
+		//If percent completed ascending, sort by percent completed ascending
+		else if (
+			$searchFilters.sortBy == 'percentCompleted' &&
+			$searchFilters.sortOrder == 'ascending'
+		) {
+			return courses.sort((a, b) => a.percent_outcomes_completed - b.percent_outcomes_completed);
+		}
+		//If percent completed descending, sort by percent completed descending
+		else if (
+			$searchFilters.sortBy == 'percentCompleted' &&
+			$searchFilters.sortOrder == 'descending'
+		) {
+			return courses.sort((a, b) => b.percent_outcomes_completed - a.percent_outcomes_completed);
+		}
+	}
+
 	$: {
 		searchResultsFunction();
 		$searchFilters = $searchFilters;
@@ -352,6 +407,32 @@
 	</div>
 	{#if showFilters}
 		<div class="filtersMenuContainer">
+			<div class="filter sortFilter">
+				<!-- sort by -->
+				Sort by
+				<select
+					name="sortBy"
+					id="sortBy"
+					on:change={searchResultsFunction}
+					bind:value={$searchFilters.sortBy}
+				>
+					<option value="alphabetical">Alphabetical</option>
+					<option value="units">Units</option>
+					<option value="hours">Hours</option>
+					<option value="eval">Eval</option>
+					<option value="percentCompleted">% Completed</option>
+				</select>
+				<select
+					name="sortOrder"
+					id="sortOrder"
+					on:change={searchResultsFunction}
+					bind:value={$searchFilters.sortOrder}
+				>
+					<option value="ascending">Ascending</option>
+					<option value="descending">Descending</option>
+				</select>
+			</div>
+			<div class="horizontalLine" />
 			<div class="filter">
 				<button
 					class="clearFilterButton"
@@ -359,6 +440,7 @@
 						clearFilters(0);
 						clearFilters(1);
 						clearFilters(2);
+						clearFilters(3);
 						searchResultsFunction();
 					}}>Reset all filter settings</button
 				>
@@ -573,6 +655,24 @@
 				</div>
 			</div>
 		</div>
+		<!-- second input -->
+		<div class="inputContainer inputContainer2">
+			<input
+				type="text"
+				placeholder="% for all courses"
+				bind:value={query}
+				on:input={searchResultsFunction}
+			/>
+
+			<button
+				class="filtersHeaderButton"
+				on:click={() => {
+					showFilters = !showFilters;
+				}}
+			>
+				Filters
+			</button>
+		</div>
 	{/if}
 
 	{#each $resultCategories as category}
@@ -616,6 +716,10 @@
 
 	.inputContainer > input {
 		flex-grow: 1;
+	}
+
+	.inputContainer2 {
+		margin-top: 1em;
 	}
 
 	input {
@@ -682,7 +786,7 @@
 	}
 
 	.results {
-		max-height: 32em;
+		max-height: 50em;
 		overflow: auto;
 	}
 
@@ -734,6 +838,26 @@
 		padding: 0.5em 0;
 		flex: 1;
 		width: 100%;
+	}
+
+	.sortFilter {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+	}
+
+	select {
+		box-sizing: border-box;
+		height: 1.8em;
+		font-size: 1.2em;
+		padding-left: 0.5em;
+		margin-right: 0.5em;
+		border: 1px solid #ccc;
+		border-radius: 1em;
+		background-color: var(--color-text-dark);
+		color: var(--color-text-light);
+		font-family: var(--font-mono);
 	}
 
 	.title {

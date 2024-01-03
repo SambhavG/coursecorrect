@@ -197,6 +197,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-top: 0.25em;
+		/* font-size: 0.7em; */
 	}
 
 	.coverUpButton {

@@ -50,15 +50,8 @@ export const searchFilters = writable({
 		'Spring': false,
 		'Summer': false
 	},
-	DegreeSpecific: {
-		'BS in Mathematics': {
-			'20 Series': [],
-			'50/60 Series': [],
-			'Core': [],
-			'Electives': [],
-			'WIM': []
-		}
-	}
+	sortBy: "alphabetical",
+	sortOrder: "ascending",
 });
 
 export const resultCategories = writable([

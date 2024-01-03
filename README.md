@@ -1,3 +1,13 @@
+# CourseCorrect
+
+This is a Stanford 5 year course planner application written in Svelte.
+
+The site builds to docs/.
+
+There is no backend server. Data is stored locally in the browser.
+
+# Below this line is the default svelte Readme
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).

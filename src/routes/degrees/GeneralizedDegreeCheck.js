@@ -1,6 +1,6 @@
 function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
-  //console.log("Checking requirement")
-  //console.log(requirement)
+  console.log("Checking requirement")
+  console.log(requirement)
 
   //requirement has the following information
   //type: consume (default), observe, transfer, and, or
@@ -305,6 +305,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       }).flat();
       list = list.concat(coursesExtracted);
     }
+    console.log(requirementChecks)
 
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
     let cellValues = [name];
@@ -346,7 +347,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         numHas: numUnits
       }
     }
-
+    console.log(retVal)
     return retVal;
 
   } else if (type === 'transfer') {
@@ -479,21 +480,44 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
 
   //Add the rest of the rows
   unprocessedRows.forEach((row) => {
-    let cells = [];
 
     //Handle differently if this is a PROGRESSBAR
     if (row[0] === "PROGRESSBAR") {
+      let cells = [];
       cells.push({value: row[2]>=row[3] ? '✔' : 'ㅤ', noBorder: true, weight: .25});
       cells.push({value: row[1], noBorder: true, weight: 1});
       cells.push({value: row[2] + '/' + row[3], progress: row[2]/row[3], weight: 3});
-    } else {
+      rows.push({cells: cells});
+    } else if (row.length <= 6) {
+      let cells = [];
       cells.push({value: row[0], noBorder: true, weight: .25});
       cells.push({value: row[1], noBorder: true, weight: 1})
       for (let i = 2; i < row.length; i++) {
         cells.push({value: row[i], weight: 3/(row.length-2)});
       }
+      rows.push({cells: cells});
+    } else {
+      //Divide into two rows
+      let cells1 = [];
+      let cells2 = [];
+      cells1.push({value: row[0], noBorder: true, weight: .25});
+      cells1.push({value: row[1], noBorder: true, weight: 1});
+      cells2.push({value: 'ㅤ', noBorder: true, weight: .25});
+      cells2.push({value: 'ㅤ', noBorder: true, weight: 1});
+      //top cells is celing of row.length-2 / 2
+      let topCells = Math.ceil((row.length-2)/2);
+      let bottomCells = row.length-2-topCells;
+      for (let i = 0; i < topCells; i++) {
+        cells1.push({value: row[i+2], weight: 3/topCells});
+      }
+      for (let i = 0; i < bottomCells; i++) {
+        cells2.push({value: row[i+2+topCells], weight: 3/bottomCells});
+      }
+
+      rows.push({cells: cells1});
+      rows.push({cells: cells2});
+
     }
-    rows.push({cells: cells});
 
   });
   rows = {rows: rows};

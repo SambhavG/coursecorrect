@@ -77,13 +77,27 @@ let degree = {
       "amount": 3
     },
     {
-      "lut": "Breadth",
-      "minUnits": 20
+      "type": "and",
+      "name": "Breadth",
+      "minUnits": 20,
+      "content": [
+        {
+          "name": " ",
+          "lut": "Breadth",
+        }
+      ]
     },
     {
-      "lut": "Depth",
-      "minUnits": 20
-    }
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 20,
+      "content": [
+        {
+          "name": " ",
+          "lut": "Depth",
+        }
+      ]
+    },
   ]
 }
 

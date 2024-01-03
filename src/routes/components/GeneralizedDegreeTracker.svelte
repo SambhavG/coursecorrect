@@ -152,7 +152,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		font-size: 1.2em;
+		font-size: 1.15em;
 		margin: 0.25em 0.25em;
 		font-weight: bold;
 	}

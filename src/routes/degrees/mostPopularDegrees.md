@@ -3,8 +3,8 @@ Based on https://irds.stanford.edu/data-findings/degrees-conferred
 300 or less
 ✔️ Computer Science
 ✔️ Humbio
-Economics
-Symsys
+✔️ Economics
+✔️ Symsys
 Engineering
 Political science
 ✔️ Math

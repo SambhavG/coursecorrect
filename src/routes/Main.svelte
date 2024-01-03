@@ -176,6 +176,7 @@
 			$courseTable = coursesObj;
 		}
 		mounted = true;
+		console.log($allCourses[0]);
 	});
 
 	//Save to local storage
