@@ -8,11 +8,11 @@ Based on https://irds.stanford.edu/data-findings/degrees-conferred
 Engineering
 Political science
 ✔️ Math
-International relations
+✔️ International relations
 Psychology
 ✔️ MechE
 Biology
-MS&E
+✔️ MS&E
 English
 
 50 or less

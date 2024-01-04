@@ -47,13 +47,13 @@
 			animation: moveBackground 2s linear infinite;
 		}
 		*/
-		if (!cell?.noBorder && !cell?.isTitle && !cell?.progress && !cell?.toggle) {
-			//If the cell is blank, make it black and gray diagonal stripes which move left to right.
-			if (!cell?.value) {
-				style +=
-					'background: linear-gradient(45deg, var(--color-text-dark) 35%, var(--color-text-light) 35%, var(--color-text-light) 50%, var(--color-text-dark) 50%, var(--color-text-dark) 85%, var(--color-text-light) 85%, var(--color-text-light)); background-size: 1.5em 1.5em; animation: moveBackground 2s linear infinite;';
-			}
-		}
+		// if (!cell?.noBorder && !cell?.isTitle && !cell?.progress && !cell?.toggle) {
+		// 	//If the cell is blank, make it black and gray diagonal stripes which move left to right.
+		// 	if (!cell?.value) {
+		// 		style +=
+		// 			'background: linear-gradient(45deg, var(--color-text-dark) 35%, var(--color-text-light) 35%, var(--color-text-light) 50%, var(--color-text-dark) 50%, var(--color-text-dark) 85%, var(--color-text-light) 85%, var(--color-text-light)); background-size: 1.5em 1.5em; animation: moveBackground 2s linear infinite;';
+		// 	}
+		// }
 
 		return style;
 	}

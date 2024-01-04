@@ -141,6 +141,10 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     let fulfilled = amountStillNeeded <= 0 && numUnits >= minUnits;
     //Create the cell values array
     let cellValues = [name];
+
+    if (bundleName != undefined) {
+      cellValues[0] = bundleName;
+    }
     
     coursesExtracted.forEach((course) => {
       cellValues.push(course.code);
@@ -311,10 +315,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
       list = list.concat(coursesExtracted);
     }
 
-    if (name == "AAAAA") {
-      console.log(requirementChecks)
-    }
-
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
     let cellValues = [name];
     requirementChecks.forEach((check) => {
@@ -354,10 +354,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         numNeeded: minUnits,
         numHas: numUnits
       }
-    }
-
-    if (name == "AAAAA") {
-      console.log(retVal)
     }
 
     return retVal;
