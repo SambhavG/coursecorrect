@@ -113,11 +113,10 @@ let degree = {
         {
           "type": "or",
           "name": "Mechanics",
-          "amount": 0,
           "content": [
             {
               "type": "transfer",
-              "id": "Physics AP",
+              "id": "Mechanics AP",
               "cutoff": 5
             },
             {
@@ -128,11 +127,10 @@ let degree = {
         {
           "type": "or",
           "name": "E&M",
-          "amount": 0,
           "content": [
             {
               "type": "transfer",
-              "id": "Physics AP",
+              "id": "E&M AP",
               "cutoff": 5
             },
             {

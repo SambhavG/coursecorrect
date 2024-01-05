@@ -6,14 +6,14 @@ Based on https://irds.stanford.edu/data-findings/degrees-conferred
 ✔️ Economics
 ✔️ Symsys
 Engineering
-Political science
+✔️ Political science
 ✔️ Math
 ✔️ International relations
-Psychology
+✔️ Psychology
 ✔️ MechE
 Biology
 ✔️ MS&E
-English
+✔️ English
 
 50 or less
 ✔️ Bioengineering

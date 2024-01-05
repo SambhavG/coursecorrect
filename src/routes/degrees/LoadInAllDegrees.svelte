@@ -4,6 +4,8 @@
 
 	import _2023_UG_BioE_BS_Standard from './2023_UG_BioE_BS_Standard.js';
 
+	import _2023_UG_Biology_BS_General from './2023_UG_Biology_BS_General.js';
+
 	import _2023_UG_CS_BS_AI from './2023_UG_CS_BS_AI.js';
 	import _2023_UG_CS_BS_Biocomp from './2023_UG_CS_BS_Biocomp.js';
 	import _2023_UG_CS_BS_CompEng from './2023_UG_CS_BS_CompEng.js';
@@ -15,6 +17,8 @@
 	import _2023_UG_CS_BS_Unspecialized from './2023_UG_CS_BS_Unspecialized.js';
 
 	import _2023_UG_Econ_BA_Standard from './2023_UG_Econ_BA_Standard.js';
+
+	import _2023_UG_English_BA_Literature from './2023_UG_English_BA_Literature.js';
 
 	import _2023_UG_Humbio_BA_Standard from './2023_UG_Humbio_BA_Standard.js';
 	import _2023_UG_Humbio_BS_Standard from './2023_UG_Humbio_BS_Standard.js';
@@ -29,6 +33,10 @@
 	import _2023_UG_MechE_BS_ThermoFluidsHeat from './2023_UG_MechE_BS_ThermoFluidsHeat.js';
 
 	import _2023_UG_MSnE_BS_Standard from './2023_UG_MS&E_BS_Standard.js';
+
+	import _2023_UG_Polisci_BA_Standard from './2023_UG_Polisci_BA_Standard.js';
+
+	import _2023_UG_Psychology_BA_Standard from './2023_UG_Psychology_BA_Standard.js';
 
 	import _2023_UG_Symsys_BS_AI from './2023_UG_Symsys_BS_AI.js';
 	import _2023_UG_Symsys_BS_AppliedLogic from './2023_UG_Symsys_BS_AppliedLogic.js';
@@ -54,6 +62,8 @@
 
 		_2023_UG_BioE_BS_Standard,
 
+		_2023_UG_Biology_BS_General,
+
 		_2023_UG_CS_BS_AI,
 		_2023_UG_CS_BS_Biocomp,
 		_2023_UG_CS_BS_CompEng,
@@ -63,7 +73,10 @@
 		_2023_UG_CS_BS_Systems,
 		_2023_UG_CS_BS_Theory,
 		_2023_UG_CS_BS_Unspecialized,
+
 		_2023_UG_Econ_BA_Standard,
+
+		_2023_UG_English_BA_Literature,
 
 		_2023_UG_Humbio_BA_Standard,
 		_2023_UG_Humbio_BS_Standard,
@@ -78,6 +91,10 @@
 		_2023_UG_MechE_BS_ThermoFluidsHeat,
 
 		_2023_UG_MSnE_BS_Standard,
+
+		_2023_UG_Polisci_BA_Standard,
+
+		_2023_UG_Psychology_BA_Standard,
 
 		_2023_UG_Symsys_BS_AI,
 		_2023_UG_Symsys_BS_AppliedLogic,

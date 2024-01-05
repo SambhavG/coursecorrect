@@ -115,24 +115,16 @@ export const prefs = writable({
 		'value': 0},
 		{'name': 'Math AP',
 		'value': 0},
-		{'name': 'Other math',
-		'value': 0},
 		{'name': 'Chemistry AP',
 		'value': 0},
-		{'name': 'Other chemistry',
+		{'name': 'Mechanics AP',
 		'value': 0},
-		{'name': 'Physics AP',
-		'value': 0},
-		{'name': 'Other physics',
+		{'name': 'E&M AP',
 		'value': 0},
 		{'name': 'CS AP',
 		'value': 0},
-		{'name': 'Other CS',
-		'value': 0},
 		{'name': 'Language AP',
 		'value': 0},
-		{'name': 'Other language',
-		'value': 0}
 	]
 });
 

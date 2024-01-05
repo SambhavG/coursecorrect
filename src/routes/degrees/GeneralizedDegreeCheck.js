@@ -317,6 +317,11 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 
     //Create the cell values array. OR conditions don't preserve the internal conditions like AND
     let cellValues = [name];
+
+    if (bundleName != undefined) {
+      cellValues[0] = bundleName;
+    }
+
     requirementChecks.forEach((check) => {
       //Remove first element of check.cellValues
       let cellValues2 = check.cellValues.slice(1);
@@ -414,8 +419,15 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
   let reqResults = [];
 
   degree.requirements.forEach((req, i) => {
+    try {
+
       reqResults = [...reqResults, checkRequirement(degree, allCourses, grid, list, listCopy, transfer, req)];
       listCopy = reqResults[i].list;
+    } catch (e) {
+      console.log("Error in requirement: ");
+      console.log(req);
+      console.log(e);
+    }
   });
 
   //For each reqResult, unpack it correctly
