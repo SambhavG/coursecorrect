@@ -161,12 +161,6 @@
 				coursesObj.push({ id: $years[i], quarters: [] });
 				for (let j = 0; j < $quarters.length; j++) {
 					coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
-					for (let k = 0; k < 1; k++) {
-						let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
-						if (i == 0) {
-							coursesObj[i].quarters[j].courses.push(randomCourse);
-						}
-					}
 				}
 			}
 			$courseTable = coursesObj;
@@ -345,8 +339,8 @@
 			<Trash />
 		</div>
 		<div class="gridAndInfoContainer">
+			<OnStartInfoModal />
 			<div class="dataHeader">
-				<OnStartInfoModal />
 				<div class="waysTrackerContainer">
 					<PanelCollapseContainer panelId="ways" panelName={'WAYS'} content={WAYSTracker} />
 				</div>

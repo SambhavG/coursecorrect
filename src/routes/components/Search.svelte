@@ -370,8 +370,18 @@
 	}
 
 	$: {
-		searchResultsFunction();
+		//searchResultsFunction();
+		//$searchFilters = $searchFilters;
+	}
+	let searchResultsTimeout = null;
+	//When either the searchFilters or the query changes, update the results debounced by 2 seconds
+	$: {
 		$searchFilters = $searchFilters;
+		query = query;
+		clearTimeout(searchResultsTimeout);
+		searchResultsTimeout = setTimeout(() => {
+			searchResultsFunction();
+		}, 500);
 	}
 
 	function checkboxFunction(type) {
@@ -387,12 +397,8 @@
 
 <section>
 	<div class="inputContainer">
-		<input
-			type="text"
-			placeholder="% for all courses"
-			bind:value={query}
-			on:input={searchResultsFunction}
-		/>
+		<input type="text" placeholder="% for all courses" bind:value={query} />
+		<!-- on:input={searchResultsFunction} -->
 
 		<button
 			class="filtersHeaderButton"
@@ -464,7 +470,7 @@
 				</div>
 				<div class="filter">
 					<div class="title">Match type settings</div>
-					<div class="title">Showing too many courses may slow search</div>
+					<div class="title">Search bar speed is proportional to these numbers</div>
 					<div class="filters">
 						<div class="filter matchTypeGridFilter">
 							{#each $resultCategories as category}

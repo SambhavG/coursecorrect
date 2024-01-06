@@ -565,9 +565,13 @@ function filterCourseObjsByLut(list, lut) {
 }
 
 function getTransferUnits(transfer, key) {
-  return transfer.filter((obj) => {
+  let ret = transfer.filter((obj) => {
     return obj.name === key;
   })[0]?.value;
+  if (ret === undefined) {
+    return 0;
+  }
+  return ret;
 }
 
 function calculateTotalUnits(courses, transfer) {

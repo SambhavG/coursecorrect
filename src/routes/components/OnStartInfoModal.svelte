@@ -31,7 +31,7 @@
 			<h2>Start</h2>
 			<p>
 				Set your preferences, degree, and transfer units. Make sure to configure "Total" transfer
-				units. The degrees with more than 50 students/year are implemented.
+				units.
 				<!-- Only a few
 				popular degrees are implememented, but if you've taken CS 106B, you are more than capable of
 				write a degree checking file yourself (in ~1 hour depending on how complex it is) and submit
@@ -51,13 +51,17 @@
 				CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
 				out.
 			</p>
-			<p>If the entire website breaks, clear the cache and cookies.</p>
+			<p>
+				If the entire website breaks, clear the cache and cookies. Site might be buggy on Safari.
+			</p>
 			<p>Data is stored locally on your browser. Export your data frequently.</p>
+			<p>Degrees with more than 50 students/year are implemented.</p>
 			<h2>Disclaimer</h2>
 			<p>
 				All data and calculations may contain errors. Consult official university materials for
-				ground truths. There are no guarantees on the correctness of anything on this website.
+				ground truths.
 			</p>
+			<p>There are no correctness guarantees.</p>
 		</div>
 	</div>
 {/if}

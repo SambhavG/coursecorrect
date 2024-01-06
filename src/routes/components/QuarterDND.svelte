@@ -122,6 +122,7 @@
 				bind:value={search}
 				on:input={updateSearchCourse}
 				on:keydown={handleKeyDown}
+				placeholder="course"
 			/>
 			<button on:click={handleClick}>
 				<CornerDownLeft size="2em" color={searchCourse ? 'green' : 'gray'} on:click={handleClick} />
