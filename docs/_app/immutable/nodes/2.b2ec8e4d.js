@@ -347,8 +347,8 @@ const resultCategories = writable([
     results: [],
     title: "Exact Match",
     hide: false,
-    numResults: 25,
-    defaultNumResults: 25,
+    numResults: 100,
+    defaultNumResults: 100,
     numResultsShowing: 0,
     numResultsFound: 0
   },
@@ -367,8 +367,8 @@ const resultCategories = writable([
     results: [],
     title: "Title Match",
     hide: false,
-    numResults: 25,
-    defaultNumResults: 25,
+    numResults: 100,
+    defaultNumResults: 100,
     numResultsShowing: 0,
     numResultsFound: 0
   },
@@ -377,8 +377,8 @@ const resultCategories = writable([
     results: [],
     title: "Description Match",
     hide: false,
-    numResults: 25,
-    defaultNumResults: 25,
+    numResults: 100,
+    defaultNumResults: 100,
     numResultsShowing: 0,
     numResultsFound: 0
   }
@@ -6992,47 +6992,47 @@ class Course extends SvelteComponent {
 const Search_svelte_svelte_type_style_lang = "";
 function get_each_context$6(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[41] = list[i];
+  child_ctx[42] = list[i];
   return child_ctx;
 }
 function get_each_context_1$4(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[44] = list[i];
+  child_ctx[45] = list[i];
   return child_ctx;
 }
 function get_each_context_2$2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[47] = list[i];
-  child_ctx[48] = list;
-  child_ctx[49] = i;
+  child_ctx[48] = list[i];
+  child_ctx[49] = list;
+  child_ctx[50] = i;
   return child_ctx;
 }
 function get_each_context_3$1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[50] = list[i];
-  child_ctx[51] = list;
-  child_ctx[52] = i;
+  child_ctx[51] = list[i];
+  child_ctx[52] = list;
+  child_ctx[53] = i;
   return child_ctx;
 }
 function get_each_context_4$1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[53] = list[i];
-  child_ctx[54] = list;
-  child_ctx[55] = i;
+  child_ctx[54] = list[i];
+  child_ctx[55] = list;
+  child_ctx[56] = i;
   return child_ctx;
 }
 function get_each_context_5(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[56] = list[i];
-  child_ctx[57] = list;
-  child_ctx[58] = i;
+  child_ctx[57] = list[i];
+  child_ctx[58] = list;
+  child_ctx[59] = i;
   return child_ctx;
 }
 function get_each_context_6(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[41] = list[i];
-  child_ctx[59] = list;
-  child_ctx[60] = i;
+  child_ctx[42] = list[i];
+  child_ctx[60] = list;
+  child_ctx[61] = i;
   return child_ctx;
 }
 function create_if_block_1$6(ctx) {
@@ -7080,7 +7080,7 @@ function create_if_block_1$6(ctx) {
   let textContent_10 = "Match type settings";
   let t20;
   let div5;
-  let textContent_11 = "Showing too many courses may slow search";
+  let textContent_11 = "Search bar speed is proportional to these numbers";
   let t22;
   let div7;
   let div6;
@@ -7167,7 +7167,7 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_5 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[0].units
+    ctx[1].units
   ));
   let each_blocks_3 = [];
   for (let i = 0; i < each_value_5.length; i += 1) {
@@ -7175,7 +7175,7 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_4 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[0].WAYS
+    ctx[1].WAYS
   ));
   let each_blocks_2 = [];
   for (let i = 0; i < each_value_4.length; i += 1) {
@@ -7183,7 +7183,7 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_3 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[0].QuartersOffered
+    ctx[1].QuartersOffered
   ));
   let each_blocks_1 = [];
   for (let i = 0; i < each_value_3.length; i += 1) {
@@ -7191,7 +7191,7 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_2 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[0].degreeSpecific.checkboxes
+    ctx[1].degreeSpecific.checkboxes
   ));
   let each_blocks = [];
   for (let i = 0; i < each_value_2.length; i += 1) {
@@ -7415,7 +7415,7 @@ function create_if_block_1$6(ctx) {
         div4.textContent = textContent_10;
       t20 = claim_space(div8_nodes);
       div5 = claim_element(div8_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div5) !== "svelte-30xiab")
+      if (get_svelte_dataset(div5) !== "svelte-1jy9hw6")
         div5.textContent = textContent_11;
       t22 = claim_space(div8_nodes);
       div7 = claim_element(div8_nodes, "DIV", { class: true });
@@ -7617,11 +7617,11 @@ function create_if_block_1$6(ctx) {
       attr(select0, "class", "svelte-ym532z");
       if (
         /*$searchFilters*/
-        ctx[0].sortBy === void 0
+        ctx[1].sortBy === void 0
       )
         add_render_callback(() => (
           /*select0_change_handler*/
-          ctx[11].call(select0)
+          ctx[12].call(select0)
         ));
       option5.__value = "ascending";
       set_input_value(option5, option5.__value);
@@ -7632,11 +7632,11 @@ function create_if_block_1$6(ctx) {
       attr(select1, "class", "svelte-ym532z");
       if (
         /*$searchFilters*/
-        ctx[0].sortOrder === void 0
+        ctx[1].sortOrder === void 0
       )
         add_render_callback(() => (
           /*select1_change_handler*/
-          ctx[12].call(select1)
+          ctx[13].call(select1)
         ));
       attr(div0, "class", "filter sortFilter svelte-ym532z");
       attr(div1, "class", "horizontalLine svelte-ym532z");
@@ -7737,7 +7737,7 @@ function create_if_block_1$6(ctx) {
       select_option(
         select0,
         /*$searchFilters*/
-        ctx[0].sortBy,
+        ctx[1].sortBy,
         true
       );
       append_hydration(div0, t6);
@@ -7747,7 +7747,7 @@ function create_if_block_1$6(ctx) {
       select_option(
         select1,
         /*$searchFilters*/
-        ctx[0].sortOrder,
+        ctx[1].sortOrder,
         true
       );
       append_hydration(div34, t9);
@@ -7759,14 +7759,14 @@ function create_if_block_1$6(ctx) {
       append_hydration(div9, div2);
       append_hydration(div2, input0);
       input0.checked = /*$searchFilters*/
-      ctx[0].meta.filterGridCourses;
+      ctx[1].meta.filterGridCourses;
       append_hydration(div2, t13);
       append_hydration(div2, label0);
       append_hydration(div9, t15);
       append_hydration(div9, div3);
       append_hydration(div3, input1);
       input1.checked = /*$searchFilters*/
-      ctx[0].meta.filterNotOffered;
+      ctx[1].meta.filterNotOffered;
       append_hydration(div3, t16);
       append_hydration(div3, label1);
       append_hydration(div9, t18);
@@ -7819,14 +7819,14 @@ function create_if_block_1$6(ctx) {
       set_input_value(
         input2,
         /*$searchFilters*/
-        ctx[0].hours.min
+        ctx[1].hours.min
       );
       append_hydration(div20, t36);
       append_hydration(div20, input3);
       set_input_value(
         input3,
         /*$searchFilters*/
-        ctx[0].hours.max
+        ctx[1].hours.max
       );
       append_hydration(div27, t37);
       append_hydration(div27, div21);
@@ -7837,14 +7837,14 @@ function create_if_block_1$6(ctx) {
       set_input_value(
         input4,
         /*$searchFilters*/
-        ctx[0].averageEval.min
+        ctx[1].averageEval.min
       );
       append_hydration(div22, t41);
       append_hydration(div22, input5);
       set_input_value(
         input5,
         /*$searchFilters*/
-        ctx[0].averageEval.max
+        ctx[1].averageEval.max
       );
       append_hydration(div27, t42);
       append_hydration(div27, div23);
@@ -7855,14 +7855,14 @@ function create_if_block_1$6(ctx) {
       set_input_value(
         input6,
         /*$searchFilters*/
-        ctx[0].percentCompleted.min
+        ctx[1].percentCompleted.min
       );
       append_hydration(div24, t46);
       append_hydration(div24, input7);
       set_input_value(
         input7,
         /*$searchFilters*/
-        ctx[0].percentCompleted.max
+        ctx[1].percentCompleted.max
       );
       append_hydration(div27, t47);
       append_hydration(div27, div25);
@@ -7894,7 +7894,7 @@ function create_if_block_1$6(ctx) {
       set_input_value(
         input8,
         /*query*/
-        ctx[2]
+        ctx[0]
       );
       append_hydration(div35, t57);
       append_hydration(div35, button3);
@@ -7910,7 +7910,7 @@ function create_if_block_1$6(ctx) {
             select0,
             "change",
             /*select0_change_handler*/
-            ctx[11]
+            ctx[12]
           ),
           listen(
             select1,
@@ -7922,13 +7922,13 @@ function create_if_block_1$6(ctx) {
             select1,
             "change",
             /*select1_change_handler*/
-            ctx[12]
+            ctx[13]
           ),
           listen(
             button0,
             "click",
             /*click_handler_1*/
-            ctx[13]
+            ctx[14]
           ),
           listen(
             input0,
@@ -7940,7 +7940,7 @@ function create_if_block_1$6(ctx) {
             input0,
             "change",
             /*input0_change_handler*/
-            ctx[14]
+            ctx[15]
           ),
           listen(
             input1,
@@ -7952,13 +7952,13 @@ function create_if_block_1$6(ctx) {
             input1,
             "change",
             /*input1_change_handler*/
-            ctx[15]
+            ctx[16]
           ),
           listen(
             button1,
             "click",
             /*click_handler_3*/
-            ctx[19]
+            ctx[20]
           ),
           listen(
             input2,
@@ -7970,7 +7970,7 @@ function create_if_block_1$6(ctx) {
             input2,
             "input",
             /*input2_input_handler*/
-            ctx[22]
+            ctx[23]
           ),
           listen(
             input3,
@@ -7982,7 +7982,7 @@ function create_if_block_1$6(ctx) {
             input3,
             "input",
             /*input3_input_handler*/
-            ctx[23]
+            ctx[24]
           ),
           listen(
             input4,
@@ -7994,7 +7994,7 @@ function create_if_block_1$6(ctx) {
             input4,
             "input",
             /*input4_input_handler*/
-            ctx[24]
+            ctx[25]
           ),
           listen(
             input5,
@@ -8006,7 +8006,7 @@ function create_if_block_1$6(ctx) {
             input5,
             "input",
             /*input5_input_handler*/
-            ctx[25]
+            ctx[26]
           ),
           listen(
             input6,
@@ -8018,7 +8018,7 @@ function create_if_block_1$6(ctx) {
             input6,
             "input",
             /*input6_input_handler*/
-            ctx[26]
+            ctx[27]
           ),
           listen(
             input7,
@@ -8030,19 +8030,19 @@ function create_if_block_1$6(ctx) {
             input7,
             "input",
             /*input7_input_handler*/
-            ctx[27]
+            ctx[28]
           ),
           listen(
             button2,
             "click",
             /*click_handler_4*/
-            ctx[29]
+            ctx[30]
           ),
           listen(
             input8,
             "input",
             /*input8_input_handler*/
-            ctx[31]
+            ctx[32]
           ),
           listen(
             input8,
@@ -8054,7 +8054,7 @@ function create_if_block_1$6(ctx) {
             button3,
             "click",
             /*click_handler_5*/
-            ctx[32]
+            ctx[33]
           )
         ];
         mounted = true;
@@ -8062,30 +8062,30 @@ function create_if_block_1$6(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         select_option(
           select0,
           /*$searchFilters*/
-          ctx2[0].sortBy
+          ctx2[1].sortBy
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         select_option(
           select1,
           /*$searchFilters*/
-          ctx2[0].sortOrder
+          ctx2[1].sortOrder
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input0.checked = /*$searchFilters*/
-        ctx2[0].meta.filterGridCourses;
+        ctx2[1].meta.filterGridCourses;
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input1.checked = /*$searchFilters*/
-        ctx2[0].meta.filterNotOffered;
+        ctx2[1].meta.filterNotOffered;
       }
       if (dirty[0] & /*$resultCategories, searchResultsFunction, checkboxFunction*/
       392) {
@@ -8110,10 +8110,10 @@ function create_if_block_1$6(ctx) {
         each_blocks_4.length = each_value_6.length;
       }
       if (dirty[0] & /*$searchFilters, searchResultsFunction*/
-      129) {
+      130) {
         each_value_5 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[0].units
+          ctx2[1].units
         ));
         let i;
         for (i = 0; i < each_value_5.length; i += 1) {
@@ -8132,10 +8132,10 @@ function create_if_block_1$6(ctx) {
         each_blocks_3.length = each_value_5.length;
       }
       if (dirty[0] & /*$searchFilters, searchResultsFunction*/
-      129) {
+      130) {
         each_value_4 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[0].WAYS
+          ctx2[1].WAYS
         ));
         let i;
         for (i = 0; i < each_value_4.length; i += 1) {
@@ -8154,64 +8154,64 @@ function create_if_block_1$6(ctx) {
         each_blocks_2.length = each_value_4.length;
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input2.value) !== /*$searchFilters*/
-      ctx2[0].hours.min) {
+      2 && to_number(input2.value) !== /*$searchFilters*/
+      ctx2[1].hours.min) {
         set_input_value(
           input2,
           /*$searchFilters*/
-          ctx2[0].hours.min
+          ctx2[1].hours.min
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input3.value) !== /*$searchFilters*/
-      ctx2[0].hours.max) {
+      2 && to_number(input3.value) !== /*$searchFilters*/
+      ctx2[1].hours.max) {
         set_input_value(
           input3,
           /*$searchFilters*/
-          ctx2[0].hours.max
+          ctx2[1].hours.max
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input4.value) !== /*$searchFilters*/
-      ctx2[0].averageEval.min) {
+      2 && to_number(input4.value) !== /*$searchFilters*/
+      ctx2[1].averageEval.min) {
         set_input_value(
           input4,
           /*$searchFilters*/
-          ctx2[0].averageEval.min
+          ctx2[1].averageEval.min
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input5.value) !== /*$searchFilters*/
-      ctx2[0].averageEval.max) {
+      2 && to_number(input5.value) !== /*$searchFilters*/
+      ctx2[1].averageEval.max) {
         set_input_value(
           input5,
           /*$searchFilters*/
-          ctx2[0].averageEval.max
+          ctx2[1].averageEval.max
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input6.value) !== /*$searchFilters*/
-      ctx2[0].percentCompleted.min) {
+      2 && to_number(input6.value) !== /*$searchFilters*/
+      ctx2[1].percentCompleted.min) {
         set_input_value(
           input6,
           /*$searchFilters*/
-          ctx2[0].percentCompleted.min
+          ctx2[1].percentCompleted.min
         );
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && to_number(input7.value) !== /*$searchFilters*/
-      ctx2[0].percentCompleted.max) {
+      2 && to_number(input7.value) !== /*$searchFilters*/
+      ctx2[1].percentCompleted.max) {
         set_input_value(
           input7,
           /*$searchFilters*/
-          ctx2[0].percentCompleted.max
+          ctx2[1].percentCompleted.max
         );
       }
       if (dirty[0] & /*$searchFilters, searchResultsFunction*/
-      129) {
+      130) {
         each_value_3 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[0].QuartersOffered
+          ctx2[1].QuartersOffered
         ));
         let i;
         for (i = 0; i < each_value_3.length; i += 1) {
@@ -8230,10 +8230,10 @@ function create_if_block_1$6(ctx) {
         each_blocks_1.length = each_value_3.length;
       }
       if (dirty[0] & /*$searchFilters, searchResultsFunction*/
-      129) {
+      130) {
         each_value_2 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[0].degreeSpecific.checkboxes
+          ctx2[1].degreeSpecific.checkboxes
         ));
         let i;
         for (i = 0; i < each_value_2.length; i += 1) {
@@ -8252,12 +8252,12 @@ function create_if_block_1$6(ctx) {
         each_blocks.length = each_value_2.length;
       }
       if (dirty[0] & /*query*/
-      4 && input8.value !== /*query*/
-      ctx2[2]) {
+      1 && input8.value !== /*query*/
+      ctx2[0]) {
         set_input_value(
           input8,
           /*query*/
-          ctx2[2]
+          ctx2[0]
         );
       }
     },
@@ -8295,7 +8295,7 @@ function create_each_block_6(ctx) {
   let t4;
   let t5_value = (
     /*category*/
-    ctx[41].title.toLowerCase() + ""
+    ctx[42].title.toLowerCase() + ""
   );
   let t5;
   let label1_for_value;
@@ -8305,28 +8305,28 @@ function create_each_block_6(ctx) {
   function click_handler_2() {
     return (
       /*click_handler_2*/
-      ctx[16](
+      ctx[17](
         /*category*/
-        ctx[41]
+        ctx[42]
       )
     );
   }
   function input0_change_handler_1() {
-    ctx[17].call(
+    ctx[18].call(
       input0,
       /*each_value_6*/
-      ctx[59],
+      ctx[60],
       /*category_index_1*/
-      ctx[60]
+      ctx[61]
     );
   }
   function input1_input_handler() {
-    ctx[18].call(
+    ctx[19].call(
       input1,
       /*each_value_6*/
-      ctx[59],
+      ctx[60],
       /*category_index_1*/
-      ctx[60]
+      ctx[61]
     );
   }
   return {
@@ -8378,21 +8378,21 @@ function create_each_block_6(ctx) {
     },
     h() {
       attr(label0, "for", label0_for_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(input0, "type", "checkbox");
       attr(input0, "id", input0_id_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(input0, "name", input0_name_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(input0, "class", "svelte-ym532z");
       attr(input1, "class", "numResultsInput svelte-ym532z");
       attr(input1, "type", "number");
       attr(input1, "id", input1_id_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(input1, "name", input1_name_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(label1, "for", label1_for_value = /*category*/
-      ctx[41].type);
+      ctx[42].type);
       attr(div, "class", "option svelte-ym532z");
     },
     m(target, anchor) {
@@ -8402,13 +8402,13 @@ function create_each_block_6(ctx) {
       append_hydration(div, t1);
       append_hydration(div, input0);
       input0.checked = /*category*/
-      ctx[41].hide;
+      ctx[42].hide;
       append_hydration(div, t2);
       append_hydration(div, input1);
       set_input_value(
         input1,
         /*category*/
-        ctx[41].numResults
+        ctx[42].numResults
       );
       append_hydration(div, t3);
       append_hydration(div, label1);
@@ -8434,50 +8434,50 @@ function create_each_block_6(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$resultCategories*/
       8 && label0_for_value !== (label0_for_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(label0, "for", label0_for_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input0_id_value !== (input0_id_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(input0, "id", input0_id_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input0_name_value !== (input0_name_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(input0, "name", input0_name_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8) {
         input0.checked = /*category*/
-        ctx[41].hide;
+        ctx[42].hide;
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input1_id_value !== (input1_id_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(input1, "id", input1_id_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input1_name_value !== (input1_name_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(input1, "name", input1_name_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && to_number(input1.value) !== /*category*/
-      ctx[41].numResults) {
+      ctx[42].numResults) {
         set_input_value(
           input1,
           /*category*/
-          ctx[41].numResults
+          ctx[42].numResults
         );
       }
       if (dirty[0] & /*$resultCategories*/
       8 && t5_value !== (t5_value = /*category*/
-      ctx[41].title.toLowerCase() + ""))
+      ctx[42].title.toLowerCase() + ""))
         set_data(t5, t5_value);
       if (dirty[0] & /*$resultCategories*/
       8 && label1_for_value !== (label1_for_value = /*category*/
-      ctx[41].type)) {
+      ctx[42].type)) {
         attr(label1, "for", label1_for_value);
       }
     },
@@ -8499,7 +8499,7 @@ function create_each_block_5(ctx) {
   let label;
   let t1_value = (
     /*unit*/
-    ctx[56] + ""
+    ctx[57] + ""
   );
   let t1;
   let label_for_value;
@@ -8507,10 +8507,10 @@ function create_each_block_5(ctx) {
   let mounted;
   let dispose;
   function input_change_handler() {
-    ctx[20].call(
+    ctx[21].call(
       input,
       /*unit*/
-      ctx[56]
+      ctx[57]
     );
   }
   return {
@@ -8544,21 +8544,21 @@ function create_each_block_5(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*unit*/
-      ctx[56]);
+      ctx[57]);
       attr(input, "name", input_name_value = /*unit*/
-      ctx[56]);
+      ctx[57]);
       attr(input, "class", "svelte-ym532z");
       attr(label, "for", label_for_value = /*unit*/
-      ctx[56]);
+      ctx[57]);
       attr(div, "class", "option svelte-ym532z");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$searchFilters*/
-      ctx[0].units[
+      ctx[1].units[
         /*unit*/
-        ctx[56]
+        ctx[57]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8580,30 +8580,30 @@ function create_each_block_5(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
-      1 && input_id_value !== (input_id_value = /*unit*/
-      ctx[56])) {
+      2 && input_id_value !== (input_id_value = /*unit*/
+      ctx[57])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && input_name_value !== (input_name_value = /*unit*/
-      ctx[56])) {
+      2 && input_name_value !== (input_name_value = /*unit*/
+      ctx[57])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input.checked = /*$searchFilters*/
-        ctx[0].units[
+        ctx[1].units[
           /*unit*/
-          ctx[56]
+          ctx[57]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && t1_value !== (t1_value = /*unit*/
-      ctx[56] + ""))
+      2 && t1_value !== (t1_value = /*unit*/
+      ctx[57] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
-      1 && label_for_value !== (label_for_value = /*unit*/
-      ctx[56])) {
+      2 && label_for_value !== (label_for_value = /*unit*/
+      ctx[57])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8625,7 +8625,7 @@ function create_each_block_4$1(ctx) {
   let label;
   let t1_value = (
     /*way*/
-    ctx[53] + ""
+    ctx[54] + ""
   );
   let t1;
   let label_for_value;
@@ -8633,10 +8633,10 @@ function create_each_block_4$1(ctx) {
   let mounted;
   let dispose;
   function input_change_handler_1() {
-    ctx[21].call(
+    ctx[22].call(
       input,
       /*way*/
-      ctx[53]
+      ctx[54]
     );
   }
   return {
@@ -8670,21 +8670,21 @@ function create_each_block_4$1(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*way*/
-      ctx[53]);
+      ctx[54]);
       attr(input, "name", input_name_value = /*way*/
-      ctx[53]);
+      ctx[54]);
       attr(input, "class", "svelte-ym532z");
       attr(label, "for", label_for_value = /*way*/
-      ctx[53]);
+      ctx[54]);
       attr(div, "class", "option svelte-ym532z");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$searchFilters*/
-      ctx[0].WAYS[
+      ctx[1].WAYS[
         /*way*/
-        ctx[53]
+        ctx[54]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8706,30 +8706,30 @@ function create_each_block_4$1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
-      1 && input_id_value !== (input_id_value = /*way*/
-      ctx[53])) {
+      2 && input_id_value !== (input_id_value = /*way*/
+      ctx[54])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && input_name_value !== (input_name_value = /*way*/
-      ctx[53])) {
+      2 && input_name_value !== (input_name_value = /*way*/
+      ctx[54])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input.checked = /*$searchFilters*/
-        ctx[0].WAYS[
+        ctx[1].WAYS[
           /*way*/
-          ctx[53]
+          ctx[54]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && t1_value !== (t1_value = /*way*/
-      ctx[53] + ""))
+      2 && t1_value !== (t1_value = /*way*/
+      ctx[54] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
-      1 && label_for_value !== (label_for_value = /*way*/
-      ctx[53])) {
+      2 && label_for_value !== (label_for_value = /*way*/
+      ctx[54])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8751,7 +8751,7 @@ function create_each_block_3$1(ctx) {
   let label;
   let t1_value = (
     /*quarter*/
-    ctx[50] + ""
+    ctx[51] + ""
   );
   let t1;
   let label_for_value;
@@ -8759,10 +8759,10 @@ function create_each_block_3$1(ctx) {
   let mounted;
   let dispose;
   function input_change_handler_2() {
-    ctx[28].call(
+    ctx[29].call(
       input,
       /*quarter*/
-      ctx[50]
+      ctx[51]
     );
   }
   return {
@@ -8796,21 +8796,21 @@ function create_each_block_3$1(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*quarter*/
-      ctx[50]);
+      ctx[51]);
       attr(input, "name", input_name_value = /*quarter*/
-      ctx[50]);
+      ctx[51]);
       attr(input, "class", "svelte-ym532z");
       attr(label, "for", label_for_value = /*quarter*/
-      ctx[50]);
+      ctx[51]);
       attr(div, "class", "option svelte-ym532z");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$searchFilters*/
-      ctx[0].QuartersOffered[
+      ctx[1].QuartersOffered[
         /*quarter*/
-        ctx[50]
+        ctx[51]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8832,30 +8832,30 @@ function create_each_block_3$1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
-      1 && input_id_value !== (input_id_value = /*quarter*/
-      ctx[50])) {
+      2 && input_id_value !== (input_id_value = /*quarter*/
+      ctx[51])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && input_name_value !== (input_name_value = /*quarter*/
-      ctx[50])) {
+      2 && input_name_value !== (input_name_value = /*quarter*/
+      ctx[51])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input.checked = /*$searchFilters*/
-        ctx[0].QuartersOffered[
+        ctx[1].QuartersOffered[
           /*quarter*/
-          ctx[50]
+          ctx[51]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && t1_value !== (t1_value = /*quarter*/
-      ctx[50] + ""))
+      2 && t1_value !== (t1_value = /*quarter*/
+      ctx[51] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
-      1 && label_for_value !== (label_for_value = /*quarter*/
-      ctx[50])) {
+      2 && label_for_value !== (label_for_value = /*quarter*/
+      ctx[51])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8877,7 +8877,7 @@ function create_each_block_2$2(ctx) {
   let label;
   let t1_value = (
     /*thisDegreeFilter*/
-    ctx[47] + ""
+    ctx[48] + ""
   );
   let t1;
   let label_for_value;
@@ -8885,10 +8885,10 @@ function create_each_block_2$2(ctx) {
   let mounted;
   let dispose;
   function input_change_handler_3() {
-    ctx[30].call(
+    ctx[31].call(
       input,
       /*thisDegreeFilter*/
-      ctx[47]
+      ctx[48]
     );
   }
   return {
@@ -8922,21 +8922,21 @@ function create_each_block_2$2(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*thisDegreeFilter*/
-      ctx[47]);
+      ctx[48]);
       attr(input, "name", input_name_value = /*thisDegreeFilter*/
-      ctx[47]);
+      ctx[48]);
       attr(input, "class", "svelte-ym532z");
       attr(label, "for", label_for_value = /*thisDegreeFilter*/
-      ctx[47]);
+      ctx[48]);
       attr(div, "class", "option svelte-ym532z");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$searchFilters*/
-      ctx[0].degreeSpecific.checkboxes[
+      ctx[1].degreeSpecific.checkboxes[
         /*thisDegreeFilter*/
-        ctx[47]
+        ctx[48]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8958,30 +8958,30 @@ function create_each_block_2$2(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
-      1 && input_id_value !== (input_id_value = /*thisDegreeFilter*/
-      ctx[47])) {
+      2 && input_id_value !== (input_id_value = /*thisDegreeFilter*/
+      ctx[48])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && input_name_value !== (input_name_value = /*thisDegreeFilter*/
-      ctx[47])) {
+      2 && input_name_value !== (input_name_value = /*thisDegreeFilter*/
+      ctx[48])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
-      1) {
+      2) {
         input.checked = /*$searchFilters*/
-        ctx[0].degreeSpecific.checkboxes[
+        ctx[1].degreeSpecific.checkboxes[
           /*thisDegreeFilter*/
-          ctx[47]
+          ctx[48]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
-      1 && t1_value !== (t1_value = /*thisDegreeFilter*/
-      ctx[47] + ""))
+      2 && t1_value !== (t1_value = /*thisDegreeFilter*/
+      ctx[48] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
-      1 && label_for_value !== (label_for_value = /*thisDegreeFilter*/
-      ctx[47])) {
+      2 && label_for_value !== (label_for_value = /*thisDegreeFilter*/
+      ctx[48])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -9000,7 +9000,7 @@ function create_if_block$a(ctx) {
   let t0;
   let t1_value = (
     /*category*/
-    ctx[41].title + ""
+    ctx[42].title + ""
   );
   let t1;
   let t2;
@@ -9011,13 +9011,13 @@ function create_if_block$a(ctx) {
   let t4;
   let t5_value = (
     /*category*/
-    ctx[41].numResultsShowing + ""
+    ctx[42].numResultsShowing + ""
   );
   let t5;
   let t6;
   let t7_value = (
     /*category*/
-    ctx[41].numResultsFound + ""
+    ctx[42].numResultsFound + ""
   );
   let t7;
   let t8;
@@ -9032,11 +9032,11 @@ function create_if_block$a(ctx) {
   let dispose;
   let each_value_1 = ensure_array_like(
     /*category*/
-    ctx[41].results
+    ctx[42].results
   );
   const get_key = (ctx2) => (
     /*course*/
-    ctx2[44].id
+    ctx2[45].id
   );
   for (let i = 0; i < each_value_1.length; i += 1) {
     let child_ctx = get_each_context_1$4(ctx, each_value_1, i);
@@ -9046,9 +9046,9 @@ function create_if_block$a(ctx) {
   function consider_handler(...args) {
     return (
       /*consider_handler*/
-      ctx[33](
+      ctx[34](
         /*category*/
-        ctx[41],
+        ctx[42],
         ...args
       )
     );
@@ -9056,9 +9056,9 @@ function create_if_block$a(ctx) {
   function finalize_handler(...args) {
     return (
       /*finalize_handler*/
-      ctx[34](
+      ctx[35](
         /*category*/
-        ctx[41],
+        ctx[42],
         ...args
       )
     );
@@ -9118,10 +9118,10 @@ function create_if_block$a(ctx) {
       attr(div0, "class", "resultsHorizontalLine svelte-ym532z");
       attr(div1, "class", "resultsHorizontalLine svelte-ym532z");
       attr(div2, "class", div2_class_value = "resultsHeader " + /*category*/
-      ctx[41].type + "header svelte-ym532z");
+      ctx[42].type + "header svelte-ym532z");
       attr(div3, "class", "resultsHeader resultsHeaderShowing svelte-ym532z");
       attr(div4, "class", div4_class_value = "results " + /*category*/
-      ctx[41].type + " svelte-ym532z");
+      ctx[42].type + " svelte-ym532z");
     },
     m(target, anchor) {
       insert_hydration(target, div2, anchor);
@@ -9150,7 +9150,7 @@ function create_if_block$a(ctx) {
           action_destroyer(dndzone_action = dndzone.call(null, div4, {
             items: (
               /*category*/
-              ctx[41].results
+              ctx[42].results
             ),
             flipDurationMs: flipDurationMs$2,
             dropTargetStyle: {}
@@ -9165,26 +9165,26 @@ function create_if_block$a(ctx) {
       ctx = new_ctx;
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t1_value !== (t1_value = /*category*/
-      ctx[41].title + ""))
+      ctx[42].title + ""))
         set_data(t1, t1_value);
       if (!current || dirty[0] & /*$resultCategories*/
       8 && div2_class_value !== (div2_class_value = "resultsHeader " + /*category*/
-      ctx[41].type + "header svelte-ym532z")) {
+      ctx[42].type + "header svelte-ym532z")) {
         attr(div2, "class", div2_class_value);
       }
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t5_value !== (t5_value = /*category*/
-      ctx[41].numResultsShowing + ""))
+      ctx[42].numResultsShowing + ""))
         set_data(t5, t5_value);
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t7_value !== (t7_value = /*category*/
-      ctx[41].numResultsFound + ""))
+      ctx[42].numResultsFound + ""))
         set_data(t7, t7_value);
       if (dirty[0] & /*$resultCategories*/
       8) {
         each_value_1 = ensure_array_like(
           /*category*/
-          ctx[41].results
+          ctx[42].results
         );
         group_outros();
         for (let i = 0; i < each_blocks.length; i += 1)
@@ -9196,7 +9196,7 @@ function create_if_block$a(ctx) {
       }
       if (!current || dirty[0] & /*$resultCategories*/
       8 && div4_class_value !== (div4_class_value = "results " + /*category*/
-      ctx[41].type + " svelte-ym532z")) {
+      ctx[42].type + " svelte-ym532z")) {
         attr(div4, "class", div4_class_value);
       }
       if (dndzone_action && is_function(dndzone_action.update) && dirty[0] & /*$resultCategories*/
@@ -9204,7 +9204,7 @@ function create_if_block$a(ctx) {
         dndzone_action.update.call(null, {
           items: (
             /*category*/
-            ctx[41].results
+            ctx[42].results
           ),
           flipDurationMs: flipDurationMs$2,
           dropTargetStyle: {}
@@ -9248,7 +9248,7 @@ function create_each_block_1$4(key_1, ctx) {
   let current;
   course_1 = new Course({ props: { course: (
     /*course*/
-    ctx[44]
+    ctx[45]
   ) } });
   return {
     key: key_1,
@@ -9279,7 +9279,7 @@ function create_each_block_1$4(key_1, ctx) {
       if (dirty[0] & /*$resultCategories*/
       8)
         course_1_changes.course = /*course*/
-        ctx[44];
+        ctx[45];
       course_1.$set(course_1_changes);
     },
     r() {
@@ -9316,8 +9316,8 @@ function create_each_block$6(ctx) {
   let current;
   let if_block = (
     /*category*/
-    ctx[41].results && /*category*/
-    ctx[41].results.length != 0 && create_if_block$a(ctx)
+    ctx[42].results && /*category*/
+    ctx[42].results.length != 0 && create_if_block$a(ctx)
   );
   return {
     c() {
@@ -9339,8 +9339,8 @@ function create_each_block$6(ctx) {
     p(ctx2, dirty) {
       if (
         /*category*/
-        ctx2[41].results && /*category*/
-        ctx2[41].results.length != 0
+        ctx2[42].results && /*category*/
+        ctx2[42].results.length != 0
       ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
@@ -9395,7 +9395,7 @@ function create_fragment$b(ctx) {
   let dispose;
   let if_block = (
     /*showFilters*/
-    ctx[1] && create_if_block_1$6(ctx)
+    ctx[2] && create_if_block_1$6(ctx)
   );
   let each_value = ensure_array_like(
     /*$resultCategories*/
@@ -9465,7 +9465,7 @@ function create_fragment$b(ctx) {
       set_input_value(
         input,
         /*query*/
-        ctx[2]
+        ctx[0]
       );
       append_hydration(div, t0);
       append_hydration(div, button);
@@ -9485,19 +9485,13 @@ function create_fragment$b(ctx) {
             input,
             "input",
             /*input_input_handler*/
-            ctx[9]
-          ),
-          listen(
-            input,
-            "input",
-            /*searchResultsFunction*/
-            ctx[7]
+            ctx[10]
           ),
           listen(
             button,
             "click",
             /*click_handler*/
-            ctx[10]
+            ctx[11]
           )
         ];
         mounted = true;
@@ -9505,17 +9499,17 @@ function create_fragment$b(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty[0] & /*query*/
-      4 && input.value !== /*query*/
-      ctx2[2]) {
+      1 && input.value !== /*query*/
+      ctx2[0]) {
         set_input_value(
           input,
           /*query*/
-          ctx2[2]
+          ctx2[0]
         );
       }
       if (
         /*showFilters*/
-        ctx2[1]
+        ctx2[2]
       ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
@@ -9595,10 +9589,10 @@ function instance$c($$self, $$props, $$invalidate) {
   let $isDragging;
   let $courseTableList;
   component_subscribe($$self, resultCategories, ($$value) => $$invalidate(3, $resultCategories = $$value));
-  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(0, $searchFilters = $$value));
-  component_subscribe($$self, allCourses, ($$value) => $$invalidate(36, $allCourses = $$value));
-  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(37, $isDragging = $$value));
-  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(38, $courseTableList = $$value));
+  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(1, $searchFilters = $$value));
+  component_subscribe($$self, allCourses, ($$value) => $$invalidate(37, $allCourses = $$value));
+  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(38, $isDragging = $$value));
+  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(39, $courseTableList = $$value));
   let showFilters = false;
   let query = "%";
   function doesCourseFitFilters(course, filters) {
@@ -9864,6 +9858,7 @@ function instance$c($$self, $$props, $$invalidate) {
       return courses.sort((a, b) => b.percent_outcomes_completed - a.percent_outcomes_completed);
     }
   }
+  let searchResultsTimeout = null;
   function checkboxFunction(type) {
     $resultCategories.forEach((category) => {
       if (category.type == type) {
@@ -9875,10 +9870,10 @@ function instance$c($$self, $$props, $$invalidate) {
   }
   function input_input_handler() {
     query = this.value;
-    $$invalidate(2, query);
+    $$invalidate(0, query), $$invalidate(1, $searchFilters), $$invalidate(9, searchResultsTimeout);
   }
   const click_handler = () => {
-    $$invalidate(1, showFilters = !showFilters);
+    $$invalidate(2, showFilters = !showFilters);
   };
   function select0_change_handler() {
     $searchFilters.sortBy = select_value(this);
@@ -9965,32 +9960,40 @@ function instance$c($$self, $$props, $$invalidate) {
   }
   function input8_input_handler() {
     query = this.value;
-    $$invalidate(2, query);
+    $$invalidate(0, query), $$invalidate(1, $searchFilters), $$invalidate(9, searchResultsTimeout);
   }
   const click_handler_5 = () => {
-    $$invalidate(1, showFilters = !showFilters);
+    $$invalidate(2, showFilters = !showFilters);
   };
   const consider_handler = (category, e) => handleDndConsider(e, category.type);
   const finalize_handler = (category, e) => handleDndFinalize(e, category.type);
   $$self.$$.update = () => {
-    if ($$self.$$.dirty[0] & /*$searchFilters*/
-    1) {
+    if ($$self.$$.dirty[0] & /*$searchFilters, query, searchResultsTimeout*/
+    515) {
       {
-        searchResultsFunction();
         searchFilters.set($searchFilters);
+        $$invalidate(0, query), $$invalidate(1, $searchFilters), $$invalidate(9, searchResultsTimeout);
+        clearTimeout(searchResultsTimeout);
+        $$invalidate(9, searchResultsTimeout = setTimeout(
+          () => {
+            searchResultsFunction();
+          },
+          500
+        ));
       }
     }
   };
   return [
+    query,
     $searchFilters,
     showFilters,
-    query,
     $resultCategories,
     clearFilters,
     handleDndConsider,
     handleDndFinalize,
     searchResultsFunction,
     checkboxFunction,
+    searchResultsTimeout,
     input_input_handler,
     click_handler,
     select0_change_handler,
@@ -11279,7 +11282,11 @@ function create_fragment$9(ctx) {
       var div6_nodes = children(div6);
       div2 = claim_element(div6_nodes, "DIV", { class: true });
       var div2_nodes = children(div2);
-      input = claim_element(div2_nodes, "INPUT", { type: true, class: true });
+      input = claim_element(div2_nodes, "INPUT", {
+        type: true,
+        placeholder: true,
+        class: true
+      });
       t3 = claim_space(div2_nodes);
       button = claim_element(div2_nodes, "BUTTON", { class: true });
       var button_nodes = children(button);
@@ -11315,6 +11322,7 @@ function create_fragment$9(ctx) {
       attr(div0, "class", "title svelte-1y908un");
       attr(div1, "class", "courseDndList svelte-1y908un");
       attr(input, "type", "text");
+      attr(input, "placeholder", "course");
       attr(input, "class", "svelte-1y908un");
       attr(button, "class", "svelte-1y908un");
       attr(div2, "class", "addCourse svelte-1y908un");
@@ -16671,10 +16679,10 @@ function create_if_block$2(ctx) {
   let div0;
   let textContent_1 = `<h2>CourseCorrect</h2> <p>This is a 5 year course planner. Use in conjuction with other services (Explorecourses,
 				Carta, etc.) for best results.</p> <h2>Start</h2> <p>Set your preferences, degree, and transfer units. Make sure to configure &quot;Total&quot; transfer
-				units. The degrees with more than 50 students/year are implemented.</p> <p>Search for courses in the top left or directly enter them in each quarter. Use
+				units.</p> <p>Search for courses in the top left or directly enter them in each quarter. Use
 				filters/sorting aggressively.</p> <h2>Other info</h2> <p>CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
-				out.</p> <p>If the entire website breaks, clear the cache and cookies.</p> <p>Data is stored locally on your browser. Export your data frequently.</p> <h2>Disclaimer</h2> <p>All data and calculations may contain errors. Consult official university materials for
-				ground truths. There are no guarantees on the correctness of anything on this website.</p>`;
+				out.</p> <p>If the entire website breaks, clear the cache and cookies. Site might be buggy on Safari.</p> <p>Data is stored locally on your browser. Export your data frequently.</p> <p>Degrees with more than 50 students/year are implemented.</p> <h2>Disclaimer</h2> <p>All data and calculations may contain errors. Consult official university materials for
+				ground truths.</p> <p>There are no correctness guarantees.</p>`;
   let current;
   let mounted;
   let dispose;
@@ -16705,7 +16713,7 @@ function create_if_block$2(ctx) {
         button1.textContent = textContent;
       t2 = claim_space(div1_nodes);
       div0 = claim_element(div1_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div0) !== "svelte-1kft48z")
+      if (get_svelte_dataset(div0) !== "svelte-1h364me")
         div0.innerHTML = textContent_1;
       div1_nodes.forEach(detach);
       this.h();
@@ -25595,9 +25603,13 @@ function filterCourseObjsByLut(list, lut) {
 }
 function getTransferUnits(transfer, key) {
   var _a;
-  return (_a = transfer.filter((obj) => {
+  let ret = (_a = transfer.filter((obj) => {
     return obj.name === key;
   })[0]) == null ? void 0 : _a.value;
+  if (ret === void 0) {
+    return 0;
+  }
+  return ret;
 }
 function calculateTotalUnits(courses, transfer) {
   let totalUnits = 0;
@@ -25826,9 +25838,9 @@ function create_fragment$1(ctx) {
   let trash;
   let t3;
   let div9;
-  let div5;
   let onstartinfomodal;
   let t4;
+  let div5;
   let div2;
   let panelcollapsecontainer0;
   let t5;
@@ -25907,9 +25919,9 @@ function create_fragment$1(ctx) {
       create_component(trash.$$.fragment);
       t3 = space();
       div9 = element("div");
-      div5 = element("div");
       create_component(onstartinfomodal.$$.fragment);
       t4 = space();
+      div5 = element("div");
       div2 = element("div");
       create_component(panelcollapsecontainer0.$$.fragment);
       t5 = space();
@@ -25953,10 +25965,10 @@ function create_fragment$1(ctx) {
       t3 = claim_space(div10_nodes);
       div9 = claim_element(div10_nodes, "DIV", { class: true });
       var div9_nodes = children(div9);
+      claim_component(onstartinfomodal.$$.fragment, div9_nodes);
+      t4 = claim_space(div9_nodes);
       div5 = claim_element(div9_nodes, "DIV", { class: true });
       var div5_nodes = children(div5);
-      claim_component(onstartinfomodal.$$.fragment, div5_nodes);
-      t4 = claim_space(div5_nodes);
       div2 = claim_element(div5_nodes, "DIV", { class: true });
       var div2_nodes = children(div2);
       claim_component(panelcollapsecontainer0.$$.fragment, div2_nodes);
@@ -26031,9 +26043,9 @@ function create_fragment$1(ctx) {
       mount_component(trash, div1, null);
       append_hydration(div10, t3);
       append_hydration(div10, div9);
+      mount_component(onstartinfomodal, div9, null);
+      append_hydration(div9, t4);
       append_hydration(div9, div5);
-      mount_component(onstartinfomodal, div5, null);
-      append_hydration(div5, t4);
       append_hydration(div5, div2);
       mount_component(panelcollapsecontainer0, div2, null);
       append_hydration(div5, t5);
@@ -26291,12 +26303,6 @@ function instance$1($$self, $$props, $$invalidate) {
             id: $years[i] + " " + $quarters[j],
             courses: []
           });
-          for (let k = 0; k < 1; k++) {
-            let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
-            if (i == 0) {
-              coursesObj[i].quarters[j].courses.push(randomCourse);
-            }
-          }
         }
       }
       set_store_value(courseTable, $courseTable = coursesObj, $courseTable);
