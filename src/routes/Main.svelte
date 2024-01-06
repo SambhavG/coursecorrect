@@ -1,4 +1,7 @@
 <script>
+	//Remaining todos:
+	//Update course catalog
+	//Run advanced semantic classification
 	import { onMount } from 'svelte';
 	import {
 		years,
@@ -119,14 +122,14 @@
 
 		//Get data from local storage
 		const isBrowser = typeof window !== 'undefined';
-		let storedCourseTable = null;
+		let storedCompressedCourseTable = null;
 		let storedPrefs = null;
 		let storedShowWelcomeModalOnLoad = null;
 		let storedPanelCollapsed = null;
 		let storedBachelorsDegreeChoice = null;
 		let storedMastersDegreeChoice = null;
 		if (isBrowser && !dumpLocalStorage) {
-			storedCourseTable = localStorage.getItem('courseTable');
+			storedCompressedCourseTable = localStorage.getItem('compressedTable');
 			storedPrefs = localStorage.getItem('prefs');
 			storedShowWelcomeModalOnLoad = localStorage.getItem('showWelcomeModalOnLoad');
 			storedPanelCollapsed = localStorage.getItem('panelCollapsed');
@@ -150,8 +153,9 @@
 		if (storedMastersDegreeChoice) {
 			$mastersDegreeChoice = JSON.parse(storedMastersDegreeChoice);
 		}
-		if (storedCourseTable && storedCourseTable !== '[]') {
-			$courseTable = JSON.parse(storedCourseTable);
+		if (storedCompressedCourseTable && storedCompressedCourseTable !== '[]') {
+			$compressedTable = JSON.parse(storedCompressedCourseTable);
+			decompressCourses();
 			cleanCourseTable();
 		} else {
 			let coursesObj = [];
@@ -159,13 +163,16 @@
 				coursesObj.push({ id: $years[i], quarters: [] });
 				for (let j = 0; j < $quarters.length; j++) {
 					coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
-					for (let k = 0; k < j + 2; k++) {
+					for (let k = 0; k < 1; k++) {
 						let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
-						coursesObj[i].quarters[j].courses.push(randomCourse);
+						if (i == 0) {
+							coursesObj[i].quarters[j].courses.push(randomCourse);
+						}
 					}
 				}
 			}
 			$courseTable = coursesObj;
+			compressCourses();
 		}
 		mounted = true;
 	});
@@ -174,8 +181,8 @@
 	$: {
 		const isBrowser = typeof window !== 'undefined';
 		if (isBrowser && mounted) {
-			if ($courseTable.length != 0) {
-				localStorage.setItem('courseTable', JSON.stringify($courseTable));
+			if ($compressedTable.length != 0) {
+				localStorage.setItem('compressedTable', JSON.stringify($compressedTable));
 			}
 			localStorage.setItem('years', JSON.stringify($years));
 			localStorage.setItem('quarters', JSON.stringify($quarters));
@@ -203,7 +210,6 @@
 
 	function setDegreeSpecificSearchFilters(compiledDegree) {
 		$searchFilters.degreeSpecific = { checkboxes: {}, luts: {} };
-		// console.log(compiledDegree);
 		if (compiledDegree == {}) {
 			return;
 		}
@@ -256,21 +262,71 @@
 		}
 	}
 
-	//Whenever the course table changes, compress it
-	$: {
+	function compressCourses() {
+		//Persistent:
+		//code
+		//bump
+		//csnc
+		//ms
+		//units_taking
 		$compressedTable = [];
 		let coursesObj = [];
 		for (let i = 0; i < $years.length; i++) {
 			coursesObj.push({ id: $years[i], quarters: [] });
 			for (let j = 0; j < $quarters.length; j++) {
 				coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
-				for (let k = 0; k < j + 2; k++) {
-					let randomCourse = $allCourses[Math.floor(Math.random() * $allCourses.length)];
-					coursesObj[i].quarters[j].courses.push(randomCourse);
+				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					let course = $courseTable[i].quarters[j].courses[k];
+					let compressedCourse = {
+						code: course.code,
+						bump: course.bump,
+						csnc: course.csnc,
+						ms: course.ms,
+						units_taking: course.units_taking
+					};
+					coursesObj[i].quarters[j].courses.push(compressedCourse);
 				}
 			}
 		}
-		//$compressedTable = coursesObj;
+		$compressedTable = coursesObj;
+		const isBrowser = typeof window !== 'undefined';
+		if (isBrowser && mounted) {
+			if ($compressedTable.length != 0) {
+				localStorage.setItem('compressedTable', JSON.stringify($compressedTable));
+			}
+		}
+	}
+
+	function decompressCourses() {
+		$courseTable = [];
+		let coursesObj = [];
+		for (let i = 0; i < $years.length; i++) {
+			coursesObj.push({ id: $years[i], quarters: [] });
+			for (let j = 0; j < $quarters.length; j++) {
+				coursesObj[i].quarters.push({ id: $years[i] + ' ' + $quarters[j], courses: [] });
+				for (let k = 0; k < $compressedTable[i].quarters[j].courses.length; k++) {
+					let course = $compressedTable[i].quarters[j].courses[k];
+					let decompressedCourse = $allCourses.find((c) => c.code == course.code);
+					decompressedCourse = JSON.parse(JSON.stringify(decompressedCourse));
+					decompressedCourse.bump = course.bump;
+					decompressedCourse.csnc = course.csnc;
+					decompressedCourse.ms = course.ms;
+					decompressedCourse.units_taking = course.units_taking;
+					decompressedCourse.id =
+						decompressedCourse.id.split('|')[0] + '|' + Math.random().toString(36).substring(7);
+					coursesObj[i].quarters[j].courses.push(decompressedCourse);
+				}
+			}
+		}
+		$courseTable = coursesObj;
+	}
+
+	//Whenever the course table changes, compress it
+	$: {
+		$courseTable = $courseTable;
+		if ($courseTable.length != 0) {
+			compressCourses();
+		}
 	}
 </script>
 
@@ -309,7 +365,7 @@
 					{/if}
 				</div>
 				<div class="configPanelContainer">
-					<PanelCollapseContainer panelId="config" panelName={'Config'} content={ConfigPanel} />
+					<PanelCollapseContainer panelId="config" panelName={'Settings'} content={ConfigPanel} />
 				</div>
 			</div>
 			<div class="courseDataPanelContainer">

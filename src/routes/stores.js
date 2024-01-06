@@ -161,4 +161,4 @@ export const panelCollapsed = writable({ //PERSISTENT
 });
 
 //Compressed data (for db)
-export const compressedTable = writable([]);
+export const compressedTable = writable([]); //PERSISTENT

@@ -528,17 +528,21 @@
 		padding: 0.25em;
 		margin: 0.25em;
 	}
-	.autumn {
+	.Autumn {
 		background-color: var(--autumn);
 		color: var(--autumn-text);
 	}
-	.winter {
+	.Winter {
 		background-color: var(--winter);
 		color: var(--winter-text);
 	}
-	.spring {
+	.Spring {
 		background-color: var(--spring);
 		color: var(--spring-text);
+	}
+	.Summer {
+		background-color: var(--summer);
+		color: var(--summer-text);
 	}
 
 	.AII {
