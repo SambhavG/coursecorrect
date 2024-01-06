@@ -25450,7 +25450,9 @@ function calculateTotalUnits(courses, transfer) {
   courses.forEach((course) => {
     totalUnits += course.units_taking;
   });
-  totalUnits += getTransferUnits(transfer, "Total");
+  if (transfer) {
+    totalUnits += getTransferUnits(transfer, "Total");
+  }
   return totalUnits;
 }
 function courseRegexMatch(allCourses2, regex) {

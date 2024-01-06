@@ -1,6 +1,6 @@
 import { s as safe_not_equal, n as noop, e as component_subscribe } from "../chunks/scheduler.edd06cda.js";
 import { S as SvelteComponent, i as init, g as element, m as text, s as space, h as claim_element, j as children, n as claim_text, f as detach, c as claim_space, a as insert_hydration, x as append_hydration, o as set_data } from "../chunks/index.bcf67ee9.js";
-import { d as stores } from "../chunks/singletons.55b9371e.js";
+import { d as stores } from "../chunks/singletons.995b4db9.js";
 const getStores = () => {
   const stores$1 = stores;
   return {
