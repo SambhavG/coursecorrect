@@ -576,7 +576,10 @@ function calculateTotalUnits(courses, transfer) {
   courses.forEach((course) => {
     totalUnits += course.units_taking;
   });
-  totalUnits+=getTransferUnits(transfer, 'Total');
+  //Add transfer units if they are not undefined
+  if (transfer) {
+    totalUnits+=getTransferUnits(transfer, 'Total');
+  }
   return totalUnits;
 }
 
