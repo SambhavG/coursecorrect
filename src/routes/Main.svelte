@@ -373,6 +373,17 @@
 			<footer>
 				<p>Made by <a href="https://sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
 			</footer>
+			<!-- Place this tag where you want the button to render. -->
+			<div class="githubButton">
+				<a
+					class="github-button"
+					href="https://github.com/sambhavg/coursecorrect"
+					data-color-scheme="no-preference: light; light: light; dark: dark;"
+					data-size="large"
+					data-show-count="true"
+					aria-label="Star sambhavg/coursecorrect on GitHub">Star</a
+				>
+			</div>
 			<Xkcd />
 			<div class="giantSpace" />
 		</div>
@@ -464,6 +475,12 @@
 
 	footer a {
 		font-weight: bold;
+	}
+	.githubButton {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		padding-bottom: 1em;
 	}
 	.giantSpace {
 		height: 50vh;
