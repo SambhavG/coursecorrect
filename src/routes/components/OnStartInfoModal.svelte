@@ -30,8 +30,8 @@
 			</p>
 			<h2>Start</h2>
 			<p>
-				Configure your preferences, degree, and transfer units in the config panel. Make sure to
-				configure "Total" transfer units.
+				Set your preferences, degree, and transfer units. Make sure to configure "Total" transfer
+				units. The degrees with more than 50 students/year are implemented.
 				<!-- Only a few
 				popular degrees are implememented, but if you've taken CS 106B, you are more than capable of
 				write a degree checking file yourself (in ~1 hour depending on how complex it is) and submit
@@ -43,7 +43,8 @@
 				</a>) -->
 			</p>
 			<p>
-				Search for courses in the top left or directly in each quarter. Use filters aggressively.
+				Search for courses in the top left or directly enter them in each quarter. Use
+				filters/sorting aggressively.
 			</p>
 			<h2>Other info</h2>
 			<p>
@@ -51,11 +52,7 @@
 				out.
 			</p>
 			<p>If the entire website breaks, clear the cache and cookies.</p>
-			<p>Data is stored locally on your browser.</p>
-			<p>
-				The site is broken on Firefox (and potentially other browsers) because of how Github Pages
-				handles hosting; use Chrome/Chromium-based browsers.
-			</p>
+			<p>Data is stored locally on your browser. Export your data frequently.</p>
 			<h2>Disclaimer</h2>
 			<p>
 				All data and calculations may contain errors. Consult official university materials for

@@ -24,6 +24,16 @@ function is_function(thing) {
 function safe_not_equal(a, b) {
   return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
 }
+let src_url_equal_anchor;
+function src_url_equal(element_src, url) {
+  if (element_src === url)
+    return true;
+  if (!src_url_equal_anchor) {
+    src_url_equal_anchor = document.createElement("a");
+  }
+  src_url_equal_anchor.href = url;
+  return element_src === src_url_equal_anchor.href;
+}
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
 }
@@ -202,34 +212,35 @@ function flush_render_callbacks(fns) {
   render_callbacks = filtered;
 }
 export {
-  set_current_component as A,
-  run as B,
-  dirty_components as C,
-  schedule_update as D,
+  current_component as A,
+  set_current_component as B,
+  run as C,
+  dirty_components as D,
+  schedule_update as E,
   afterUpdate as a,
   binding_callbacks as b,
   create_slot as c,
   get_slot_changes as d,
   component_subscribe as e,
-  is_function as f,
+  src_url_equal as f,
   get_all_dirty_from_scope as g,
-  assign as h,
+  is_function as h,
   identity as i,
-  compute_rest_props as j,
-  exclude_internal_props as k,
-  null_to_empty as l,
-  set_store_value as m,
+  assign as j,
+  compute_rest_props as k,
+  exclude_internal_props as l,
+  null_to_empty as m,
   noop as n,
   onMount as o,
-  add_render_callback as p,
-  action_destroyer as q,
+  set_store_value as p,
+  add_render_callback as q,
   run_all as r,
   safe_not_equal as s,
   tick as t,
   update_slot_base as u,
-  blank_object as v,
-  flush as w,
-  is_empty as x,
-  flush_render_callbacks as y,
-  current_component as z
+  action_destroyer as v,
+  blank_object as w,
+  flush as x,
+  is_empty as y,
+  flush_render_callbacks as z
 };

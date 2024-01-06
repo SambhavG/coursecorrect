@@ -60,8 +60,8 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Exact Match',
 		hide: false,
-		numResults: 10,
-		defaultNumResults: 10,
+		numResults: 25,
+		defaultNumResults: 25,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	},
@@ -80,8 +80,8 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Title Match',
 		hide: false,
-		numResults: 10,
-		defaultNumResults: 10,
+		numResults: 25,
+		defaultNumResults: 25,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	},
@@ -90,8 +90,8 @@ export const resultCategories = writable([
 		results: [],
 		title: 'Description Match',
 		hide: false,
-		numResults: 10,
-		defaultNumResults: 10,
+		numResults: 25,
+		defaultNumResults: 25,
 		numResultsShowing: 0,
 		numResultsFound: 0
 	}

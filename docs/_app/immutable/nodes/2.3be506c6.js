@@ -1,6 +1,6 @@
-import { n as noop, i as identity, r as run_all, f as is_function, s as safe_not_equal, c as create_slot, h as assign, u as update_slot_base, g as get_all_dirty_from_scope, d as get_slot_changes, j as compute_rest_props, k as exclude_internal_props, e as component_subscribe, l as null_to_empty, m as set_store_value, t as tick, p as add_render_callback, q as action_destroyer, o as onMount } from "../chunks/scheduler.edd06cda.js";
-import { y as get_root_for_style, f as detach, z as append_empty_stylesheet, t as transition_out, d as transition_in, S as SvelteComponent, i as init, A as svg_element, e as empty, B as claim_svg_element, j as children, C as set_svg_attributes, a as insert_hydration, x as append_hydration, D as destroy_each, r as create_component, u as claim_component, v as mount_component, w as destroy_component, p as group_outros, b as check_outros, g as element, h as claim_element, s as space, m as text, c as claim_space, n as claim_text, k as attr, E as listen, o as set_data, F as get_svelte_dataset, G as set_input_value, H as select_option, I as to_number, J as select_value, q as construct_svelte_component, l as set_style, K as head_selector } from "../chunks/index.bcf67ee9.js";
-import { w as writable } from "../chunks/index.24d1b8cc.js";
+import { n as noop, i as identity, r as run_all, s as safe_not_equal, f as src_url_equal, e as component_subscribe, h as is_function, c as create_slot, j as assign, u as update_slot_base, g as get_all_dirty_from_scope, d as get_slot_changes, k as compute_rest_props, l as exclude_internal_props, m as null_to_empty, p as set_store_value, t as tick, q as add_render_callback, v as action_destroyer, o as onMount } from "../chunks/scheduler.59be48c0.js";
+import { y as get_root_for_style, f as detach, z as append_empty_stylesheet, t as transition_out, d as transition_in, S as SvelteComponent, i as init, g as element, h as claim_element, j as children, k as attr, a as insert_hydration, x as append_hydration, A as svg_element, e as empty, B as claim_svg_element, C as set_svg_attributes, D as destroy_each, r as create_component, u as claim_component, v as mount_component, w as destroy_component, p as group_outros, b as check_outros, s as space, m as text, c as claim_space, n as claim_text, E as listen, o as set_data, F as get_svelte_dataset, G as set_input_value, H as select_option, I as to_number, J as select_value, q as construct_svelte_component, l as set_style, K as head_selector } from "../chunks/index.0f5ae8f1.js";
+import { w as writable } from "../chunks/index.c467d646.js";
 /* empty css                         */const is_client = typeof window !== "undefined";
 let now = is_client ? () => window.performance.now() : () => Date.now();
 let raf = is_client ? (cb) => requestAnimationFrame(cb) : noop;
@@ -347,8 +347,8 @@ const resultCategories = writable([
     results: [],
     title: "Exact Match",
     hide: false,
-    numResults: 10,
-    defaultNumResults: 10,
+    numResults: 25,
+    defaultNumResults: 25,
     numResultsShowing: 0,
     numResultsFound: 0
   },
@@ -367,8 +367,8 @@ const resultCategories = writable([
     results: [],
     title: "Title Match",
     hide: false,
-    numResults: 10,
-    defaultNumResults: 10,
+    numResults: 25,
+    defaultNumResults: 25,
     numResultsShowing: 0,
     numResultsFound: 0
   },
@@ -377,8 +377,8 @@ const resultCategories = writable([
     results: [],
     title: "Description Match",
     hide: false,
-    numResults: 10,
-    defaultNumResults: 10,
+    numResults: 25,
+    defaultNumResults: 25,
     numResultsShowing: 0,
     numResultsFound: 0
   }
@@ -448,6 +448,160 @@ const panelCollapsed = writable({
   }
 });
 const compressedTable = writable([]);
+const xkcd_svelte_svelte_type_style_lang = "";
+function create_fragment$x(ctx) {
+  let section;
+  let img;
+  let img_src_value;
+  return {
+    c() {
+      section = element("section");
+      img = element("img");
+      this.h();
+    },
+    l(nodes) {
+      section = claim_element(nodes, "SECTION", { class: true });
+      var section_nodes = children(section);
+      img = claim_element(section_nodes, "IMG", { src: true, alt: true, class: true });
+      section_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      if (!src_url_equal(img.src, img_src_value = /*image*/
+      ctx[0]))
+        attr(img, "src", img_src_value);
+      attr(img, "alt", "XKCD comic");
+      attr(img, "class", "svelte-cdo3i9");
+      attr(section, "class", "svelte-cdo3i9");
+    },
+    m(target, anchor) {
+      insert_hydration(target, section, anchor);
+      append_hydration(section, img);
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & /*image*/
+      1 && !src_url_equal(img.src, img_src_value = /*image*/
+      ctx2[0])) {
+        attr(img, "src", img_src_value);
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching) {
+        detach(section);
+      }
+    }
+  };
+}
+function instance$y($$self, $$props, $$invalidate) {
+  let $bachelorsDegreeChoice;
+  component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(1, $bachelorsDegreeChoice = $$value));
+  let image = "https://imgs.xkcd.com/comics/every_majors_terrible.png";
+  let xkcdLut = {
+    BioE: ["circumappendiceal_somectomy", "flinch"],
+    Biology: ["mushrooms", "flinch", "paper_title"],
+    CS: [
+      "the_general_problem",
+      "not_really_into_pokemon",
+      "code_quality",
+      "travel_ghosts",
+      "working_for_google",
+      "compiling",
+      "git_commit",
+      "success",
+      "future_self"
+    ],
+    Econ: [
+      "the_economic_argument",
+      "money",
+      "correlation",
+      "peer_review",
+      "investing",
+      "advertising",
+      "curve_fitting"
+    ],
+    English: ["i_could_care_less", "sustainable", "etymonline", "odyssey", "bookstore"],
+    Humbio: [
+      "answers",
+      "incision",
+      "old_timers",
+      "2024",
+      "circumappendiceal_somectomy",
+      "gut_fauna",
+      "strengths_and_weaknesses",
+      "advent",
+      "sick_day",
+      "coronavirus_research"
+    ],
+    IR: ["terminology", "congress", "edge_cake", "iceland"],
+    Math: [
+      "garbage_math",
+      "convincing_pickup_line",
+      "forgot_algebra",
+      "proof",
+      "polar_cartesian",
+      "mobius_battle",
+      "euler_diagrams",
+      "math_paper",
+      "set_theory"
+    ],
+    MechE: [
+      "quadcopter",
+      "airaware",
+      "my_phone_is_dying",
+      "heat_pump",
+      "engineering_hubris",
+      "wing_lift",
+      "work",
+      "the_wrong_stuff"
+    ],
+    "MS&E": [
+      "spinal_tap_amps",
+      "engineering_hubris",
+      "engineer_syllogism",
+      "unicode",
+      "work"
+    ],
+    Polisci: ["lincoln_douglas", "congress", "open_letter", "chain_of_command"],
+    Symsys: ["kites", "engineer_syllogism", "work", "curve_fitting", "the_wrong_stuff"],
+    Physics: [
+      "swingset",
+      "felsius",
+      "higgs_boson",
+      "interdisciplinary",
+      "flinch",
+      "heat_pump"
+    ],
+    Psychology: ["interdisciplinary", "walking_into_things", "brain_worms", "fmri"],
+    other: ["in_your_classroom", "every_majors_terrible", "scientific_field_prefixes"]
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*$bachelorsDegreeChoice*/
+    2) {
+      {
+        try {
+          let major = $bachelorsDegreeChoice.split("_")[2];
+          let random = Math.floor(Math.random() * 1e4);
+          let xkcdKey = Object.keys(xkcdLut).find((key) => major == key);
+          if (!xkcdKey || xkcdLut[xkcdKey].length == 0)
+            xkcdKey = "other";
+          let randomIndex = random % xkcdLut[xkcdKey].length;
+          $$invalidate(0, image = `https://imgs.xkcd.com/comics/${xkcdLut[xkcdKey][randomIndex]}.png`);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  };
+  return [image, $bachelorsDegreeChoice];
+}
+class Xkcd extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$y, create_fragment$x, safe_not_equal, {});
+  }
+}
 function cubicOut(t) {
   const f = t - 1;
   return f * f * f + 1;
@@ -15730,8 +15884,8 @@ function create_fragment$3(ctx) {
 				guarantees; consult official materials.</b>`;
   let t28;
   let div15;
-  let textContent_10 = `Implemented degrees include those which have 50 or more students per year. Implementations are
-			at <a href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees" target="_blank">src/routes/degrees</a>`;
+  let textContent_10 = `Implemented degrees include those which have more than 50 students per year. Implementations
+			are at <a href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees" target="_blank">src/routes/degrees</a>`;
   let mounted;
   let dispose;
   function select_block_type(ctx2, dirty) {
@@ -15969,7 +16123,7 @@ function create_fragment$3(ctx) {
         div14.innerHTML = textContent_9;
       t28 = claim_space(div16_nodes);
       div15 = claim_element(div16_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div15) !== "svelte-qz00xy")
+      if (get_svelte_dataset(div15) !== "svelte-gzijyw")
         div15.innerHTML = textContent_10;
       div16_nodes.forEach(detach);
       div17_nodes.forEach(detach);
@@ -16516,10 +16670,10 @@ function create_if_block$2(ctx) {
   let t2;
   let div0;
   let textContent_1 = `<h2>CourseCorrect</h2> <p>This is a 5 year course planner. Use in conjuction with other services (Explorecourses,
-				Carta, etc.) for best results.</p> <h2>Start</h2> <p>Configure your preferences, degree, and transfer units in the config panel. Make sure to
-				configure &quot;Total&quot; transfer units.</p> <p>Search for courses in the top left or directly in each quarter. Use filters aggressively.</p> <h2>Other info</h2> <p>CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
-				out.</p> <p>If the entire website breaks, clear the cache and cookies.</p> <p>Data is stored locally on your browser.</p> <p>The site is broken on Firefox (and potentially other browsers) because of how Github Pages
-				handles hosting; use Chrome/Chromium-based browsers.</p> <h2>Disclaimer</h2> <p>All data and calculations may contain errors. Consult official university materials for
+				Carta, etc.) for best results.</p> <h2>Start</h2> <p>Set your preferences, degree, and transfer units. Make sure to configure &quot;Total&quot; transfer
+				units. The degrees with more than 50 students/year are implemented.</p> <p>Search for courses in the top left or directly enter them in each quarter. Use
+				filters/sorting aggressively.</p> <h2>Other info</h2> <p>CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
+				out.</p> <p>If the entire website breaks, clear the cache and cookies.</p> <p>Data is stored locally on your browser. Export your data frequently.</p> <h2>Disclaimer</h2> <p>All data and calculations may contain errors. Consult official university materials for
 				ground truths. There are no guarantees on the correctness of anything on this website.</p>`;
   let current;
   let mounted;
@@ -16551,7 +16705,7 @@ function create_if_block$2(ctx) {
         button1.textContent = textContent;
       t2 = claim_space(div1_nodes);
       div0 = claim_element(div1_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div0) !== "svelte-dh7lh6")
+      if (get_svelte_dataset(div0) !== "svelte-1kft48z")
         div0.innerHTML = textContent_1;
       div1_nodes.forEach(detach);
       this.h();
@@ -25694,6 +25848,8 @@ function create_fragment$1(ctx) {
   let footer;
   let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-vmz794">Sambhav Gupta</a> with Svelte</p>`;
   let t13;
+  let xkcd;
+  let t14;
   let div8;
   let current;
   loadinalldegrees = new LoadInAllDegrees({});
@@ -25735,6 +25891,7 @@ function create_fragment$1(ctx) {
     }
   });
   grid = new Grid({});
+  xkcd = new Xkcd({});
   return {
     c() {
       create_component(loadinalldegrees.$$.fragment);
@@ -25771,6 +25928,8 @@ function create_fragment$1(ctx) {
       footer = element("footer");
       footer.innerHTML = textContent;
       t13 = space();
+      create_component(xkcd.$$.fragment);
+      t14 = space();
       div8 = element("div");
       this.h();
     },
@@ -25828,6 +25987,8 @@ function create_fragment$1(ctx) {
       if (get_svelte_dataset(footer) !== "svelte-mdbyqg")
         footer.innerHTML = textContent;
       t13 = claim_space(div9_nodes);
+      claim_component(xkcd.$$.fragment, div9_nodes);
+      t14 = claim_space(div9_nodes);
       div8 = claim_element(div9_nodes, "DIV", { class: true });
       children(div8).forEach(detach);
       div9_nodes.forEach(detach);
@@ -25890,6 +26051,8 @@ function create_fragment$1(ctx) {
       append_hydration(div9, t9);
       append_hydration(div9, footer);
       append_hydration(div9, t13);
+      mount_component(xkcd, div9, null);
+      append_hydration(div9, t14);
       append_hydration(div9, div8);
       current = true;
     },
@@ -25956,6 +26119,7 @@ function create_fragment$1(ctx) {
       transition_in(panelcollapsecontainer1.$$.fragment, local);
       transition_in(panelcollapsecontainer2.$$.fragment, local);
       transition_in(grid.$$.fragment, local);
+      transition_in(xkcd.$$.fragment, local);
       current = true;
     },
     o(local) {
@@ -25968,6 +26132,7 @@ function create_fragment$1(ctx) {
       transition_out(panelcollapsecontainer1.$$.fragment, local);
       transition_out(panelcollapsecontainer2.$$.fragment, local);
       transition_out(grid.$$.fragment, local);
+      transition_out(xkcd.$$.fragment, local);
       current = false;
     },
     d(detaching) {
@@ -25985,6 +26150,7 @@ function create_fragment$1(ctx) {
       destroy_component(panelcollapsecontainer1);
       destroy_component(panelcollapsecontainer2);
       destroy_component(grid);
+      destroy_component(xkcd);
     }
   };
 }

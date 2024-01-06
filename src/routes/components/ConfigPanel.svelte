@@ -282,8 +282,8 @@
 			</b>
 		</div>
 		<div class="info">
-			Implemented degrees include those which have 50 or more students per year. Implementations are
-			at <a
+			Implemented degrees include those which have more than 50 students per year. Implementations
+			are at <a
 				href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees"
 				target="_blank"
 			>

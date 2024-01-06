@@ -1,7 +1,5 @@
 <script>
-	//Remaining todos:
-	//Update course catalog
-	//Run advanced semantic classification
+	import Xkcd from './components/xkcd.svelte';
 	import { onMount } from 'svelte';
 	import {
 		years,
@@ -381,6 +379,7 @@
 			<footer>
 				<p>Made by <a href="https://sambhavg.github.io">Sambhav Gupta</a> with Svelte</p>
 			</footer>
+			<Xkcd />
 			<div class="giantSpace" />
 		</div>
 	</div>
