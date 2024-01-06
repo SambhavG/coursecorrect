@@ -2,7 +2,7 @@ let degree = {
   "degree": "B.S. BioE",
   "level": "undergraduate",
   "year": 2023,
-  "uniqueID": "2023_UG_MechE_BS_DynamicSystems",
+  "uniqueID": "2023_UG_BioE_BS_Standard",
   "lookuptables": {
     "MATH 19": ["MATH 19"],
     "MATH 20": ["MATH 20"],
