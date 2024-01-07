@@ -21036,7 +21036,6 @@ let degree$g = {
   "level": "undergraduate",
   "year": 2023,
   "uniqueID": "2023_UG_Psychology_BA_Standard",
-  "infoText": "Fill one to 25, one to 15, plus 20 more. Bump courses if necessary.",
   "lookuptables": {
     "Intro": ["PSYCH 1", "PSYCH 10"],
     "A": ["PSYCH 30", "PSYCH 35", "PSYCH 45", "PSYCH 50"],
@@ -21085,8 +21084,7 @@ let degree$g = {
           ]
         },
         {
-          "name": "Electives",
-          "amount": 0
+          "lut": "Elective"
         }
       ]
     },
