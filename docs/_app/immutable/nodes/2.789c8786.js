@@ -9668,7 +9668,7 @@ function instance$c($$self, $$props, $$invalidate) {
     if (quartersOfferedFilterActive) {
       let quartersOfferedFilterFits = false;
       Object.keys(filters.QuartersOffered).forEach((quarter) => {
-        if (filters.QuartersOffered[quarter] && course.seasons_offered.includes(quarter.toLowerCase())) {
+        if (filters.QuartersOffered[quarter] && (course.seasons_offered.includes(quarter) || course.seasons_offered.includes(quarter.toLowerCase()))) {
           quartersOfferedFilterFits = true;
         }
       });
