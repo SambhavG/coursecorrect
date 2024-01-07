@@ -25720,8 +25720,8 @@ function create_if_block_1(ctx) {
       this.h();
     },
     h() {
-      attr(div0, "class", "scrollArea svelte-vmz794");
-      attr(div1, "class", "searchContainer svelte-vmz794");
+      attr(div0, "class", "scrollArea svelte-y5vvwt");
+      attr(div1, "class", "searchContainer svelte-y5vvwt");
     },
     m(target, anchor) {
       insert_hydration(target, div1, anchor);
@@ -25831,13 +25831,13 @@ function create_fragment$1(ctx) {
   let t0;
   let section;
   let t1;
-  let div10;
+  let div11;
   let div0;
   let t2;
   let div1;
   let trash;
   let t3;
-  let div9;
+  let div10;
   let onstartinfomodal;
   let t4;
   let div5;
@@ -25858,11 +25858,14 @@ function create_fragment$1(ctx) {
   let grid;
   let t9;
   let footer;
-  let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-vmz794">Sambhav Gupta</a> with Svelte</p>`;
+  let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-y5vvwt">Sambhav Gupta</a> with Svelte</p>`;
   let t13;
-  let xkcd;
-  let t14;
   let div8;
+  let textContent_1 = `<a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a>`;
+  let t15;
+  let xkcd;
+  let t16;
+  let div9;
   let current;
   loadinalldegrees = new LoadInAllDegrees({});
   let if_block0 = !/*$panelCollapsed*/
@@ -25912,13 +25915,13 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.c();
       t1 = space();
-      div10 = element("div");
+      div11 = element("div");
       div0 = element("div");
       t2 = space();
       div1 = element("div");
       create_component(trash.$$.fragment);
       t3 = space();
-      div9 = element("div");
+      div10 = element("div");
       create_component(onstartinfomodal.$$.fragment);
       t4 = space();
       div5 = element("div");
@@ -25940,9 +25943,12 @@ function create_fragment$1(ctx) {
       footer = element("footer");
       footer.innerHTML = textContent;
       t13 = space();
-      create_component(xkcd.$$.fragment);
-      t14 = space();
       div8 = element("div");
+      div8.innerHTML = textContent_1;
+      t15 = space();
+      create_component(xkcd.$$.fragment);
+      t16 = space();
+      div9 = element("div");
       this.h();
     },
     l(nodes) {
@@ -25953,21 +25959,21 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.l(section_nodes);
       t1 = claim_space(section_nodes);
-      div10 = claim_element(section_nodes, "DIV", { class: true });
-      var div10_nodes = children(div10);
-      div0 = claim_element(div10_nodes, "DIV", { class: true });
+      div11 = claim_element(section_nodes, "DIV", { class: true });
+      var div11_nodes = children(div11);
+      div0 = claim_element(div11_nodes, "DIV", { class: true });
       children(div0).forEach(detach);
-      t2 = claim_space(div10_nodes);
-      div1 = claim_element(div10_nodes, "DIV", { class: true });
+      t2 = claim_space(div11_nodes);
+      div1 = claim_element(div11_nodes, "DIV", { class: true });
       var div1_nodes = children(div1);
       claim_component(trash.$$.fragment, div1_nodes);
       div1_nodes.forEach(detach);
-      t3 = claim_space(div10_nodes);
-      div9 = claim_element(div10_nodes, "DIV", { class: true });
-      var div9_nodes = children(div9);
-      claim_component(onstartinfomodal.$$.fragment, div9_nodes);
-      t4 = claim_space(div9_nodes);
-      div5 = claim_element(div9_nodes, "DIV", { class: true });
+      t3 = claim_space(div11_nodes);
+      div10 = claim_element(div11_nodes, "DIV", { class: true });
+      var div10_nodes = children(div10);
+      claim_component(onstartinfomodal.$$.fragment, div10_nodes);
+      t4 = claim_space(div10_nodes);
+      div5 = claim_element(div10_nodes, "DIV", { class: true });
       var div5_nodes = children(div5);
       div2 = claim_element(div5_nodes, "DIV", { class: true });
       var div2_nodes = children(div2);
@@ -25984,50 +25990,55 @@ function create_fragment$1(ctx) {
       claim_component(panelcollapsecontainer1.$$.fragment, div4_nodes);
       div4_nodes.forEach(detach);
       div5_nodes.forEach(detach);
-      t7 = claim_space(div9_nodes);
-      div6 = claim_element(div9_nodes, "DIV", { class: true });
+      t7 = claim_space(div10_nodes);
+      div6 = claim_element(div10_nodes, "DIV", { class: true });
       var div6_nodes = children(div6);
       claim_component(panelcollapsecontainer2.$$.fragment, div6_nodes);
       div6_nodes.forEach(detach);
-      t8 = claim_space(div9_nodes);
-      div7 = claim_element(div9_nodes, "DIV", { class: true });
+      t8 = claim_space(div10_nodes);
+      div7 = claim_element(div10_nodes, "DIV", { class: true });
       var div7_nodes = children(div7);
       claim_component(grid.$$.fragment, div7_nodes);
       div7_nodes.forEach(detach);
-      t9 = claim_space(div9_nodes);
-      footer = claim_element(div9_nodes, "FOOTER", { class: true, ["data-svelte-h"]: true });
+      t9 = claim_space(div10_nodes);
+      footer = claim_element(div10_nodes, "FOOTER", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(footer) !== "svelte-mdbyqg")
         footer.innerHTML = textContent;
-      t13 = claim_space(div9_nodes);
-      claim_component(xkcd.$$.fragment, div9_nodes);
-      t14 = claim_space(div9_nodes);
-      div8 = claim_element(div9_nodes, "DIV", { class: true });
-      children(div8).forEach(detach);
-      div9_nodes.forEach(detach);
+      t13 = claim_space(div10_nodes);
+      div8 = claim_element(div10_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div8) !== "svelte-15mcdvu")
+        div8.innerHTML = textContent_1;
+      t15 = claim_space(div10_nodes);
+      claim_component(xkcd.$$.fragment, div10_nodes);
+      t16 = claim_space(div10_nodes);
+      div9 = claim_element(div10_nodes, "DIV", { class: true });
+      children(div9).forEach(detach);
       div10_nodes.forEach(detach);
+      div11_nodes.forEach(detach);
       section_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div0, "class", "scrollArea svelte-vmz794");
-      attr(div1, "class", "trashContainer svelte-vmz794");
-      attr(div2, "class", "waysTrackerContainer svelte-vmz794");
-      attr(div3, "class", "generalizedDegreeTrackerContainer svelte-vmz794");
-      attr(div4, "class", "configPanelContainer svelte-vmz794");
-      attr(div5, "class", "dataHeader svelte-vmz794");
-      attr(div6, "class", "courseDataPanelContainer svelte-vmz794");
-      attr(div7, "class", "gridContainer svelte-vmz794");
-      attr(footer, "class", "svelte-vmz794");
-      attr(div8, "class", "giantSpace svelte-vmz794");
-      attr(div9, "class", "gridAndInfoContainer svelte-vmz794");
-      attr(div10, "class", "gridAndInfoAndScrollContainer svelte-vmz794");
+      attr(div0, "class", "scrollArea svelte-y5vvwt");
+      attr(div1, "class", "trashContainer svelte-y5vvwt");
+      attr(div2, "class", "waysTrackerContainer svelte-y5vvwt");
+      attr(div3, "class", "generalizedDegreeTrackerContainer svelte-y5vvwt");
+      attr(div4, "class", "configPanelContainer svelte-y5vvwt");
+      attr(div5, "class", "dataHeader svelte-y5vvwt");
+      attr(div6, "class", "courseDataPanelContainer svelte-y5vvwt");
+      attr(div7, "class", "gridContainer svelte-y5vvwt");
+      attr(footer, "class", "svelte-y5vvwt");
+      attr(div8, "class", "githubButton svelte-y5vvwt");
+      attr(div9, "class", "giantSpace svelte-y5vvwt");
+      attr(div10, "class", "gridAndInfoContainer svelte-y5vvwt");
+      attr(div11, "class", "gridAndInfoAndScrollContainer svelte-y5vvwt");
       attr(
         section,
         "style",
         /*overallStyle*/
         ctx[2]
       );
-      attr(section, "class", "svelte-vmz794");
+      attr(section, "class", "svelte-y5vvwt");
     },
     m(target, anchor) {
       mount_component(loadinalldegrees, target, anchor);
@@ -26036,16 +26047,16 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.m(section, null);
       append_hydration(section, t1);
-      append_hydration(section, div10);
-      append_hydration(div10, div0);
-      append_hydration(div10, t2);
-      append_hydration(div10, div1);
+      append_hydration(section, div11);
+      append_hydration(div11, div0);
+      append_hydration(div11, t2);
+      append_hydration(div11, div1);
       mount_component(trash, div1, null);
-      append_hydration(div10, t3);
-      append_hydration(div10, div9);
-      mount_component(onstartinfomodal, div9, null);
-      append_hydration(div9, t4);
-      append_hydration(div9, div5);
+      append_hydration(div11, t3);
+      append_hydration(div11, div10);
+      mount_component(onstartinfomodal, div10, null);
+      append_hydration(div10, t4);
+      append_hydration(div10, div5);
       append_hydration(div5, div2);
       mount_component(panelcollapsecontainer0, div2, null);
       append_hydration(div5, t5);
@@ -26054,18 +26065,20 @@ function create_fragment$1(ctx) {
       append_hydration(div5, t6);
       append_hydration(div5, div4);
       mount_component(panelcollapsecontainer1, div4, null);
-      append_hydration(div9, t7);
-      append_hydration(div9, div6);
+      append_hydration(div10, t7);
+      append_hydration(div10, div6);
       mount_component(panelcollapsecontainer2, div6, null);
-      append_hydration(div9, t8);
-      append_hydration(div9, div7);
+      append_hydration(div10, t8);
+      append_hydration(div10, div7);
       mount_component(grid, div7, null);
-      append_hydration(div9, t9);
-      append_hydration(div9, footer);
-      append_hydration(div9, t13);
-      mount_component(xkcd, div9, null);
-      append_hydration(div9, t14);
-      append_hydration(div9, div8);
+      append_hydration(div10, t9);
+      append_hydration(div10, footer);
+      append_hydration(div10, t13);
+      append_hydration(div10, div8);
+      append_hydration(div10, t15);
+      mount_component(xkcd, div10, null);
+      append_hydration(div10, t16);
+      append_hydration(div10, div9);
       current = true;
     },
     p(ctx2, [dirty]) {
