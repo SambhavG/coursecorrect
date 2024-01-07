@@ -112,7 +112,8 @@
 			Object.keys(filters.QuartersOffered).forEach((quarter) => {
 				if (
 					filters.QuartersOffered[quarter] &&
-					course.seasons_offered.includes(quarter.toLowerCase())
+					(course.seasons_offered.includes(quarter) ||
+						course.seasons_offered.includes(quarter.toLowerCase()))
 				) {
 					quartersOfferedFilterFits = true;
 				}
