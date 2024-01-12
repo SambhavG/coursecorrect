@@ -662,12 +662,7 @@
 		</div>
 		<!-- second input -->
 		<div class="inputContainer inputContainer2">
-			<input
-				type="text"
-				placeholder="% for all courses"
-				bind:value={query}
-				on:input={searchResultsFunction}
-			/>
+			<input type="text" placeholder="% for all courses" bind:value={query} />
 
 			<button
 				class="filtersHeaderButton"
