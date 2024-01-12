@@ -63,15 +63,17 @@
 				//Term is substring up to ], not including first [
 				let term = rNoSentiment.substring(2, rNoSentiment.indexOf(']'));
 				//Log course data
-				const pastOfferings = course.past_offerings;
+				let pastOfferings = course?.past_offerings;
 				let instructors = [];
 				let thisInstructor = '';
 
-				pastOfferings.forEach((offering) => {
-					if (offering.term === term) {
-						instructors.push(offering.instructor_name);
-					}
-				});
+				if (pastOfferings != undefined) {
+					pastOfferings.forEach((offering) => {
+						if (offering.term === term) {
+							instructors.push(offering.instructor_name);
+						}
+					});
+				}
 
 				if (instructors.length == 0) {
 					thisInstructor = 'Unknown';
