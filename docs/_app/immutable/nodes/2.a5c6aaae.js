@@ -15050,14 +15050,16 @@ function instance$6($$self, $$props, $$invalidate) {
             let sentiment = parseFloat(r.substring(1, r.indexOf("]")));
             let rNoSentiment = r.substring(r.indexOf("]") + 1);
             let term = rNoSentiment.substring(2, rNoSentiment.indexOf("]"));
-            const pastOfferings = course.past_offerings;
+            let pastOfferings = course == null ? void 0 : course.past_offerings;
             let instructors = [];
             let thisInstructor = "";
-            pastOfferings.forEach((offering) => {
-              if (offering.term === term) {
-                instructors.push(offering.instructor_name);
-              }
-            });
+            if (pastOfferings != void 0) {
+              pastOfferings.forEach((offering) => {
+                if (offering.term === term) {
+                  instructors.push(offering.instructor_name);
+                }
+              });
+            }
             if (instructors.length == 0) {
               thisInstructor = "Unknown";
             } else if (instructors.length == 1) {
