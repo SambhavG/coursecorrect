@@ -252,6 +252,12 @@
 			</div>
 		{/each}
 	</div>
+	<div class="info">
+		<b>
+			Use checkboxes to add to masters degree or mark credit/satisfactory/no credit. Use bump button
+			to bump a course down to the next requirement</b
+		>
+	</div>
 	<div class="transferUnits">
 		<div class="header">Transfer units</div>
 		<select
@@ -306,6 +312,11 @@
 					<option value={choice.uniqueID}>{choice.degree}</option>
 				{/each}
 			</select>
+		</div>
+		<div class="info">
+			<b>
+				Add courses to masters degree by enabling "checkboxes" above, then checking courses as "ms"
+			</b>
 		</div>
 		<div class="info">
 			<b>
