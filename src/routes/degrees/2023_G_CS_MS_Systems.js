@@ -13,11 +13,11 @@ let degree = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 140", "CS 212", "CS 140E", "CS 112", "CS 112E", "CS 144", "CS 240"],
     "Depth B": ["CS 190", "CS 242", "CS 243", "CS 244", "CS 245", "CS 248", "CS 248A", "CS 348B", "EE 271", "EE 282"],
-    "Depth C": ["CS 149", "CS 217", "CS 229S", "CS 241", "CS 244B", "CS 246", "CS 251", "CS 255", "CS 270", "CS 272", "CS 294S", "CS 295", "CS 315B", "CS 316", "CS 340[A-Z]?", "CS 343D", "CS 344[A-Z]?", "CS 348[A-Z]?", "CS 349[A-Z]?", "CS 356", "CS 357S", "CS 399", "CS 448[A-Z]?", "EE 267", "EE 273", "EE 382C", "EE 384A", "EE 384C", "EE 384S"],
+    "Depth C": ["CS 149", "CS 217", "CS 229S", "CS 241", "CS 244B", "CS 246", "CS 251", "CS 255", "CS 270", "CS 272", "CS 294S", "CS 295", "CS 315B", "CS 316", "CS 340[A-Z]*", "CS 343D", "CS 344[A-Z]*", "CS 348[A-Z]*", "CS 349[A-Z]*", "CS 356", "CS 357S", "CS 399", "CS 448[A-Z]*", "EE 267", "EE 273", "EE 382C", "EE 384A", "EE 384C", "EE 384S"],
     "CS dept electives": [
       {
         "type": 'add',

@@ -422,7 +422,7 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
   let totalUnits = 0;
   //If level is undergraduate, add 180 credit check
   if (degree.level === "undergraduate") {
-    totalUnits = calculateTotalUnits(listCopy, transfer);
+    totalUnits = calculateTotalUnits(listCopy, transfer, false);
   }
   //If level is graduate, add 45 credit check
   if (degree.level === "graduate") {
@@ -609,7 +609,7 @@ function calculateTotalUnits(courses, transfer, isMS) {
     totalUnits += course.units_taking;
   });
   //Add transfer units if they are not undefined
-  if (transfer) {
+  if (transfer && !isMS) {
     totalUnits+=getTransferUnits(transfer, 'Total');
   }
   return totalUnits;

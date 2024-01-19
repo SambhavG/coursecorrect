@@ -46,6 +46,18 @@
 				Search for courses in the top left or directly enter them in each quarter. Use
 				filters/sorting aggressively.
 			</p>
+			<h2>Star</h2>
+			<p>Please star this project on Github if you found it helpful!</p>
+			<div class="githubButton">
+				<a
+					class="github-button"
+					href="https://github.com/sambhavg/coursecorrect"
+					data-color-scheme="no-preference: light; light: light; dark: dark;"
+					data-size="large"
+					data-show-count="true"
+					aria-label="Star sambhavg/coursecorrect on GitHub">Star</a
+				>
+			</div>
 			<h2>Other info</h2>
 			<p>
 				CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
