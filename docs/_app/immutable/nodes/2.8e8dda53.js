@@ -426,6 +426,7 @@ const prefs = writable({
 const bachelorsDegreeChoices = writable([]);
 const mastersDegreeChoices = writable([]);
 const compiledDegree = writable({});
+const compiledMastersDegree = writable({});
 const bachelorsDegreeChoice = writable("BLANK");
 const mastersDegreeChoice = writable("BLANK");
 const showWelcomeModalOnLoad = writable(false);
@@ -5617,7 +5618,7 @@ function create_if_block_3$2(ctx) {
     }
   };
 }
-function create_if_block_2$4(ctx) {
+function create_if_block_2$5(ctx) {
   let contact2;
   let current;
   contact2 = new Contact2({ props: { size: smallerSize } });
@@ -5718,7 +5719,7 @@ function create_fragment$d(ctx) {
   const if_block_creators = [
     create_if_block$c,
     create_if_block_1$8,
-    create_if_block_2$4,
+    create_if_block_2$5,
     create_if_block_3$2,
     create_if_block_4$2,
     create_if_block_5$2,
@@ -6026,7 +6027,7 @@ function create_if_block_5$1(ctx) {
     }
   };
 }
-function create_if_block_2$3(ctx) {
+function create_if_block_2$4(ctx) {
   let div;
   let t;
   let current_block_type_index;
@@ -6566,7 +6567,7 @@ function create_fragment$c(ctx) {
   );
   let if_block2 = (
     /*$prefs*/
-    ctx[5].courseTableData["WAYS"] && create_if_block_2$3(ctx)
+    ctx[5].courseTableData["WAYS"] && create_if_block_2$4(ctx)
   );
   let if_block3 = (
     /*$prefs*/
@@ -6779,7 +6780,7 @@ function create_fragment$c(ctx) {
             transition_in(if_block2, 1);
           }
         } else {
-          if_block2 = create_if_block_2$3(ctx2);
+          if_block2 = create_if_block_2$4(ctx2);
           if_block2.c();
           transition_in(if_block2, 1);
           if_block2.m(div4, t6);
@@ -6992,24 +6993,24 @@ class Course extends SvelteComponent {
 const Search_svelte_svelte_type_style_lang = "";
 function get_each_context$6(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[42] = list[i];
+  child_ctx[43] = list[i];
   return child_ctx;
 }
 function get_each_context_1$4(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[45] = list[i];
+  child_ctx[46] = list[i];
   return child_ctx;
 }
 function get_each_context_2$2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[48] = list[i];
-  child_ctx[49] = list;
-  child_ctx[50] = i;
+  child_ctx[49] = list[i];
+  child_ctx[50] = list;
+  child_ctx[51] = i;
   return child_ctx;
 }
-function get_each_context_3$1(ctx, list, i) {
+function get_each_context_3$2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[51] = list[i];
+  child_ctx[49] = list[i];
   child_ctx[52] = list;
   child_ctx[53] = i;
   return child_ctx;
@@ -7030,9 +7031,16 @@ function get_each_context_5(ctx, list, i) {
 }
 function get_each_context_6(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[42] = list[i];
-  child_ctx[60] = list;
-  child_ctx[61] = i;
+  child_ctx[60] = list[i];
+  child_ctx[61] = list;
+  child_ctx[62] = i;
+  return child_ctx;
+}
+function get_each_context_7(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[43] = list[i];
+  child_ctx[63] = list;
+  child_ctx[64] = i;
   return child_ctx;
 }
 function create_if_block_1$6(ctx) {
@@ -7150,24 +7158,33 @@ function create_if_block_1$6(ctx) {
   let t55;
   let div31;
   let t56;
+  let t57;
   let div35;
   let input8;
-  let t57;
+  let t58;
   let button3;
   let textContent_21 = "Filters";
   let mounted;
   let dispose;
-  let each_value_6 = ensure_array_like(
+  let each_value_7 = ensure_array_like(
     /*$resultCategories*/
     ctx[3]
   );
+  let each_blocks_5 = [];
+  for (let i = 0; i < each_value_7.length; i += 1) {
+    each_blocks_5[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
+  }
+  let each_value_6 = ensure_array_like(Object.keys(
+    /*$searchFilters*/
+    ctx[1].units
+  ));
   let each_blocks_4 = [];
   for (let i = 0; i < each_value_6.length; i += 1) {
     each_blocks_4[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
   }
   let each_value_5 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[1].units
+    ctx[1].WAYS
   ));
   let each_blocks_3 = [];
   for (let i = 0; i < each_value_5.length; i += 1) {
@@ -7175,7 +7192,7 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_4 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[1].WAYS
+    ctx[1].QuartersOffered
   ));
   let each_blocks_2 = [];
   for (let i = 0; i < each_value_4.length; i += 1) {
@@ -7183,15 +7200,15 @@ function create_if_block_1$6(ctx) {
   }
   let each_value_3 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[1].QuartersOffered
+    ctx[1].degreeSpecific.checkboxes
   ));
   let each_blocks_1 = [];
   for (let i = 0; i < each_value_3.length; i += 1) {
-    each_blocks_1[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
+    each_blocks_1[i] = create_each_block_3$2(get_each_context_3$2(ctx, each_value_3, i));
   }
   let each_value_2 = ensure_array_like(Object.keys(
     /*$searchFilters*/
-    ctx[1].degreeSpecific.checkboxes
+    ctx[1].degreeSpecificMs.checkboxes
   ));
   let each_blocks = [];
   for (let i = 0; i < each_value_2.length; i += 1) {
@@ -7247,8 +7264,8 @@ function create_if_block_1$6(ctx) {
       t22 = space();
       div7 = element("div");
       div6 = element("div");
-      for (let i = 0; i < each_blocks_4.length; i += 1) {
-        each_blocks_4[i].c();
+      for (let i = 0; i < each_blocks_5.length; i += 1) {
+        each_blocks_5[i].c();
       }
       t23 = space();
       div10 = element("div");
@@ -7264,8 +7281,8 @@ function create_if_block_1$6(ctx) {
       div11.textContent = textContent_13;
       t28 = space();
       div12 = element("div");
-      for (let i = 0; i < each_blocks_3.length; i += 1) {
-        each_blocks_3[i].c();
+      for (let i = 0; i < each_blocks_4.length; i += 1) {
+        each_blocks_4[i].c();
       }
       t29 = space();
       div16 = element("div");
@@ -7273,8 +7290,8 @@ function create_if_block_1$6(ctx) {
       div14.textContent = textContent_14;
       t31 = space();
       div15 = element("div");
-      for (let i = 0; i < each_blocks_2.length; i += 1) {
-        each_blocks_2[i].c();
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        each_blocks_3[i].c();
       }
       t32 = space();
       div27 = element("div");
@@ -7309,8 +7326,8 @@ function create_if_block_1$6(ctx) {
       div25.textContent = textContent_18;
       t49 = space();
       div26 = element("div");
-      for (let i = 0; i < each_blocks_1.length; i += 1) {
-        each_blocks_1[i].c();
+      for (let i = 0; i < each_blocks_2.length; i += 1) {
+        each_blocks_2[i].c();
       }
       t50 = space();
       div29 = element("div");
@@ -7324,13 +7341,17 @@ function create_if_block_1$6(ctx) {
       div30.textContent = textContent_20;
       t55 = space();
       div31 = element("div");
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        each_blocks_1[i].c();
+      }
+      t56 = space();
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t56 = space();
+      t57 = space();
       div35 = element("div");
       input8 = element("input");
-      t57 = space();
+      t58 = space();
       button3 = element("button");
       button3.textContent = textContent_21;
       this.h();
@@ -7422,8 +7443,8 @@ function create_if_block_1$6(ctx) {
       var div7_nodes = children(div7);
       div6 = claim_element(div7_nodes, "DIV", { class: true });
       var div6_nodes = children(div6);
-      for (let i = 0; i < each_blocks_4.length; i += 1) {
-        each_blocks_4[i].l(div6_nodes);
+      for (let i = 0; i < each_blocks_5.length; i += 1) {
+        each_blocks_5[i].l(div6_nodes);
       }
       div6_nodes.forEach(detach);
       div7_nodes.forEach(detach);
@@ -7451,8 +7472,8 @@ function create_if_block_1$6(ctx) {
       t28 = claim_space(div13_nodes);
       div12 = claim_element(div13_nodes, "DIV", { class: true });
       var div12_nodes = children(div12);
-      for (let i = 0; i < each_blocks_3.length; i += 1) {
-        each_blocks_3[i].l(div12_nodes);
+      for (let i = 0; i < each_blocks_4.length; i += 1) {
+        each_blocks_4[i].l(div12_nodes);
       }
       div12_nodes.forEach(detach);
       div13_nodes.forEach(detach);
@@ -7465,8 +7486,8 @@ function create_if_block_1$6(ctx) {
       t31 = claim_space(div16_nodes);
       div15 = claim_element(div16_nodes, "DIV", { class: true });
       var div15_nodes = children(div15);
-      for (let i = 0; i < each_blocks_2.length; i += 1) {
-        each_blocks_2[i].l(div15_nodes);
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        each_blocks_3[i].l(div15_nodes);
       }
       div15_nodes.forEach(detach);
       div16_nodes.forEach(detach);
@@ -7555,8 +7576,8 @@ function create_if_block_1$6(ctx) {
       t49 = claim_space(div27_nodes);
       div26 = claim_element(div27_nodes, "DIV", { class: true });
       var div26_nodes = children(div26);
-      for (let i = 0; i < each_blocks_1.length; i += 1) {
-        each_blocks_1[i].l(div26_nodes);
+      for (let i = 0; i < each_blocks_2.length; i += 1) {
+        each_blocks_2[i].l(div26_nodes);
       }
       div26_nodes.forEach(detach);
       div27_nodes.forEach(detach);
@@ -7579,6 +7600,10 @@ function create_if_block_1$6(ctx) {
       t55 = claim_space(div32_nodes);
       div31 = claim_element(div32_nodes, "DIV", { class: true });
       var div31_nodes = children(div31);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        each_blocks_1[i].l(div31_nodes);
+      }
+      t56 = claim_space(div31_nodes);
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(div31_nodes);
       }
@@ -7586,7 +7611,7 @@ function create_if_block_1$6(ctx) {
       div32_nodes.forEach(detach);
       div33_nodes.forEach(detach);
       div34_nodes.forEach(detach);
-      t56 = claim_space(nodes);
+      t57 = claim_space(nodes);
       div35 = claim_element(nodes, "DIV", { class: true });
       var div35_nodes = children(div35);
       input8 = claim_element(div35_nodes, "INPUT", {
@@ -7594,7 +7619,7 @@ function create_if_block_1$6(ctx) {
         placeholder: true,
         class: true
       });
-      t57 = claim_space(div35_nodes);
+      t58 = claim_space(div35_nodes);
       button3 = claim_element(div35_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button3) !== "svelte-1e6i8f4")
         button3.textContent = textContent_21;
@@ -7614,7 +7639,7 @@ function create_if_block_1$6(ctx) {
       set_input_value(option4, option4.__value);
       attr(select0, "name", "sortBy");
       attr(select0, "id", "sortBy");
-      attr(select0, "class", "svelte-ym532z");
+      attr(select0, "class", "svelte-qaoubl");
       if (
         /*$searchFilters*/
         ctx[1].sortBy === void 0
@@ -7629,7 +7654,7 @@ function create_if_block_1$6(ctx) {
       set_input_value(option6, option6.__value);
       attr(select1, "name", "sortOrder");
       attr(select1, "id", "sortOrder");
-      attr(select1, "class", "svelte-ym532z");
+      attr(select1, "class", "svelte-qaoubl");
       if (
         /*$searchFilters*/
         ctx[1].sortOrder === void 0
@@ -7638,91 +7663,91 @@ function create_if_block_1$6(ctx) {
           /*select1_change_handler*/
           ctx[13].call(select1)
         ));
-      attr(div0, "class", "filter sortFilter svelte-ym532z");
-      attr(div1, "class", "horizontalLine svelte-ym532z");
-      attr(button0, "class", "clearFilterButton svelte-ym532z");
+      attr(div0, "class", "filter sortFilter svelte-qaoubl");
+      attr(div1, "class", "horizontalLine svelte-qaoubl");
+      attr(button0, "class", "clearFilterButton svelte-qaoubl");
       attr(input0, "type", "checkbox");
       attr(input0, "id", "filterGridCourses");
       attr(input0, "name", "filterGridCourses");
-      attr(input0, "class", "svelte-ym532z");
+      attr(input0, "class", "svelte-qaoubl");
       attr(label0, "for", "filterGridCourses");
-      attr(div2, "class", "option leftAlign svelte-ym532z");
+      attr(div2, "class", "option leftAlign svelte-qaoubl");
       attr(input1, "type", "checkbox");
       attr(input1, "id", "filterGridCourses");
       attr(input1, "name", "filterGridCourses");
-      attr(input1, "class", "svelte-ym532z");
+      attr(input1, "class", "svelte-qaoubl");
       attr(label1, "for", "filterGridCourses");
-      attr(div3, "class", "option leftAlign svelte-ym532z");
-      attr(div4, "class", "title svelte-ym532z");
-      attr(div5, "class", "title svelte-ym532z");
-      attr(div6, "class", "filter matchTypeGridFilter svelte-ym532z");
-      attr(div7, "class", "filters svelte-ym532z");
-      attr(div8, "class", "filter svelte-ym532z");
-      attr(div9, "class", "filter svelte-ym532z");
-      attr(div10, "class", "horizontalLine svelte-ym532z");
-      attr(button1, "class", "clearFilterButton svelte-ym532z");
-      attr(div11, "class", "title svelte-ym532z");
-      attr(div12, "class", "options svelte-ym532z");
-      attr(div13, "class", "filter svelte-ym532z");
-      attr(div14, "class", "title svelte-ym532z");
-      attr(div15, "class", "options svelte-ym532z");
-      attr(div16, "class", "filter svelte-ym532z");
-      attr(div17, "class", "unitsAndWays svelte-ym532z");
-      attr(div18, "class", "filter svelte-ym532z");
-      attr(div19, "class", "title svelte-ym532z");
+      attr(div3, "class", "option leftAlign svelte-qaoubl");
+      attr(div4, "class", "title svelte-qaoubl");
+      attr(div5, "class", "title svelte-qaoubl");
+      attr(div6, "class", "filter matchTypeGridFilter svelte-qaoubl");
+      attr(div7, "class", "filters svelte-qaoubl");
+      attr(div8, "class", "filter svelte-qaoubl");
+      attr(div9, "class", "filter svelte-qaoubl");
+      attr(div10, "class", "horizontalLine svelte-qaoubl");
+      attr(button1, "class", "clearFilterButton svelte-qaoubl");
+      attr(div11, "class", "title svelte-qaoubl");
+      attr(div12, "class", "options svelte-qaoubl");
+      attr(div13, "class", "filter svelte-qaoubl");
+      attr(div14, "class", "title svelte-qaoubl");
+      attr(div15, "class", "options svelte-qaoubl");
+      attr(div16, "class", "filter svelte-qaoubl");
+      attr(div17, "class", "unitsAndWays svelte-qaoubl");
+      attr(div18, "class", "filter svelte-qaoubl");
+      attr(div19, "class", "title svelte-qaoubl");
       attr(input2, "type", "number");
       attr(input2, "id", "minHours");
       attr(input2, "name", "minHours");
       attr(input2, "placeholder", "Min");
-      attr(input2, "class", "svelte-ym532z");
+      attr(input2, "class", "svelte-qaoubl");
       attr(input3, "type", "number");
       attr(input3, "id", "maxHours");
       attr(input3, "name", "maxHours");
       attr(input3, "placeholder", "Max");
-      attr(input3, "class", "svelte-ym532z");
-      attr(div20, "class", "fieldOptions svelte-ym532z");
-      attr(div21, "class", "title svelte-ym532z");
+      attr(input3, "class", "svelte-qaoubl");
+      attr(div20, "class", "fieldOptions svelte-qaoubl");
+      attr(div21, "class", "title svelte-qaoubl");
       attr(input4, "type", "number");
       attr(input4, "step", ".1");
       attr(input4, "id", "minEval");
       attr(input4, "name", "minEval");
       attr(input4, "placeholder", "Min");
-      attr(input4, "class", "svelte-ym532z");
+      attr(input4, "class", "svelte-qaoubl");
       attr(input5, "type", "number");
       attr(input5, "step", ".1");
       attr(input5, "id", "maxEval");
       attr(input5, "name", "maxEval");
       attr(input5, "placeholder", "Max");
-      attr(input5, "class", "svelte-ym532z");
-      attr(div22, "class", "fieldOptions svelte-ym532z");
-      attr(div23, "class", "title svelte-ym532z");
+      attr(input5, "class", "svelte-qaoubl");
+      attr(div22, "class", "fieldOptions svelte-qaoubl");
+      attr(div23, "class", "title svelte-qaoubl");
       attr(input6, "type", "number");
       attr(input6, "id", "minPercentCompleted");
       attr(input6, "name", "minPercentCompleted");
       attr(input6, "placeholder", "Min");
-      attr(input6, "class", "svelte-ym532z");
+      attr(input6, "class", "svelte-qaoubl");
       attr(input7, "type", "number");
       attr(input7, "id", "maxPercentCompleted");
       attr(input7, "name", "maxPercentCompleted");
       attr(input7, "placeholder", "Max");
-      attr(input7, "class", "svelte-ym532z");
-      attr(div24, "class", "fieldOptions svelte-ym532z");
-      attr(div25, "class", "title svelte-ym532z");
-      attr(div26, "class", "options svelte-ym532z");
-      attr(div27, "class", "filter svelte-ym532z");
-      attr(div28, "class", "filters svelte-ym532z");
-      attr(div29, "class", "horizontalLine svelte-ym532z");
-      attr(button2, "class", "clearFilterButton svelte-ym532z");
-      attr(div30, "class", "title svelte-ym532z");
-      attr(div31, "class", "options svelte-ym532z");
-      attr(div32, "class", "filter svelte-ym532z");
-      attr(div33, "class", "filters svelte-ym532z");
-      attr(div34, "class", "filtersMenuContainer svelte-ym532z");
+      attr(input7, "class", "svelte-qaoubl");
+      attr(div24, "class", "fieldOptions svelte-qaoubl");
+      attr(div25, "class", "title svelte-qaoubl");
+      attr(div26, "class", "options svelte-qaoubl");
+      attr(div27, "class", "filter svelte-qaoubl");
+      attr(div28, "class", "filters svelte-qaoubl");
+      attr(div29, "class", "horizontalLine svelte-qaoubl");
+      attr(button2, "class", "clearFilterButton svelte-qaoubl");
+      attr(div30, "class", "title svelte-qaoubl");
+      attr(div31, "class", "options svelte-qaoubl");
+      attr(div32, "class", "filter svelte-qaoubl");
+      attr(div33, "class", "filters svelte-qaoubl");
+      attr(div34, "class", "filtersMenuContainer svelte-qaoubl");
       attr(input8, "type", "text");
       attr(input8, "placeholder", "% for all courses");
-      attr(input8, "class", "svelte-ym532z");
-      attr(button3, "class", "filtersHeaderButton svelte-ym532z");
-      attr(div35, "class", "inputContainer inputContainer2 svelte-ym532z");
+      attr(input8, "class", "svelte-qaoubl");
+      attr(button3, "class", "filtersHeaderButton svelte-qaoubl");
+      attr(div35, "class", "inputContainer inputContainer2 svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div34, anchor);
@@ -7777,9 +7802,9 @@ function create_if_block_1$6(ctx) {
       append_hydration(div8, t22);
       append_hydration(div8, div7);
       append_hydration(div7, div6);
-      for (let i = 0; i < each_blocks_4.length; i += 1) {
-        if (each_blocks_4[i]) {
-          each_blocks_4[i].m(div6, null);
+      for (let i = 0; i < each_blocks_5.length; i += 1) {
+        if (each_blocks_5[i]) {
+          each_blocks_5[i].m(div6, null);
         }
       }
       append_hydration(div34, t23);
@@ -7794,9 +7819,9 @@ function create_if_block_1$6(ctx) {
       append_hydration(div13, div11);
       append_hydration(div13, t28);
       append_hydration(div13, div12);
-      for (let i = 0; i < each_blocks_3.length; i += 1) {
-        if (each_blocks_3[i]) {
-          each_blocks_3[i].m(div12, null);
+      for (let i = 0; i < each_blocks_4.length; i += 1) {
+        if (each_blocks_4[i]) {
+          each_blocks_4[i].m(div12, null);
         }
       }
       append_hydration(div17, t29);
@@ -7804,9 +7829,9 @@ function create_if_block_1$6(ctx) {
       append_hydration(div16, div14);
       append_hydration(div16, t31);
       append_hydration(div16, div15);
-      for (let i = 0; i < each_blocks_2.length; i += 1) {
-        if (each_blocks_2[i]) {
-          each_blocks_2[i].m(div15, null);
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        if (each_blocks_3[i]) {
+          each_blocks_3[i].m(div15, null);
         }
       }
       append_hydration(div28, t32);
@@ -7868,9 +7893,9 @@ function create_if_block_1$6(ctx) {
       append_hydration(div27, div25);
       append_hydration(div27, t49);
       append_hydration(div27, div26);
-      for (let i = 0; i < each_blocks_1.length; i += 1) {
-        if (each_blocks_1[i]) {
-          each_blocks_1[i].m(div26, null);
+      for (let i = 0; i < each_blocks_2.length; i += 1) {
+        if (each_blocks_2[i]) {
+          each_blocks_2[i].m(div26, null);
         }
       }
       append_hydration(div34, t50);
@@ -7883,12 +7908,18 @@ function create_if_block_1$6(ctx) {
       append_hydration(div32, div30);
       append_hydration(div32, t55);
       append_hydration(div32, div31);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        if (each_blocks_1[i]) {
+          each_blocks_1[i].m(div31, null);
+        }
+      }
+      append_hydration(div31, t56);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(div31, null);
         }
       }
-      insert_hydration(target, t56, anchor);
+      insert_hydration(target, t57, anchor);
       insert_hydration(target, div35, anchor);
       append_hydration(div35, input8);
       set_input_value(
@@ -7896,7 +7927,7 @@ function create_if_block_1$6(ctx) {
         /*query*/
         ctx[0]
       );
-      append_hydration(div35, t57);
+      append_hydration(div35, t58);
       append_hydration(div35, button3);
       if (!mounted) {
         dispose = [
@@ -8042,13 +8073,13 @@ function create_if_block_1$6(ctx) {
             input8,
             "input",
             /*input8_input_handler*/
-            ctx[32]
+            ctx[33]
           ),
           listen(
             button3,
             "click",
             /*click_handler_5*/
-            ctx[33]
+            ctx[34]
           )
         ];
         mounted = true;
@@ -8083,10 +8114,32 @@ function create_if_block_1$6(ctx) {
       }
       if (dirty[0] & /*$resultCategories, searchResultsFunction, checkboxFunction*/
       392) {
-        each_value_6 = ensure_array_like(
+        each_value_7 = ensure_array_like(
           /*$resultCategories*/
           ctx2[3]
         );
+        let i;
+        for (i = 0; i < each_value_7.length; i += 1) {
+          const child_ctx = get_each_context_7(ctx2, each_value_7, i);
+          if (each_blocks_5[i]) {
+            each_blocks_5[i].p(child_ctx, dirty);
+          } else {
+            each_blocks_5[i] = create_each_block_7(child_ctx);
+            each_blocks_5[i].c();
+            each_blocks_5[i].m(div6, null);
+          }
+        }
+        for (; i < each_blocks_5.length; i += 1) {
+          each_blocks_5[i].d(1);
+        }
+        each_blocks_5.length = each_value_7.length;
+      }
+      if (dirty[0] & /*$searchFilters, searchResultsFunction*/
+      130) {
+        each_value_6 = ensure_array_like(Object.keys(
+          /*$searchFilters*/
+          ctx2[1].units
+        ));
         let i;
         for (i = 0; i < each_value_6.length; i += 1) {
           const child_ctx = get_each_context_6(ctx2, each_value_6, i);
@@ -8095,7 +8148,7 @@ function create_if_block_1$6(ctx) {
           } else {
             each_blocks_4[i] = create_each_block_6(child_ctx);
             each_blocks_4[i].c();
-            each_blocks_4[i].m(div6, null);
+            each_blocks_4[i].m(div12, null);
           }
         }
         for (; i < each_blocks_4.length; i += 1) {
@@ -8107,7 +8160,7 @@ function create_if_block_1$6(ctx) {
       130) {
         each_value_5 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[1].units
+          ctx2[1].WAYS
         ));
         let i;
         for (i = 0; i < each_value_5.length; i += 1) {
@@ -8117,35 +8170,13 @@ function create_if_block_1$6(ctx) {
           } else {
             each_blocks_3[i] = create_each_block_5(child_ctx);
             each_blocks_3[i].c();
-            each_blocks_3[i].m(div12, null);
+            each_blocks_3[i].m(div15, null);
           }
         }
         for (; i < each_blocks_3.length; i += 1) {
           each_blocks_3[i].d(1);
         }
         each_blocks_3.length = each_value_5.length;
-      }
-      if (dirty[0] & /*$searchFilters, searchResultsFunction*/
-      130) {
-        each_value_4 = ensure_array_like(Object.keys(
-          /*$searchFilters*/
-          ctx2[1].WAYS
-        ));
-        let i;
-        for (i = 0; i < each_value_4.length; i += 1) {
-          const child_ctx = get_each_context_4$1(ctx2, each_value_4, i);
-          if (each_blocks_2[i]) {
-            each_blocks_2[i].p(child_ctx, dirty);
-          } else {
-            each_blocks_2[i] = create_each_block_4$1(child_ctx);
-            each_blocks_2[i].c();
-            each_blocks_2[i].m(div15, null);
-          }
-        }
-        for (; i < each_blocks_2.length; i += 1) {
-          each_blocks_2[i].d(1);
-        }
-        each_blocks_2.length = each_value_4.length;
       }
       if (dirty[0] & /*$searchFilters*/
       2 && to_number(input2.value) !== /*$searchFilters*/
@@ -8203,19 +8234,41 @@ function create_if_block_1$6(ctx) {
       }
       if (dirty[0] & /*$searchFilters, searchResultsFunction*/
       130) {
-        each_value_3 = ensure_array_like(Object.keys(
+        each_value_4 = ensure_array_like(Object.keys(
           /*$searchFilters*/
           ctx2[1].QuartersOffered
         ));
         let i;
+        for (i = 0; i < each_value_4.length; i += 1) {
+          const child_ctx = get_each_context_4$1(ctx2, each_value_4, i);
+          if (each_blocks_2[i]) {
+            each_blocks_2[i].p(child_ctx, dirty);
+          } else {
+            each_blocks_2[i] = create_each_block_4$1(child_ctx);
+            each_blocks_2[i].c();
+            each_blocks_2[i].m(div26, null);
+          }
+        }
+        for (; i < each_blocks_2.length; i += 1) {
+          each_blocks_2[i].d(1);
+        }
+        each_blocks_2.length = each_value_4.length;
+      }
+      if (dirty[0] & /*$searchFilters, searchResultsFunction*/
+      130) {
+        each_value_3 = ensure_array_like(Object.keys(
+          /*$searchFilters*/
+          ctx2[1].degreeSpecific.checkboxes
+        ));
+        let i;
         for (i = 0; i < each_value_3.length; i += 1) {
-          const child_ctx = get_each_context_3$1(ctx2, each_value_3, i);
+          const child_ctx = get_each_context_3$2(ctx2, each_value_3, i);
           if (each_blocks_1[i]) {
             each_blocks_1[i].p(child_ctx, dirty);
           } else {
-            each_blocks_1[i] = create_each_block_3$1(child_ctx);
+            each_blocks_1[i] = create_each_block_3$2(child_ctx);
             each_blocks_1[i].c();
-            each_blocks_1[i].m(div26, null);
+            each_blocks_1[i].m(div31, t56);
           }
         }
         for (; i < each_blocks_1.length; i += 1) {
@@ -8227,7 +8280,7 @@ function create_if_block_1$6(ctx) {
       130) {
         each_value_2 = ensure_array_like(Object.keys(
           /*$searchFilters*/
-          ctx2[1].degreeSpecific.checkboxes
+          ctx2[1].degreeSpecificMs.checkboxes
         ));
         let i;
         for (i = 0; i < each_value_2.length; i += 1) {
@@ -8258,9 +8311,10 @@ function create_if_block_1$6(ctx) {
     d(detaching) {
       if (detaching) {
         detach(div34);
-        detach(t56);
+        detach(t57);
         detach(div35);
       }
+      destroy_each(each_blocks_5, detaching);
       destroy_each(each_blocks_4, detaching);
       destroy_each(each_blocks_3, detaching);
       destroy_each(each_blocks_2, detaching);
@@ -8271,7 +8325,7 @@ function create_if_block_1$6(ctx) {
     }
   };
 }
-function create_each_block_6(ctx) {
+function create_each_block_7(ctx) {
   let div;
   let label0;
   let t0;
@@ -8289,7 +8343,7 @@ function create_each_block_6(ctx) {
   let t4;
   let t5_value = (
     /*category*/
-    ctx[42].title.toLowerCase() + ""
+    ctx[43].title.toLowerCase() + ""
   );
   let t5;
   let label1_for_value;
@@ -8301,26 +8355,26 @@ function create_each_block_6(ctx) {
       /*click_handler_2*/
       ctx[17](
         /*category*/
-        ctx[42]
+        ctx[43]
       )
     );
   }
   function input0_change_handler_1() {
     ctx[18].call(
       input0,
-      /*each_value_6*/
-      ctx[60],
+      /*each_value_7*/
+      ctx[63],
       /*category_index_1*/
-      ctx[61]
+      ctx[64]
     );
   }
   function input1_input_handler() {
     ctx[19].call(
       input1,
-      /*each_value_6*/
-      ctx[60],
+      /*each_value_7*/
+      ctx[63],
       /*category_index_1*/
-      ctx[61]
+      ctx[64]
     );
   }
   return {
@@ -8372,22 +8426,22 @@ function create_each_block_6(ctx) {
     },
     h() {
       attr(label0, "for", label0_for_value = /*category*/
-      ctx[42].type);
+      ctx[43].type);
       attr(input0, "type", "checkbox");
       attr(input0, "id", input0_id_value = /*category*/
-      ctx[42].type);
+      ctx[43].type);
       attr(input0, "name", input0_name_value = /*category*/
-      ctx[42].type);
-      attr(input0, "class", "svelte-ym532z");
-      attr(input1, "class", "numResultsInput svelte-ym532z");
+      ctx[43].type);
+      attr(input0, "class", "svelte-qaoubl");
+      attr(input1, "class", "numResultsInput svelte-qaoubl");
       attr(input1, "type", "number");
       attr(input1, "id", input1_id_value = /*category*/
-      ctx[42].type);
+      ctx[43].type);
       attr(input1, "name", input1_name_value = /*category*/
-      ctx[42].type);
+      ctx[43].type);
       attr(label1, "for", label1_for_value = /*category*/
-      ctx[42].type);
-      attr(div, "class", "option svelte-ym532z");
+      ctx[43].type);
+      attr(div, "class", "option svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -8396,13 +8450,13 @@ function create_each_block_6(ctx) {
       append_hydration(div, t1);
       append_hydration(div, input0);
       input0.checked = /*category*/
-      ctx[42].hide;
+      ctx[43].hide;
       append_hydration(div, t2);
       append_hydration(div, input1);
       set_input_value(
         input1,
         /*category*/
-        ctx[42].numResults
+        ctx[43].numResults
       );
       append_hydration(div, t3);
       append_hydration(div, label1);
@@ -8428,50 +8482,50 @@ function create_each_block_6(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$resultCategories*/
       8 && label0_for_value !== (label0_for_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(label0, "for", label0_for_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input0_id_value !== (input0_id_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(input0, "id", input0_id_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input0_name_value !== (input0_name_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(input0, "name", input0_name_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8) {
         input0.checked = /*category*/
-        ctx[42].hide;
+        ctx[43].hide;
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input1_id_value !== (input1_id_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(input1, "id", input1_id_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && input1_name_value !== (input1_name_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(input1, "name", input1_name_value);
       }
       if (dirty[0] & /*$resultCategories*/
       8 && to_number(input1.value) !== /*category*/
-      ctx[42].numResults) {
+      ctx[43].numResults) {
         set_input_value(
           input1,
           /*category*/
-          ctx[42].numResults
+          ctx[43].numResults
         );
       }
       if (dirty[0] & /*$resultCategories*/
       8 && t5_value !== (t5_value = /*category*/
-      ctx[42].title.toLowerCase() + ""))
+      ctx[43].title.toLowerCase() + ""))
         set_data(t5, t5_value);
       if (dirty[0] & /*$resultCategories*/
       8 && label1_for_value !== (label1_for_value = /*category*/
-      ctx[42].type)) {
+      ctx[43].type)) {
         attr(label1, "for", label1_for_value);
       }
     },
@@ -8484,7 +8538,7 @@ function create_each_block_6(ctx) {
     }
   };
 }
-function create_each_block_5(ctx) {
+function create_each_block_6(ctx) {
   let div;
   let input;
   let input_id_value;
@@ -8493,7 +8547,7 @@ function create_each_block_5(ctx) {
   let label;
   let t1_value = (
     /*unit*/
-    ctx[57] + ""
+    ctx[60] + ""
   );
   let t1;
   let label_for_value;
@@ -8504,7 +8558,7 @@ function create_each_block_5(ctx) {
     ctx[21].call(
       input,
       /*unit*/
-      ctx[57]
+      ctx[60]
     );
   }
   return {
@@ -8538,13 +8592,13 @@ function create_each_block_5(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*unit*/
-      ctx[57]);
+      ctx[60]);
       attr(input, "name", input_name_value = /*unit*/
-      ctx[57]);
-      attr(input, "class", "svelte-ym532z");
+      ctx[60]);
+      attr(input, "class", "svelte-qaoubl");
       attr(label, "for", label_for_value = /*unit*/
-      ctx[57]);
-      attr(div, "class", "option svelte-ym532z");
+      ctx[60]);
+      attr(div, "class", "option svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -8552,7 +8606,7 @@ function create_each_block_5(ctx) {
       input.checked = /*$searchFilters*/
       ctx[1].units[
         /*unit*/
-        ctx[57]
+        ctx[60]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8575,12 +8629,12 @@ function create_each_block_5(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
       2 && input_id_value !== (input_id_value = /*unit*/
-      ctx[57])) {
+      ctx[60])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
       2 && input_name_value !== (input_name_value = /*unit*/
-      ctx[57])) {
+      ctx[60])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
@@ -8588,16 +8642,16 @@ function create_each_block_5(ctx) {
         input.checked = /*$searchFilters*/
         ctx[1].units[
           /*unit*/
-          ctx[57]
+          ctx[60]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
       2 && t1_value !== (t1_value = /*unit*/
-      ctx[57] + ""))
+      ctx[60] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
       2 && label_for_value !== (label_for_value = /*unit*/
-      ctx[57])) {
+      ctx[60])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8610,7 +8664,7 @@ function create_each_block_5(ctx) {
     }
   };
 }
-function create_each_block_4$1(ctx) {
+function create_each_block_5(ctx) {
   let div;
   let input;
   let input_id_value;
@@ -8619,7 +8673,7 @@ function create_each_block_4$1(ctx) {
   let label;
   let t1_value = (
     /*way*/
-    ctx[54] + ""
+    ctx[57] + ""
   );
   let t1;
   let label_for_value;
@@ -8630,7 +8684,7 @@ function create_each_block_4$1(ctx) {
     ctx[22].call(
       input,
       /*way*/
-      ctx[54]
+      ctx[57]
     );
   }
   return {
@@ -8664,13 +8718,13 @@ function create_each_block_4$1(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*way*/
-      ctx[54]);
+      ctx[57]);
       attr(input, "name", input_name_value = /*way*/
-      ctx[54]);
-      attr(input, "class", "svelte-ym532z");
+      ctx[57]);
+      attr(input, "class", "svelte-qaoubl");
       attr(label, "for", label_for_value = /*way*/
-      ctx[54]);
-      attr(div, "class", "option svelte-ym532z");
+      ctx[57]);
+      attr(div, "class", "option svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -8678,7 +8732,7 @@ function create_each_block_4$1(ctx) {
       input.checked = /*$searchFilters*/
       ctx[1].WAYS[
         /*way*/
-        ctx[54]
+        ctx[57]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8701,12 +8755,12 @@ function create_each_block_4$1(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
       2 && input_id_value !== (input_id_value = /*way*/
-      ctx[54])) {
+      ctx[57])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
       2 && input_name_value !== (input_name_value = /*way*/
-      ctx[54])) {
+      ctx[57])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
@@ -8714,16 +8768,16 @@ function create_each_block_4$1(ctx) {
         input.checked = /*$searchFilters*/
         ctx[1].WAYS[
           /*way*/
-          ctx[54]
+          ctx[57]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
       2 && t1_value !== (t1_value = /*way*/
-      ctx[54] + ""))
+      ctx[57] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
       2 && label_for_value !== (label_for_value = /*way*/
-      ctx[54])) {
+      ctx[57])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8736,7 +8790,7 @@ function create_each_block_4$1(ctx) {
     }
   };
 }
-function create_each_block_3$1(ctx) {
+function create_each_block_4$1(ctx) {
   let div;
   let input;
   let input_id_value;
@@ -8745,7 +8799,7 @@ function create_each_block_3$1(ctx) {
   let label;
   let t1_value = (
     /*quarter*/
-    ctx[51] + ""
+    ctx[54] + ""
   );
   let t1;
   let label_for_value;
@@ -8756,7 +8810,7 @@ function create_each_block_3$1(ctx) {
     ctx[29].call(
       input,
       /*quarter*/
-      ctx[51]
+      ctx[54]
     );
   }
   return {
@@ -8790,13 +8844,13 @@ function create_each_block_3$1(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*quarter*/
-      ctx[51]);
+      ctx[54]);
       attr(input, "name", input_name_value = /*quarter*/
-      ctx[51]);
-      attr(input, "class", "svelte-ym532z");
+      ctx[54]);
+      attr(input, "class", "svelte-qaoubl");
       attr(label, "for", label_for_value = /*quarter*/
-      ctx[51]);
-      attr(div, "class", "option svelte-ym532z");
+      ctx[54]);
+      attr(div, "class", "option svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -8804,7 +8858,7 @@ function create_each_block_3$1(ctx) {
       input.checked = /*$searchFilters*/
       ctx[1].QuartersOffered[
         /*quarter*/
-        ctx[51]
+        ctx[54]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8827,12 +8881,12 @@ function create_each_block_3$1(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
       2 && input_id_value !== (input_id_value = /*quarter*/
-      ctx[51])) {
+      ctx[54])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
       2 && input_name_value !== (input_name_value = /*quarter*/
-      ctx[51])) {
+      ctx[54])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
@@ -8840,16 +8894,138 @@ function create_each_block_3$1(ctx) {
         input.checked = /*$searchFilters*/
         ctx[1].QuartersOffered[
           /*quarter*/
-          ctx[51]
+          ctx[54]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
       2 && t1_value !== (t1_value = /*quarter*/
-      ctx[51] + ""))
+      ctx[54] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
       2 && label_for_value !== (label_for_value = /*quarter*/
-      ctx[51])) {
+      ctx[54])) {
+        attr(label, "for", label_for_value);
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(div);
+      }
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+}
+function create_each_block_3$2(ctx) {
+  let div;
+  let input;
+  let input_id_value;
+  let input_name_value;
+  let t0;
+  let label;
+  let t1_value = (
+    /*thisDegreeFilter*/
+    ctx[49] + ""
+  );
+  let t1;
+  let label_for_value;
+  let mounted;
+  let dispose;
+  function input_change_handler_3() {
+    ctx[31].call(
+      input,
+      /*thisDegreeFilter*/
+      ctx[49]
+    );
+  }
+  return {
+    c() {
+      div = element("div");
+      input = element("input");
+      t0 = space();
+      label = element("label");
+      t1 = text(t1_value);
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      input = claim_element(div_nodes, "INPUT", {
+        type: true,
+        id: true,
+        name: true,
+        class: true
+      });
+      t0 = claim_space(div_nodes);
+      label = claim_element(div_nodes, "LABEL", { for: true });
+      var label_nodes = children(label);
+      t1 = claim_text(label_nodes, t1_value);
+      label_nodes.forEach(detach);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(input, "type", "checkbox");
+      attr(input, "id", input_id_value = /*thisDegreeFilter*/
+      ctx[49]);
+      attr(input, "name", input_name_value = /*thisDegreeFilter*/
+      ctx[49]);
+      attr(input, "class", "svelte-qaoubl");
+      attr(label, "for", label_for_value = /*thisDegreeFilter*/
+      ctx[49]);
+      attr(div, "class", "option svelte-qaoubl");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, input);
+      input.checked = /*$searchFilters*/
+      ctx[1].degreeSpecific.checkboxes[
+        /*thisDegreeFilter*/
+        ctx[49]
+      ];
+      append_hydration(div, t0);
+      append_hydration(div, label);
+      append_hydration(label, t1);
+      if (!mounted) {
+        dispose = [
+          listen(
+            input,
+            "click",
+            /*searchResultsFunction*/
+            ctx[7]
+          ),
+          listen(input, "change", input_change_handler_3)
+        ];
+        mounted = true;
+      }
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      if (dirty[0] & /*$searchFilters*/
+      2 && input_id_value !== (input_id_value = /*thisDegreeFilter*/
+      ctx[49])) {
+        attr(input, "id", input_id_value);
+      }
+      if (dirty[0] & /*$searchFilters*/
+      2 && input_name_value !== (input_name_value = /*thisDegreeFilter*/
+      ctx[49])) {
+        attr(input, "name", input_name_value);
+      }
+      if (dirty[0] & /*$searchFilters*/
+      2) {
+        input.checked = /*$searchFilters*/
+        ctx[1].degreeSpecific.checkboxes[
+          /*thisDegreeFilter*/
+          ctx[49]
+        ];
+      }
+      if (dirty[0] & /*$searchFilters*/
+      2 && t1_value !== (t1_value = /*thisDegreeFilter*/
+      ctx[49] + ""))
+        set_data(t1, t1_value);
+      if (dirty[0] & /*$searchFilters*/
+      2 && label_for_value !== (label_for_value = /*thisDegreeFilter*/
+      ctx[49])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8871,18 +9047,18 @@ function create_each_block_2$2(ctx) {
   let label;
   let t1_value = (
     /*thisDegreeFilter*/
-    ctx[48] + ""
+    ctx[49] + ""
   );
   let t1;
   let label_for_value;
   let t2;
   let mounted;
   let dispose;
-  function input_change_handler_3() {
-    ctx[31].call(
+  function input_change_handler_4() {
+    ctx[32].call(
       input,
       /*thisDegreeFilter*/
-      ctx[48]
+      ctx[49]
     );
   }
   return {
@@ -8916,21 +9092,21 @@ function create_each_block_2$2(ctx) {
     h() {
       attr(input, "type", "checkbox");
       attr(input, "id", input_id_value = /*thisDegreeFilter*/
-      ctx[48]);
+      ctx[49]);
       attr(input, "name", input_name_value = /*thisDegreeFilter*/
-      ctx[48]);
-      attr(input, "class", "svelte-ym532z");
+      ctx[49]);
+      attr(input, "class", "svelte-qaoubl");
       attr(label, "for", label_for_value = /*thisDegreeFilter*/
-      ctx[48]);
-      attr(div, "class", "option svelte-ym532z");
+      ctx[49]);
+      attr(div, "class", "option svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$searchFilters*/
-      ctx[1].degreeSpecific.checkboxes[
+      ctx[1].degreeSpecificMs.checkboxes[
         /*thisDegreeFilter*/
-        ctx[48]
+        ctx[49]
       ];
       append_hydration(div, t0);
       append_hydration(div, label);
@@ -8944,7 +9120,7 @@ function create_each_block_2$2(ctx) {
             /*searchResultsFunction*/
             ctx[7]
           ),
-          listen(input, "change", input_change_handler_3)
+          listen(input, "change", input_change_handler_4)
         ];
         mounted = true;
       }
@@ -8953,29 +9129,29 @@ function create_each_block_2$2(ctx) {
       ctx = new_ctx;
       if (dirty[0] & /*$searchFilters*/
       2 && input_id_value !== (input_id_value = /*thisDegreeFilter*/
-      ctx[48])) {
+      ctx[49])) {
         attr(input, "id", input_id_value);
       }
       if (dirty[0] & /*$searchFilters*/
       2 && input_name_value !== (input_name_value = /*thisDegreeFilter*/
-      ctx[48])) {
+      ctx[49])) {
         attr(input, "name", input_name_value);
       }
       if (dirty[0] & /*$searchFilters*/
       2) {
         input.checked = /*$searchFilters*/
-        ctx[1].degreeSpecific.checkboxes[
+        ctx[1].degreeSpecificMs.checkboxes[
           /*thisDegreeFilter*/
-          ctx[48]
+          ctx[49]
         ];
       }
       if (dirty[0] & /*$searchFilters*/
       2 && t1_value !== (t1_value = /*thisDegreeFilter*/
-      ctx[48] + ""))
+      ctx[49] + ""))
         set_data(t1, t1_value);
       if (dirty[0] & /*$searchFilters*/
       2 && label_for_value !== (label_for_value = /*thisDegreeFilter*/
-      ctx[48])) {
+      ctx[49])) {
         attr(label, "for", label_for_value);
       }
     },
@@ -8994,7 +9170,7 @@ function create_if_block$a(ctx) {
   let t0;
   let t1_value = (
     /*category*/
-    ctx[42].title + ""
+    ctx[43].title + ""
   );
   let t1;
   let t2;
@@ -9005,20 +9181,19 @@ function create_if_block$a(ctx) {
   let t4;
   let t5_value = (
     /*category*/
-    ctx[42].numResultsShowing + ""
+    ctx[43].numResultsShowing + ""
   );
   let t5;
   let t6;
   let t7_value = (
     /*category*/
-    ctx[42].numResultsFound + ""
+    ctx[43].numResultsFound + ""
   );
   let t7;
   let t8;
   let div4;
   let each_blocks = [];
   let each_1_lookup = /* @__PURE__ */ new Map();
-  let t9;
   let div4_class_value;
   let dndzone_action;
   let current;
@@ -9026,11 +9201,11 @@ function create_if_block$a(ctx) {
   let dispose;
   let each_value_1 = ensure_array_like(
     /*category*/
-    ctx[42].results
+    ctx[43].results
   );
   const get_key = (ctx2) => (
     /*course*/
-    ctx2[45].id
+    ctx2[46].id
   );
   for (let i = 0; i < each_value_1.length; i += 1) {
     let child_ctx = get_each_context_1$4(ctx, each_value_1, i);
@@ -9040,9 +9215,9 @@ function create_if_block$a(ctx) {
   function consider_handler(...args) {
     return (
       /*consider_handler*/
-      ctx[34](
+      ctx[35](
         /*category*/
-        ctx[42],
+        ctx[43],
         ...args
       )
     );
@@ -9050,9 +9225,9 @@ function create_if_block$a(ctx) {
   function finalize_handler(...args) {
     return (
       /*finalize_handler*/
-      ctx[35](
+      ctx[36](
         /*category*/
-        ctx[42],
+        ctx[43],
         ...args
       )
     );
@@ -9076,7 +9251,6 @@ function create_if_block$a(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t9 = space();
       this.h();
     },
     l(nodes) {
@@ -9104,18 +9278,17 @@ function create_if_block$a(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(div4_nodes);
       }
-      t9 = claim_space(div4_nodes);
       div4_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div0, "class", "resultsHorizontalLine svelte-ym532z");
-      attr(div1, "class", "resultsHorizontalLine svelte-ym532z");
+      attr(div0, "class", "resultsHorizontalLine svelte-qaoubl");
+      attr(div1, "class", "resultsHorizontalLine svelte-qaoubl");
       attr(div2, "class", div2_class_value = "resultsHeader " + /*category*/
-      ctx[42].type + "header svelte-ym532z");
-      attr(div3, "class", "resultsHeader resultsHeaderShowing svelte-ym532z");
+      ctx[43].type + "header svelte-qaoubl");
+      attr(div3, "class", "resultsHeader resultsHeaderShowing svelte-qaoubl");
       attr(div4, "class", div4_class_value = "results " + /*category*/
-      ctx[42].type + " svelte-ym532z");
+      ctx[43].type + " svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, div2, anchor);
@@ -9137,14 +9310,13 @@ function create_if_block$a(ctx) {
           each_blocks[i].m(div4, null);
         }
       }
-      append_hydration(div4, t9);
       current = true;
       if (!mounted) {
         dispose = [
           action_destroyer(dndzone_action = dndzone.call(null, div4, {
             items: (
               /*category*/
-              ctx[42].results
+              ctx[43].results
             ),
             flipDurationMs: flipDurationMs$2,
             dropTargetStyle: {}
@@ -9159,38 +9331,38 @@ function create_if_block$a(ctx) {
       ctx = new_ctx;
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t1_value !== (t1_value = /*category*/
-      ctx[42].title + ""))
+      ctx[43].title + ""))
         set_data(t1, t1_value);
       if (!current || dirty[0] & /*$resultCategories*/
       8 && div2_class_value !== (div2_class_value = "resultsHeader " + /*category*/
-      ctx[42].type + "header svelte-ym532z")) {
+      ctx[43].type + "header svelte-qaoubl")) {
         attr(div2, "class", div2_class_value);
       }
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t5_value !== (t5_value = /*category*/
-      ctx[42].numResultsShowing + ""))
+      ctx[43].numResultsShowing + ""))
         set_data(t5, t5_value);
       if ((!current || dirty[0] & /*$resultCategories*/
       8) && t7_value !== (t7_value = /*category*/
-      ctx[42].numResultsFound + ""))
+      ctx[43].numResultsFound + ""))
         set_data(t7, t7_value);
       if (dirty[0] & /*$resultCategories*/
       8) {
         each_value_1 = ensure_array_like(
           /*category*/
-          ctx[42].results
+          ctx[43].results
         );
         group_outros();
         for (let i = 0; i < each_blocks.length; i += 1)
           each_blocks[i].r();
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, div4, fix_and_outro_and_destroy_block, create_each_block_1$4, t9, get_each_context_1$4);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, div4, fix_and_outro_and_destroy_block, create_each_block_1$4, null, get_each_context_1$4);
         for (let i = 0; i < each_blocks.length; i += 1)
           each_blocks[i].a();
         check_outros();
       }
       if (!current || dirty[0] & /*$resultCategories*/
       8 && div4_class_value !== (div4_class_value = "results " + /*category*/
-      ctx[42].type + " svelte-ym532z")) {
+      ctx[43].type + " svelte-qaoubl")) {
         attr(div4, "class", div4_class_value);
       }
       if (dndzone_action && is_function(dndzone_action.update) && dirty[0] & /*$resultCategories*/
@@ -9198,7 +9370,7 @@ function create_if_block$a(ctx) {
         dndzone_action.update.call(null, {
           items: (
             /*category*/
-            ctx[42].results
+            ctx[43].results
           ),
           flipDurationMs: flipDurationMs$2,
           dropTargetStyle: {}
@@ -9242,7 +9414,7 @@ function create_each_block_1$4(key_1, ctx) {
   let current;
   course_1 = new Course({ props: { course: (
     /*course*/
-    ctx[45]
+    ctx[46]
   ) } });
   return {
     key: key_1,
@@ -9273,7 +9445,7 @@ function create_each_block_1$4(key_1, ctx) {
       if (dirty[0] & /*$resultCategories*/
       8)
         course_1_changes.course = /*course*/
-        ctx[45];
+        ctx[46];
       course_1.$set(course_1_changes);
     },
     r() {
@@ -9310,8 +9482,8 @@ function create_each_block$6(ctx) {
   let current;
   let if_block = (
     /*category*/
-    ctx[42].results && /*category*/
-    ctx[42].results.length != 0 && create_if_block$a(ctx)
+    ctx[43].results && /*category*/
+    ctx[43].results.length != 0 && create_if_block$a(ctx)
   );
   return {
     c() {
@@ -9333,8 +9505,8 @@ function create_each_block$6(ctx) {
     p(ctx2, dirty) {
       if (
         /*category*/
-        ctx2[42].results && /*category*/
-        ctx2[42].results.length != 0
+        ctx2[43].results && /*category*/
+        ctx2[43].results.length != 0
       ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
@@ -9377,13 +9549,15 @@ function create_each_block$6(ctx) {
 }
 function create_fragment$b(ctx) {
   let section;
-  let div;
+  let div0;
   let input;
   let t0;
   let button;
   let textContent = "Filters";
   let t2;
   let t3;
+  let t4;
+  let div1;
   let current;
   let mounted;
   let dispose;
@@ -9405,7 +9579,7 @@ function create_fragment$b(ctx) {
   return {
     c() {
       section = element("section");
-      div = element("div");
+      div0 = element("div");
       input = element("input");
       t0 = space();
       button = element("button");
@@ -9417,23 +9591,25 @@ function create_fragment$b(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
+      t4 = space();
+      div1 = element("div");
       this.h();
     },
     l(nodes) {
       section = claim_element(nodes, "SECTION", { class: true });
       var section_nodes = children(section);
-      div = claim_element(section_nodes, "DIV", { class: true });
-      var div_nodes = children(div);
-      input = claim_element(div_nodes, "INPUT", {
+      div0 = claim_element(section_nodes, "DIV", { class: true });
+      var div0_nodes = children(div0);
+      input = claim_element(div0_nodes, "INPUT", {
         type: true,
         placeholder: true,
         class: true
       });
-      t0 = claim_space(div_nodes);
-      button = claim_element(div_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
+      t0 = claim_space(div0_nodes);
+      button = claim_element(div0_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button) !== "svelte-1whoyzh")
         button.textContent = textContent;
-      div_nodes.forEach(detach);
+      div0_nodes.forEach(detach);
       t2 = claim_space(section_nodes);
       if (if_block)
         if_block.l(section_nodes);
@@ -9441,28 +9617,32 @@ function create_fragment$b(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(section_nodes);
       }
+      t4 = claim_space(section_nodes);
+      div1 = claim_element(section_nodes, "DIV", { class: true });
+      children(div1).forEach(detach);
       section_nodes.forEach(detach);
       this.h();
     },
     h() {
       attr(input, "type", "text");
       attr(input, "placeholder", "% for all courses");
-      attr(input, "class", "svelte-ym532z");
-      attr(button, "class", "filtersHeaderButton svelte-ym532z");
-      attr(div, "class", "inputContainer svelte-ym532z");
-      attr(section, "class", "svelte-ym532z");
+      attr(input, "class", "svelte-qaoubl");
+      attr(button, "class", "filtersHeaderButton svelte-qaoubl");
+      attr(div0, "class", "inputContainer svelte-qaoubl");
+      attr(div1, "class", "spacer svelte-qaoubl");
+      attr(section, "class", "svelte-qaoubl");
     },
     m(target, anchor) {
       insert_hydration(target, section, anchor);
-      append_hydration(section, div);
-      append_hydration(div, input);
+      append_hydration(section, div0);
+      append_hydration(div0, input);
       set_input_value(
         input,
         /*query*/
         ctx[0]
       );
-      append_hydration(div, t0);
-      append_hydration(div, button);
+      append_hydration(div0, t0);
+      append_hydration(div0, button);
       append_hydration(section, t2);
       if (if_block)
         if_block.m(section, null);
@@ -9472,6 +9652,8 @@ function create_fragment$b(ctx) {
           each_blocks[i].m(section, null);
         }
       }
+      append_hydration(section, t4);
+      append_hydration(section, div1);
       current = true;
       if (!mounted) {
         dispose = [
@@ -9532,7 +9714,7 @@ function create_fragment$b(ctx) {
             each_blocks[i] = create_each_block$6(child_ctx);
             each_blocks[i].c();
             transition_in(each_blocks[i], 1);
-            each_blocks[i].m(section, null);
+            each_blocks[i].m(section, t4);
           }
         }
         group_outros();
@@ -9584,9 +9766,9 @@ function instance$c($$self, $$props, $$invalidate) {
   let $courseTableList;
   component_subscribe($$self, resultCategories, ($$value) => $$invalidate(3, $resultCategories = $$value));
   component_subscribe($$self, searchFilters, ($$value) => $$invalidate(1, $searchFilters = $$value));
-  component_subscribe($$self, allCourses, ($$value) => $$invalidate(37, $allCourses = $$value));
-  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(38, $isDragging = $$value));
-  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(39, $courseTableList = $$value));
+  component_subscribe($$self, allCourses, ($$value) => $$invalidate(38, $allCourses = $$value));
+  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(39, $isDragging = $$value));
+  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(40, $courseTableList = $$value));
   let showFilters = false;
   let query = "%";
   function doesCourseFitFilters(course, filters) {
@@ -9676,10 +9858,20 @@ function instance$c($$self, $$props, $$invalidate) {
         degreeSpecificFilterActive = true;
       }
     });
+    Object.keys(filters.degreeSpecificMs.checkboxes).forEach((checkbox) => {
+      if (filters.degreeSpecificMs.checkboxes[checkbox]) {
+        degreeSpecificFilterActive = true;
+      }
+    });
     if (degreeSpecificFilterActive) {
       let degreeSpecificFilterFits = false;
       Object.keys(filters.degreeSpecific.luts).forEach((lut) => {
         if (filters.degreeSpecific.checkboxes[lut] && filters.degreeSpecific.luts[lut].includes(course.code)) {
+          degreeSpecificFilterFits = true;
+        }
+      });
+      Object.keys(filters.degreeSpecificMs.luts).forEach((lut) => {
+        if (filters.degreeSpecificMs.checkboxes[lut] && filters.degreeSpecificMs.luts[lut].includes(course.code)) {
           degreeSpecificFilterFits = true;
         }
       });
@@ -9716,6 +9908,9 @@ function instance$c($$self, $$props, $$invalidate) {
     } else if (filter == 2) {
       Object.keys($searchFilters.degreeSpecific.checkboxes).forEach((checkbox) => {
         set_store_value(searchFilters, $searchFilters.degreeSpecific.checkboxes[checkbox] = false, $searchFilters);
+      });
+      Object.keys($searchFilters.degreeSpecificMs.checkboxes).forEach((checkbox) => {
+        set_store_value(searchFilters, $searchFilters.degreeSpecificMs.checkboxes[checkbox] = false, $searchFilters);
       });
     } else if (filter == 3) {
       set_store_value(searchFilters, $searchFilters.sortBy = "alphabetical", $searchFilters);
@@ -9896,12 +10091,12 @@ function instance$c($$self, $$props, $$invalidate) {
     checkboxFunction(category.type);
     searchResultsFunction();
   };
-  function input0_change_handler_1(each_value_6, category_index_1) {
-    each_value_6[category_index_1].hide = this.checked;
+  function input0_change_handler_1(each_value_7, category_index_1) {
+    each_value_7[category_index_1].hide = this.checked;
     resultCategories.set($resultCategories);
   }
-  function input1_input_handler(each_value_6, category_index_1) {
-    each_value_6[category_index_1].numResults = to_number(this.value);
+  function input1_input_handler(each_value_7, category_index_1) {
+    each_value_7[category_index_1].numResults = to_number(this.value);
     resultCategories.set($resultCategories);
   }
   const click_handler_3 = () => {
@@ -9950,6 +10145,10 @@ function instance$c($$self, $$props, $$invalidate) {
   };
   function input_change_handler_3(thisDegreeFilter) {
     $searchFilters.degreeSpecific.checkboxes[thisDegreeFilter] = this.checked;
+    searchFilters.set($searchFilters);
+  }
+  function input_change_handler_4(thisDegreeFilter) {
+    $searchFilters.degreeSpecificMs.checkboxes[thisDegreeFilter] = this.checked;
     searchFilters.set($searchFilters);
   }
   function input8_input_handler() {
@@ -10010,6 +10209,7 @@ function instance$c($$self, $$props, $$invalidate) {
     input_change_handler_2,
     click_handler_4,
     input_change_handler_3,
+    input_change_handler_4,
     input8_input_handler,
     click_handler_5,
     consider_handler,
@@ -10019,7 +10219,7 @@ function instance$c($$self, $$props, $$invalidate) {
 class Search extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$c, create_fragment$b, safe_not_equal, {}, null, [-1, -1]);
+    init(this, options, instance$c, create_fragment$b, safe_not_equal, {}, null, [-1, -1, -1]);
   }
 }
 const WAYSTracker_svelte_svelte_type_style_lang = "";
@@ -12062,7 +12262,7 @@ function create_else_block_1$2(ctx) {
     }
   };
 }
-function create_if_block_2$2(ctx) {
+function create_if_block_2$3(ctx) {
   let chevronsupdown;
   let current;
   chevronsupdown = new ChevronsUpDown({});
@@ -12410,7 +12610,7 @@ function create_each_block$4(key_1, ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_2$2, create_else_block_1$2];
+  const if_block_creators = [create_if_block_2$3, create_else_block_1$2];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -13220,7 +13420,7 @@ function get_each_context_2$1(ctx, list, i) {
   child_ctx[16] = list[i];
   return child_ctx;
 }
-function get_each_context_3(ctx, list, i) {
+function get_each_context_3$1(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[21] = list[i];
   child_ctx[23] = i;
@@ -13745,7 +13945,7 @@ function create_else_block$2(ctx) {
     }
   };
 }
-function create_if_block_2$1(ctx) {
+function create_if_block_2$2(ctx) {
   let div;
   let each_value_3 = ensure_array_like(
     /*course*/
@@ -13753,7 +13953,7 @@ function create_if_block_2$1(ctx) {
   );
   let each_blocks = [];
   for (let i = 0; i < each_value_3.length; i += 1) {
-    each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    each_blocks[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
   }
   return {
     c() {
@@ -13792,11 +13992,11 @@ function create_if_block_2$1(ctx) {
         );
         let i;
         for (i = 0; i < each_value_3.length; i += 1) {
-          const child_ctx = get_each_context_3(ctx2, each_value_3, i);
+          const child_ctx = get_each_context_3$1(ctx2, each_value_3, i);
           if (each_blocks[i]) {
             each_blocks[i].p(child_ctx, dirty);
           } else {
-            each_blocks[i] = create_each_block_3(child_ctx);
+            each_blocks[i] = create_each_block_3$1(child_ctx);
             each_blocks[i].c();
             each_blocks[i].m(div, null);
           }
@@ -13815,7 +14015,7 @@ function create_if_block_2$1(ctx) {
     }
   };
 }
-function create_each_block_3(ctx) {
+function create_each_block_3$1(ctx) {
   let div;
   let t0_value = (
     /*season*/
@@ -14441,7 +14641,7 @@ function create_fragment$5(ctx) {
       /*course*/
       ((_b2 = (_a2 = ctx2[0]) == null ? void 0 : _a2.seasons_offered) == null ? void 0 : _b2.length) > 0
     )
-      return create_if_block_2$1;
+      return create_if_block_2$2;
     return create_else_block$2;
   }
   let current_block_type_1 = select_block_type_1(ctx);
@@ -15451,20 +15651,25 @@ class Trash extends SvelteComponent {
 const ConfigPanel_svelte_svelte_type_style_lang = "";
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[30] = list[i];
+  child_ctx[33] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[33] = list[i];
-  child_ctx[35] = i;
   return child_ctx;
 }
 function get_each_context_2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[36] = list[i];
-  child_ctx[37] = list;
-  child_ctx[38] = i;
+  child_ctx[38] = list[i];
+  child_ctx[40] = i;
+  return child_ctx;
+}
+function get_each_context_3(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[41] = list[i];
+  child_ctx[42] = list;
+  child_ctx[43] = i;
   return child_ctx;
 }
 function create_else_block_1(ctx) {
@@ -15486,7 +15691,7 @@ function create_else_block_1(ctx) {
     }
   };
 }
-function create_if_block_2(ctx) {
+function create_if_block_2$1(ctx) {
   let t;
   return {
     c() {
@@ -15588,11 +15793,11 @@ function create_if_block$3(ctx) {
       div1 = claim_element(div2_nodes, "DIV", { class: true });
       var div1_nodes = children(div1);
       button0 = claim_element(div1_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(button0) !== "svelte-1s1swrt")
+      if (get_svelte_dataset(button0) !== "svelte-x7e5es")
         button0.textContent = textContent_1;
       t3 = claim_space(div1_nodes);
       button1 = claim_element(div1_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(button1) !== "svelte-1up64ef")
+      if (get_svelte_dataset(button1) !== "svelte-1nt1gkl")
         button1.textContent = textContent_2;
       div1_nodes.forEach(detach);
       div2_nodes.forEach(detach);
@@ -15602,8 +15807,8 @@ function create_if_block$3(ctx) {
     },
     h() {
       attr(div0, "class", "modalTitle");
-      attr(button0, "class", "svelte-advqk7");
-      attr(button1, "class", "svelte-advqk7");
+      attr(button0, "class", "svelte-lt0ixy");
+      attr(button1, "class", "svelte-lt0ixy");
       attr(div1, "class", "modalButtons");
       attr(div2, "class", "modalContent");
       attr(div3, "class", "modal");
@@ -15625,13 +15830,13 @@ function create_if_block$3(ctx) {
             button0,
             "click",
             /*click_handler_4*/
-            ctx[13]
+            ctx[15]
           ),
           listen(
             button1,
             "click",
             /*click_handler_5*/
-            ctx[14]
+            ctx[16]
           )
         ];
         mounted = true;
@@ -15647,23 +15852,23 @@ function create_if_block$3(ctx) {
     }
   };
 }
-function create_each_block_2(ctx) {
+function create_each_block_3(ctx) {
   let div;
   let input;
   let t0;
   let t1_value = (
     /*courseTableData*/
-    ctx[36] + ""
+    ctx[41] + ""
   );
   let t1;
   let t2;
   let mounted;
   let dispose;
   function input_change_handler() {
-    ctx[15].call(
+    ctx[17].call(
       input,
       /*courseTableData*/
-      ctx[36]
+      ctx[41]
     );
   }
   return {
@@ -15687,15 +15892,15 @@ function create_each_block_2(ctx) {
     },
     h() {
       attr(input, "type", "checkbox");
-      attr(div, "class", "checkbox svelte-advqk7");
+      attr(div, "class", "checkbox svelte-lt0ixy");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
       append_hydration(div, input);
       input.checked = /*$prefs*/
-      ctx[4].courseTableData[
+      ctx[5].courseTableData[
         /*courseTableData*/
-        ctx[36]
+        ctx[41]
       ];
       append_hydration(div, t0);
       append_hydration(div, t1);
@@ -15707,7 +15912,7 @@ function create_each_block_2(ctx) {
             input,
             "change",
             /*change_handler*/
-            ctx[16]
+            ctx[18]
           )
         ];
         mounted = true;
@@ -15716,16 +15921,16 @@ function create_each_block_2(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty[0] & /*$prefs*/
-      16) {
+      32) {
         input.checked = /*$prefs*/
-        ctx[4].courseTableData[
+        ctx[5].courseTableData[
           /*courseTableData*/
-          ctx[36]
+          ctx[41]
         ];
       }
       if (dirty[0] & /*$prefs*/
-      16 && t1_value !== (t1_value = /*courseTableData*/
-      ctx[36] + ""))
+      32 && t1_value !== (t1_value = /*courseTableData*/
+      ctx[41] + ""))
         set_data(t1, t1_value);
     },
     d(detaching) {
@@ -15737,11 +15942,11 @@ function create_each_block_2(ctx) {
     }
   };
 }
-function create_each_block_1(ctx) {
+function create_each_block_2(ctx) {
   let option;
   let t_value = (
     /*transferUnit*/
-    ctx[33].name + ""
+    ctx[38].name + ""
   );
   let t;
   return {
@@ -15759,7 +15964,7 @@ function create_each_block_1(ctx) {
     },
     h() {
       option.__value = /*i*/
-      ctx[35];
+      ctx[40];
       set_input_value(option, option.__value);
     },
     m(target, anchor) {
@@ -15768,8 +15973,8 @@ function create_each_block_1(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty[0] & /*$prefs*/
-      16 && t_value !== (t_value = /*transferUnit*/
-      ctx2[33].name + ""))
+      32 && t_value !== (t_value = /*transferUnit*/
+      ctx2[38].name + ""))
         set_data(t, t_value);
     },
     d(detaching) {
@@ -15779,11 +15984,11 @@ function create_each_block_1(ctx) {
     }
   };
 }
-function create_each_block(ctx) {
+function create_each_block_1(ctx) {
   let option;
   let t_value = (
     /*choice*/
-    ctx[30].degree + ""
+    ctx[33].degree + ""
   );
   let t;
   let option_value_value;
@@ -15802,7 +16007,7 @@ function create_each_block(ctx) {
     },
     h() {
       option.__value = option_value_value = /*choice*/
-      ctx[30].uniqueID;
+      ctx[33].uniqueID;
       set_input_value(option, option.__value);
     },
     m(target, anchor) {
@@ -15811,12 +16016,61 @@ function create_each_block(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty[0] & /*$bachelorsDegreeChoices*/
-      32 && t_value !== (t_value = /*choice*/
-      ctx2[30].degree + ""))
+      64 && t_value !== (t_value = /*choice*/
+      ctx2[33].degree + ""))
         set_data(t, t_value);
       if (dirty[0] & /*$bachelorsDegreeChoices*/
-      32 && option_value_value !== (option_value_value = /*choice*/
-      ctx2[30].uniqueID)) {
+      64 && option_value_value !== (option_value_value = /*choice*/
+      ctx2[33].uniqueID)) {
+        option.__value = option_value_value;
+        set_input_value(option, option.__value);
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(option);
+      }
+    }
+  };
+}
+function create_each_block(ctx) {
+  let option;
+  let t_value = (
+    /*choice*/
+    ctx[33].degree + ""
+  );
+  let t;
+  let option_value_value;
+  return {
+    c() {
+      option = element("option");
+      t = text(t_value);
+      this.h();
+    },
+    l(nodes) {
+      option = claim_element(nodes, "OPTION", {});
+      var option_nodes = children(option);
+      t = claim_text(option_nodes, t_value);
+      option_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      option.__value = option_value_value = /*choice*/
+      ctx[33].uniqueID;
+      set_input_value(option, option.__value);
+    },
+    m(target, anchor) {
+      insert_hydration(target, option, anchor);
+      append_hydration(option, t);
+    },
+    p(ctx2, dirty) {
+      if (dirty[0] & /*$mastersDegreeChoices*/
+      128 && t_value !== (t_value = /*choice*/
+      ctx2[33].degree + ""))
+        set_data(t, t_value);
+      if (dirty[0] & /*$mastersDegreeChoices*/
+      128 && option_value_value !== (option_value_value = /*choice*/
+      ctx2[33].uniqueID)) {
         option.__value = option_value_value;
         set_input_value(option, option.__value);
       }
@@ -15829,75 +16083,86 @@ function create_each_block(ctx) {
   };
 }
 function create_fragment$3(ctx) {
-  let div17;
+  let div21;
   let div0;
   let textContent = "Settings";
   let t1;
   let div1;
-  let button0;
-  let textContent_1 = "Export data";
+  let textContent_1 = `<b>Collapse (left bar) when done</b>`;
   let t3;
-  let a0;
-  let t4;
   let div2;
-  let button1;
-  let textContent_2 = "Import data";
-  let t6;
-  let input0;
-  let t7;
+  let textContent_2 = `<b>All data is stored locally; export frequently</b>`;
+  let t5;
+  let div9;
   let div3;
-  let textContent_3 = `<b>All data is stored locally; export frequently</b>`;
-  let t9;
+  let textContent_3 = `<a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a>`;
+  let t7;
   let div4;
-  let button2;
+  let button0;
+  let textContent_4 = "Export data";
+  let t9;
+  let a1;
   let t10;
   let div5;
-  let button3;
-  let t11;
-  let div6;
-  let button4;
-  let textContent_4 = "Clear all courses";
+  let button1;
+  let textContent_5 = "Import data";
+  let t12;
+  let input0;
   let t13;
+  let div6;
+  let button2;
   let t14;
   let div7;
-  let textContent_5 = "Show course data";
-  let t16;
+  let button3;
+  let t15;
   let div8;
+  let button4;
+  let textContent_6 = "Clear all courses";
   let t17;
+  let t18;
   let div10;
-  let div9;
-  let textContent_6 = "Transfer units";
-  let t19;
-  let select0;
+  let textContent_7 = "Course data";
   let t20;
-  let input1;
-  let t21;
   let div11;
-  let textContent_7 = `<b>Set total transfer units, then AP units</b>`;
-  let t23;
-  let div16;
-  let div12;
-  let textContent_8 = "Degree checker";
-  let t25;
+  let t21;
   let div13;
+  let div12;
+  let textContent_8 = "Transfer units";
+  let t23;
+  let select0;
+  let t24;
+  let input1;
+  let t25;
+  let div14;
+  let textContent_9 = `<b>Set total transfer units, then AP units</b>`;
+  let t27;
+  let div20;
+  let div15;
+  let textContent_10 = "Degree checker";
+  let t29;
+  let div16;
   let select1;
   let select1_value_value;
-  let t26;
-  let div14;
-  let textContent_9 = `<b>The degree checker is designed to cover the 80% most common cases. There are no accuracy
+  let t30;
+  let div17;
+  let select2;
+  let select2_value_value;
+  let t31;
+  let div18;
+  let textContent_11 = `<b>The degree checker is designed to cover the 80% most common cases. There are no accuracy
 				guarantees; consult official materials.</b>`;
-  let t28;
-  let div15;
-  let textContent_10 = `Implemented degrees include those which have more than 50 students per year. Implementations
+  let t33;
+  let div19;
+  let textContent_12 = `Implemented degrees include those which have more than 50 students per year. Implementations
 			are at <a href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees" target="_blank">src/routes/degrees</a>`;
   let mounted;
   let dispose;
   function select_block_type(ctx2, dirty) {
     if (
       /*$panelCollapsed*/
-      ctx2[3].search
+      ctx2[4].search
     )
-      return create_if_block_2;
+      return create_if_block_2$1;
     return create_else_block_1;
   }
   let current_block_type = select_block_type(ctx);
@@ -15905,7 +16170,7 @@ function create_fragment$3(ctx) {
   function select_block_type_1(ctx2, dirty) {
     if (
       /*$panelCollapsed*/
-      ctx2[3].summer
+      ctx2[4].summer
     )
       return create_if_block_1$1;
     return create_else_block$1;
@@ -15916,25 +16181,33 @@ function create_fragment$3(ctx) {
     /*showClearCoursesModal*/
     ctx[0] && create_if_block$3(ctx)
   );
-  let each_value_2 = ensure_array_like(Object.keys(
+  let each_value_3 = ensure_array_like(Object.keys(
     /*$prefs*/
-    ctx[4].courseTableData
+    ctx[5].courseTableData
   ));
+  let each_blocks_3 = [];
+  for (let i = 0; i < each_value_3.length; i += 1) {
+    each_blocks_3[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+  }
+  let each_value_2 = ensure_array_like(
+    /*$prefs*/
+    ctx[5].transferUnits
+  );
   let each_blocks_2 = [];
   for (let i = 0; i < each_value_2.length; i += 1) {
     each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
   }
   let each_value_1 = ensure_array_like(
-    /*$prefs*/
-    ctx[4].transferUnits
+    /*$bachelorsDegreeChoices*/
+    ctx[6]
   );
   let each_blocks_1 = [];
   for (let i = 0; i < each_value_1.length; i += 1) {
     each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
   }
   let each_value = ensure_array_like(
-    /*$bachelorsDegreeChoices*/
-    ctx[5]
+    /*$mastersDegreeChoices*/
+    ctx[7]
   );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
@@ -15942,385 +16215,452 @@ function create_fragment$3(ctx) {
   }
   return {
     c() {
-      div17 = element("div");
+      div21 = element("div");
       div0 = element("div");
       div0.textContent = textContent;
       t1 = space();
       div1 = element("div");
-      button0 = element("button");
-      button0.textContent = textContent_1;
+      div1.innerHTML = textContent_1;
       t3 = space();
-      a0 = element("a");
-      t4 = space();
       div2 = element("div");
-      button1 = element("button");
-      button1.textContent = textContent_2;
-      t6 = space();
-      input0 = element("input");
-      t7 = space();
+      div2.innerHTML = textContent_2;
+      t5 = space();
+      div9 = element("div");
       div3 = element("div");
       div3.innerHTML = textContent_3;
-      t9 = space();
+      t7 = space();
       div4 = element("div");
-      button2 = element("button");
-      if_block0.c();
+      button0 = element("button");
+      button0.textContent = textContent_4;
+      t9 = space();
+      a1 = element("a");
       t10 = space();
       div5 = element("div");
-      button3 = element("button");
-      if_block1.c();
-      t11 = space();
-      div6 = element("div");
-      button4 = element("button");
-      button4.textContent = textContent_4;
+      button1 = element("button");
+      button1.textContent = textContent_5;
+      t12 = space();
+      input0 = element("input");
       t13 = space();
-      if (if_block2)
-        if_block2.c();
+      div6 = element("div");
+      button2 = element("button");
+      if_block0.c();
       t14 = space();
       div7 = element("div");
-      div7.textContent = textContent_5;
-      t16 = space();
+      button3 = element("button");
+      if_block1.c();
+      t15 = space();
       div8 = element("div");
+      button4 = element("button");
+      button4.textContent = textContent_6;
+      t17 = space();
+      if (if_block2)
+        if_block2.c();
+      t18 = space();
+      div10 = element("div");
+      div10.textContent = textContent_7;
+      t20 = space();
+      div11 = element("div");
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        each_blocks_3[i].c();
+      }
+      t21 = space();
+      div13 = element("div");
+      div12 = element("div");
+      div12.textContent = textContent_8;
+      t23 = space();
+      select0 = element("select");
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         each_blocks_2[i].c();
       }
-      t17 = space();
-      div10 = element("div");
-      div9 = element("div");
-      div9.textContent = textContent_6;
-      t19 = space();
-      select0 = element("select");
+      t24 = space();
+      input1 = element("input");
+      t25 = space();
+      div14 = element("div");
+      div14.innerHTML = textContent_9;
+      t27 = space();
+      div20 = element("div");
+      div15 = element("div");
+      div15.textContent = textContent_10;
+      t29 = space();
+      div16 = element("div");
+      select1 = element("select");
       for (let i = 0; i < each_blocks_1.length; i += 1) {
         each_blocks_1[i].c();
       }
-      t20 = space();
-      input1 = element("input");
-      t21 = space();
-      div11 = element("div");
-      div11.innerHTML = textContent_7;
-      t23 = space();
-      div16 = element("div");
-      div12 = element("div");
-      div12.textContent = textContent_8;
-      t25 = space();
-      div13 = element("div");
-      select1 = element("select");
+      t30 = space();
+      div17 = element("div");
+      select2 = element("select");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t26 = space();
-      div14 = element("div");
-      div14.innerHTML = textContent_9;
-      t28 = space();
-      div15 = element("div");
-      div15.innerHTML = textContent_10;
+      t31 = space();
+      div18 = element("div");
+      div18.innerHTML = textContent_11;
+      t33 = space();
+      div19 = element("div");
+      div19.innerHTML = textContent_12;
       this.h();
     },
     l(nodes) {
-      div17 = claim_element(nodes, "DIV", { class: true });
-      var div17_nodes = children(div17);
-      div0 = claim_element(div17_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      div21 = claim_element(nodes, "DIV", { class: true });
+      var div21_nodes = children(div21);
+      div0 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div0) !== "svelte-h3vxd0")
         div0.textContent = textContent;
-      t1 = claim_space(div17_nodes);
-      div1 = claim_element(div17_nodes, "DIV", { class: true });
-      var div1_nodes = children(div1);
-      button0 = claim_element(div1_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(button0) !== "svelte-1hst2fi")
-        button0.textContent = textContent_1;
-      t3 = claim_space(div1_nodes);
-      a0 = claim_element(div1_nodes, "A", { id: true, style: true });
-      children(a0).forEach(detach);
-      div1_nodes.forEach(detach);
-      t4 = claim_space(div17_nodes);
-      div2 = claim_element(div17_nodes, "DIV", { class: true });
-      var div2_nodes = children(div2);
-      button1 = claim_element(div2_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(button1) !== "svelte-1olu1sn")
-        button1.textContent = textContent_2;
-      t6 = claim_space(div2_nodes);
-      input0 = claim_element(div2_nodes, "INPUT", { id: true, type: true, style: true });
-      div2_nodes.forEach(detach);
-      t7 = claim_space(div17_nodes);
-      div3 = claim_element(div17_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div3) !== "svelte-lh84ox")
+      t1 = claim_space(div21_nodes);
+      div1 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div1) !== "svelte-18ev73z")
+        div1.innerHTML = textContent_1;
+      t3 = claim_space(div21_nodes);
+      div2 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div2) !== "svelte-lh84ox")
+        div2.innerHTML = textContent_2;
+      t5 = claim_space(div21_nodes);
+      div9 = claim_element(div21_nodes, "DIV", { class: true });
+      var div9_nodes = children(div9);
+      div3 = claim_element(div9_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div3) !== "svelte-13y94bh")
         div3.innerHTML = textContent_3;
-      t9 = claim_space(div17_nodes);
-      div4 = claim_element(div17_nodes, "DIV", { class: true });
+      t7 = claim_space(div9_nodes);
+      div4 = claim_element(div9_nodes, "DIV", { class: true });
       var div4_nodes = children(div4);
-      button2 = claim_element(div4_nodes, "BUTTON", { class: true });
+      button0 = claim_element(div4_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(button0) !== "svelte-1hst2fi")
+        button0.textContent = textContent_4;
+      t9 = claim_space(div4_nodes);
+      a1 = claim_element(div4_nodes, "A", { id: true, style: true });
+      children(a1).forEach(detach);
+      div4_nodes.forEach(detach);
+      t10 = claim_space(div9_nodes);
+      div5 = claim_element(div9_nodes, "DIV", { class: true });
+      var div5_nodes = children(div5);
+      button1 = claim_element(div5_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(button1) !== "svelte-kga8sx")
+        button1.textContent = textContent_5;
+      t12 = claim_space(div5_nodes);
+      input0 = claim_element(div5_nodes, "INPUT", { id: true, type: true, style: true });
+      div5_nodes.forEach(detach);
+      t13 = claim_space(div9_nodes);
+      div6 = claim_element(div9_nodes, "DIV", { class: true });
+      var div6_nodes = children(div6);
+      button2 = claim_element(div6_nodes, "BUTTON", { class: true });
       var button2_nodes = children(button2);
       if_block0.l(button2_nodes);
       button2_nodes.forEach(detach);
-      div4_nodes.forEach(detach);
-      t10 = claim_space(div17_nodes);
-      div5 = claim_element(div17_nodes, "DIV", { class: true });
-      var div5_nodes = children(div5);
-      button3 = claim_element(div5_nodes, "BUTTON", { class: true });
+      div6_nodes.forEach(detach);
+      t14 = claim_space(div9_nodes);
+      div7 = claim_element(div9_nodes, "DIV", { class: true });
+      var div7_nodes = children(div7);
+      button3 = claim_element(div7_nodes, "BUTTON", { class: true });
       var button3_nodes = children(button3);
       if_block1.l(button3_nodes);
       button3_nodes.forEach(detach);
-      div5_nodes.forEach(detach);
-      t11 = claim_space(div17_nodes);
-      div6 = claim_element(div17_nodes, "DIV", { class: true });
-      var div6_nodes = children(div6);
-      button4 = claim_element(div6_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(button4) !== "svelte-19imyql")
-        button4.textContent = textContent_4;
-      t13 = claim_space(div6_nodes);
-      if (if_block2)
-        if_block2.l(div6_nodes);
-      div6_nodes.forEach(detach);
-      t14 = claim_space(div17_nodes);
-      div7 = claim_element(div17_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div7) !== "svelte-xgnt3c")
-        div7.textContent = textContent_5;
-      t16 = claim_space(div17_nodes);
-      div8 = claim_element(div17_nodes, "DIV", { class: true });
+      div7_nodes.forEach(detach);
+      t15 = claim_space(div9_nodes);
+      div8 = claim_element(div9_nodes, "DIV", { class: true });
       var div8_nodes = children(div8);
-      for (let i = 0; i < each_blocks_2.length; i += 1) {
-        each_blocks_2[i].l(div8_nodes);
-      }
+      button4 = claim_element(div8_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(button4) !== "svelte-1lxrguf")
+        button4.textContent = textContent_6;
+      t17 = claim_space(div8_nodes);
+      if (if_block2)
+        if_block2.l(div8_nodes);
       div8_nodes.forEach(detach);
-      t17 = claim_space(div17_nodes);
-      div10 = claim_element(div17_nodes, "DIV", { class: true });
-      var div10_nodes = children(div10);
-      div9 = claim_element(div10_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div9) !== "svelte-k80iny")
-        div9.textContent = textContent_6;
-      t19 = claim_space(div10_nodes);
-      select0 = claim_element(div10_nodes, "SELECT", { class: true });
+      div9_nodes.forEach(detach);
+      t18 = claim_space(div21_nodes);
+      div10 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div10) !== "svelte-16udskt")
+        div10.textContent = textContent_7;
+      t20 = claim_space(div21_nodes);
+      div11 = claim_element(div21_nodes, "DIV", { class: true });
+      var div11_nodes = children(div11);
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        each_blocks_3[i].l(div11_nodes);
+      }
+      div11_nodes.forEach(detach);
+      t21 = claim_space(div21_nodes);
+      div13 = claim_element(div21_nodes, "DIV", { class: true });
+      var div13_nodes = children(div13);
+      div12 = claim_element(div13_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div12) !== "svelte-k80iny")
+        div12.textContent = textContent_8;
+      t23 = claim_space(div13_nodes);
+      select0 = claim_element(div13_nodes, "SELECT", { class: true });
       var select0_nodes = children(select0);
-      for (let i = 0; i < each_blocks_1.length; i += 1) {
-        each_blocks_1[i].l(select0_nodes);
+      for (let i = 0; i < each_blocks_2.length; i += 1) {
+        each_blocks_2[i].l(select0_nodes);
       }
       select0_nodes.forEach(detach);
-      t20 = claim_space(div10_nodes);
-      input1 = claim_element(div10_nodes, "INPUT", {
+      t24 = claim_space(div13_nodes);
+      input1 = claim_element(div13_nodes, "INPUT", {
         class: true,
         type: true,
         placeholder: true
       });
-      div10_nodes.forEach(detach);
-      t21 = claim_space(div17_nodes);
-      div11 = claim_element(div17_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div11) !== "svelte-m652ny")
-        div11.innerHTML = textContent_7;
-      t23 = claim_space(div17_nodes);
-      div16 = claim_element(div17_nodes, "DIV", { class: true });
+      div13_nodes.forEach(detach);
+      t25 = claim_space(div21_nodes);
+      div14 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div14) !== "svelte-m652ny")
+        div14.innerHTML = textContent_9;
+      t27 = claim_space(div21_nodes);
+      div20 = claim_element(div21_nodes, "DIV", { class: true });
+      var div20_nodes = children(div20);
+      div15 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div15) !== "svelte-s3awp9")
+        div15.textContent = textContent_10;
+      t29 = claim_space(div20_nodes);
+      div16 = claim_element(div20_nodes, "DIV", { class: true });
       var div16_nodes = children(div16);
-      div12 = claim_element(div16_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div12) !== "svelte-s3awp9")
-        div12.textContent = textContent_8;
-      t25 = claim_space(div16_nodes);
-      div13 = claim_element(div16_nodes, "DIV", { class: true });
-      var div13_nodes = children(div13);
-      select1 = claim_element(div13_nodes, "SELECT", { class: true });
+      select1 = claim_element(div16_nodes, "SELECT", { class: true });
       var select1_nodes = children(select1);
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].l(select1_nodes);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        each_blocks_1[i].l(select1_nodes);
       }
       select1_nodes.forEach(detach);
-      div13_nodes.forEach(detach);
-      t26 = claim_space(div16_nodes);
-      div14 = claim_element(div16_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div14) !== "svelte-1n9iha1")
-        div14.innerHTML = textContent_9;
-      t28 = claim_space(div16_nodes);
-      div15 = claim_element(div16_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div15) !== "svelte-gzijyw")
-        div15.innerHTML = textContent_10;
       div16_nodes.forEach(detach);
+      t30 = claim_space(div20_nodes);
+      div17 = claim_element(div20_nodes, "DIV", { class: true });
+      var div17_nodes = children(div17);
+      select2 = claim_element(div17_nodes, "SELECT", { class: true });
+      var select2_nodes = children(select2);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].l(select2_nodes);
+      }
+      select2_nodes.forEach(detach);
       div17_nodes.forEach(detach);
+      t31 = claim_space(div20_nodes);
+      div18 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div18) !== "svelte-1n9iha1")
+        div18.innerHTML = textContent_11;
+      t33 = claim_space(div20_nodes);
+      div19 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div19) !== "svelte-gzijyw")
+        div19.innerHTML = textContent_12;
+      div20_nodes.forEach(detach);
+      div21_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div0, "class", "title svelte-advqk7");
-      attr(button0, "class", "svelte-advqk7");
-      attr(a0, "id", "downloadAnchorElem");
-      set_style(a0, "display", "none");
-      attr(div1, "class", "exportAllData svelte-advqk7");
-      attr(button1, "class", "svelte-advqk7");
+      attr(div0, "class", "title svelte-lt0ixy");
+      attr(div1, "class", "info svelte-lt0ixy");
+      attr(div2, "class", "info svelte-lt0ixy");
+      attr(div3, "class", "githubButton");
+      attr(button0, "class", "svelte-lt0ixy");
+      attr(a1, "id", "downloadAnchorElem");
+      set_style(a1, "display", "none");
+      attr(div4, "class", "exportAllData");
+      attr(button1, "class", "svelte-lt0ixy");
       attr(input0, "id", "importDataInput");
       attr(input0, "type", "file");
       set_style(input0, "display", "none");
-      attr(div2, "class", "importData svelte-advqk7");
-      attr(div3, "class", "info svelte-advqk7");
-      attr(button2, "class", "svelte-advqk7");
-      attr(div4, "class", "showHideSearch svelte-advqk7");
-      attr(button3, "class", "svelte-advqk7");
-      attr(div5, "class", "showHideSummer svelte-advqk7");
-      attr(button4, "class", "svelte-advqk7");
-      attr(div6, "class", "clearContainer svelte-advqk7");
-      attr(div7, "class", "header svelte-advqk7");
-      attr(div8, "class", "courseTableDataCheckboxes svelte-advqk7");
-      attr(div9, "class", "header svelte-advqk7");
-      attr(select0, "class", "svelte-advqk7");
-      attr(input1, "class", "transferUnitUnits svelte-advqk7");
+      attr(div5, "class", "importData");
+      attr(button2, "class", "svelte-lt0ixy");
+      attr(div6, "class", "showHideSearch");
+      attr(button3, "class", "svelte-lt0ixy");
+      attr(div7, "class", "showHideSummer");
+      attr(button4, "class", "svelte-lt0ixy");
+      attr(div8, "class", "clearContainer");
+      attr(div9, "class", "buttonContainer svelte-lt0ixy");
+      attr(div10, "class", "header svelte-lt0ixy");
+      attr(div11, "class", "courseTableDataCheckboxes svelte-lt0ixy");
+      attr(div12, "class", "header svelte-lt0ixy");
+      attr(select0, "class", "svelte-lt0ixy");
+      attr(input1, "class", "transferUnitUnits svelte-lt0ixy");
       attr(input1, "type", "number");
       attr(input1, "placeholder", "Transfer unit units");
-      attr(div10, "class", "transferUnits svelte-advqk7");
-      attr(div11, "class", "info svelte-advqk7");
-      attr(div12, "class", "header svelte-advqk7");
-      attr(select1, "class", "svelte-advqk7");
-      attr(div13, "class", "bachelorsDegreeDropdown");
-      attr(div14, "class", "info svelte-advqk7");
-      attr(div15, "class", "info svelte-advqk7");
-      attr(div16, "class", "degreeCheckerConfig svelte-advqk7");
-      attr(div17, "class", "content svelte-advqk7");
+      attr(div13, "class", "transferUnits svelte-lt0ixy");
+      attr(div14, "class", "info svelte-lt0ixy");
+      attr(div15, "class", "header svelte-lt0ixy");
+      attr(select1, "class", "degreeDropdown svelte-lt0ixy");
+      attr(div16, "class", "bachelorsDegreeDropdown svelte-lt0ixy");
+      attr(select2, "class", "degreeDropdown svelte-lt0ixy");
+      attr(div17, "class", "bachelorsDegreeDropdown svelte-lt0ixy");
+      attr(div18, "class", "info svelte-lt0ixy");
+      attr(div19, "class", "info svelte-lt0ixy");
+      attr(div20, "class", "degreeCheckerConfig svelte-lt0ixy");
+      attr(div21, "class", "content svelte-lt0ixy");
     },
     m(target, anchor) {
-      var _a;
-      insert_hydration(target, div17, anchor);
-      append_hydration(div17, div0);
-      append_hydration(div17, t1);
-      append_hydration(div17, div1);
-      append_hydration(div1, button0);
-      append_hydration(div1, t3);
-      append_hydration(div1, a0);
-      append_hydration(div17, t4);
-      append_hydration(div17, div2);
-      append_hydration(div2, button1);
-      append_hydration(div2, t6);
-      append_hydration(div2, input0);
-      append_hydration(div17, t7);
-      append_hydration(div17, div3);
-      append_hydration(div17, t9);
-      append_hydration(div17, div4);
-      append_hydration(div4, button2);
+      var _a, _b;
+      insert_hydration(target, div21, anchor);
+      append_hydration(div21, div0);
+      append_hydration(div21, t1);
+      append_hydration(div21, div1);
+      append_hydration(div21, t3);
+      append_hydration(div21, div2);
+      append_hydration(div21, t5);
+      append_hydration(div21, div9);
+      append_hydration(div9, div3);
+      append_hydration(div9, t7);
+      append_hydration(div9, div4);
+      append_hydration(div4, button0);
+      append_hydration(div4, t9);
+      append_hydration(div4, a1);
+      append_hydration(div9, t10);
+      append_hydration(div9, div5);
+      append_hydration(div5, button1);
+      append_hydration(div5, t12);
+      append_hydration(div5, input0);
+      append_hydration(div9, t13);
+      append_hydration(div9, div6);
+      append_hydration(div6, button2);
       if_block0.m(button2, null);
-      append_hydration(div17, t10);
-      append_hydration(div17, div5);
-      append_hydration(div5, button3);
+      append_hydration(div9, t14);
+      append_hydration(div9, div7);
+      append_hydration(div7, button3);
       if_block1.m(button3, null);
-      append_hydration(div17, t11);
-      append_hydration(div17, div6);
-      append_hydration(div6, button4);
-      append_hydration(div6, t13);
+      append_hydration(div9, t15);
+      append_hydration(div9, div8);
+      append_hydration(div8, button4);
+      append_hydration(div8, t17);
       if (if_block2)
-        if_block2.m(div6, null);
-      append_hydration(div17, t14);
-      append_hydration(div17, div7);
-      append_hydration(div17, t16);
-      append_hydration(div17, div8);
+        if_block2.m(div8, null);
+      append_hydration(div21, t18);
+      append_hydration(div21, div10);
+      append_hydration(div21, t20);
+      append_hydration(div21, div11);
+      for (let i = 0; i < each_blocks_3.length; i += 1) {
+        if (each_blocks_3[i]) {
+          each_blocks_3[i].m(div11, null);
+        }
+      }
+      append_hydration(div21, t21);
+      append_hydration(div21, div13);
+      append_hydration(div13, div12);
+      append_hydration(div13, t23);
+      append_hydration(div13, select0);
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         if (each_blocks_2[i]) {
-          each_blocks_2[i].m(div8, null);
+          each_blocks_2[i].m(select0, null);
         }
       }
-      append_hydration(div17, t17);
-      append_hydration(div17, div10);
-      append_hydration(div10, div9);
-      append_hydration(div10, t19);
-      append_hydration(div10, select0);
-      for (let i = 0; i < each_blocks_1.length; i += 1) {
-        if (each_blocks_1[i]) {
-          each_blocks_1[i].m(select0, null);
-        }
-      }
-      append_hydration(div10, t20);
-      append_hydration(div10, input1);
+      append_hydration(div13, t24);
+      append_hydration(div13, input1);
       set_input_value(
         input1,
         /*$prefs*/
-        ctx[4].transferUnits[
+        ctx[5].transferUnits[
           /*selectedTransferUnit*/
           ctx[1]
         ].value
       );
-      append_hydration(div17, t21);
-      append_hydration(div17, div11);
-      append_hydration(div17, t23);
-      append_hydration(div17, div16);
-      append_hydration(div16, div12);
-      append_hydration(div16, t25);
-      append_hydration(div16, div13);
-      append_hydration(div13, select1);
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        if (each_blocks[i]) {
-          each_blocks[i].m(select1, null);
+      append_hydration(div21, t25);
+      append_hydration(div21, div14);
+      append_hydration(div21, t27);
+      append_hydration(div21, div20);
+      append_hydration(div20, div15);
+      append_hydration(div20, t29);
+      append_hydration(div20, div16);
+      append_hydration(div16, select1);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        if (each_blocks_1[i]) {
+          each_blocks_1[i].m(select1, null);
         }
       }
       select_option(
         select1,
         //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
         /*$bachelorsDegreeChoices*/
-        (_a = ctx[5].find(
+        (_a = ctx[6].find(
           /*func*/
-          ctx[20]
+          ctx[22]
         )) == null ? void 0 : _a.uniqueID
       );
-      append_hydration(div16, t26);
-      append_hydration(div16, div14);
-      append_hydration(div16, t28);
-      append_hydration(div16, div15);
+      append_hydration(div20, t30);
+      append_hydration(div20, div17);
+      append_hydration(div17, select2);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(select2, null);
+        }
+      }
+      select_option(
+        select2,
+        //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+        /*$mastersDegreeChoices*/
+        (_b = ctx[7].find(
+          /*func_1*/
+          ctx[24]
+        )) == null ? void 0 : _b.uniqueID
+      );
+      append_hydration(div20, t31);
+      append_hydration(div20, div18);
+      append_hydration(div20, t33);
+      append_hydration(div20, div19);
       if (!mounted) {
         dispose = [
           listen(
             button0,
             "click",
             /*downloadData*/
-            ctx[7]
+            ctx[9]
           ),
           listen(
             button1,
             "click",
             /*click_handler*/
-            ctx[9]
+            ctx[11]
           ),
           listen(
             input0,
             "change",
             /*importData*/
-            ctx[8]
+            ctx[10]
           ),
           listen(
             button2,
             "click",
             /*click_handler_1*/
-            ctx[10]
+            ctx[12]
           ),
           listen(
             button3,
             "click",
             /*click_handler_2*/
-            ctx[11]
+            ctx[13]
           ),
           listen(
             button4,
             "click",
             /*click_handler_3*/
-            ctx[12]
+            ctx[14]
           ),
           listen(
             select0,
             "change",
             /*change_handler_1*/
-            ctx[17]
+            ctx[19]
           ),
           listen(
             input1,
             "input",
             /*input1_input_handler*/
-            ctx[18]
+            ctx[20]
           ),
           listen(
             input1,
             "change",
             /*change_handler_2*/
-            ctx[19]
+            ctx[21]
           ),
           listen(
             select1,
             "change",
             /*change_handler_3*/
-            ctx[21]
+            ctx[23]
+          ),
+          listen(
+            select2,
+            "change",
+            /*change_handler_4*/
+            ctx[25]
           )
         ];
         mounted = true;
       }
     },
     p(ctx2, dirty) {
-      var _a, _b;
+      var _a, _b, _c, _d;
       if (current_block_type !== (current_block_type = select_block_type(ctx2))) {
         if_block0.d(1);
         if_block0 = current_block_type(ctx2);
@@ -16346,18 +16686,40 @@ function create_fragment$3(ctx) {
         } else {
           if_block2 = create_if_block$3(ctx2);
           if_block2.c();
-          if_block2.m(div6, null);
+          if_block2.m(div8, null);
         }
       } else if (if_block2) {
         if_block2.d(1);
         if_block2 = null;
       }
       if (dirty[0] & /*$prefs*/
-      16) {
-        each_value_2 = ensure_array_like(Object.keys(
+      32) {
+        each_value_3 = ensure_array_like(Object.keys(
           /*$prefs*/
-          ctx2[4].courseTableData
+          ctx2[5].courseTableData
         ));
+        let i;
+        for (i = 0; i < each_value_3.length; i += 1) {
+          const child_ctx = get_each_context_3(ctx2, each_value_3, i);
+          if (each_blocks_3[i]) {
+            each_blocks_3[i].p(child_ctx, dirty);
+          } else {
+            each_blocks_3[i] = create_each_block_3(child_ctx);
+            each_blocks_3[i].c();
+            each_blocks_3[i].m(div11, null);
+          }
+        }
+        for (; i < each_blocks_3.length; i += 1) {
+          each_blocks_3[i].d(1);
+        }
+        each_blocks_3.length = each_value_3.length;
+      }
+      if (dirty[0] & /*$prefs*/
+      32) {
+        each_value_2 = ensure_array_like(
+          /*$prefs*/
+          ctx2[5].transferUnits
+        );
         let i;
         for (i = 0; i < each_value_2.length; i += 1) {
           const child_ctx = get_each_context_2(ctx2, each_value_2, i);
@@ -16366,7 +16728,7 @@ function create_fragment$3(ctx) {
           } else {
             each_blocks_2[i] = create_each_block_2(child_ctx);
             each_blocks_2[i].c();
-            each_blocks_2[i].m(div8, null);
+            each_blocks_2[i].m(select0, null);
           }
         }
         for (; i < each_blocks_2.length; i += 1) {
@@ -16374,11 +16736,26 @@ function create_fragment$3(ctx) {
         }
         each_blocks_2.length = each_value_2.length;
       }
-      if (dirty[0] & /*$prefs*/
-      16) {
-        each_value_1 = ensure_array_like(
+      if (dirty[0] & /*$prefs, selectedTransferUnit*/
+      34 && to_number(input1.value) !== /*$prefs*/
+      ctx2[5].transferUnits[
+        /*selectedTransferUnit*/
+        ctx2[1]
+      ].value) {
+        set_input_value(
+          input1,
           /*$prefs*/
-          ctx2[4].transferUnits
+          ctx2[5].transferUnits[
+            /*selectedTransferUnit*/
+            ctx2[1]
+          ].value
+        );
+      }
+      if (dirty[0] & /*$bachelorsDegreeChoices*/
+      64) {
+        each_value_1 = ensure_array_like(
+          /*$bachelorsDegreeChoices*/
+          ctx2[6]
         );
         let i;
         for (i = 0; i < each_value_1.length; i += 1) {
@@ -16388,7 +16765,7 @@ function create_fragment$3(ctx) {
           } else {
             each_blocks_1[i] = create_each_block_1(child_ctx);
             each_blocks_1[i].c();
-            each_blocks_1[i].m(select0, null);
+            each_blocks_1[i].m(select1, null);
           }
         }
         for (; i < each_blocks_1.length; i += 1) {
@@ -16396,26 +16773,28 @@ function create_fragment$3(ctx) {
         }
         each_blocks_1.length = each_value_1.length;
       }
-      if (dirty[0] & /*$prefs, selectedTransferUnit*/
-      18 && to_number(input1.value) !== /*$prefs*/
-      ctx2[4].transferUnits[
-        /*selectedTransferUnit*/
-        ctx2[1]
-      ].value) {
-        set_input_value(
-          input1,
-          /*$prefs*/
-          ctx2[4].transferUnits[
-            /*selectedTransferUnit*/
-            ctx2[1]
-          ].value
+      if (dirty[0] & /*$bachelorsDegreeChoices, $bachelorsDegreeChoice*/
+      72 && select1_value_value !== (select1_value_value = //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+      /*$bachelorsDegreeChoices*/
+      (_a = ctx2[6].find(
+        /*func*/
+        ctx2[22]
+      )) == null ? void 0 : _a.uniqueID)) {
+        select_option(
+          select1,
+          //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+          /*$bachelorsDegreeChoices*/
+          (_b = ctx2[6].find(
+            /*func*/
+            ctx2[22]
+          )) == null ? void 0 : _b.uniqueID
         );
       }
-      if (dirty[0] & /*$bachelorsDegreeChoices*/
-      32) {
+      if (dirty[0] & /*$mastersDegreeChoices*/
+      128) {
         each_value = ensure_array_like(
-          /*$bachelorsDegreeChoices*/
-          ctx2[5]
+          /*$mastersDegreeChoices*/
+          ctx2[7]
         );
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -16425,7 +16804,7 @@ function create_fragment$3(ctx) {
           } else {
             each_blocks[i] = create_each_block(child_ctx);
             each_blocks[i].c();
-            each_blocks[i].m(select1, null);
+            each_blocks[i].m(select2, null);
           }
         }
         for (; i < each_blocks.length; i += 1) {
@@ -16433,21 +16812,21 @@ function create_fragment$3(ctx) {
         }
         each_blocks.length = each_value.length;
       }
-      if (dirty[0] & /*$bachelorsDegreeChoices, $bachelorsDegreeChoice*/
-      36 && select1_value_value !== (select1_value_value = //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
-      /*$bachelorsDegreeChoices*/
-      (_a = ctx2[5].find(
-        /*func*/
-        ctx2[20]
-      )) == null ? void 0 : _a.uniqueID)) {
+      if (dirty[0] & /*$mastersDegreeChoices, $mastersDegreeChoice*/
+      132 && select2_value_value !== (select2_value_value = //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+      /*$mastersDegreeChoices*/
+      (_c = ctx2[7].find(
+        /*func_1*/
+        ctx2[24]
+      )) == null ? void 0 : _c.uniqueID)) {
         select_option(
-          select1,
+          select2,
           //Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
-          /*$bachelorsDegreeChoices*/
-          (_b = ctx2[5].find(
-            /*func*/
-            ctx2[20]
-          )) == null ? void 0 : _b.uniqueID
+          /*$mastersDegreeChoices*/
+          (_d = ctx2[7].find(
+            /*func_1*/
+            ctx2[24]
+          )) == null ? void 0 : _d.uniqueID
         );
       }
     },
@@ -16455,12 +16834,13 @@ function create_fragment$3(ctx) {
     o: noop,
     d(detaching) {
       if (detaching) {
-        detach(div17);
+        detach(div21);
       }
       if_block0.d();
       if_block1.d();
       if (if_block2)
         if_block2.d();
+      destroy_each(each_blocks_3, detaching);
       destroy_each(each_blocks_2, detaching);
       destroy_each(each_blocks_1, detaching);
       destroy_each(each_blocks, detaching);
@@ -16481,17 +16861,19 @@ function instance$4($$self, $$props, $$invalidate) {
   let $showWelcomeModalOnLoad;
   let $prefs;
   let $bachelorsDegreeChoices;
-  component_subscribe($$self, courseTable, ($$value) => $$invalidate(22, $courseTable = $$value));
-  component_subscribe($$self, allCourses, ($$value) => $$invalidate(23, $allCourses = $$value));
-  component_subscribe($$self, compressedTable, ($$value) => $$invalidate(24, $compressedTable = $$value));
-  component_subscribe($$self, quarters, ($$value) => $$invalidate(25, $quarters = $$value));
-  component_subscribe($$self, years, ($$value) => $$invalidate(26, $years = $$value));
-  component_subscribe($$self, mastersDegreeChoice, ($$value) => $$invalidate(27, $mastersDegreeChoice = $$value));
-  component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(2, $bachelorsDegreeChoice = $$value));
-  component_subscribe($$self, panelCollapsed, ($$value) => $$invalidate(3, $panelCollapsed = $$value));
-  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(28, $showWelcomeModalOnLoad = $$value));
-  component_subscribe($$self, prefs, ($$value) => $$invalidate(4, $prefs = $$value));
-  component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(5, $bachelorsDegreeChoices = $$value));
+  let $mastersDegreeChoices;
+  component_subscribe($$self, courseTable, ($$value) => $$invalidate(26, $courseTable = $$value));
+  component_subscribe($$self, allCourses, ($$value) => $$invalidate(27, $allCourses = $$value));
+  component_subscribe($$self, compressedTable, ($$value) => $$invalidate(28, $compressedTable = $$value));
+  component_subscribe($$self, quarters, ($$value) => $$invalidate(29, $quarters = $$value));
+  component_subscribe($$self, years, ($$value) => $$invalidate(30, $years = $$value));
+  component_subscribe($$self, mastersDegreeChoice, ($$value) => $$invalidate(2, $mastersDegreeChoice = $$value));
+  component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(3, $bachelorsDegreeChoice = $$value));
+  component_subscribe($$self, panelCollapsed, ($$value) => $$invalidate(4, $panelCollapsed = $$value));
+  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(31, $showWelcomeModalOnLoad = $$value));
+  component_subscribe($$self, prefs, ($$value) => $$invalidate(5, $prefs = $$value));
+  component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(6, $bachelorsDegreeChoices = $$value));
+  component_subscribe($$self, mastersDegreeChoices, ($$value) => $$invalidate(7, $mastersDegreeChoices = $$value));
   function clearCourses() {
     let coursesObj = [];
     for (let i = 0; i < $years.length; i++) {
@@ -16632,13 +17014,19 @@ function instance$4($$self, $$props, $$invalidate) {
   const change_handler_3 = (e) => {
     set_store_value(bachelorsDegreeChoice, $bachelorsDegreeChoice = e.target.value, $bachelorsDegreeChoice);
   };
+  const func_1 = (choice) => choice.uniqueID === $mastersDegreeChoice;
+  const change_handler_4 = (e) => {
+    set_store_value(mastersDegreeChoice, $mastersDegreeChoice = e.target.value, $mastersDegreeChoice);
+  };
   return [
     showClearCoursesModal,
     selectedTransferUnit,
+    $mastersDegreeChoice,
     $bachelorsDegreeChoice,
     $panelCollapsed,
     $prefs,
     $bachelorsDegreeChoices,
+    $mastersDegreeChoices,
     clearCourses,
     downloadData,
     importData,
@@ -16654,7 +17042,9 @@ function instance$4($$self, $$props, $$invalidate) {
     input1_input_handler,
     change_handler_2,
     func,
-    change_handler_3
+    change_handler_3,
+    func_1,
+    change_handler_4
   ];
 }
 class ConfigPanel extends SvelteComponent {
@@ -16864,7 +17254,7 @@ class OnStartInfoModal extends SvelteComponent {
     init(this, options, instance$3, create_fragment$2, safe_not_equal, {});
   }
 }
-let degree$E = {
+let degree$N = {
   "degree": "No Degree Selected",
   "level": "undergraduate",
   "year": 2023,
@@ -16872,7 +17262,7 @@ let degree$E = {
   "lookuptables": {},
   "requirements": []
 };
-let degree$D = {
+let degree$M = {
   "degree": "B.S. BioE",
   "level": "undergraduate",
   "year": 2023,
@@ -17054,7 +17444,7 @@ let degree$D = {
     }
   ]
 };
-let degree$C = {
+let degree$L = {
   "degree": "B.S. Biology (General)",
   "level": "undergraduate",
   "year": 2023,
@@ -17235,7 +17625,7 @@ let degree$C = {
     }
   ]
 };
-let degree$B = {
+let degree$K = {
   "degree": "B.S. Computer Science (AI)",
   "level": "undergraduate",
   "year": 2023,
@@ -17468,7 +17858,7 @@ let degree$B = {
     }
   ]
 };
-let degree$A = {
+let degree$J = {
   "degree": "B.S. Computer Science (Biocomp)",
   "level": "undergraduate",
   "year": 2023,
@@ -17701,7 +18091,7 @@ let degree$A = {
     }
   ]
 };
-let degree$z = {
+let degree$I = {
   "degree": "B.S. Computer Science (Comp Eng)",
   "level": "undergraduate",
   "year": 2023,
@@ -17933,7 +18323,7 @@ let degree$z = {
     }
   ]
 };
-let degree$y = {
+let degree$H = {
   "degree": "B.S. Computer Science (Graphics)",
   "level": "undergraduate",
   "year": 2023,
@@ -18153,7 +18543,7 @@ let degree$y = {
     }
   ]
 };
-let degree$x = {
+let degree$G = {
   "degree": "B.S. Computer Science (HCI)",
   "level": "undergraduate",
   "year": 2023,
@@ -18390,7 +18780,7 @@ let degree$x = {
     }
   ]
 };
-let degree$w = {
+let degree$F = {
   "degree": "B.S. Computer Science (Information)",
   "level": "undergraduate",
   "year": 2023,
@@ -18612,7 +19002,7 @@ let degree$w = {
     }
   ]
 };
-let degree$v = {
+let degree$E = {
   "degree": "B.S. Computer Science (Systems)",
   "level": "undergraduate",
   "year": 2023,
@@ -18833,7 +19223,7 @@ let degree$v = {
     }
   ]
 };
-let degree$u = {
+let degree$D = {
   "degree": "B.S. Computer Science (Theory)",
   "level": "undergraduate",
   "year": 2023,
@@ -19054,7 +19444,7 @@ let degree$u = {
     }
   ]
 };
-let degree$t = {
+let degree$C = {
   "degree": "B.S. Computer Science (Unspecialized)",
   "level": "undergraduate",
   "year": 2023,
@@ -19281,7 +19671,7 @@ let degree$t = {
     }
   ]
 };
-let degree$s = {
+let degree$B = {
   "degree": "B.A. Economics",
   "level": "undergraduate",
   "year": 2023,
@@ -19359,7 +19749,7 @@ let degree$s = {
     }
   ]
 };
-let degree$r = {
+let degree$A = {
   "degree": "B.A. English (Literature)",
   "level": "undergraduate",
   "year": 2023,
@@ -19414,7 +19804,7 @@ let degree$r = {
     }
   ]
 };
-let degree$q = {
+let degree$z = {
   "degree": "B.A. Humbio",
   "level": "undergraduate",
   "year": 2023,
@@ -19516,7 +19906,7 @@ let degree$q = {
     }
   ]
 };
-let degree$p = {
+let degree$y = {
   "degree": "B.S. Humbio",
   "level": "undergraduate",
   "year": 2023,
@@ -19604,7 +19994,7 @@ let degree$p = {
     }
   ]
 };
-let degree$o = {
+let degree$x = {
   "degree": "B.A. International Relations",
   "level": "undergraduate",
   "year": 2023,
@@ -19714,7 +20104,7 @@ let degree$o = {
     }
   ]
 };
-let degree$n = {
+let degree$w = {
   "degree": "B.S. Mathematics",
   "level": "undergraduate",
   "year": 2023,
@@ -19841,7 +20231,7 @@ let degree$n = {
     }
   ]
 };
-let degree$m = {
+let degree$v = {
   "degree": "B.S. MechE (Dynamic Systems)",
   "level": "undergraduate",
   "year": 2023,
@@ -20081,7 +20471,7 @@ let degree$m = {
     }
   ]
 };
-let degree$l = {
+let degree$u = {
   "degree": "B.S. MechE (Materials)",
   "level": "undergraduate",
   "year": 2023,
@@ -20321,7 +20711,7 @@ let degree$l = {
     }
   ]
 };
-let degree$k = {
+let degree$t = {
   "degree": "B.S. MechE (Product Realization)",
   "level": "undergraduate",
   "year": 2023,
@@ -20561,7 +20951,7 @@ let degree$k = {
     }
   ]
 };
-let degree$j = {
+let degree$s = {
   "degree": "B.S. MechE (Thermo, Fluids, Heat)",
   "level": "undergraduate",
   "year": 2023,
@@ -20801,7 +21191,7 @@ let degree$j = {
     }
   ]
 };
-let degree$i = {
+let degree$r = {
   "degree": "B.S. MS&E",
   "level": "undergraduate",
   "year": 2023,
@@ -20948,7 +21338,7 @@ let degree$i = {
     }
   ]
 };
-let degree$h = {
+let degree$q = {
   "degree": "B.A. Political Science",
   "level": "undergraduate",
   "year": 2023,
@@ -21030,7 +21420,7 @@ let degree$h = {
     }
   ]
 };
-let degree$g = {
+let degree$p = {
   "degree": "B.A. Psychology",
   "level": "undergraduate",
   "year": 2023,
@@ -21093,7 +21483,7 @@ let degree$g = {
     }
   ]
 };
-let degree$f = {
+let degree$o = {
   "degree": "B.S. SymSys (AI)",
   "level": "undergraduate",
   "year": 2023,
@@ -21343,7 +21733,7 @@ let degree$f = {
     }
   ]
 };
-let degree$e = {
+let degree$n = {
   "degree": "B.S. SymSys (Applied Logic)",
   "level": "undergraduate",
   "year": 2023,
@@ -21598,7 +21988,7 @@ let degree$e = {
     }
   ]
 };
-let degree$d = {
+let degree$m = {
   "degree": "B.S. SymSys (Biomed)",
   "level": "undergraduate",
   "year": 2023,
@@ -21853,7 +22243,7 @@ let degree$d = {
     }
   ]
 };
-let degree$c = {
+let degree$l = {
   "degree": "B.S. SymSys (Cog Sci)",
   "level": "undergraduate",
   "year": 2023,
@@ -22108,7 +22498,7 @@ let degree$c = {
     }
   ]
 };
-let degree$b = {
+let degree$k = {
   "degree": "B.S. SymSys (Comp Found)",
   "level": "undergraduate",
   "year": 2023,
@@ -22363,7 +22753,7 @@ let degree$b = {
     }
   ]
 };
-let degree$a = {
+let degree$j = {
   "degree": "B.S. SymSys (Comp Soc Sci)",
   "level": "undergraduate",
   "year": 2023,
@@ -22618,7 +23008,7 @@ let degree$a = {
     }
   ]
 };
-let degree$9 = {
+let degree$i = {
   "degree": "B.S. SymSys (Computer Music)",
   "level": "undergraduate",
   "year": 2023,
@@ -22873,7 +23263,7 @@ let degree$9 = {
     }
   ]
 };
-let degree$8 = {
+let degree$h = {
   "degree": "B.S. SymSys (Decision Making)",
   "level": "undergraduate",
   "year": 2023,
@@ -23128,7 +23518,7 @@ let degree$8 = {
     }
   ]
 };
-let degree$7 = {
+let degree$g = {
   "degree": "B.S. SymSys (HCI)",
   "level": "undergraduate",
   "year": 2023,
@@ -23383,7 +23773,7 @@ let degree$7 = {
     }
   ]
 };
-let degree$6 = {
+let degree$f = {
   "degree": "B.S. SymSys (Human-Centered AI)",
   "level": "undergraduate",
   "year": 2023,
@@ -23638,7 +24028,7 @@ let degree$6 = {
     }
   ]
 };
-let degree$5 = {
+let degree$e = {
   "degree": "B.S. SymSys (Learning)",
   "level": "undergraduate",
   "year": 2023,
@@ -23888,7 +24278,7 @@ let degree$5 = {
     }
   ]
 };
-let degree$4 = {
+let degree$d = {
   "degree": "B.S. SymSys (Math)",
   "level": "undergraduate",
   "year": 2023,
@@ -24138,7 +24528,7 @@ let degree$4 = {
     }
   ]
 };
-let degree$3 = {
+let degree$c = {
   "degree": "B.S. SymSys (Media & Comm)",
   "level": "undergraduate",
   "year": 2023,
@@ -24393,7 +24783,7 @@ let degree$3 = {
     }
   ]
 };
-let degree$2 = {
+let degree$b = {
   "degree": "B.S. SymSys (Natural Language)",
   "level": "undergraduate",
   "year": 2023,
@@ -24634,7 +25024,7 @@ let degree$2 = {
     }
   ]
 };
-let degree$1 = {
+let degree$a = {
   "degree": "B.S. SymSys (Neuroscience)",
   "level": "undergraduate",
   "year": 2023,
@@ -24876,7 +25266,7 @@ let degree$1 = {
     }
   ]
 };
-let degree = {
+let degree$9 = {
   "degree": "B.S. SymSys (Phil Foundations)",
   "level": "undergraduate",
   "year": 2023,
@@ -25131,12 +25521,1234 @@ let degree = {
     }
   ]
 };
+let degree$8 = {
+  "degree": "M.S. Computer Science (AI)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_AI",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 221"],
+    "Depth B": ["CS 223A", "CS 224N", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 228", "CS 229", "CS 231A", "CS 231N", "CS 234", "CS 237A", "CS 237B", "CS 238"],
+    "Depth C": ["CS 205L", "CS 224R", "CS 225A", "CS 227B", "CS 229M", "CS 230", "CS 233", "CS 235", "CS 236", "CS 239", "CS 246", "CS 257", "CS 270", "CS 271", "CS 273A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 322", "CS 324", "CS 325B", "CS 326", "CS 327A", "CS 329[A-Z]?", "CS 330", "CS 331B", "CS 332", "CS 333", "CS 345", "CS 348N", "CS 361", "CS 368", "CS 371", "CS 375", "CS 377[A-Z]?", "CS 379[A-Z]?", "CS 398", "CS 399", "CS 428A", "CS 428B", "CS 432", "EE 263", "EE 276", "EE 278", "EE 364A", "EE 364B", "EE 377", "EE 378B", "ENGR 205", "ENGR 209A", "MS&E 226", "MS&E 252", "PSYCH 209", "STATS 202", "STATS 315A", "STATS 315B"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A"
+        },
+        {
+          "lut": "Depth B",
+          "amount": 4
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C"]
+        }
+      ]
+    }
+  ]
+};
+let degree$7 = {
+  "degree": "M.S. Computer Science (Biocomp)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_Biocomp",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS [12]73A"],
+    "Depth B": ["CS 221"],
+    "Depth C": ["CS 142", "CS 147L", "CS 193X", "CS 145", "CS 246", "CS 448B"],
+    "Depth D": ["CS 279", "CS 371", "BIOMEDIN 210", "BIOMEDIN 214", "BIOMEDIN 215", "BIOMEDIN 217", "BIOMEDIN 219", "BIOMEDIN 220", "BIOMEDIN 222", "BIOMEDIN 260", "CS 273B", "IMMUNOL 207"],
+    "Depth E": ["CS 124", "CS 131", "CS 147", "CS 148", "CS 154", "CS 166", "CS 168", "CS 185", "CS 224N", "CS 224W", "CS 228", "CS 229", "CS 229B", "CS 229S", "CS 229T", "CS 230", "CS 231N", "CS 234", "CS 238", "CS 248/248A", "CS 353", "CS 399", "BIO 183", "BIO 187", "STATS 215", "STATS 256"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A"
+        },
+        {
+          "lut": "Depth B"
+        },
+        {
+          "lut": "Depth C",
+          "amount": 2
+        },
+        {
+          "lut": "Depth D",
+          "amount": 3
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C", "Depth D", "Depth E"]
+        }
+      ]
+    }
+  ]
+};
+let degree$6 = {
+  "degree": "M.S. Computer Science (HCI)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_HCI",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 147", "CS 247[A-Z]?", "CS 347", "CS 142", "CS 147L"],
+    "Depth B": ["CS 278", "CS 448B"],
+    "Depth C": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 224C", "CS 247[A-Z]?", "CS 329X", "CS 377[A-Z]?"],
+    "Depth D": ["ARTSTUD 130", "ARTSTUD 163", "ARTSTUD 165A", "ARTSTUD 169A", "ARTSTUD 231A", "COMM 224", "COMM 272", "COMM 324", "ME 115A", "ME 115C", "ME 216A", "COMM 254", "COMM 314", "EDUC 200B", "MS&E 125", "PSYCH 251", "PSYCH 252", "PSYCH 253", "STATS 203", "CS 498C", "EDUC 281", "EDUC 342", "EDUC 432", "MS&E 184", "MS&E 231", "MS&E 334", "ME 203", "ME 210", "ME 216A", "MUSIC 220A", "MUSIC 220B", "MUSIC 220C", "MUSIC 250A", "MUSIC 256A", "PSYCH 204", "PSYCH 209", "SYMSYS 245", "DESIGN 204", "DESIGN 292", "DESIGN 231", "DESIGN 236P", "DESIGN 240", "LAW 809E", "DESIGN 283Q", "DESIGN 262", "DESIGN 315", "DESIGN 259", "DESIGN 282", "DESIGN 276", "ME 206[AB]", "ENGR 231", "DESIGN 294", "DESIGN 268", "DESIGN 399", "DESIGN 368", "DESIGN 245", "DESIGN 265", "DESIGN 284", "DESIGN 287", "DESIGN 261", "DESIGN 187N", "DESIGN 255", "DESIGN 273", "DESIGN 251", "DESIGN 204"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A"
+        },
+        {
+          "lut": "Depth B"
+        },
+        {
+          "lutList": ["Depth B", "Depth C"],
+          "amount": 2
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C", "Depth D"]
+        }
+      ]
+    }
+  ]
+};
+let degree$5 = {
+  "degree": "M.S. Computer Science (Information)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_Information",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 145"],
+    "Depth B": ["CS 224N", "CS 224W", "CS 229", "CS 245", "CS 246", "CS 263", "CS 281"],
+    "Depth C": ["CS 125", "CS 144", "CS 151", "CS 190", "CS 221", "CS 224S", "CS 224U", "CS 224V", "CS 228", "CS 229B", "CS 229M", "CS 229S", "CS 230", "CS 231A", "CS 231N", "CS 233", "CS 234", "CS 236", "CS 238", "CS 240", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 251", "CS 255", "CS 261", "CS 265", "CS 270", "CS 271", "CS 272", "CS [12]73A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 320", "CS 324", "CS 325B", "CS 329H", "CS 329S", "CS 329X", "CS 349D", "CS 349H", "CS 399", "MS&E 226", "STATS 315A", "STATS 315B"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A"
+        },
+        {
+          "lut": "Depth B",
+          "amount": 4
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C"]
+        }
+      ]
+    }
+  ]
+};
+let degree$4 = {
+  "degree": "M.S. Computer Science (Security)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_Security",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 140", "CS 212", "CS 140E", "CS 112", "CS 144", "CS 155", "CS 255", "CS 356"],
+    "Depth B": ["CS 142", "CS 152", "CS 190", "CS 240[A-Z]?", "CS 244", "CS 244B", "CS 249I", "CS 253", "CS 261", "CS 265", "CS 340[A-Z]?", "CS 355"],
+    "Depth C": ["CS 245", "CS 251", "CS 294S", "CS 399", "EE 384S"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A",
+          "amount": 5
+        },
+        {
+          "lut": "Depth B",
+          "amount": 3
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C"]
+        }
+      ]
+    }
+  ]
+};
+let degree$3 = {
+  "degree": "M.S. Computer Science (Software Theory)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_SoftwareTheory",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 242", "CS 243"],
+    "Depth B": ["CS 221", "CS 244", "CS 245", "CS 341"],
+    "Depth C": ["CS 255", "CS 350", "CS 355", "CS 356"],
+    "Depth D": ["CS 151", "CS 250", "CS 261", "CS 265", "CS 294S", "CS 295", "CS 315B", "CS 349H", "CS 357", "CS 357S", "CS 399"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A",
+          "amount": 2
+        },
+        {
+          "lut": "Depth B"
+        },
+        {
+          "lut": "Depth C"
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C", "Depth D"]
+        }
+      ]
+    }
+  ]
+};
+let degree$2 = {
+  "degree": "M.S. Computer Science (Systems)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_Systems",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 140", "CS 212", "CS 140E", "CS 112", "CS 112E", "CS 144", "CS 240"],
+    "Depth B": ["CS 190", "CS 242", "CS 243", "CS 244", "CS 245", "CS 248", "CS 248A", "CS 348B", "EE 271", "EE 282"],
+    "Depth C": ["CS 149", "CS 217", "CS 229S", "CS 241", "CS 244B", "CS 246", "CS 251", "CS 255", "CS 270", "CS 272", "CS 294S", "CS 295", "CS 315B", "CS 316", "CS 340[A-Z]?", "CS 343D", "CS 344[A-Z]?", "CS 348[A-Z]?", "CS 349[A-Z]?", "CS 356", "CS 357S", "CS 399", "CS 448[A-Z]?", "EE 267", "EE 273", "EE 382C", "EE 384A", "EE 384C", "EE 384S"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A",
+          "amount": 3
+        },
+        {
+          "lut": "Depth B",
+          "amount": 4
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C"]
+        }
+      ]
+    }
+  ]
+};
+let degree$1 = {
+  "degree": "M.S. Computer Science (Theory)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_Theory",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 154", "CS 261"],
+    "Depth B": ["CS 151", "CS 163", "CS 166", "CS 168", "CS 228", "CS 229T", "CS 233", "CS 236", "CS 246", "CS 250", "CS 251", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 263", "CS 265", "CS 269I", "CS 328", "CS 331", "CS 351", "CS 354", "CS 355", "CS 358", "CS 359[A-Z]?", "CS 368", "CS 369[A-Z]?", "CS 399", "CS 468", "EE 364A", "MS&E 310", "MS&E 319"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A",
+          "amount": 2
+        },
+        {
+          "lutList": ["Depth A", "Depth B"]
+        }
+      ]
+    }
+  ]
+};
+let degree = {
+  "degree": "M.S. Computer Science (Vis Comp)",
+  "level": "graduate",
+  "year": 2023,
+  "uniqueID": "2023_G_CS_MS_VisualComputing",
+  "infoText": "Assumes all MS courses are valid. Apply at most 2 foundations.",
+  "lookuptables": {
+    "Logic": ["CS 103", "CS 154"],
+    "Probability": ["CS 109", "STATS 116", "CME 106", "MS&E 220", "EE 178"],
+    "Algorithms": ["CS 161"],
+    "Systems": ["CS 107", "CS 107E"],
+    "OS": ["CS 110", "CS 111"],
+    "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
+    "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
+    "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
+    "Depth A": ["CS 248A", "CS 248B", "CS 231N"],
+    "Depth B": ["CS 205L", "CS 223A", "CS 231A", "CS 233", "CS 348[BCEIKN]", "CS 448I"],
+    "Depth C": ["CS 123", "CS 131", "CS 148", "CS 149", "CS 221", "CS 224N", "CS 224R", "CS 229", "CS 230", "CS 234", "CS 236", "CS 236G", "CS 331B", "CS 448B", "CS 448M", "CS 448Z", "EE 261"],
+    "CS dept electives": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^CS"
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 111
+      },
+      {
+        "type": "remove",
+        "method": "regex",
+        "string": "^(CS 19[38]|CS 390[A-C])$"
+      }
+    ],
+    "All SoE": [
+      {
+        "type": "add",
+        "method": "regex",
+        "string": "^(AA|BIOE|CHEMENG|CEE|CME|DESIGN|DESINST|EE|ENGR|MS&E|MATSCI|ME|SCCM) "
+      },
+      {
+        "type": "remove",
+        "method": "number",
+        "comparator": "<=",
+        "number": 100
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "type": "and",
+      "name": "Foundations",
+      "bundle": true,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Logic",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Probability",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Algorithms",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "Systems",
+          "allowBS": true
+        },
+        {
+          "type": "observe",
+          "lut": "OS",
+          "allowBS": true
+        }
+      ]
+    },
+    {
+      "type": "observe",
+      "lut": "Sig imp"
+    },
+    {
+      "type": "or",
+      "name": "Breadth",
+      "amount": 3,
+      "content": [
+        {
+          "type": "observe",
+          "lut": "Breadth A"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth B"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth C"
+        },
+        {
+          "type": "observe",
+          "lut": "Breadth D"
+        }
+      ]
+    },
+    {
+      "type": "and",
+      "name": "Depth",
+      "minUnits": 21,
+      "bundle": true,
+      "bundleName": " ",
+      "content": [
+        {
+          "lut": "Depth A",
+          "amount": 2
+        },
+        {
+          "lutList": ["Depth A", "Depth B"],
+          "amount": 3
+        },
+        {
+          "lutList": ["Depth A", "Depth B", "Depth C"]
+        }
+      ]
+    }
+  ]
+};
 function instance$2($$self, $$props, $$invalidate) {
   let $mastersDegreeChoices;
   let $bachelorsDegreeChoices;
   component_subscribe($$self, mastersDegreeChoices, ($$value) => $$invalidate(0, $mastersDegreeChoices = $$value));
   component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(1, $bachelorsDegreeChoices = $$value));
   let ug_degrees = [
+    degree$N,
+    degree$M,
+    degree$L,
+    degree$K,
+    degree$J,
+    degree$I,
+    degree$H,
+    degree$G,
+    degree$F,
     degree$E,
     degree$D,
     degree$C,
@@ -25168,7 +26780,10 @@ function instance$2($$self, $$props, $$invalidate) {
     degree$c,
     degree$b,
     degree$a,
-    degree$9,
+    degree$9
+  ];
+  let masters_degrees = [
+    degree$N,
     degree$8,
     degree$7,
     degree$6,
@@ -25179,7 +26794,6 @@ function instance$2($$self, $$props, $$invalidate) {
     degree$1,
     degree
   ];
-  let masters_degrees = [degree$E];
   onMount(async () => {
     set_store_value(bachelorsDegreeChoices, $bachelorsDegreeChoices = ug_degrees, $bachelorsDegreeChoices);
     set_store_value(mastersDegreeChoices, $mastersDegreeChoices = masters_degrees, $mastersDegreeChoices);
@@ -25192,7 +26806,7 @@ class LoadInAllDegrees extends SvelteComponent {
     init(this, options, instance$2, null, safe_not_equal, {});
   }
 }
-function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, requirement) {
+function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, requirement, isMs) {
   requirement = JSON.parse(JSON.stringify(requirement));
   let type = (requirement == null ? void 0 : requirement.type) || "consume";
   let name = (requirement == null ? void 0 : requirement.name) || (requirement == null ? void 0 : requirement.lut) || (requirement == null ? void 0 : requirement.id) || "unnamed requirement";
@@ -25201,13 +26815,14 @@ function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list
   let amount = (requirement == null ? void 0 : requirement.amount) ?? 1;
   let minUnits = (requirement == null ? void 0 : requirement.minUnits) || 0;
   let csnc = (requirement == null ? void 0 : requirement.csnc) || 0;
+  let allowBS = (requirement == null ? void 0 : requirement.allowBS) ?? false;
   let content = requirement == null ? void 0 : requirement.content;
   let bundle = (requirement == null ? void 0 : requirement.bundle) || false;
   let bundleName = (requirement == null ? void 0 : requirement.bundleName) ?? name;
   let id = requirement == null ? void 0 : requirement.id;
   let cutoff = (requirement == null ? void 0 : requirement.cutoff) || 0;
   let modifiers = (requirement == null ? void 0 : requirement.modifiers) || [];
-  let validKeys = ["type", "name", "lut", "lutList", "amount", "minUnits", "csnc", "content", "bundle", "bundleName", "id", "cutoff", "modifiers"];
+  let validKeys = ["type", "name", "lut", "lutList", "amount", "minUnits", "csnc", "content", "bundle", "bundleName", "id", "cutoff", "modifiers", "allowBS"];
   Object.keys(requirement).forEach((key) => {
     if (!validKeys.includes(key)) {
       console.log("Unrecognized key in requirement: " + key);
@@ -25226,6 +26841,11 @@ function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list
     let coursesMatching = filterCourseObjsByLut(list, coursesAllowed);
     if (type === "observe") {
       coursesMatching = filterCourseObjsByLut(originalList, coursesAllowed);
+      if (isMs && !allowBS) {
+        coursesMatching = coursesMatching.filter((course) => {
+          return course.ms;
+        });
+      }
     }
     let coursesExtracted = [];
     let amountStillNeeded = amount;
@@ -25308,7 +26928,7 @@ function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list
         }, 0);
         req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, req, isMs));
       list = requirementChecks[requirementChecks.length - 1].list;
     });
     let numUnits = requirementChecks.map((check) => {
@@ -25380,7 +27000,7 @@ function checkRequirement(compiledDegree2, allCourses2, grid, originalList, list
         }, 0);
         req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree2, allCourses2, grid, originalList, list, transfer, req, isMs));
       list = requirementChecks[requirementChecks.length - 1].list;
       fulfilled = requirementChecks.some((check) => {
         return check.fulfilled;
@@ -25478,15 +27098,27 @@ function GeneralizedDegreeCheck(degree2, allCourses2, grid, list, transfer) {
   listCopy = listCopy.filter((course) => {
     return !course.ms;
   });
+  let listCopyOnlyMs = JSON.parse(JSON.stringify(list));
+  listCopyOnlyMs = listCopyOnlyMs.filter((course) => {
+    return course.ms;
+  });
   let totalUnits = 0;
   if (degree2.level === "undergraduate") {
     totalUnits = calculateTotalUnits(listCopy, transfer);
   }
+  if (degree2.level === "graduate") {
+    totalUnits = calculateTotalUnits(listCopyOnlyMs, transfer);
+  }
   let reqResults = [];
   degree2.requirements.forEach((req, i) => {
     try {
-      reqResults = [...reqResults, checkRequirement(degree2, allCourses2, grid, list, listCopy, transfer, req)];
-      listCopy = reqResults[i].list;
+      if (degree2.level === "undergraduate") {
+        reqResults = [...reqResults, checkRequirement(degree2, allCourses2, grid, list, listCopy, transfer, req, false)];
+        listCopy = reqResults[i].list;
+      } else if (degree2.level === "graduate") {
+        reqResults = [...reqResults, checkRequirement(degree2, allCourses2, grid, list, listCopyOnlyMs, transfer, req, true)];
+        listCopyOnlyMs = reqResults[i].list;
+      }
     } catch (e) {
       console.log("Error in requirement: ");
       console.log(req);
@@ -25533,13 +27165,23 @@ function GeneralizedDegreeCheck(degree2, allCourses2, grid, list, transfer) {
       }
     ]
   });
-  rows.push({
-    cells: [
-      { value: totalUnits > 180 ? "✔" : "ㅤ", noBorder: true, weight: 0.25 },
-      { value: "Total Units", noBorder: true },
-      { value: totalUnits + "/180", progress: totalUnits / 180, weight: 3 }
-    ]
-  });
+  if (degree2.level === "undergraduate") {
+    rows.push({
+      cells: [
+        { value: totalUnits > 180 ? "✔" : "ㅤ", noBorder: true, weight: 0.25 },
+        { value: "Total units", noBorder: true },
+        { value: totalUnits + "/180", progress: totalUnits / 180, weight: 3 }
+      ]
+    });
+  } else if (degree2.level === "graduate") {
+    rows.push({
+      cells: [
+        { value: totalUnits > 45 ? "✔" : "ㅤ", noBorder: true, weight: 0.25 },
+        { value: "Total units", noBorder: true },
+        { value: totalUnits + "/45", progress: totalUnits / 45, weight: 3 }
+      ]
+    });
+  }
   if (degree2.infoText) {
     rows.push({
       cells: [
@@ -25608,7 +27250,7 @@ function getTransferUnits(transfer, key) {
   }
   return ret;
 }
-function calculateTotalUnits(courses, transfer) {
+function calculateTotalUnits(courses, transfer, isMS) {
   let totalUnits = 0;
   courses.forEach((course) => {
     totalUnits += course.units_taking;
@@ -25691,7 +27333,7 @@ function extendLutToCrosslisted(allCourses2, lut) {
   return newLut;
 }
 const Main_svelte_svelte_type_style_lang = "";
-function create_if_block_1(ctx) {
+function create_if_block_2(ctx) {
   let div1;
   let search;
   let t;
@@ -25755,7 +27397,7 @@ function create_else_block(ctx) {
       content: GeneralizedDegreeTracker,
       props: { data: (
         /*degreeTrackerData*/
-        ctx[3]
+        ctx[5]
       ) }
     }
   });
@@ -25773,10 +27415,10 @@ function create_else_block(ctx) {
     p(ctx2, dirty) {
       const panelcollapsecontainer_changes = {};
       if (dirty & /*degreeTrackerData*/
-      8)
+      32)
         panelcollapsecontainer_changes.props = { data: (
           /*degreeTrackerData*/
-          ctx2[3]
+          ctx2[5]
         ) };
       panelcollapsecontainer.$set(panelcollapsecontainer_changes);
     },
@@ -25795,7 +27437,7 @@ function create_else_block(ctx) {
     }
   };
 }
-function create_if_block$1(ctx) {
+function create_if_block_1(ctx) {
   let div;
   return {
     c() {
@@ -25823,6 +27465,74 @@ function create_if_block$1(ctx) {
     }
   };
 }
+function create_if_block$1(ctx) {
+  let div;
+  let panelcollapsecontainer;
+  let current;
+  panelcollapsecontainer = new PanelCollapseContainer({
+    props: {
+      panelId: "generalizedDegreeTracker",
+      panelName: "M Degree Check",
+      content: GeneralizedDegreeTracker,
+      props: {
+        data: (
+          /*mastersDegreeTrackerData*/
+          ctx[6]
+        )
+      }
+    }
+  });
+  return {
+    c() {
+      div = element("div");
+      create_component(panelcollapsecontainer.$$.fragment);
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      claim_component(panelcollapsecontainer.$$.fragment, div_nodes);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "generalizedDegreeTrackerContainer svelte-y5vvwt");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      mount_component(panelcollapsecontainer, div, null);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const panelcollapsecontainer_changes = {};
+      if (dirty & /*mastersDegreeTrackerData*/
+      64)
+        panelcollapsecontainer_changes.props = {
+          data: (
+            /*mastersDegreeTrackerData*/
+            ctx2[6]
+          )
+        };
+      panelcollapsecontainer.$set(panelcollapsecontainer_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(panelcollapsecontainer.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(panelcollapsecontainer.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(div);
+      }
+      destroy_component(panelcollapsecontainer);
+    }
+  };
+}
 function create_fragment$1(ctx) {
   let loadinalldegrees;
   let t0;
@@ -25845,28 +27555,29 @@ function create_fragment$1(ctx) {
   let current_block_type_index;
   let if_block1;
   let t6;
+  let t7;
   let div4;
   let panelcollapsecontainer1;
-  let t7;
+  let t8;
   let div6;
   let panelcollapsecontainer2;
-  let t8;
+  let t9;
   let div7;
   let grid;
-  let t9;
+  let t10;
   let footer;
   let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-y5vvwt">Sambhav Gupta</a> with Svelte</p>`;
-  let t13;
+  let t14;
   let div8;
   let textContent_1 = `<a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a>`;
-  let t15;
-  let xkcd;
   let t16;
+  let xkcd;
+  let t17;
   let div9;
   let current;
   loadinalldegrees = new LoadInAllDegrees({});
   let if_block0 = !/*$panelCollapsed*/
-  ctx[1].search && create_if_block_1();
+  ctx[3].search && create_if_block_2();
   trash = new Trash({});
   onstartinfomodal = new OnStartInfoModal({});
   panelcollapsecontainer0 = new PanelCollapseContainer({
@@ -25876,18 +27587,23 @@ function create_fragment$1(ctx) {
       content: WAYSTracker
     }
   });
-  const if_block_creators = [create_if_block$1, create_else_block];
+  const if_block_creators = [create_if_block_1, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
       /*$bachelorsDegreeChoices*/
-      ctx2[0].length == 0
+      ctx2[1].length == 0
     )
       return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx);
   if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  let if_block2 = (
+    /*$mastersDegreeChoices*/
+    ctx[0].length != 0 && /*$mastersDegreeChoice*/
+    ctx[2] != "BLANK" && create_if_block$1(ctx)
+  );
   panelcollapsecontainer1 = new PanelCollapseContainer({
     props: {
       panelId: "config",
@@ -25928,23 +27644,26 @@ function create_fragment$1(ctx) {
       div3 = element("div");
       if_block1.c();
       t6 = space();
+      if (if_block2)
+        if_block2.c();
+      t7 = space();
       div4 = element("div");
       create_component(panelcollapsecontainer1.$$.fragment);
-      t7 = space();
+      t8 = space();
       div6 = element("div");
       create_component(panelcollapsecontainer2.$$.fragment);
-      t8 = space();
+      t9 = space();
       div7 = element("div");
       create_component(grid.$$.fragment);
-      t9 = space();
+      t10 = space();
       footer = element("footer");
       footer.innerHTML = textContent;
-      t13 = space();
+      t14 = space();
       div8 = element("div");
       div8.innerHTML = textContent_1;
-      t15 = space();
-      create_component(xkcd.$$.fragment);
       t16 = space();
+      create_component(xkcd.$$.fragment);
+      t17 = space();
       div9 = element("div");
       this.h();
     },
@@ -25982,32 +27701,35 @@ function create_fragment$1(ctx) {
       if_block1.l(div3_nodes);
       div3_nodes.forEach(detach);
       t6 = claim_space(div5_nodes);
+      if (if_block2)
+        if_block2.l(div5_nodes);
+      t7 = claim_space(div5_nodes);
       div4 = claim_element(div5_nodes, "DIV", { class: true });
       var div4_nodes = children(div4);
       claim_component(panelcollapsecontainer1.$$.fragment, div4_nodes);
       div4_nodes.forEach(detach);
       div5_nodes.forEach(detach);
-      t7 = claim_space(div10_nodes);
+      t8 = claim_space(div10_nodes);
       div6 = claim_element(div10_nodes, "DIV", { class: true });
       var div6_nodes = children(div6);
       claim_component(panelcollapsecontainer2.$$.fragment, div6_nodes);
       div6_nodes.forEach(detach);
-      t8 = claim_space(div10_nodes);
+      t9 = claim_space(div10_nodes);
       div7 = claim_element(div10_nodes, "DIV", { class: true });
       var div7_nodes = children(div7);
       claim_component(grid.$$.fragment, div7_nodes);
       div7_nodes.forEach(detach);
-      t9 = claim_space(div10_nodes);
+      t10 = claim_space(div10_nodes);
       footer = claim_element(div10_nodes, "FOOTER", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(footer) !== "svelte-mdbyqg")
         footer.innerHTML = textContent;
-      t13 = claim_space(div10_nodes);
+      t14 = claim_space(div10_nodes);
       div8 = claim_element(div10_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div8) !== "svelte-15mcdvu")
         div8.innerHTML = textContent_1;
-      t15 = claim_space(div10_nodes);
-      claim_component(xkcd.$$.fragment, div10_nodes);
       t16 = claim_space(div10_nodes);
+      claim_component(xkcd.$$.fragment, div10_nodes);
+      t17 = claim_space(div10_nodes);
       div9 = claim_element(div10_nodes, "DIV", { class: true });
       children(div9).forEach(detach);
       div10_nodes.forEach(detach);
@@ -26033,7 +27755,7 @@ function create_fragment$1(ctx) {
         section,
         "style",
         /*overallStyle*/
-        ctx[2]
+        ctx[4]
       );
       attr(section, "class", "svelte-y5vvwt");
     },
@@ -26060,34 +27782,37 @@ function create_fragment$1(ctx) {
       append_hydration(div5, div3);
       if_blocks[current_block_type_index].m(div3, null);
       append_hydration(div5, t6);
+      if (if_block2)
+        if_block2.m(div5, null);
+      append_hydration(div5, t7);
       append_hydration(div5, div4);
       mount_component(panelcollapsecontainer1, div4, null);
-      append_hydration(div10, t7);
+      append_hydration(div10, t8);
       append_hydration(div10, div6);
       mount_component(panelcollapsecontainer2, div6, null);
-      append_hydration(div10, t8);
+      append_hydration(div10, t9);
       append_hydration(div10, div7);
       mount_component(grid, div7, null);
-      append_hydration(div10, t9);
+      append_hydration(div10, t10);
       append_hydration(div10, footer);
-      append_hydration(div10, t13);
+      append_hydration(div10, t14);
       append_hydration(div10, div8);
-      append_hydration(div10, t15);
-      mount_component(xkcd, div10, null);
       append_hydration(div10, t16);
+      mount_component(xkcd, div10, null);
+      append_hydration(div10, t17);
       append_hydration(div10, div9);
       current = true;
     },
     p(ctx2, [dirty]) {
       if (!/*$panelCollapsed*/
-      ctx2[1].search) {
+      ctx2[3].search) {
         if (if_block0) {
           if (dirty & /*$panelCollapsed*/
-          2) {
+          8) {
             transition_in(if_block0, 1);
           }
         } else {
-          if_block0 = create_if_block_1();
+          if_block0 = create_if_block_2();
           if_block0.c();
           transition_in(if_block0, 1);
           if_block0.m(section, t1);
@@ -26119,13 +27844,37 @@ function create_fragment$1(ctx) {
         transition_in(if_block1, 1);
         if_block1.m(div3, null);
       }
+      if (
+        /*$mastersDegreeChoices*/
+        ctx2[0].length != 0 && /*$mastersDegreeChoice*/
+        ctx2[2] != "BLANK"
+      ) {
+        if (if_block2) {
+          if_block2.p(ctx2, dirty);
+          if (dirty & /*$mastersDegreeChoices, $mastersDegreeChoice*/
+          5) {
+            transition_in(if_block2, 1);
+          }
+        } else {
+          if_block2 = create_if_block$1(ctx2);
+          if_block2.c();
+          transition_in(if_block2, 1);
+          if_block2.m(div5, t7);
+        }
+      } else if (if_block2) {
+        group_outros();
+        transition_out(if_block2, 1, 1, () => {
+          if_block2 = null;
+        });
+        check_outros();
+      }
       if (!current || dirty & /*overallStyle*/
-      4) {
+      16) {
         attr(
           section,
           "style",
           /*overallStyle*/
-          ctx2[2]
+          ctx2[4]
         );
       }
     },
@@ -26138,6 +27887,7 @@ function create_fragment$1(ctx) {
       transition_in(onstartinfomodal.$$.fragment, local);
       transition_in(panelcollapsecontainer0.$$.fragment, local);
       transition_in(if_block1);
+      transition_in(if_block2);
       transition_in(panelcollapsecontainer1.$$.fragment, local);
       transition_in(panelcollapsecontainer2.$$.fragment, local);
       transition_in(grid.$$.fragment, local);
@@ -26151,6 +27901,7 @@ function create_fragment$1(ctx) {
       transition_out(onstartinfomodal.$$.fragment, local);
       transition_out(panelcollapsecontainer0.$$.fragment, local);
       transition_out(if_block1);
+      transition_out(if_block2);
       transition_out(panelcollapsecontainer1.$$.fragment, local);
       transition_out(panelcollapsecontainer2.$$.fragment, local);
       transition_out(grid.$$.fragment, local);
@@ -26169,6 +27920,8 @@ function create_fragment$1(ctx) {
       destroy_component(onstartinfomodal);
       destroy_component(panelcollapsecontainer0);
       if_blocks[current_block_type_index].d();
+      if (if_block2)
+        if_block2.d();
       destroy_component(panelcollapsecontainer1);
       destroy_component(panelcollapsecontainer2);
       destroy_component(grid);
@@ -26185,31 +27938,35 @@ function instance$1($$self, $$props, $$invalidate) {
   let $years;
   let $prefs;
   let $courseTableList;
+  let $compiledMastersDegree;
+  let $mastersDegreeChoices;
   let $compiledDegree;
   let $bachelorsDegreeChoices;
+  let $mastersDegreeChoice;
   let $bachelorsDegreeChoice;
   let $searchFilters;
-  let $mastersDegreeChoice;
   let $panelCollapsed;
   let $showWelcomeModalOnLoad;
   let $reviewData;
   let $isDragging;
-  component_subscribe($$self, courseTable, ($$value) => $$invalidate(5, $courseTable = $$value));
-  component_subscribe($$self, allCourses, ($$value) => $$invalidate(6, $allCourses = $$value));
-  component_subscribe($$self, compressedTable, ($$value) => $$invalidate(7, $compressedTable = $$value));
-  component_subscribe($$self, quarters, ($$value) => $$invalidate(8, $quarters = $$value));
-  component_subscribe($$self, years, ($$value) => $$invalidate(9, $years = $$value));
-  component_subscribe($$self, prefs, ($$value) => $$invalidate(10, $prefs = $$value));
-  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(11, $courseTableList = $$value));
-  component_subscribe($$self, compiledDegree, ($$value) => $$invalidate(12, $compiledDegree = $$value));
-  component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(0, $bachelorsDegreeChoices = $$value));
-  component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(13, $bachelorsDegreeChoice = $$value));
-  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(17, $searchFilters = $$value));
-  component_subscribe($$self, mastersDegreeChoice, ($$value) => $$invalidate(14, $mastersDegreeChoice = $$value));
-  component_subscribe($$self, panelCollapsed, ($$value) => $$invalidate(1, $panelCollapsed = $$value));
-  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(15, $showWelcomeModalOnLoad = $$value));
-  component_subscribe($$self, reviewData, ($$value) => $$invalidate(18, $reviewData = $$value));
-  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(16, $isDragging = $$value));
+  component_subscribe($$self, courseTable, ($$value) => $$invalidate(8, $courseTable = $$value));
+  component_subscribe($$self, allCourses, ($$value) => $$invalidate(9, $allCourses = $$value));
+  component_subscribe($$self, compressedTable, ($$value) => $$invalidate(10, $compressedTable = $$value));
+  component_subscribe($$self, quarters, ($$value) => $$invalidate(11, $quarters = $$value));
+  component_subscribe($$self, years, ($$value) => $$invalidate(12, $years = $$value));
+  component_subscribe($$self, prefs, ($$value) => $$invalidate(13, $prefs = $$value));
+  component_subscribe($$self, courseTableList, ($$value) => $$invalidate(14, $courseTableList = $$value));
+  component_subscribe($$self, compiledMastersDegree, ($$value) => $$invalidate(15, $compiledMastersDegree = $$value));
+  component_subscribe($$self, mastersDegreeChoices, ($$value) => $$invalidate(0, $mastersDegreeChoices = $$value));
+  component_subscribe($$self, compiledDegree, ($$value) => $$invalidate(16, $compiledDegree = $$value));
+  component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(1, $bachelorsDegreeChoices = $$value));
+  component_subscribe($$self, mastersDegreeChoice, ($$value) => $$invalidate(2, $mastersDegreeChoice = $$value));
+  component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(17, $bachelorsDegreeChoice = $$value));
+  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(20, $searchFilters = $$value));
+  component_subscribe($$self, panelCollapsed, ($$value) => $$invalidate(3, $panelCollapsed = $$value));
+  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(18, $showWelcomeModalOnLoad = $$value));
+  component_subscribe($$self, reviewData, ($$value) => $$invalidate(21, $reviewData = $$value));
+  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(19, $isDragging = $$value));
   let mounted = false;
   let overallStyle = "";
   onMount(async () => {
@@ -26318,7 +28075,7 @@ function instance$1($$self, $$props, $$invalidate) {
       set_store_value(courseTable, $courseTable = coursesObj, $courseTable);
       compressCourses();
     }
-    $$invalidate(4, mounted = true);
+    $$invalidate(7, mounted = true);
   });
   function setDegreeSpecificSearchFilters(compiledDegree2) {
     set_store_value(searchFilters, $searchFilters.degreeSpecific = { checkboxes: {}, luts: {} }, $searchFilters);
@@ -26328,6 +28085,17 @@ function instance$1($$self, $$props, $$invalidate) {
     Object.keys(compiledDegree2.lookuptables).forEach((key) => {
       set_store_value(searchFilters, $searchFilters.degreeSpecific.luts[key] = compiledDegree2.lookuptables[key], $searchFilters);
       set_store_value(searchFilters, $searchFilters.degreeSpecific.checkboxes[key] = false, $searchFilters);
+    });
+    searchFilters.set($searchFilters);
+  }
+  function setDegreeSpecificSearchFiltersMs(compiledDegree2) {
+    set_store_value(searchFilters, $searchFilters.degreeSpecificMs = { checkboxes: {}, luts: {} }, $searchFilters);
+    if (compiledDegree2 == {}) {
+      return;
+    }
+    Object.keys(compiledDegree2.lookuptables).forEach((key) => {
+      set_store_value(searchFilters, $searchFilters.degreeSpecificMs.luts[key] = compiledDegree2.lookuptables[key], $searchFilters);
+      set_store_value(searchFilters, $searchFilters.degreeSpecificMs.checkboxes[key] = false, $searchFilters);
     });
     searchFilters.set($searchFilters);
   }
@@ -26344,6 +28112,7 @@ function instance$1($$self, $$props, $$invalidate) {
     }
   }
   let degreeTrackerData;
+  let mastersDegreeTrackerData;
   function compressCourses() {
     set_store_value(compressedTable, $compressedTable = [], $compressedTable);
     let coursesObj = [];
@@ -26402,22 +28171,22 @@ function instance$1($$self, $$props, $$invalidate) {
   }
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*$isDragging, $panelCollapsed, overallStyle*/
-    65542) {
+    524312) {
       {
         if ($isDragging) {
-          $$invalidate(2, overallStyle = "overflow: hidden;");
+          $$invalidate(4, overallStyle = "overflow: hidden;");
         } else {
-          $$invalidate(2, overallStyle = "");
+          $$invalidate(4, overallStyle = "");
         }
         if ($panelCollapsed.search) {
-          $$invalidate(2, overallStyle += "grid-template-columns: minmax(0, 1fr); width: 100%;");
+          $$invalidate(4, overallStyle += "grid-template-columns: minmax(0, 1fr); width: 100%;");
         } else {
-          $$invalidate(2, overallStyle += "grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);");
+          $$invalidate(4, overallStyle += "grid-template-columns: minmax(0, 1fr) minmax(0, 3.1fr);");
         }
       }
     }
     if ($$self.$$.dirty & /*mounted, $compressedTable, $years, $quarters, $prefs, $showWelcomeModalOnLoad, $panelCollapsed, $bachelorsDegreeChoice, $mastersDegreeChoice*/
-    59282) {
+    408716) {
       {
         const isBrowser = typeof window !== "undefined";
         if (isBrowser && mounted) {
@@ -26435,7 +28204,7 @@ function instance$1($$self, $$props, $$invalidate) {
       }
     }
     if ($$self.$$.dirty & /*$courseTable*/
-    32) {
+    256) {
       {
         courseTable.set($courseTable);
         if ($courseTable.length != 0) {
@@ -26444,7 +28213,7 @@ function instance$1($$self, $$props, $$invalidate) {
       }
     }
     if ($$self.$$.dirty & /*$courseTable*/
-    32) {
+    256) {
       {
         let courseTableListItems = [];
         for (let i = 0; i < $courseTable.length; i++) {
@@ -26458,7 +28227,7 @@ function instance$1($$self, $$props, $$invalidate) {
       }
     }
     if ($$self.$$.dirty & /*$bachelorsDegreeChoices, $bachelorsDegreeChoice, $allCourses, $compiledDegree*/
-    12353) {
+    197122) {
       {
         if ($bachelorsDegreeChoices.length !== 0) {
           let choiceFullDegree = $bachelorsDegreeChoices.find((degree2) => degree2.uniqueID == $bachelorsDegreeChoice);
@@ -26467,20 +28236,36 @@ function instance$1($$self, $$props, $$invalidate) {
         }
       }
     }
-    if ($$self.$$.dirty & /*$bachelorsDegreeChoices, $compiledDegree, $allCourses, $courseTable, $courseTableList, $prefs*/
-    7265) {
+    if ($$self.$$.dirty & /*$mastersDegreeChoices, $mastersDegreeChoice, $allCourses, $compiledMastersDegree*/
+    33285) {
+      {
+        if ($mastersDegreeChoices.length !== 0) {
+          let choiceFullDegree = $mastersDegreeChoices.find((degree2) => degree2.uniqueID == $mastersDegreeChoice);
+          set_store_value(compiledMastersDegree, $compiledMastersDegree = compileDegree(choiceFullDegree, $allCourses), $compiledMastersDegree);
+          setDegreeSpecificSearchFiltersMs($compiledMastersDegree);
+        }
+      }
+    }
+    if ($$self.$$.dirty & /*$bachelorsDegreeChoices, $compiledDegree, $allCourses, $courseTable, $courseTableList, $prefs, $mastersDegreeChoices, $compiledMastersDegree*/
+    123651) {
       {
         if ($bachelorsDegreeChoices.length !== 0) {
-          $$invalidate(3, degreeTrackerData = GeneralizedDegreeCheck($compiledDegree, $allCourses, $courseTable, $courseTableList, $prefs.transferUnits));
+          $$invalidate(5, degreeTrackerData = GeneralizedDegreeCheck($compiledDegree, $allCourses, $courseTable, $courseTableList, $prefs.transferUnits));
+        }
+        if ($mastersDegreeChoices.length !== 0) {
+          $$invalidate(6, mastersDegreeTrackerData = GeneralizedDegreeCheck($compiledMastersDegree, $allCourses, $courseTable, $courseTableList, $prefs.transferUnits));
         }
       }
     }
   };
   return [
+    $mastersDegreeChoices,
     $bachelorsDegreeChoices,
+    $mastersDegreeChoice,
     $panelCollapsed,
     overallStyle,
     degreeTrackerData,
+    mastersDegreeTrackerData,
     mounted,
     $courseTable,
     $allCourses,
@@ -26489,9 +28274,9 @@ function instance$1($$self, $$props, $$invalidate) {
     $years,
     $prefs,
     $courseTableList,
+    $compiledMastersDegree,
     $compiledDegree,
     $bachelorsDegreeChoice,
-    $mastersDegreeChoice,
     $showWelcomeModalOnLoad,
     $isDragging
   ];
