@@ -17055,18 +17055,18 @@ class ConfigPanel extends SvelteComponent {
 }
 const OnStartInfoModal_svelte_svelte_type_style_lang = "";
 function create_if_block$2(ctx) {
-  let div1;
+  let div2;
   let button0;
   let x;
   let t0;
   let button1;
   let textContent = "Don't show again";
   let t2;
-  let div0;
+  let div1;
   let textContent_1 = `<h2>CourseCorrect</h2> <p>This is a 5 year course planner. Use in conjuction with other services (Explorecourses,
 				Carta, etc.) for best results.</p> <h2>Start</h2> <p>Set your preferences, degree, and transfer units. Make sure to configure &quot;Total&quot; transfer
 				units.</p> <p>Search for courses in the top left or directly enter them in each quarter. Use
-				filters/sorting aggressively.</p> <h2>Other info</h2> <p>CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
+				filters/sorting aggressively.</p> <h2>Star</h2> <p>Please star this project on Github if you found it helpful!</p> <div class="githubButton"><a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a></div> <h2>Other info</h2> <p>CourseCorrect was made to be used full-screen on computers; if the site is jumbled, zoom
 				out.</p> <p>If the entire website breaks, clear the cache and cookies. Site might be buggy on Safari.</p> <p>Data is stored locally on your browser. Export your data frequently.</p> <p>Degrees with more than 50 students/year are implemented.</p> <h2>Disclaimer</h2> <p>All data and calculations may contain errors. Consult official university materials for
 				ground truths.</p> <p>There are no correctness guarantees.</p>`;
   let current;
@@ -17075,49 +17075,49 @@ function create_if_block$2(ctx) {
   x = new X$1({ props: { size: "3em" } });
   return {
     c() {
-      div1 = element("div");
+      div2 = element("div");
       button0 = element("button");
       create_component(x.$$.fragment);
       t0 = space();
       button1 = element("button");
       button1.textContent = textContent;
       t2 = space();
-      div0 = element("div");
-      div0.innerHTML = textContent_1;
+      div1 = element("div");
+      div1.innerHTML = textContent_1;
       this.h();
     },
     l(nodes) {
-      div1 = claim_element(nodes, "DIV", { class: true });
-      var div1_nodes = children(div1);
-      button0 = claim_element(div1_nodes, "BUTTON", { class: true });
+      div2 = claim_element(nodes, "DIV", { class: true });
+      var div2_nodes = children(div2);
+      button0 = claim_element(div2_nodes, "BUTTON", { class: true });
       var button0_nodes = children(button0);
       claim_component(x.$$.fragment, button0_nodes);
       button0_nodes.forEach(detach);
-      t0 = claim_space(div1_nodes);
-      button1 = claim_element(div1_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
+      t0 = claim_space(div2_nodes);
+      button1 = claim_element(div2_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button1) !== "svelte-1xgh153")
         button1.textContent = textContent;
-      t2 = claim_space(div1_nodes);
-      div0 = claim_element(div1_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div0) !== "svelte-1h364me")
-        div0.innerHTML = textContent_1;
-      div1_nodes.forEach(detach);
+      t2 = claim_space(div2_nodes);
+      div1 = claim_element(div2_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div1) !== "svelte-k5eiw9")
+        div1.innerHTML = textContent_1;
+      div2_nodes.forEach(detach);
       this.h();
     },
     h() {
       attr(button0, "class", "close-button svelte-1r3lo9d");
       attr(button1, "class", "dont-show-again-button svelte-1r3lo9d");
-      attr(div0, "class", "svelte-1r3lo9d");
-      attr(div1, "class", "modal svelte-1r3lo9d");
+      attr(div1, "class", "svelte-1r3lo9d");
+      attr(div2, "class", "modal svelte-1r3lo9d");
     },
     m(target, anchor) {
-      insert_hydration(target, div1, anchor);
-      append_hydration(div1, button0);
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, button0);
       mount_component(x, button0, null);
-      append_hydration(div1, t0);
-      append_hydration(div1, button1);
-      append_hydration(div1, t2);
-      append_hydration(div1, div0);
+      append_hydration(div2, t0);
+      append_hydration(div2, button1);
+      append_hydration(div2, t2);
+      append_hydration(div2, div1);
       current = true;
       if (!mounted) {
         dispose = [
@@ -17150,7 +17150,7 @@ function create_if_block$2(ctx) {
     },
     d(detaching) {
       if (detaching) {
-        detach(div1);
+        detach(div2);
       }
       destroy_component(x);
       mounted = false;
@@ -17658,12 +17658,12 @@ let degree$K = {
     "C Robotics & Control": ["CS 225A", "CS 327A", "CS 329", "ENGR 205", "MS&E 251", "MS&E 351"],
     "C Other": ["CS 151", "CS 227B"],
     "Track Elective": ["CS 325B", "CS 326", "CS 329D", "CS 330", "CS 428", "EE 263", "EE 28", "EE 364A", "EE 364B", "MS&E 252", "MS&E 352", "MS&E 355", "PHIL 152", "PSYCH 204A", "PSYCH 204B", "PSYCH 209", "STATS 200", "STATS 202", "STATS 203", "STATS 205", "STATS 271"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"],
     "Coterm A": ["CS 221"],
     "Coterm B": ["CS 223A", "CS 224N", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 228", "CS 229", "CS 231A", "CS 231N", "CS 234", "CS 237A", "CS 237B", "CS 238"],
-    "Coterm C": ["CS 205L", "CS 224R", "CS 225A", "CS 227B", "CS 229M", "CS 230", "CS 233", "CS 235", "CS 236", "CS 239", "CS 246", "CS 257", "CS 270", "CS 271", "CS 273A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 322", "CS 324", "CS 325B", "CS 326", "CS 327A", "CS 329[A-Z]", "CS 330", "CS 331B", "CS 332", "CS 333", "CS 345", "CS 348N", "CS 361", "CS 368", "CS 371", "CS 375", "CS 377[A-Z]", "CS 379† (any suffix)", "CS 398", "CS 399", "CS 428A", "CS 428B", "CS 432", "EE 263", "EE 276", "EE 278", "EE 364A", "EE 364B", "EE 377", "EE 378B", "ENGR 205", "ENGR 209A", "MS&E 226", "MS&E 252", "PSYCH 209", "STATS 202", "STATS 315A", "STATS 315B"]
+    "Coterm C": ["CS 205L", "CS 224R", "CS 225A", "CS 227B", "CS 229M", "CS 230", "CS 233", "CS 235", "CS 236", "CS 239", "CS 246", "CS 257", "CS 270", "CS 271", "CS 273A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 322", "CS 324", "CS 325B", "CS 326", "CS 327A", "CS 329[A-Z]*", "CS 330", "CS 331B", "CS 332", "CS 333", "CS 345", "CS 348N", "CS 361", "CS 368", "CS 371", "CS 375", "CS 377[A-Z]*", "CS 379† (any suffix)", "CS 398", "CS 399", "CS 428A", "CS 428B", "CS 432", "EE 263", "EE 276", "EE 278", "EE 364A", "EE 364B", "EE 377", "EE 378B", "ENGR 205", "ENGR 209A", "MS&E 226", "MS&E 252", "PSYCH 209", "STATS 202", "STATS 315A", "STATS 315B"]
   },
   "requirements": [
     {
@@ -18347,7 +18347,7 @@ let degree$H = {
     "Core": ["CS 225A", "CS 248A", "CS 248B", "CS 231N"],
     "Depth": ["CS 205L", "CS 223A", "CS 225A", "CS 231A", "CS 231N", "CS 233", "CS 248A", "CS 248B", "CS 348B", "CS 348C", "CS 348E", "CS 348K", "CS 348I", "CS 348N", "CS 448I", "EE 267"],
     "Track Elective": ["CS 123", "CS 131", "CS 148", "CS 149", "CS 221", "CS 224N", "CS 224R", "CS 229", "CS 230", "CS 234", "CS 236", "CS 236G", "CS 331B", "CS 448B", "CS 448M", "CS 448Z", "EE 261"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -18565,12 +18565,12 @@ let degree$G = {
     "CS 111": ["CS 111"],
     "CS 161": ["CS 161"],
     "A1": ["CS 147"],
-    "A2": ["CS 247[A-Z]"],
+    "A2": ["CS 247[A-Z]*"],
     "A3": ["CS 347"],
     "B": ["CS 142", "CS 147L"],
     "C": ["CS 177", "CS 278", "CS 448B"],
-    "Track Elective": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 247[A-Z]", "CS 377"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "Track Elective": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 247[A-Z]*", "CS 377"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -18806,7 +18806,7 @@ let degree$F = {
     "B Database and Information Systems": ["CS 112", "CS 140E", "CS 142", "CS 147L", "CS 151", "CS 245", "CS 246"],
     "B Information Systems in Biology": ["CS 235", "CS 270", "CS 274"],
     "B Information Systems on the Web": ["CS 224W"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -19027,7 +19027,7 @@ let degree$E = {
     "B": ["CS 143", "EE 180"],
     "C": ["CS 144", "CS 145", "CS 149", "CS 155", "CS 190", "CS 217", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 245", "EE 271", "EE 282"],
     "Track Elective": ["CS 241", "CS 295", "CS 340R", "CS 343D", "CS 349D", "CS 349H", "CS 448I", "EE 108", "EE 382A", "EE 382C", "EE 384S"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -19248,7 +19248,7 @@ let degree$D = {
     "B": ["CS 168", "CS 255", "CS 261", "CS 265"],
     "C": ["CS 143", "CS 151", "CS 155", "CS 157", "CS 163", "CS 166", "CS 205L", "CS 228", "CS 233", "CS 235", "CS 236", "CS 242", "CS 250", "CS 251", "CS 254", "CS 259Q", "CS 263", "CS 269I", "CS 353", "CS 354", "MS&E 310", "PHIL 151"],
     "Track Elective": ["CS 254B", "CME 302", "CME 305", "PHIL 152"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -19470,7 +19470,7 @@ let degree$C = {
     "C": ["CS 144", "CS 155", "CS 190", "CS 242", "CS 244", "EE 180"],
     "D": ["CS 221", "CS 223A", "CS 228", "CS 229", "CS 231A"],
     "E": ["CS 145", "CS 147", "CS 148", "CS 235", "CS 248A"],
-    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]?", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
+    "General CS Elective": ["CS 108", "CS 112", "CS 123", "CS 124", "CS 131", "CS 140E", "CS 142", "CS 143", "CS 144", "CS 145", "CS 147", "CS 147L", "CS 148", "CS 149", "CS 151", "CS 154", "CS 155", "CS 157", "CS 163", "CS 166", "CS 168", "CS 173A", "CS 177", "CS 190", "CS 195", "CS 197", "CS 197C", "CS 205L", "CS 206", "CS 210A", "CS 212", "CS 217", "CS 221", "CS 223A", "CS 224N", "CS 224R", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 225A", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 231A", "CS 231N", "CS 232", "CS 233", "CS 234", "CS 235", "CS 237A", "CS 237B", "CS 238", "CS 240", "CS 240LX", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 249I", "CS 250", "CS 251", "CS 252", "CS 253", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 261", "CS 263", "CS 265", "CS 269I", "CS 269O", "CS 269Q", "CS 270", "CS 271", "CS 272", "CS 273B", "CS 273C", "CS 274", "CS 275", "CS 276", "CS 278", "CS 279", "CS 281", "CS 330", "CS 333", "CS 336", "CS 342", "CS 348[A-Z]*", "CS 351", "CS 368", "CS 398", "CS 448B", "PHIL 151", "CME 138", "EE 180", "EE 267", "EE 282", "EE 364A", "EE 374", "MS&E 234"],
     "Senior Project": ["CS 191", "CS 191W", "CS 194", "CS 194H", "CS 194W", "CS 210B", "CS 294"],
     "WIM": ["CS 181W", "CS 182W", "CS 191W", "CS 194W", "CS 210B"]
   },
@@ -21527,8 +21527,8 @@ let degree$o = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Programming": ["CS 107", "CS 107E"],
     "AI Intro": ["CS 221"],
     "AI Depth": ["CS 223A", "CS 224N", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 228", "CS 229", "CS 231A", "CS 231N", "CS 234", "CS 237A", "CS 237B", "CS 238"],
@@ -21777,8 +21777,8 @@ let degree$n = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Metalogic": ["PHIL 151"],
     "Computability": ["PHIL 152", "CS 154"],
     "Comp logic": ["CS 151", "CS 157", "CS 257"],
@@ -22032,8 +22032,8 @@ let degree$m = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Phil/Eth inquiry": ["BIOE 131", "BIOE 177", "HUMBIO 171E", "HUMBIO 178A", "HUMBIO 174", "NBIO 101", "PHIL 85", "PHIL 134A", "PHIL 167D", "PHIL 168M", "PHIL 178M", "PHIL 360", "PHIL 368A", "SYMSYS 202", "SYMSYS 205"],
     "Theory and math": ["BIO 183", "BIO 223", "BIO 251", "BIODS 215", "BIOMEDIN 219", "ECON 136", "EE 102A", "GEOPHYS 128", "HUMBIO 88", "HUMBIO 89", "HUMBIO 154B", "MS&E 292", "STATS 141", "STATS 215"],
     "Comp/Design methods": ["BIODS 220", "BIOE 273", "BIOE 313", "BIOE 375", "BIOMEDIN 210", "BIOMEDIN 260", "BIOMEDIN 273B", "BIOMEDIN 279", "CS 247B", "CS 247S", "CS 273A", "CS 372", "CS 379C", "CS 448B", "GENE 211", "HUMBIO 51", "HUMBIO 151R", "OTOHNS 206", "PSYC 223B", "PSYCH 204B", "STATS 155", "STATS 220", "SYMSYS 245"],
@@ -22287,8 +22287,8 @@ let degree$l = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Cognitive Neuroscience": ["PSYCH 30", "PSYCH 45", "PSYCH 50"],
     "Inferential Statistics": ["ANTHRO 116", "MS&E 125", "MS&E 226", "PSYCH 10", "PSYCH 253", "SOC 180B", "STATS 110", "STATS 191", "STATS 101", "STATS 200", "STATS 202"],
     "Research Methods": ["CS 107", "CS 107E", "CS 129", "CS 229", "LINGUIST 180", "LINGUIST 188", "LINGUIST 245B", "PHIL 167D", "PSYCH 164", "PSYCH 170", "PSYCH 187", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 240A", "PSYCH 242", "PSYCH 249", "PSYCH 251", "PSYCH 253", "PSYCH 262", "STATS 220"],
@@ -22542,8 +22542,8 @@ let degree$k = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Computer Systems I": ["CS 107", "CS 107E"],
     "Computer Systems II": ["CS 110", "CS 111"],
     "Theory of Computation Depth": ["CS 154", "PHIL 152"],
@@ -22797,8 +22797,8 @@ let degree$j = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Social Behavior": ["BIO 30", "BIO 81", "COMM 1", "ECON 1", "ECON 46", "ECON 50", "ECON 160", "ECON 178", "ECON 180", "EDUC 101", "LINGUIST 150", "MS&E 135", "MS&E 180", "MS&E 232", "OSPSANTG 46", "POLISCI 1", "POLISCI 101", "POLISCI 120C", "PSYCH 70", "PSYCH 154", "SOC 1", "SOC 126", "SOC 130", "SOC 146", "SOC 160"],
     "Statistical Inference": ["ECON 102A", "ECON 102B", "EDUC 400A", "MS&E 125", "MS&E 226", "SOC 180B", "STATS 110", "STATS 191", "STATS 200", "STATS 202"],
     "Computational Data Methods": ["CS 129", "CS 224N", "CS 224W", "CS 228", "CS 229", "CS 230", "CS 238", "CS 246", "CS 448B", "ECON 102B", "LINGUIST 180", "LINGUIST 188", "PSYCH 204", "PSYCH 209", "PSYCH 220A", "STATS 216"],
@@ -23052,8 +23052,8 @@ let degree$i = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Computer-Generated Music I": ["MUSIC 220A"],
     "Computer-Generated Music II": ["MUSIC 220B"],
     "Music and the Mind & Brain": ["MUSIC 1A", "MUSIC 251", "MUSIC 351A", "MUSIC 351B", "PSYCH 30", "PSYCH 50"],
@@ -23307,8 +23307,8 @@ let degree$h = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Philosophical Inquiry": ["HUMBIO 171E", "ME 120", "MS&E 234", "MS&E 254", "MS&E 299", "PHIL 73", "PHIL 82", "PHIL 111", "PHIL 133S", "PHIL 164", "PHIL 166", "PHIL 169", "PHIL 170", "PHIL 171", "PHIL 172", "PHIL 176A", "PHIL 184", "PHIL 184B", "PHIL 184M", "PHIL 187", "PHIL 359", "PHIL 388", "POLISCI 131L", "POLISCI 230A", "PSYCH 160", "SYMSYS 202", "SYMSYS 205", "THINK 57"],
     "Formal Decision Theories": ["ECON 51", "ECON 136", "ECON 160", "ECON 180", "ECON 182", "ECON 289", "ECON 290", "IPS 204A", "MS&E 232", "MS&E 232H", "PHIL 154", "Phil 157", "PHIL 351", "PHIL 351C", "PHIL 351D", "PHIL 359", "POLISCI 356A", "PUBLPOL 51"],
     "Empirical Findings and Explanations": ["BIO 150", "COMM 137W", "ECON 178", "ECON 179", "ECON 279", "EDUC 375A", "GSBGEN 646", "LAW 333", "POLISCI 123", "POLISCI 351B", "POLISCI 351C", "PSYCH 154", "PSYCH 160", "PSYCH 168", "PSYCH 205", "PSYCH 212", "PSYCH 215", "PSYCH 223", "PSYCH 232", "PSYCH 254", "PUBLPOL 102", "SOC 114", "SOC 115", "SOC 126", "SOC 187", "SYMSYS 203"],
@@ -23562,8 +23562,8 @@ let degree$g = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Introduction to HCI": ["CS 147"],
     "Design Methods": ["CS 194H", "CS 247A", "CS 247B", "CS 247G", "CS 247I", "CS 247S"],
     "HCI Theory": ["COMM 145", "COMM 166", "COMM 172", "CS 347", "ME 341"],
@@ -23817,8 +23817,8 @@ let degree$f = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Digital Technology Ethics and Policy": ["CS 181", "CS 182", "CS 281"],
     "Human Impact": ["AFRICAAM 200N", "ANTHRO 132D", "ANTHRO 134A", "BIOE 177", "COMM 120W", "COMM 124", "COMM 145", "COMM 154", "COMM 172", "COMM 184", "COMM 322", "COMPLIT 244", "CS 139", "CS 209", "CS 323", "CS 384", "DESIGN 283Q", "ENGLISH 106A", "GLOBAL 124", "INTLPOL 221", "LAW 4039", "LAW 4045", "LAW 4050", "MS&E 184", "MS&E 193", "MS&E 234", "NBIO 101", "OSPOXFRD 29", "PHIL 174B", "POLISCI 115", "PSYC 63Q", "PUBLPOL 134", "SOC 124", "STS 1", "SYMSYS 104", "SYMSYS 201"],
     "Augmenting Human Capabilities": ["BIOE 273", "BIOMEDIN 220", "COMM 166", "COMM 177B", "COMM 280", "COMM 326", "CEE 329", "CS 147", "CS 152", "CS 184", "CS 247A", "CS 247B", "CS 247I", "CS 247S", "CS 278", "CS 325B", "CS 335", "CS 372", "CS 448B", "CS 470", "ECON 136", "EDUC 211", "EDUC 236", "EDUC 266", "EDUC 281", "EDUC 302", "ENGLISH 108A", "ENGLISH 384B", "GSBGEN 596", "HUMBIO 135S", "HUMBIO 151R", "MUSIC 220C", "MUSIC 257", "LAW 808J", "OTOHNS 206", "PSYC 60N", "PSYC 124", "PSYC 135", "PSYC 223B", "PSYC 240", "PSYCH 12N", "PSYCH 24N", "PSYCH 273", "PSYCH 290", "SOC 167VP", "SYMSYS 245"],
@@ -24072,8 +24072,8 @@ let degree$e = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Computational Learning": ["CS 205L", "CS 221", "CS 224N", "CS 228", "CS 229", "CS 229M", "CS 230", "CS 234", "CS 236", "CS 325B", "EDUC 234", "EE 104", "EE 376A", "LINGUIST 180", "MS&E 234", "PSYCH 204", "PSYCH 209", "PSYCH 220A", "PSYCH 249", "STATS 220", "STATS 315A", "STATS 315B", "STATS 101"],
     "Human Learning": ["CS 428A", "EDUC 101", "EDUC 115N", "EDUC 204", "EDUC 218", "EDUC 261E", "EDUC 266", "EDUC 307", "EDUC 368", "EDUC 378", "HUMBIO 4B", "LINGUIST 140", "PSYCH 45", "PSYCH 50", "PSYCH 60", "PSYCH 140", "PSYCH 141", "PSYCH 161", "PSYCH 169", "PSYCH 175", "PSYCH 202", "PSYCH 204", "PSYCH 209", "PSYCH 226", "PSYCH 249", "PSYCH 251", "PSYCH 265", "PSYCH 266"],
     "Learning Environment Design": ["ARTSTUDI 160", "COMM 166", "COMM 322", "CS 147", "CS 194H", "CS 398", "EDUC 234A", "EDUC 230", "EDUC 236", "EDUC 211", "EDUC 333A", "EDUC 342", "EDUC 298", "EDUC 303", "EDUC 391", "EDUC 281", "MUSIC 257", "EDUC 328", "EDUC 426", "MUSIC 257", "PSYCH 287", "SYMSYS 245"],
@@ -24322,8 +24322,8 @@ let degree$d = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Multivariate Calculus and Linear Algebra": ["MATH 52", "MATH 53", "MATH 63CM", "MATH 62CM", "MATH 62DM", "MATH 63DM"],
     "Matrix Theory and Applications": ["MATH 104", "MATH 113"],
     "Applied Mathematics and Statistics": ["CME 107", "CME 263", "CS 205L", "CS 229M", "EE 263", "EE 276", "MATH 108", "MATH 110", "MATH 136", "MATH 158", "MATH 159", "STATS 110", "MS&E 111", "MS&E 111X", "MS&E 121", "MS&E 201", "MS&E 213", "MS&E 221", "PSYCH 253", "STATS 191", "STATS 200", "STATS 202", "STATS 216", "STATS 217"],
@@ -24572,8 +24572,8 @@ let degree$c = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Introduction": ["COMM 1"],
     "Statistical and Data Analysis Methods": ["ANTHRO 116", "COMM 173E", "CS 229", "MS&E 125", "MS&E 226", "PSYCH 253", "SOC 180B", "STATS 60", "STATS 110", "STATS 191", "STATS 101", "STATS 200", "STATS 202"],
     "Research Methods": ["COMM 106", "CSRE 433", "CS 142", "CS 147", "CS 347", "CS 448B", "EDUC 143", "EDUC 200B", "EDUC 211", "EDUC 236", "HUMBIO 82A", "MS&E 135", "MS&E 231", "MS&E 387", "ME 341", "PHIL 60", "POLISCI 150A", "POLISCI 150C", "PSYCH 170", "PSYCH 251", "SOC 10", "SOC 180A", "SOC 194", "SOC 369", "STATS 209", "STATS 211", "STS 191W"],
@@ -24827,8 +24827,8 @@ let degree$b = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Mathematical/Computational Foundations": ["CS 154", "CS 221", "CS 229", "PHIL 154", "PSYCH 204", "PSYCH 209", "PSYCH 251"],
     "Computational Linguistics": ["CS 124", "CS 224N", "CS 224S", "CS 224U", "CS 276", "PSYCH 290"],
     "Phonetics/Phonology/Speech": ["LINGUIST 105", "LINGUIST 107", "LINGUIST 110", "LINGUIST 112", "LINGUIST 157", "LINGUIST 205B", "LINGUIST 207A", "LINGUIST 210A", "LINGUIST 213", "LINGUIST 260A"],
@@ -25068,8 +25068,8 @@ let degree$a = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Basic Neuroscience (1 required)": ["BIO 84", "BIO 150", "BIO 151", "BIO 153", "BIO 154", "HUMBIO 4A", "NBIO 206", "PSYCH 121"],
     "Systems Neuroscience (1 required)": ["BIO 158", "BIO 222", "EDUC 266", "EDUC 464", "MUSIC 451A", "PSYC 124", "PSYC 149", "PSYCH 30", "PSYCH 45", "PSYCH 50", "PSYCH 141", "PSYCH 154", "PSYCH 162", "PSYCH 169", "PSYCH 205", "PSYCH 224", "Psych 226", "PSYCH 232", "PSYCH 254", "PSYCH 266"],
     "Computational Approaches": ["BIOE 101", "BIOE 300B", "EE 124", "CS 223A", "CS 229", "CS 330", "CS 379C", "MATSCI 384", "MUSIC 257", "OTOHNS 206", "PSYCH 164", "PSYCH 204", "PSYCH 204A", "PSYCH 204B", "PSYCH 209", "PSYCH 249", "PSYCH 287", "STATS 220"],
@@ -25310,8 +25310,8 @@ let degree$9 = {
     "Linguistic theory": ["LINGUIST 110", "LINGUIST 116A", "LINGUIST 121[AB]", "LINGUIST 130[AB]", "LINGUIST 145", "LINGUIST 160"],
     "Cross area": ["PHIL 152", "PHIL 154", "PHIL 162", "PHIL 181", "CS 181", "CS 182", "PHIL 167D", "PHIL 186", "CS 151", "CS 154", "CS 161", "CS 229", "CS 238", "LINGUIST 130A", "LINGUIST 180", "PSYCH 204", "PSYCH 209", "PSYCH 221", "PSYCH 242", "PSYCH 249", "PSYCH 253", "CS 229", "ECON 178", "CS 147", "CS 448B", "PSYCH 164", "PSYCH 240A"],
     "Small seminar": ["BIO 151", "COMM 322", "COMM 324", "CS 206", "CS 325B", "LINGUIST 230C", "MUSIC 220C", "MUSIC 351A", "PHIL 194Y", "PHIL 359", "PSYCH 169", "PSYCH 232", "PSYCH 247", "PSYCH 254", "SYMSYS 202", "SYMSYS 203", "SYMSYS 205", "SYMSYS 207", "SYMSYS 245"],
-    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
-    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]", "CS 177", "SYMSYS 196"],
+    "Practicum": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196", "SYMSYS 192", "SYMMSYS 197", "PSYCH 182", "CS 198"],
+    "Integ standard": ["SYMSYS 190", "SYMSYS 195[A-Z]*", "CS 177", "SYMSYS 196"],
     "Philosophy of Mind and Language": ["PHIL 180", "PHIL 180A", "PHIL 181", "PHIL 182", "PHIL 182A", "PHIL 182H", "PHIL 183", "PHIL 183B", "PHIL 184", "PHIL 184B", "PHIL 184M", "PHIL 185", "PHIL 185W", "PHIL 186", "PHIL 187", "PHIL 188W", "PHIL 189G"],
     "Ethics, Historical, and Political Philosophy": ["PHIL 100", "PHIL 102", "PHIL 107B", "PHIL 172", "PHIL 173B", "PHIL 175", "PHIL 194P"],
     "Logic": ["CS 154", "PHIL 152", "PHIL 154", "PHIL 350-series", "PHIL 359"],
@@ -25536,11 +25536,11 @@ let degree$8 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 221"],
     "Depth B": ["CS 223A", "CS 224N", "CS 224S", "CS 224U", "CS 224V", "CS 224W", "CS 228", "CS 229", "CS 231A", "CS 231N", "CS 234", "CS 237A", "CS 237B", "CS 238"],
-    "Depth C": ["CS 205L", "CS 224R", "CS 225A", "CS 227B", "CS 229M", "CS 230", "CS 233", "CS 235", "CS 236", "CS 239", "CS 246", "CS 257", "CS 270", "CS 271", "CS 273A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 322", "CS 324", "CS 325B", "CS 326", "CS 327A", "CS 329[A-Z]?", "CS 330", "CS 331B", "CS 332", "CS 333", "CS 345", "CS 348N", "CS 361", "CS 368", "CS 371", "CS 375", "CS 377[A-Z]?", "CS 379[A-Z]?", "CS 398", "CS 399", "CS 428A", "CS 428B", "CS 432", "EE 263", "EE 276", "EE 278", "EE 364A", "EE 364B", "EE 377", "EE 378B", "ENGR 205", "ENGR 209A", "MS&E 226", "MS&E 252", "PSYCH 209", "STATS 202", "STATS 315A", "STATS 315B"],
+    "Depth C": ["CS 205L", "CS 224R", "CS 225A", "CS 227B", "CS 229M", "CS 230", "CS 233", "CS 235", "CS 236", "CS 239", "CS 246", "CS 257", "CS 270", "CS 271", "CS 273A", "CS 273B", "CS 274", "CS 275", "CS 279", "CS 281", "CS 322", "CS 324", "CS 325B", "CS 326", "CS 327A", "CS 329[A-Z]*", "CS 330", "CS 331B", "CS 332", "CS 333", "CS 345", "CS 348N", "CS 361", "CS 368", "CS 371", "CS 375", "CS 377[A-Z]*", "CS 379[A-Z]*", "CS 398", "CS 399", "CS 428A", "CS 428B", "CS 432", "EE 263", "EE 276", "EE 278", "EE 364A", "EE 364B", "EE 377", "EE 378B", "ENGR 205", "ENGR 209A", "MS&E 226", "MS&E 252", "PSYCH 209", "STATS 202", "STATS 315A", "STATS 315B"],
     "CS dept electives": [
       {
         "type": "add",
@@ -25669,7 +25669,7 @@ let degree$7 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS [12]73A"],
     "Depth B": ["CS 221"],
@@ -25811,11 +25811,11 @@ let degree$6 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
-    "Depth A": ["CS 147", "CS 247[A-Z]?", "CS 347", "CS 142", "CS 147L"],
+    "Depth A": ["CS 147", "CS 247[A-Z]*", "CS 347", "CS 142", "CS 147L"],
     "Depth B": ["CS 278", "CS 448B"],
-    "Depth C": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 224C", "CS 247[A-Z]?", "CS 329X", "CS 377[A-Z]?"],
+    "Depth C": ["CS 177", "CS 194H", "CS 206", "CS 210A", "CS 224C", "CS 247[A-Z]*", "CS 329X", "CS 377[A-Z]*"],
     "Depth D": ["ARTSTUD 130", "ARTSTUD 163", "ARTSTUD 165A", "ARTSTUD 169A", "ARTSTUD 231A", "COMM 224", "COMM 272", "COMM 324", "ME 115A", "ME 115C", "ME 216A", "COMM 254", "COMM 314", "EDUC 200B", "MS&E 125", "PSYCH 251", "PSYCH 252", "PSYCH 253", "STATS 203", "CS 498C", "EDUC 281", "EDUC 342", "EDUC 432", "MS&E 184", "MS&E 231", "MS&E 334", "ME 203", "ME 210", "ME 216A", "MUSIC 220A", "MUSIC 220B", "MUSIC 220C", "MUSIC 250A", "MUSIC 256A", "PSYCH 204", "PSYCH 209", "SYMSYS 245", "DESIGN 204", "DESIGN 292", "DESIGN 231", "DESIGN 236P", "DESIGN 240", "LAW 809E", "DESIGN 283Q", "DESIGN 262", "DESIGN 315", "DESIGN 259", "DESIGN 282", "DESIGN 276", "ME 206[AB]", "ENGR 231", "DESIGN 294", "DESIGN 268", "DESIGN 399", "DESIGN 368", "DESIGN 245", "DESIGN 265", "DESIGN 284", "DESIGN 287", "DESIGN 261", "DESIGN 187N", "DESIGN 255", "DESIGN 273", "DESIGN 251", "DESIGN 204"],
     "CS dept electives": [
       {
@@ -25948,7 +25948,7 @@ let degree$5 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 145"],
     "Depth B": ["CS 224N", "CS 224W", "CS 229", "CS 245", "CS 246", "CS 263", "CS 281"],
@@ -26081,10 +26081,10 @@ let degree$4 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 140", "CS 212", "CS 140E", "CS 112", "CS 144", "CS 155", "CS 255", "CS 356"],
-    "Depth B": ["CS 142", "CS 152", "CS 190", "CS 240[A-Z]?", "CS 244", "CS 244B", "CS 249I", "CS 253", "CS 261", "CS 265", "CS 340[A-Z]?", "CS 355"],
+    "Depth B": ["CS 142", "CS 152", "CS 190", "CS 240[A-Z]*", "CS 244", "CS 244B", "CS 249I", "CS 253", "CS 261", "CS 265", "CS 340[A-Z]*", "CS 355"],
     "Depth C": ["CS 245", "CS 251", "CS 294S", "CS 399", "EE 384S"],
     "CS dept electives": [
       {
@@ -26215,7 +26215,7 @@ let degree$3 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 242", "CS 243"],
     "Depth B": ["CS 221", "CS 244", "CS 245", "CS 341"],
@@ -26352,11 +26352,11 @@ let degree$2 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 140", "CS 212", "CS 140E", "CS 112", "CS 112E", "CS 144", "CS 240"],
     "Depth B": ["CS 190", "CS 242", "CS 243", "CS 244", "CS 245", "CS 248", "CS 248A", "CS 348B", "EE 271", "EE 282"],
-    "Depth C": ["CS 149", "CS 217", "CS 229S", "CS 241", "CS 244B", "CS 246", "CS 251", "CS 255", "CS 270", "CS 272", "CS 294S", "CS 295", "CS 315B", "CS 316", "CS 340[A-Z]?", "CS 343D", "CS 344[A-Z]?", "CS 348[A-Z]?", "CS 349[A-Z]?", "CS 356", "CS 357S", "CS 399", "CS 448[A-Z]?", "EE 267", "EE 273", "EE 382C", "EE 384A", "EE 384C", "EE 384S"],
+    "Depth C": ["CS 149", "CS 217", "CS 229S", "CS 241", "CS 244B", "CS 246", "CS 251", "CS 255", "CS 270", "CS 272", "CS 294S", "CS 295", "CS 315B", "CS 316", "CS 340[A-Z]*", "CS 343D", "CS 344[A-Z]*", "CS 348[A-Z]*", "CS 349[A-Z]*", "CS 356", "CS 357S", "CS 399", "CS 448[A-Z]*", "EE 267", "EE 273", "EE 382C", "EE 384A", "EE 384C", "EE 384S"],
     "CS dept electives": [
       {
         "type": "add",
@@ -26486,10 +26486,10 @@ let degree$1 = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 154", "CS 261"],
-    "Depth B": ["CS 151", "CS 163", "CS 166", "CS 168", "CS 228", "CS 229T", "CS 233", "CS 236", "CS 246", "CS 250", "CS 251", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 263", "CS 265", "CS 269I", "CS 328", "CS 331", "CS 351", "CS 354", "CS 355", "CS 358", "CS 359[A-Z]?", "CS 368", "CS 369[A-Z]?", "CS 399", "CS 468", "EE 364A", "MS&E 310", "MS&E 319"],
+    "Depth B": ["CS 151", "CS 163", "CS 166", "CS 168", "CS 228", "CS 229T", "CS 233", "CS 236", "CS 246", "CS 250", "CS 251", "CS 254", "CS 254B", "CS 255", "CS 256", "CS 257", "CS 259Q", "CS 263", "CS 265", "CS 269I", "CS 328", "CS 331", "CS 351", "CS 354", "CS 355", "CS 358", "CS 359[A-Z]*", "CS 368", "CS 369[A-Z]*", "CS 399", "CS 468", "EE 364A", "MS&E 310", "MS&E 319"],
     "CS dept electives": [
       {
         "type": "add",
@@ -26615,7 +26615,7 @@ let degree = {
     "Sig imp": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 145", "CS 148", "CS 151", "CS 190", "CS 210B", "CS 212", "CS 221", "CS 227B", "CS 231N", "CS 243", "CS 248", "CS 248A", "CS 341"],
     "Breadth A": ["CS 154", "CS 157", "CS 168", "CS 254", "CS 261", "CS 265", "EE 364A", "EE 364B", "PHIL 251"],
     "Breadth B": ["CS 140", "CS 140E", "CS 143", "CS 144", "CS 149", "CS 212", "CS 242", "CS 243", "CS 244", "CS 244B", "CS 295", "CS 316", "CS 358", "EE 180", "EE 282", "EE 382E"],
-    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]?", "CS 248[A-Z]?", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]?", "CS 355", "CS 356", "CS 373"],
+    "Breadth C": ["CS 145", "CS 147", "CS 148", "CS 155", "CS 173", "CS 221", "CS 223A", "CS 224N", "CS 224U", "CS 224W", "CS 227B", "CS 228", "CS 229", "CS 229M", "CS 231A", "CS 231N", "CS 234", "CS 236", "CS 237A", "CS 245", "CS 246", "CS 247[A-Z]*", "CS 248[A-Z]*", "CS 251", "CS 255", "CS 273A", "CS 273B", "CS 279", "CS 345", "CS 347", "CS 348[A-Z]*", "CS 355", "CS 356", "CS 373"],
     "Breadth D": ["CS 152", "CS 181", "CS 182", "CS 256", "CS 281", "CS 329T", "CS 384", "AMSTUD 133", "AMSTUD 145", "ANTHRO 132D", "COMM 118S", "COMM 120W", "COMM 124", "COMM 130D", "COMM 145", "COMM 154", "COMM 166", "COMM 186W", "COMM 230A", "COMM 230B", "COMM 230C", "DESINST 215", "DESINST 240", "EARTHSYS 213", "ENGLISH 184D", "ENGR 248", "HISTORY 244F", "INTLPOL 268", "LAW 4039", "ME 177", "MS&E 193", "MS&E 231", "MS&E 234", "MS&E 254", "POLISCI 150A", "PSYCH 215", "PUBLPOL 103F", "PUBLPOL 353B"],
     "Depth A": ["CS 248A", "CS 248B", "CS 231N"],
     "Depth B": ["CS 205L", "CS 223A", "CS 231A", "CS 233", "CS 348[BCEIKN]", "CS 448I"],
@@ -27104,10 +27104,10 @@ function GeneralizedDegreeCheck(degree2, allCourses2, grid, list, transfer) {
   });
   let totalUnits = 0;
   if (degree2.level === "undergraduate") {
-    totalUnits = calculateTotalUnits(listCopy, transfer);
+    totalUnits = calculateTotalUnits(listCopy, transfer, false);
   }
   if (degree2.level === "graduate") {
-    totalUnits = calculateTotalUnits(listCopyOnlyMs, transfer);
+    totalUnits = calculateTotalUnits(listCopyOnlyMs, transfer, true);
   }
   let reqResults = [];
   degree2.requirements.forEach((req, i) => {
@@ -27255,7 +27255,7 @@ function calculateTotalUnits(courses, transfer, isMS) {
   courses.forEach((course) => {
     totalUnits += course.units_taking;
   });
-  if (transfer) {
+  if (transfer && !isMS) {
     totalUnits += getTransferUnits(transfer, "Total");
   }
   return totalUnits;
