@@ -16083,7 +16083,7 @@ function create_each_block(ctx) {
   };
 }
 function create_fragment$3(ctx) {
-  let div21;
+  let div23;
   let div0;
   let textContent = "Settings";
   let t1;
@@ -16125,35 +16125,42 @@ function create_fragment$3(ctx) {
   let t20;
   let div11;
   let t21;
-  let div13;
   let div12;
-  let textContent_8 = "Transfer units";
+  let textContent_8 = `<b>Use checkboxes to add to masters degree or mark credit/satisfactory/no credit. Use bump button
+			to bump a course down to the next requirement</b>`;
   let t23;
-  let select0;
-  let t24;
-  let input1;
-  let t25;
   let div14;
-  let textContent_9 = `<b>Set total transfer units, then AP units</b>`;
+  let div13;
+  let textContent_9 = "Transfer units";
+  let t25;
+  let select0;
+  let t26;
+  let input1;
   let t27;
-  let div20;
   let div15;
-  let textContent_10 = "Degree checker";
+  let textContent_10 = `<b>Set total transfer units, then AP units</b>`;
   let t29;
+  let div22;
   let div16;
+  let textContent_11 = "Degree checker";
+  let t31;
+  let div17;
   let select1;
   let select1_value_value;
-  let t30;
-  let div17;
+  let t32;
+  let div18;
   let select2;
   let select2_value_value;
-  let t31;
-  let div18;
-  let textContent_11 = `<b>The degree checker is designed to cover the 80% most common cases. There are no accuracy
-				guarantees; consult official materials.</b>`;
   let t33;
   let div19;
-  let textContent_12 = `Implemented degrees include those which have more than 50 students per year. Implementations
+  let textContent_12 = `<b>Add courses to masters degree by enabling &quot;checkboxes&quot; above, then checking courses as &quot;ms&quot;</b>`;
+  let t35;
+  let div20;
+  let textContent_13 = `<b>The degree checker is designed to cover the 80% most common cases. There are no accuracy
+				guarantees; consult official materials.</b>`;
+  let t37;
+  let div21;
+  let textContent_14 = `Implemented degrees include those which have more than 50 students per year. Implementations
 			are at <a href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees" target="_blank">src/routes/degrees</a>`;
   let mounted;
   let dispose;
@@ -16215,7 +16222,7 @@ function create_fragment$3(ctx) {
   }
   return {
     c() {
-      div21 = element("div");
+      div23 = element("div");
       div0 = element("div");
       div0.textContent = textContent;
       t1 = space();
@@ -16264,59 +16271,65 @@ function create_fragment$3(ctx) {
         each_blocks_3[i].c();
       }
       t21 = space();
-      div13 = element("div");
       div12 = element("div");
-      div12.textContent = textContent_8;
+      div12.innerHTML = textContent_8;
       t23 = space();
+      div14 = element("div");
+      div13 = element("div");
+      div13.textContent = textContent_9;
+      t25 = space();
       select0 = element("select");
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         each_blocks_2[i].c();
       }
-      t24 = space();
+      t26 = space();
       input1 = element("input");
-      t25 = space();
-      div14 = element("div");
-      div14.innerHTML = textContent_9;
       t27 = space();
-      div20 = element("div");
       div15 = element("div");
-      div15.textContent = textContent_10;
+      div15.innerHTML = textContent_10;
       t29 = space();
+      div22 = element("div");
       div16 = element("div");
+      div16.textContent = textContent_11;
+      t31 = space();
+      div17 = element("div");
       select1 = element("select");
       for (let i = 0; i < each_blocks_1.length; i += 1) {
         each_blocks_1[i].c();
       }
-      t30 = space();
-      div17 = element("div");
+      t32 = space();
+      div18 = element("div");
       select2 = element("select");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t31 = space();
-      div18 = element("div");
-      div18.innerHTML = textContent_11;
       t33 = space();
       div19 = element("div");
       div19.innerHTML = textContent_12;
+      t35 = space();
+      div20 = element("div");
+      div20.innerHTML = textContent_13;
+      t37 = space();
+      div21 = element("div");
+      div21.innerHTML = textContent_14;
       this.h();
     },
     l(nodes) {
-      div21 = claim_element(nodes, "DIV", { class: true });
-      var div21_nodes = children(div21);
-      div0 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      div23 = claim_element(nodes, "DIV", { class: true });
+      var div23_nodes = children(div23);
+      div0 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div0) !== "svelte-h3vxd0")
         div0.textContent = textContent;
-      t1 = claim_space(div21_nodes);
-      div1 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      t1 = claim_space(div23_nodes);
+      div1 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div1) !== "svelte-18ev73z")
         div1.innerHTML = textContent_1;
-      t3 = claim_space(div21_nodes);
-      div2 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      t3 = claim_space(div23_nodes);
+      div2 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div2) !== "svelte-lh84ox")
         div2.innerHTML = textContent_2;
-      t5 = claim_space(div21_nodes);
-      div9 = claim_element(div21_nodes, "DIV", { class: true });
+      t5 = claim_space(div23_nodes);
+      div9 = claim_element(div23_nodes, "DIV", { class: true });
       var div9_nodes = children(div9);
       div3 = claim_element(div9_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div3) !== "svelte-13y94bh")
@@ -16367,77 +16380,85 @@ function create_fragment$3(ctx) {
         if_block2.l(div8_nodes);
       div8_nodes.forEach(detach);
       div9_nodes.forEach(detach);
-      t18 = claim_space(div21_nodes);
-      div10 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      t18 = claim_space(div23_nodes);
+      div10 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div10) !== "svelte-16udskt")
         div10.textContent = textContent_7;
-      t20 = claim_space(div21_nodes);
-      div11 = claim_element(div21_nodes, "DIV", { class: true });
+      t20 = claim_space(div23_nodes);
+      div11 = claim_element(div23_nodes, "DIV", { class: true });
       var div11_nodes = children(div11);
       for (let i = 0; i < each_blocks_3.length; i += 1) {
         each_blocks_3[i].l(div11_nodes);
       }
       div11_nodes.forEach(detach);
-      t21 = claim_space(div21_nodes);
-      div13 = claim_element(div21_nodes, "DIV", { class: true });
-      var div13_nodes = children(div13);
-      div12 = claim_element(div13_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div12) !== "svelte-k80iny")
-        div12.textContent = textContent_8;
-      t23 = claim_space(div13_nodes);
-      select0 = claim_element(div13_nodes, "SELECT", { class: true });
+      t21 = claim_space(div23_nodes);
+      div12 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div12) !== "svelte-waodzu")
+        div12.innerHTML = textContent_8;
+      t23 = claim_space(div23_nodes);
+      div14 = claim_element(div23_nodes, "DIV", { class: true });
+      var div14_nodes = children(div14);
+      div13 = claim_element(div14_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div13) !== "svelte-k80iny")
+        div13.textContent = textContent_9;
+      t25 = claim_space(div14_nodes);
+      select0 = claim_element(div14_nodes, "SELECT", { class: true });
       var select0_nodes = children(select0);
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         each_blocks_2[i].l(select0_nodes);
       }
       select0_nodes.forEach(detach);
-      t24 = claim_space(div13_nodes);
-      input1 = claim_element(div13_nodes, "INPUT", {
+      t26 = claim_space(div14_nodes);
+      input1 = claim_element(div14_nodes, "INPUT", {
         class: true,
         type: true,
         placeholder: true
       });
-      div13_nodes.forEach(detach);
-      t25 = claim_space(div21_nodes);
-      div14 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div14) !== "svelte-m652ny")
-        div14.innerHTML = textContent_9;
-      t27 = claim_space(div21_nodes);
-      div20 = claim_element(div21_nodes, "DIV", { class: true });
-      var div20_nodes = children(div20);
-      div15 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div15) !== "svelte-s3awp9")
-        div15.textContent = textContent_10;
-      t29 = claim_space(div20_nodes);
-      div16 = claim_element(div20_nodes, "DIV", { class: true });
-      var div16_nodes = children(div16);
-      select1 = claim_element(div16_nodes, "SELECT", { class: true });
+      div14_nodes.forEach(detach);
+      t27 = claim_space(div23_nodes);
+      div15 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div15) !== "svelte-m652ny")
+        div15.innerHTML = textContent_10;
+      t29 = claim_space(div23_nodes);
+      div22 = claim_element(div23_nodes, "DIV", { class: true });
+      var div22_nodes = children(div22);
+      div16 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div16) !== "svelte-s3awp9")
+        div16.textContent = textContent_11;
+      t31 = claim_space(div22_nodes);
+      div17 = claim_element(div22_nodes, "DIV", { class: true });
+      var div17_nodes = children(div17);
+      select1 = claim_element(div17_nodes, "SELECT", { class: true });
       var select1_nodes = children(select1);
       for (let i = 0; i < each_blocks_1.length; i += 1) {
         each_blocks_1[i].l(select1_nodes);
       }
       select1_nodes.forEach(detach);
-      div16_nodes.forEach(detach);
-      t30 = claim_space(div20_nodes);
-      div17 = claim_element(div20_nodes, "DIV", { class: true });
-      var div17_nodes = children(div17);
-      select2 = claim_element(div17_nodes, "SELECT", { class: true });
+      div17_nodes.forEach(detach);
+      t32 = claim_space(div22_nodes);
+      div18 = claim_element(div22_nodes, "DIV", { class: true });
+      var div18_nodes = children(div18);
+      select2 = claim_element(div18_nodes, "SELECT", { class: true });
       var select2_nodes = children(select2);
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(select2_nodes);
       }
       select2_nodes.forEach(detach);
-      div17_nodes.forEach(detach);
-      t31 = claim_space(div20_nodes);
-      div18 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div18) !== "svelte-1n9iha1")
-        div18.innerHTML = textContent_11;
-      t33 = claim_space(div20_nodes);
-      div19 = claim_element(div20_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div19) !== "svelte-gzijyw")
+      div18_nodes.forEach(detach);
+      t33 = claim_space(div22_nodes);
+      div19 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div19) !== "svelte-qi0sf3")
         div19.innerHTML = textContent_12;
-      div20_nodes.forEach(detach);
-      div21_nodes.forEach(detach);
+      t35 = claim_space(div22_nodes);
+      div20 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div20) !== "svelte-1n9iha1")
+        div20.innerHTML = textContent_13;
+      t37 = claim_space(div22_nodes);
+      div21 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div21) !== "svelte-gzijyw")
+        div21.innerHTML = textContent_14;
+      div22_nodes.forEach(detach);
+      div23_nodes.forEach(detach);
       this.h();
     },
     h() {
@@ -16463,33 +16484,35 @@ function create_fragment$3(ctx) {
       attr(div9, "class", "buttonContainer svelte-lt0ixy");
       attr(div10, "class", "header svelte-lt0ixy");
       attr(div11, "class", "courseTableDataCheckboxes svelte-lt0ixy");
-      attr(div12, "class", "header svelte-lt0ixy");
+      attr(div12, "class", "info svelte-lt0ixy");
+      attr(div13, "class", "header svelte-lt0ixy");
       attr(select0, "class", "svelte-lt0ixy");
       attr(input1, "class", "transferUnitUnits svelte-lt0ixy");
       attr(input1, "type", "number");
       attr(input1, "placeholder", "Transfer unit units");
-      attr(div13, "class", "transferUnits svelte-lt0ixy");
-      attr(div14, "class", "info svelte-lt0ixy");
-      attr(div15, "class", "header svelte-lt0ixy");
+      attr(div14, "class", "transferUnits svelte-lt0ixy");
+      attr(div15, "class", "info svelte-lt0ixy");
+      attr(div16, "class", "header svelte-lt0ixy");
       attr(select1, "class", "degreeDropdown svelte-lt0ixy");
-      attr(div16, "class", "bachelorsDegreeDropdown svelte-lt0ixy");
-      attr(select2, "class", "degreeDropdown svelte-lt0ixy");
       attr(div17, "class", "bachelorsDegreeDropdown svelte-lt0ixy");
-      attr(div18, "class", "info svelte-lt0ixy");
+      attr(select2, "class", "degreeDropdown svelte-lt0ixy");
+      attr(div18, "class", "bachelorsDegreeDropdown svelte-lt0ixy");
       attr(div19, "class", "info svelte-lt0ixy");
-      attr(div20, "class", "degreeCheckerConfig svelte-lt0ixy");
-      attr(div21, "class", "content svelte-lt0ixy");
+      attr(div20, "class", "info svelte-lt0ixy");
+      attr(div21, "class", "info svelte-lt0ixy");
+      attr(div22, "class", "degreeCheckerConfig svelte-lt0ixy");
+      attr(div23, "class", "content svelte-lt0ixy");
     },
     m(target, anchor) {
       var _a, _b;
-      insert_hydration(target, div21, anchor);
-      append_hydration(div21, div0);
-      append_hydration(div21, t1);
-      append_hydration(div21, div1);
-      append_hydration(div21, t3);
-      append_hydration(div21, div2);
-      append_hydration(div21, t5);
-      append_hydration(div21, div9);
+      insert_hydration(target, div23, anchor);
+      append_hydration(div23, div0);
+      append_hydration(div23, t1);
+      append_hydration(div23, div1);
+      append_hydration(div23, t3);
+      append_hydration(div23, div2);
+      append_hydration(div23, t5);
+      append_hydration(div23, div9);
       append_hydration(div9, div3);
       append_hydration(div9, t7);
       append_hydration(div9, div4);
@@ -16515,27 +16538,29 @@ function create_fragment$3(ctx) {
       append_hydration(div8, t17);
       if (if_block2)
         if_block2.m(div8, null);
-      append_hydration(div21, t18);
-      append_hydration(div21, div10);
-      append_hydration(div21, t20);
-      append_hydration(div21, div11);
+      append_hydration(div23, t18);
+      append_hydration(div23, div10);
+      append_hydration(div23, t20);
+      append_hydration(div23, div11);
       for (let i = 0; i < each_blocks_3.length; i += 1) {
         if (each_blocks_3[i]) {
           each_blocks_3[i].m(div11, null);
         }
       }
-      append_hydration(div21, t21);
-      append_hydration(div21, div13);
-      append_hydration(div13, div12);
-      append_hydration(div13, t23);
-      append_hydration(div13, select0);
+      append_hydration(div23, t21);
+      append_hydration(div23, div12);
+      append_hydration(div23, t23);
+      append_hydration(div23, div14);
+      append_hydration(div14, div13);
+      append_hydration(div14, t25);
+      append_hydration(div14, select0);
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         if (each_blocks_2[i]) {
           each_blocks_2[i].m(select0, null);
         }
       }
-      append_hydration(div13, t24);
-      append_hydration(div13, input1);
+      append_hydration(div14, t26);
+      append_hydration(div14, input1);
       set_input_value(
         input1,
         /*$prefs*/
@@ -16544,14 +16569,14 @@ function create_fragment$3(ctx) {
           ctx[1]
         ].value
       );
-      append_hydration(div21, t25);
-      append_hydration(div21, div14);
-      append_hydration(div21, t27);
-      append_hydration(div21, div20);
-      append_hydration(div20, div15);
-      append_hydration(div20, t29);
-      append_hydration(div20, div16);
-      append_hydration(div16, select1);
+      append_hydration(div23, t27);
+      append_hydration(div23, div15);
+      append_hydration(div23, t29);
+      append_hydration(div23, div22);
+      append_hydration(div22, div16);
+      append_hydration(div22, t31);
+      append_hydration(div22, div17);
+      append_hydration(div17, select1);
       for (let i = 0; i < each_blocks_1.length; i += 1) {
         if (each_blocks_1[i]) {
           each_blocks_1[i].m(select1, null);
@@ -16566,9 +16591,9 @@ function create_fragment$3(ctx) {
           ctx[22]
         )) == null ? void 0 : _a.uniqueID
       );
-      append_hydration(div20, t30);
-      append_hydration(div20, div17);
-      append_hydration(div17, select2);
+      append_hydration(div22, t32);
+      append_hydration(div22, div18);
+      append_hydration(div18, select2);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(select2, null);
@@ -16583,10 +16608,12 @@ function create_fragment$3(ctx) {
           ctx[24]
         )) == null ? void 0 : _b.uniqueID
       );
-      append_hydration(div20, t31);
-      append_hydration(div20, div18);
-      append_hydration(div20, t33);
-      append_hydration(div20, div19);
+      append_hydration(div22, t33);
+      append_hydration(div22, div19);
+      append_hydration(div22, t35);
+      append_hydration(div22, div20);
+      append_hydration(div22, t37);
+      append_hydration(div22, div21);
       if (!mounted) {
         dispose = [
           listen(
@@ -16834,7 +16861,7 @@ function create_fragment$3(ctx) {
     o: noop,
     d(detaching) {
       if (detaching) {
-        detach(div21);
+        detach(div23);
       }
       if_block0.d();
       if_block1.d();
