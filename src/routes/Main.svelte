@@ -18,6 +18,7 @@
 		mastersDegreeChoice,
 		mastersDegreeChoices,
 		compiledDegree,
+		compiledMastersDegree,
 		compressedTable
 	} from './stores.js';
 	import Search from './components/Search.svelte';
@@ -212,6 +213,18 @@
 		$searchFilters = $searchFilters;
 	}
 
+	function setDegreeSpecificSearchFiltersMs(compiledDegree) {
+		$searchFilters.degreeSpecificMs = { checkboxes: {}, luts: {} };
+		if (compiledDegree == {}) {
+			return;
+		}
+		Object.keys(compiledDegree.lookuptables).forEach((key) => {
+			$searchFilters.degreeSpecificMs.luts[key] = compiledDegree.lookuptables[key];
+			$searchFilters.degreeSpecificMs.checkboxes[key] = false;
+		});
+		$searchFilters = $searchFilters;
+	}
+
 	//Used to remove error where one of the courses in courseTable has a dnd tag
 	function cleanCourseTable() {
 		for (let i = 0; i < $courseTable.length; i++) {
@@ -228,6 +241,7 @@
 
 	//This is the raw data passed to the degree check panel
 	let degreeTrackerData;
+	let mastersDegreeTrackerData;
 
 	//Whenever the selected degree changes, recompile the degree
 	$: {
@@ -240,12 +254,33 @@
 		}
 	}
 
+	//Whenever the selected masters degree changes, recompile the degree
+	$: {
+		if ($mastersDegreeChoices.length !== 0) {
+			let choiceFullDegree = $mastersDegreeChoices.find(
+				(degree) => degree.uniqueID == $mastersDegreeChoice
+			);
+			$compiledMastersDegree = compileDegree(choiceFullDegree, $allCourses);
+			setDegreeSpecificSearchFiltersMs($compiledMastersDegree);
+		}
+	}
+
 	//Whenever the course table changes, use the compiled degree to check it
 	$: {
 		//Load only once bachelorsDegreeChoices is loaded
 		if ($bachelorsDegreeChoices.length !== 0) {
 			degreeTrackerData = GeneralizedDegreeCheck(
 				$compiledDegree,
+				$allCourses,
+				$courseTable,
+				$courseTableList,
+				$prefs.transferUnits
+			);
+		}
+
+		if ($mastersDegreeChoices.length !== 0) {
+			mastersDegreeTrackerData = GeneralizedDegreeCheck(
+				$compiledMastersDegree,
 				$allCourses,
 				$courseTable,
 				$courseTableList,
@@ -356,6 +391,16 @@
 						/>
 					{/if}
 				</div>
+				{#if $mastersDegreeChoices.length != 0 && $mastersDegreeChoice != 'BLANK'}
+					<div class="generalizedDegreeTrackerContainer">
+						<PanelCollapseContainer
+							panelId="generalizedDegreeTracker"
+							panelName={'M Degree Check'}
+							content={GeneralizedDegreeTracker}
+							props={{ data: mastersDegreeTrackerData }}
+						/>
+					</div>
+				{/if}
 				<div class="configPanelContainer">
 					<PanelCollapseContainer panelId="config" panelName={'Settings'} content={ConfigPanel} />
 				</div>

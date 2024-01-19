@@ -55,6 +55,18 @@
 	import _2023_UG_Symsys_BS_Neuroscience from './2023_UG_Symsys_BS_Neuroscience.js';
 	import _2023_UG_Symsys_BS_PhilosophicalFoundations from './2023_UG_Symsys_BS_PhilosophicalFoundations.js';
 
+	// grad
+
+	import _2023_G_CS_MS_AI from './2023_G_CS_MS_AI.js';
+	import _2023_G_CS_MS_Biocomp from './2023_G_CS_MS_Biocomp.js';
+	import _2023_G_CS_MS_HCI from './2023_G_CS_MS_HCI.js';
+	import _2023_G_CS_MS_Information from './2023_G_CS_MS_Information.js';
+	import _2023_G_CS_MS_Security from './2023_G_CS_MS_Security.js';
+	import _2023_G_CS_MS_SoftwareTheory from './2023_G_CS_MS_SoftwareTheory.js';
+	import _2023_G_CS_MS_Systems from './2023_G_CS_MS_Systems.js';
+	import _2023_G_CS_MS_Theory from './2023_G_CS_MS_Theory.js';
+	import _2023_G_CS_MS_VisualComputing from './2023_G_CS_MS_VisualComputing.js';
+
 	import { bachelorsDegreeChoices, mastersDegreeChoices } from '../stores.js';
 
 	let ug_degrees = [
@@ -114,7 +126,18 @@
 		_2023_UG_Symsys_BS_PhilosophicalFoundations
 	];
 
-	let masters_degrees = [Blank_degree];
+	let masters_degrees = [
+		Blank_degree,
+		_2023_G_CS_MS_AI,
+		_2023_G_CS_MS_Biocomp,
+		_2023_G_CS_MS_HCI,
+		_2023_G_CS_MS_Information,
+		_2023_G_CS_MS_Security,
+		_2023_G_CS_MS_SoftwareTheory,
+		_2023_G_CS_MS_Systems,
+		_2023_G_CS_MS_Theory,
+		_2023_G_CS_MS_VisualComputing
+	];
 
 	onMount(async () => {
 		$bachelorsDegreeChoices = ug_degrees;

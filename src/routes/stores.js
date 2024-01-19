@@ -134,6 +134,7 @@ export const mastersDegreeChoices = writable([]);
 
 //This is refreshed only when bachelorsDegreeChoice changes
 export const compiledDegree = writable({});
+export const compiledMastersDegree = writable({});
 
 //These contain the uniqueID of the degree selected
 export const bachelorsDegreeChoice = writable('BLANK'); //PERSISTENT

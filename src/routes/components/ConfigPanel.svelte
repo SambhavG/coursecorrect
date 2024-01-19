@@ -1,15 +1,16 @@
 <script>
 	import {
 		allCourses,
-		bachelorsDegreeChoice,
 		courseTable,
 		prefs,
 		quarters,
 		years,
 		panelCollapsed,
+		bachelorsDegreeChoice,
 		bachelorsDegreeChoices,
-		showWelcomeModalOnLoad,
 		mastersDegreeChoice,
+		mastersDegreeChoices,
+		showWelcomeModalOnLoad,
 		compressedTable
 	} from '../stores';
 	import { tick } from 'svelte';
@@ -119,108 +120,124 @@
 
 <div class="content">
 	<div class="title">Settings</div>
-	<div class="exportAllData">
-		<button on:click={downloadData}>Export data</button>
-		<a id="downloadAnchorElem" style="display:none" />
-	</div>
-	<div class="importData">
-		<button
-			on:click={() => {
-				document.getElementById('importDataInput').click();
-			}}
-		>
-			Import data
-		</button>
-		<input id="importDataInput" type="file" style="display:none" on:change={importData} />
+	<div class="info">
+		<b>Collapse (left bar) when done</b>
 	</div>
 	<div class="info">
 		<b>All data is stored locally; export frequently</b>
 	</div>
-	<div class="showHideSearch">
-		<button
-			on:click={() => {
-				$panelCollapsed.search = !$panelCollapsed.search;
-				$panelCollapsed = $panelCollapsed;
-				const scrollPosition = document.scrollingElement.scrollTop;
-				tick().then(() => {
-					document.scrollingElement.scrollTop = scrollPosition;
-				});
-			}}
-		>
-			{#if $panelCollapsed.search}
-				Show search
-			{:else}
-				Hide search
-			{/if}
-		</button>
-	</div>
-	<div class="showHideSummer">
-		<button
-			on:click={() => {
-				$panelCollapsed.summer = !$panelCollapsed.summer;
-				$panelCollapsed = $panelCollapsed;
-				const scrollPosition = document.scrollingElement.scrollTop;
-				tick().then(() => {
-					document.scrollingElement.scrollTop = scrollPosition;
-				});
-			}}
-		>
-			{#if $panelCollapsed.summer}
-				Show summer
-			{:else}
-				Hide summer
-			{/if}
-		</button>
-	</div>
-	<div class="clearContainer">
-		<button
-			on:click={() => {
-				showClearCoursesModal = !showClearCoursesModal;
-				const scrollPosition = document.scrollingElement.scrollTop;
-				tick().then(() => {
-					document.scrollingElement.scrollTop = scrollPosition;
-				});
-			}}
-		>
-			Clear all courses
-		</button>
+	<div class="buttonContainer">
+		<div class="githubButton">
+			<a
+				class="github-button"
+				href="https://github.com/sambhavg/coursecorrect"
+				data-color-scheme="no-preference: light; light: light; dark: dark;"
+				data-size="large"
+				data-show-count="true"
+				aria-label="Star sambhavg/coursecorrect on GitHub">Star</a
+			>
+		</div>
+		<div class="exportAllData">
+			<button on:click={downloadData}>Export data</button>
+			<a id="downloadAnchorElem" style="display:none" />
+		</div>
+		<div class="importData">
+			<button
+				on:click={() => {
+					document.getElementById('importDataInput').click();
+				}}
+			>
+				Import data
+			</button>
+			<input id="importDataInput" type="file" style="display:none" on:change={importData} />
+		</div>
+		<div class="showHideSearch">
+			<button
+				on:click={() => {
+					$panelCollapsed.search = !$panelCollapsed.search;
+					$panelCollapsed = $panelCollapsed;
+					const scrollPosition = document.scrollingElement.scrollTop;
+					tick().then(() => {
+						document.scrollingElement.scrollTop = scrollPosition;
+					});
+				}}
+			>
+				{#if $panelCollapsed.search}
+					Show search
+				{:else}
+					Hide search
+				{/if}
+			</button>
+		</div>
+		<div class="showHideSummer">
+			<button
+				on:click={() => {
+					$panelCollapsed.summer = !$panelCollapsed.summer;
+					$panelCollapsed = $panelCollapsed;
+					const scrollPosition = document.scrollingElement.scrollTop;
+					tick().then(() => {
+						document.scrollingElement.scrollTop = scrollPosition;
+					});
+				}}
+			>
+				{#if $panelCollapsed.summer}
+					Show summer
+				{:else}
+					Hide summer
+				{/if}
+			</button>
+		</div>
+		<div class="clearContainer">
+			<button
+				on:click={() => {
+					showClearCoursesModal = !showClearCoursesModal;
+					const scrollPosition = document.scrollingElement.scrollTop;
+					tick().then(() => {
+						document.scrollingElement.scrollTop = scrollPosition;
+					});
+				}}
+			>
+				Clear all courses
+			</button>
 
-		{#if showClearCoursesModal}
-			<div class="clearCoursesModal">
-				<div class="modal">
-					<div class="modalContent">
-						<div class="modalTitle">Clear all courses?</div>
-						<div class="modalButtons">
-							<button
-								on:click={() => {
-									clearCourses();
-									showClearCoursesModal = false;
-									const scrollPosition = document.scrollingElement.scrollTop;
-									tick().then(() => {
-										document.scrollingElement.scrollTop = scrollPosition;
-									});
-								}}
-							>
-								Yes
-							</button>
-							<button
-								on:click={() => {
-									showClearCoursesModal = false;
-									const scrollPosition = document.scrollingElement.scrollTop;
-									tick().then(() => {
-										document.scrollingElement.scrollTop = scrollPosition;
-									});
-								}}
-							>
-								No
-							</button>
+			{#if showClearCoursesModal}
+				<div class="clearCoursesModal">
+					<div class="modal">
+						<div class="modalContent">
+							<div class="modalTitle">Clear all courses?</div>
+							<div class="modalButtons">
+								<button
+									on:click={() => {
+										clearCourses();
+										showClearCoursesModal = false;
+										const scrollPosition = document.scrollingElement.scrollTop;
+										tick().then(() => {
+											document.scrollingElement.scrollTop = scrollPosition;
+										});
+									}}
+								>
+									Yes
+								</button>
+								<button
+									on:click={() => {
+										showClearCoursesModal = false;
+										const scrollPosition = document.scrollingElement.scrollTop;
+										tick().then(() => {
+											document.scrollingElement.scrollTop = scrollPosition;
+										});
+									}}
+								>
+									No
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		{/if}
+			{/if}
+		</div>
 	</div>
-	<div class="header">Show course data</div>
+
+	<div class="header">Course data</div>
 	<div class="courseTableDataCheckboxes">
 		{#each Object.keys($prefs.courseTableData) as courseTableData}
 			<div class="checkbox">
@@ -263,6 +280,7 @@
 		<div class="header">Degree checker</div>
 		<div class="bachelorsDegreeDropdown">
 			<select
+				class="degreeDropdown"
 				on:change={(e) => {
 					$bachelorsDegreeChoice = e.target.value;
 				}}
@@ -271,6 +289,20 @@
 					?.uniqueID}
 			>
 				{#each $bachelorsDegreeChoices as choice}
+					<option value={choice.uniqueID}>{choice.degree}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="bachelorsDegreeDropdown">
+			<select
+				class="degreeDropdown"
+				on:change={(e) => {
+					$mastersDegreeChoice = e.target.value;
+				}}
+				value={//Find the degree in $bachelorsDegreeChoices that matches $bachelorsDegreeChoice uniqueId
+				$mastersDegreeChoices.find((choice) => choice.uniqueID === $mastersDegreeChoice)?.uniqueID}
+			>
+				{#each $mastersDegreeChoices as choice}
 					<option value={choice.uniqueID}>{choice.degree}</option>
 				{/each}
 			</select>
@@ -313,14 +345,27 @@
 		font-size: 2em;
 		font-weight: bold;
 		padding: 0.5em;
+		padding-bottom: 0;
+	}
+
+	.buttonContainer {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
 	}
 
 	button {
 		box-sizing: border-box;
 		height: 1.8em;
 		font-size: 1.2em;
-		padding-left: 0.5em;
-		margin-right: 0.5em;
+		padding-left: 0.3em;
+		padding-right: 0.3em;
+		margin-left: 0.1em;
+		margin-right: 0.1em;
+		margin-bottom: 0.5em;
 		border: 1px solid #ccc;
 		border-radius: 1em;
 		background-color: var(--color-text-dark);
@@ -333,11 +378,10 @@
 		margin: 0.5em 0;
 	}
 
-	.clearContainer,
-	.showHideSummer,
-	.importData {
-		margin-top: 0.5em;
+	.bachelorsDegreeDropdown {
+		margin: 0.5em 0;
 	}
+
 	select {
 		box-sizing: border-box;
 		height: 1.8em;
@@ -349,6 +393,7 @@
 		background-color: var(--color-text-dark);
 		color: var(--color-text-light);
 		font-family: var(--font-mono);
+		width: 70%;
 	}
 
 	.transferUnitUnits {

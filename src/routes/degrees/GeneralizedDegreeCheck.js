@@ -1,4 +1,6 @@
-function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement) {
+function checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, requirement, isMs) {
+  //originalList is the full unmodified list; list is the working list potentially modified by other reqs
+
   // console.log("Checking requirement")
   // console.log(requirement)
 
@@ -13,6 +15,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   //minUnits: the number of units needed to fulfill
   //csnc: number of c/nc or s/nc courses allowed to be used
   //bundle: only for "and" requirements; bundle courses together in final display into one line
+  //allowBS: for masters degrees, count BS courses as well
 
   //If type is and or or:
     //content: all requirements to fulfill, each must be fulfilled if "and", at least one must be fulfilled if "or"
@@ -43,6 +46,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   let amount = requirement?.amount ?? 1;
   let minUnits = requirement?.minUnits || 0;
   let csnc = requirement?.csnc || 0;
+  let allowBS = requirement?.allowBS ?? false;
   //and/or req vars
   let content = requirement?.content;
   let bundle = requirement?.bundle || false;
@@ -54,7 +58,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
   let modifiers = requirement?.modifiers || [];
 
   //Check if there are any unrecognized keys in requirement
-  let validKeys = ['type', 'name', 'lut', 'lutList', 'amount', 'minUnits', 'csnc', 'content', 'bundle', 'bundleName', 'id', 'cutoff', 'modifiers'];
+  let validKeys = ['type', 'name', 'lut', 'lutList', 'amount', 'minUnits', 'csnc', 'content', 'bundle', 'bundleName', 'id', 'cutoff', 'modifiers', 'allowBS'];
   Object.keys(requirement).forEach((key) => {
     if (!validKeys.includes(key)) {
       console.log("Unrecognized key in requirement: " + key);
@@ -74,13 +78,17 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         coursesAllowed = [...coursesAllowed, ...compiledDegree.lookuptables[lut]];
       });
     }
-    //Extend lut to include crosslisted courses
-    //coursesAllowed = extendLutToCrosslisted(allCourses, coursesAllowed);
 
     //Find all valid courses
     let coursesMatching = filterCourseObjsByLut(list, coursesAllowed);
     if (type === 'observe') {
       coursesMatching = filterCourseObjsByLut(originalList, coursesAllowed);
+      //In the case that this is a masters degree and allowBS is false, only match MS courses
+      if (isMs && !allowBS) {
+        coursesMatching = coursesMatching.filter((course) => {
+          return course.ms;
+        });
+      }
     }
     let coursesExtracted = [];
     let amountStillNeeded = amount;
@@ -117,7 +125,6 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
     while ((amountStillNeeded > 0 || numUnits < minUnits) && coursesMatching.length > 0) {
       //Extract first course and remove from list
       let course = coursesMatching[0];
-      
       coursesMatching = coursesMatching.slice(1);
       coursesExtracted.push(course);
       amountStillNeeded--;
@@ -193,7 +200,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
           //(Will probably never happen though)
         req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req, isMs));
       list = requirementChecks[requirementChecks.length-1].list;
     });
     //Count how many units we've taken
@@ -286,7 +293,7 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
         //Account for when the last requirement has its own minUnits property
         req.minUnits = Math.max(minUnits - numUnitsAlreadyTaken, req.minUnits || 0);
       }
-      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req));
+      requirementChecks.push(checkRequirement(compiledDegree, allCourses, grid, originalList, list, transfer, req, isMs));
       list = requirementChecks[requirementChecks.length-1].list;
 
       //Check if we're done
@@ -404,9 +411,12 @@ function checkRequirement(compiledDegree, allCourses, grid, originalList, list, 
 function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
   //Make a copy of the list so we can modify it
   let listCopy = JSON.parse(JSON.stringify(list));
-  //Also filter out ms courses so we don't have to do it later
   listCopy = listCopy.filter((course) => {
     return !course.ms;
+  });
+  let listCopyOnlyMs = JSON.parse(JSON.stringify(list));
+  listCopyOnlyMs = listCopyOnlyMs.filter((course) => {
+    return course.ms;
   });
 
   let totalUnits = 0;
@@ -414,15 +424,23 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
   if (degree.level === "undergraduate") {
     totalUnits = calculateTotalUnits(listCopy, transfer);
   }
+  //If level is graduate, add 45 credit check
+  if (degree.level === "graduate") {
+    totalUnits = calculateTotalUnits(listCopyOnlyMs, transfer, true);
+  }
 
   //Compute requirements
   let reqResults = [];
 
   degree.requirements.forEach((req, i) => {
     try {
-
-      reqResults = [...reqResults, checkRequirement(degree, allCourses, grid, list, listCopy, transfer, req)];
-      listCopy = reqResults[i].list;
+      if (degree.level === "undergraduate") {
+        reqResults = [...reqResults, checkRequirement(degree, allCourses, grid, list, listCopy, transfer, req, false)];
+        listCopy = reqResults[i].list;
+      } else if (degree.level === "graduate") {
+        reqResults = [...reqResults, checkRequirement(degree, allCourses, grid, list, listCopyOnlyMs, transfer, req, true)];
+        listCopyOnlyMs = reqResults[i].list;
+      }
     } catch (e) {
       console.log("Error in requirement: ");
       console.log(req);
@@ -481,13 +499,23 @@ function GeneralizedDegreeCheck(degree, allCourses, grid, list, transfer) {
   });
   
   //Total units counter
-  rows.push({
-    cells: [
-      { value: totalUnits > 180 ? '✔' : 'ㅤ', noBorder: true, weight: .25 },
-      { value: 'Total Units', noBorder: true },
-      { value: totalUnits + '/180', progress: totalUnits/180 , weight: 3}
-    ]
-  });
+  if (degree.level === "undergraduate") {
+    rows.push({
+      cells: [
+        { value: totalUnits > 180 ? '✔' : 'ㅤ', noBorder: true, weight: .25 },
+        { value: 'Total units', noBorder: true },
+        { value: totalUnits + '/180', progress: totalUnits/180 , weight: 3}
+      ]
+    });
+  } else if (degree.level === "graduate") {
+    rows.push({
+      cells: [
+        { value: totalUnits > 45 ? '✔' : 'ㅤ', noBorder: true, weight: .25 },
+        { value: 'Total units', noBorder: true },
+        { value: totalUnits + '/45', progress: totalUnits/45 , weight: 3}
+      ]
+    });
+  }
 
   //Text row
   if (degree.infoText) {
@@ -574,7 +602,7 @@ function getTransferUnits(transfer, key) {
   return ret;
 }
 
-function calculateTotalUnits(courses, transfer) {
+function calculateTotalUnits(courses, transfer, isMS) {
   let totalUnits = 0;
   //Note that we don't worry about the repeatable edge case
   courses.forEach((course) => {

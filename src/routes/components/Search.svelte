@@ -130,6 +130,11 @@
 				degreeSpecificFilterActive = true;
 			}
 		});
+		Object.keys(filters.degreeSpecificMs.checkboxes).forEach((checkbox) => {
+			if (filters.degreeSpecificMs.checkboxes[checkbox]) {
+				degreeSpecificFilterActive = true;
+			}
+		});
 
 		//Check if course fits degree specific filter
 		if (degreeSpecificFilterActive) {
@@ -138,6 +143,14 @@
 				if (
 					filters.degreeSpecific.checkboxes[lut] &&
 					filters.degreeSpecific.luts[lut].includes(course.code)
+				) {
+					degreeSpecificFilterFits = true;
+				}
+			});
+			Object.keys(filters.degreeSpecificMs.luts).forEach((lut) => {
+				if (
+					filters.degreeSpecificMs.checkboxes[lut] &&
+					filters.degreeSpecificMs.luts[lut].includes(course.code)
 				) {
 					degreeSpecificFilterFits = true;
 				}
@@ -176,6 +189,9 @@
 		} else if (filter == 2) {
 			Object.keys($searchFilters.degreeSpecific.checkboxes).forEach((checkbox) => {
 				$searchFilters.degreeSpecific.checkboxes[checkbox] = false;
+			});
+			Object.keys($searchFilters.degreeSpecificMs.checkboxes).forEach((checkbox) => {
+				$searchFilters.degreeSpecificMs.checkboxes[checkbox] = false;
 			});
 		} else if (filter == 3) {
 			$searchFilters.sortBy = 'alphabetical';
@@ -656,6 +672,18 @@
 								<label for={thisDegreeFilter}>{thisDegreeFilter}</label>
 							</div>
 						{/each}
+						{#each Object.keys($searchFilters.degreeSpecificMs.checkboxes) as thisDegreeFilter}
+							<div class="option">
+								<input
+									type="checkbox"
+									id={thisDegreeFilter}
+									name={thisDegreeFilter}
+									on:click={searchResultsFunction}
+									bind:checked={$searchFilters.degreeSpecificMs.checkboxes[thisDegreeFilter]}
+								/>
+								<label for={thisDegreeFilter}>{thisDegreeFilter}</label>
+							</div>
+						{/each}
 					</div>
 				</div>
 			</div>
@@ -699,6 +727,7 @@
 			</div>
 		{/if}
 	{/each}
+	<div class="spacer" />
 </section>
 
 <style>
@@ -926,5 +955,9 @@
 
 	.leftAlign {
 		align-self: flex-start;
+	}
+
+	.spacer {
+		height: 20em;
 	}
 </style>
