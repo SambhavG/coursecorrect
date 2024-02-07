@@ -167,6 +167,11 @@
 			$courseTable = coursesObj;
 			compressCourses();
 		}
+
+		//Send a ping to counter
+		//https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up
+		fetch('https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up');
+
 		mounted = true;
 	});
 

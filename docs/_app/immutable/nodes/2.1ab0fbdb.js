@@ -28099,6 +28099,7 @@ function instance$1($$self, $$props, $$invalidate) {
       set_store_value(courseTable, $courseTable = coursesObj, $courseTable);
       compressCourses();
     }
+    fetch("https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up");
     $$invalidate(7, mounted = true);
   });
   function setDegreeSpecificSearchFilters(compiledDegree2) {
