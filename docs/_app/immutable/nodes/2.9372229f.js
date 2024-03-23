@@ -449,6 +449,7 @@ const panelCollapsed = writable({
   }
 });
 const compressedTable = writable([]);
+const courseDataSlider = writable(0);
 const xkcd_svelte_svelte_type_style_lang = "";
 function create_fragment$x(ctx) {
   let section;
@@ -5618,7 +5619,7 @@ function create_if_block_3$2(ctx) {
     }
   };
 }
-function create_if_block_2$5(ctx) {
+function create_if_block_2$6(ctx) {
   let contact2;
   let current;
   contact2 = new Contact2({ props: { size: smallerSize } });
@@ -5719,7 +5720,7 @@ function create_fragment$d(ctx) {
   const if_block_creators = [
     create_if_block$c,
     create_if_block_1$8,
-    create_if_block_2$5,
+    create_if_block_2$6,
     create_if_block_3$2,
     create_if_block_4$2,
     create_if_block_5$2,
@@ -6027,7 +6028,7 @@ function create_if_block_5$1(ctx) {
     }
   };
 }
-function create_if_block_2$4(ctx) {
+function create_if_block_2$5(ctx) {
   let div;
   let t;
   let current_block_type_index;
@@ -6567,7 +6568,7 @@ function create_fragment$c(ctx) {
   );
   let if_block2 = (
     /*$prefs*/
-    ctx[5].courseTableData["WAYS"] && create_if_block_2$4(ctx)
+    ctx[5].courseTableData["WAYS"] && create_if_block_2$5(ctx)
   );
   let if_block3 = (
     /*$prefs*/
@@ -6780,7 +6781,7 @@ function create_fragment$c(ctx) {
             transition_in(if_block2, 1);
           }
         } else {
-          if_block2 = create_if_block_2$4(ctx2);
+          if_block2 = create_if_block_2$5(ctx2);
           if_block2.c();
           transition_in(if_block2, 1);
           if_block2.m(div4, t6);
@@ -11088,6 +11089,14 @@ function numWaysFulfilled(ways) {
   }
   return count;
 }
+function isSuperset(waysFilling1, waysFilling2) {
+  for (const key of ["AII", "SI", "SMA", "CE", "AQR", "EDP", "ER", "FR"]) {
+    if (waysFilling1[key].have < waysFilling2[key].have) {
+      return false;
+    }
+  }
+  return true;
+}
 function instance$b($$self, $$props, $$invalidate) {
   let $courseTableList;
   component_subscribe($$self, courseTableList, ($$value) => $$invalidate(4, $courseTableList = $$value));
@@ -11210,6 +11219,19 @@ function instance$b($$self, $$props, $$invalidate) {
               }) == index;
             });
           }
+          let toDiscard = [];
+          for (let i = 0; i < possibleFillings.length; i++) {
+            for (let j = i + 1; j < possibleFillings.length; j++) {
+              if (isSuperset(possibleFillings[i], possibleFillings[j])) {
+                toDiscard.push(j);
+              } else if (isSuperset(possibleFillings[j], possibleFillings[i])) {
+                toDiscard.push(i);
+              }
+            }
+          }
+          possibleFillings = possibleFillings.filter((filling, index) => {
+            return !toDiscard.includes(index);
+          });
           possibleFillings.sort((a, b) => {
             let aCount = 0;
             let bCount = 0;
@@ -12262,7 +12284,7 @@ function create_else_block_1$2(ctx) {
     }
   };
 }
-function create_if_block_2$3(ctx) {
+function create_if_block_2$4(ctx) {
   let chevronsupdown;
   let current;
   chevronsupdown = new ChevronsUpDown({});
@@ -12610,7 +12632,7 @@ function create_each_block$4(key_1, ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_2$3, create_else_block_1$2];
+  const if_block_creators = [create_if_block_2$4, create_else_block_1$2];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -12893,17 +12915,17 @@ class Grid extends SvelteComponent {
 const GeneralizedDegreeTracker_svelte_svelte_type_style_lang = "";
 function get_each_context$3(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[2] = list[i];
-  child_ctx[4] = i;
+  child_ctx[8] = list[i];
+  child_ctx[10] = i;
   return child_ctx;
 }
 function get_each_context_1$2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[5] = list[i];
-  child_ctx[7] = i;
+  child_ctx[11] = list[i];
+  child_ctx[13] = i;
   return child_ctx;
 }
-function create_if_block_1$3(ctx) {
+function create_if_block_2$3(ctx) {
   let div;
   let div_style_value;
   return {
@@ -12917,10 +12939,10 @@ function create_if_block_1$3(ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "progressBar svelte-6a9ui9");
+      attr(div, "class", "progressBar svelte-w8ydld");
       attr(div, "style", div_style_value = generateProgressStyle(
         /*cell*/
-        ctx[5]
+        ctx[11]
       ));
     },
     m(target, anchor) {
@@ -12930,7 +12952,7 @@ function create_if_block_1$3(ctx) {
       if (dirty & /*data*/
       1 && div_style_value !== (div_style_value = generateProgressStyle(
         /*cell*/
-        ctx2[5]
+        ctx2[11]
       ))) {
         attr(div, "style", div_style_value);
       }
@@ -12942,16 +12964,16 @@ function create_if_block_1$3(ctx) {
     }
   };
 }
-function create_if_block$6(ctx) {
+function create_if_block_1$3(ctx) {
   let div;
   let info;
   let current;
   function click_handler() {
     return (
       /*click_handler*/
-      ctx[1](
+      ctx[7](
         /*cell*/
-        ctx[5]
+        ctx[11]
       )
     );
   }
@@ -12971,7 +12993,7 @@ function create_if_block$6(ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "infoIcon svelte-6a9ui9");
+      attr(div, "class", "infoIcon svelte-w8ydld");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -13004,9 +13026,9 @@ function create_each_block_1$2(key_1, ctx) {
   let div;
   let t0_value = (
     /*cell*/
-    (ctx[5].value ? (
+    (ctx[11].value ? (
       /*cell*/
-      ctx[5].value
+      ctx[11].value
     ) : "") + ""
   );
   let t0;
@@ -13016,11 +13038,11 @@ function create_each_block_1$2(key_1, ctx) {
   let current;
   let if_block0 = (
     /*cell*/
-    ((_a = ctx[5]) == null ? void 0 : _a.progress) && create_if_block_1$3(ctx)
+    ((_a = ctx[11]) == null ? void 0 : _a.progress) && create_if_block_2$3(ctx)
   );
   let if_block1 = (
     /*cell*/
-    ((_b = ctx[5]) == null ? void 0 : _b.info) && create_if_block$6(ctx)
+    ((_b = ctx[11]) == null ? void 0 : _b.info) && create_if_block_1$3(ctx)
   );
   return {
     key: key_1,
@@ -13050,10 +13072,10 @@ function create_each_block_1$2(key_1, ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "cell svelte-6a9ui9");
+      attr(div, "class", "cell svelte-w8ydld");
       attr(div, "style", div_style_value = generateCellStyle(
         /*cell*/
-        ctx[5]
+        ctx[11]
       ));
       this.first = div;
     },
@@ -13073,19 +13095,19 @@ function create_each_block_1$2(key_1, ctx) {
       ctx = new_ctx;
       if ((!current || dirty & /*data*/
       1) && t0_value !== (t0_value = /*cell*/
-      (ctx[5].value ? (
+      (ctx[11].value ? (
         /*cell*/
-        ctx[5].value
+        ctx[11].value
       ) : "") + ""))
         set_data(t0, t0_value);
       if (
         /*cell*/
-        (_a2 = ctx[5]) == null ? void 0 : _a2.progress
+        (_a2 = ctx[11]) == null ? void 0 : _a2.progress
       ) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_1$3(ctx);
+          if_block0 = create_if_block_2$3(ctx);
           if_block0.c();
           if_block0.m(div, t2);
         }
@@ -13095,7 +13117,7 @@ function create_each_block_1$2(key_1, ctx) {
       }
       if (
         /*cell*/
-        (_b2 = ctx[5]) == null ? void 0 : _b2.info
+        (_b2 = ctx[11]) == null ? void 0 : _b2.info
       ) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
@@ -13104,7 +13126,7 @@ function create_each_block_1$2(key_1, ctx) {
             transition_in(if_block1, 1);
           }
         } else {
-          if_block1 = create_if_block$6(ctx);
+          if_block1 = create_if_block_1$3(ctx);
           if_block1.c();
           transition_in(if_block1, 1);
           if_block1.m(div, null);
@@ -13119,7 +13141,7 @@ function create_each_block_1$2(key_1, ctx) {
       if (!current || dirty & /*data*/
       1 && div_style_value !== (div_style_value = generateCellStyle(
         /*cell*/
-        ctx[5]
+        ctx[11]
       ))) {
         attr(div, "style", div_style_value);
       }
@@ -13149,16 +13171,15 @@ function create_each_block$3(key_1, ctx) {
   let div;
   let each_blocks = [];
   let each_1_lookup = /* @__PURE__ */ new Map();
-  let t;
   let div_style_value;
   let current;
   let each_value_1 = ensure_array_like(
     /*row*/
-    ctx[2].cells
+    ctx[8].cells
   );
   const get_key = (ctx2) => (
     /*j*/
-    ctx2[7]
+    ctx2[13]
   );
   for (let i = 0; i < each_value_1.length; i += 1) {
     let child_ctx = get_each_context_1$2(ctx, each_value_1, i);
@@ -13173,7 +13194,6 @@ function create_each_block$3(key_1, ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t = space();
       this.h();
     },
     l(nodes) {
@@ -13182,15 +13202,14 @@ function create_each_block$3(key_1, ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(div_nodes);
       }
-      t = claim_space(div_nodes);
       div_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div, "class", "row svelte-6a9ui9");
+      attr(div, "class", "row svelte-w8ydld");
       attr(div, "style", div_style_value = rowGridStyle(
         /*row*/
-        ctx[2]
+        ctx[8]
       ));
       this.first = div;
     },
@@ -13201,7 +13220,6 @@ function create_each_block$3(key_1, ctx) {
           each_blocks[i].m(div, null);
         }
       }
-      append_hydration(div, t);
       current = true;
     },
     p(new_ctx, dirty) {
@@ -13210,16 +13228,16 @@ function create_each_block$3(key_1, ctx) {
       1) {
         each_value_1 = ensure_array_like(
           /*row*/
-          ctx[2].cells
+          ctx[8].cells
         );
         group_outros();
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1$2, t, get_each_context_1$2);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1$2, null, get_each_context_1$2);
         check_outros();
       }
       if (!current || dirty & /*data*/
       1 && div_style_value !== (div_style_value = rowGridStyle(
         /*row*/
-        ctx[2]
+        ctx[8]
       ))) {
         attr(div, "style", div_style_value);
       }
@@ -13248,10 +13266,124 @@ function create_each_block$3(key_1, ctx) {
     }
   };
 }
+function create_if_block$6(ctx) {
+  let div2;
+  let div0;
+  let t0_value = (
+    /*getQuarter*/
+    ctx[6](
+      /*$courseDataSlider*/
+      ctx[4]
+    ) + ""
+  );
+  let t0;
+  let t1;
+  let div1;
+  let input;
+  let input_max_value;
+  let input_value_value;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      div2 = element("div");
+      div0 = element("div");
+      t0 = text(t0_value);
+      t1 = space();
+      div1 = element("div");
+      input = element("input");
+      this.h();
+    },
+    l(nodes) {
+      div2 = claim_element(nodes, "DIV", { class: true, style: true });
+      var div2_nodes = children(div2);
+      div0 = claim_element(div2_nodes, "DIV", { class: true, style: true });
+      var div0_nodes = children(div0);
+      t0 = claim_text(div0_nodes, t0_value);
+      div0_nodes.forEach(detach);
+      t1 = claim_space(div2_nodes);
+      div1 = claim_element(div2_nodes, "DIV", { class: true, style: true });
+      var div1_nodes = children(div1);
+      input = claim_element(div1_nodes, "INPUT", {
+        type: true,
+        min: true,
+        max: true,
+        class: true
+      });
+      div1_nodes.forEach(detach);
+      div2_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div0, "class", "cell svelte-w8ydld");
+      set_style(div0, "height", "3em");
+      attr(input, "type", "range");
+      attr(input, "min", "0");
+      attr(input, "max", input_max_value = /*$years*/
+      ctx[3].length * /*$quarters*/
+      ctx[2].length - 1);
+      input.value = input_value_value = /*$years*/
+      ctx[3].length * /*$quarters*/
+      ctx[2].length - 1;
+      attr(input, "class", "slider svelte-w8ydld");
+      attr(div1, "class", "cell svelte-w8ydld");
+      set_style(div1, "text-align", "center");
+      set_style(div1, "padding", ".5em");
+      attr(div2, "class", "row svelte-w8ydld");
+      set_style(div2, "grid-template-columns", "1.65fr 4fr");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, div0);
+      append_hydration(div0, t0);
+      append_hydration(div2, t1);
+      append_hydration(div2, div1);
+      append_hydration(div1, input);
+      if (!mounted) {
+        dispose = listen(
+          input,
+          "input",
+          /*handleSliderInput*/
+          ctx[5]
+        );
+        mounted = true;
+      }
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*$courseDataSlider*/
+      16 && t0_value !== (t0_value = /*getQuarter*/
+      ctx2[6](
+        /*$courseDataSlider*/
+        ctx2[4]
+      ) + ""))
+        set_data(t0, t0_value);
+      if (dirty & /*$years, $quarters*/
+      12 && input_max_value !== (input_max_value = /*$years*/
+      ctx2[3].length * /*$quarters*/
+      ctx2[2].length - 1)) {
+        attr(input, "max", input_max_value);
+      }
+      if (dirty & /*$years, $quarters*/
+      12 && input_value_value !== (input_value_value = /*$years*/
+      ctx2[3].length * /*$quarters*/
+      ctx2[2].length - 1)) {
+        input.value = input_value_value;
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(div2);
+      }
+      mounted = false;
+      dispose();
+    }
+  };
+}
 function create_fragment$6(ctx) {
   let div;
   let each_blocks = [];
   let each_1_lookup = /* @__PURE__ */ new Map();
+  let t;
   let current;
   let each_value = ensure_array_like(
     /*data*/
@@ -13259,19 +13391,26 @@ function create_fragment$6(ctx) {
   );
   const get_key = (ctx2) => (
     /*i*/
-    ctx2[4]
+    ctx2[10]
   );
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context$3(ctx, each_value, i);
     let key = get_key(child_ctx);
     each_1_lookup.set(key, each_blocks[i] = create_each_block$3(key, child_ctx));
   }
+  let if_block = (
+    /*showSlider*/
+    ctx[1] && create_if_block$6(ctx)
+  );
   return {
     c() {
       div = element("div");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
+      t = space();
+      if (if_block)
+        if_block.c();
       this.h();
     },
     l(nodes) {
@@ -13280,11 +13419,14 @@ function create_fragment$6(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].l(div_nodes);
       }
+      t = claim_space(div_nodes);
+      if (if_block)
+        if_block.l(div_nodes);
       div_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div, "class", "content svelte-6a9ui9");
+      attr(div, "class", "content svelte-w8ydld");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -13293,6 +13435,9 @@ function create_fragment$6(ctx) {
           each_blocks[i].m(div, null);
         }
       }
+      append_hydration(div, t);
+      if (if_block)
+        if_block.m(div, null);
       current = true;
     },
     p(ctx2, [dirty]) {
@@ -13303,8 +13448,23 @@ function create_fragment$6(ctx) {
           ctx2[0].rows
         );
         group_outros();
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, outro_and_destroy_block, create_each_block$3, null, get_each_context$3);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, outro_and_destroy_block, create_each_block$3, t, get_each_context$3);
         check_outros();
+      }
+      if (
+        /*showSlider*/
+        ctx2[1]
+      ) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block = create_if_block$6(ctx2);
+          if_block.c();
+          if_block.m(div, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
       }
     },
     i(local) {
@@ -13328,6 +13488,8 @@ function create_fragment$6(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].d();
       }
+      if (if_block)
+        if_block.d();
     }
   };
 }
@@ -13388,20 +13550,51 @@ function rowGridStyle(row) {
   return style;
 }
 function instance$7($$self, $$props, $$invalidate) {
+  let $quarters;
+  let $years;
+  let $courseDataSlider;
+  component_subscribe($$self, quarters, ($$value) => $$invalidate(2, $quarters = $$value));
+  component_subscribe($$self, years, ($$value) => $$invalidate(3, $years = $$value));
+  component_subscribe($$self, courseDataSlider, ($$value) => $$invalidate(4, $courseDataSlider = $$value));
   let { data } = $$props;
+  let { showSlider = false } = $$props;
+  function handleSliderInput(event) {
+    set_store_value(courseDataSlider, $courseDataSlider = parseInt(event.target.value), $courseDataSlider);
+  }
+  function getQuarter(index) {
+    for (let year of $years) {
+      for (let quarter of $quarters) {
+        if (index == 0) {
+          return year + " " + quarter;
+        }
+        index--;
+      }
+    }
+  }
   const click_handler = (cell) => {
     alert(cell.info);
   };
   $$self.$$set = ($$props2) => {
     if ("data" in $$props2)
       $$invalidate(0, data = $$props2.data);
+    if ("showSlider" in $$props2)
+      $$invalidate(1, showSlider = $$props2.showSlider);
   };
-  return [data, click_handler];
+  return [
+    data,
+    showSlider,
+    $quarters,
+    $years,
+    $courseDataSlider,
+    handleSliderInput,
+    getQuarter,
+    click_handler
+  ];
 }
 class GeneralizedDegreeTracker extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$7, create_fragment$6, safe_not_equal, { data: 0 });
+    init(this, options, instance$7, create_fragment$6, safe_not_equal, { data: 0, showSlider: 1 });
   }
 }
 const CourseDataPanel_svelte_svelte_type_style_lang = "";
@@ -27419,10 +27612,13 @@ function create_else_block(ctx) {
       panelId: "generalizedDegreeTracker",
       panelName: "Degree Check",
       content: GeneralizedDegreeTracker,
-      props: { data: (
-        /*degreeTrackerData*/
-        ctx[5]
-      ) }
+      props: {
+        data: (
+          /*degreeTrackerData*/
+          ctx[5]
+        ),
+        showSlider: true
+      }
     }
   });
   return {
@@ -27440,10 +27636,13 @@ function create_else_block(ctx) {
       const panelcollapsecontainer_changes = {};
       if (dirty & /*degreeTrackerData*/
       32)
-        panelcollapsecontainer_changes.props = { data: (
-          /*degreeTrackerData*/
-          ctx2[5]
-        ) };
+        panelcollapsecontainer_changes.props = {
+          data: (
+            /*degreeTrackerData*/
+            ctx2[5]
+          ),
+          showSlider: true
+        };
       panelcollapsecontainer.$set(panelcollapsecontainer_changes);
     },
     i(local) {
@@ -27969,6 +28168,7 @@ function instance$1($$self, $$props, $$invalidate) {
   let $mastersDegreeChoice;
   let $bachelorsDegreeChoice;
   let $searchFilters;
+  let $courseDataSlider;
   let $panelCollapsed;
   let $showWelcomeModalOnLoad;
   let $reviewData;
@@ -27986,11 +28186,12 @@ function instance$1($$self, $$props, $$invalidate) {
   component_subscribe($$self, bachelorsDegreeChoices, ($$value) => $$invalidate(1, $bachelorsDegreeChoices = $$value));
   component_subscribe($$self, mastersDegreeChoice, ($$value) => $$invalidate(2, $mastersDegreeChoice = $$value));
   component_subscribe($$self, bachelorsDegreeChoice, ($$value) => $$invalidate(17, $bachelorsDegreeChoice = $$value));
-  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(20, $searchFilters = $$value));
+  component_subscribe($$self, searchFilters, ($$value) => $$invalidate(21, $searchFilters = $$value));
+  component_subscribe($$self, courseDataSlider, ($$value) => $$invalidate(18, $courseDataSlider = $$value));
   component_subscribe($$self, panelCollapsed, ($$value) => $$invalidate(3, $panelCollapsed = $$value));
-  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(18, $showWelcomeModalOnLoad = $$value));
-  component_subscribe($$self, reviewData, ($$value) => $$invalidate(21, $reviewData = $$value));
-  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(19, $isDragging = $$value));
+  component_subscribe($$self, showWelcomeModalOnLoad, ($$value) => $$invalidate(19, $showWelcomeModalOnLoad = $$value));
+  component_subscribe($$self, reviewData, ($$value) => $$invalidate(22, $reviewData = $$value));
+  component_subscribe($$self, isDragging$1, ($$value) => $$invalidate(20, $isDragging = $$value));
   let mounted = false;
   let overallStyle = "";
   onMount(async () => {
@@ -28100,6 +28301,7 @@ function instance$1($$self, $$props, $$invalidate) {
       compressCourses();
     }
     fetch("https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up");
+    set_store_value(courseDataSlider, $courseDataSlider = $years.length * $quarters.length - 1, $courseDataSlider);
     $$invalidate(7, mounted = true);
   });
   function setDegreeSpecificSearchFilters(compiledDegree2) {
@@ -28196,7 +28398,7 @@ function instance$1($$self, $$props, $$invalidate) {
   }
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*$isDragging, $panelCollapsed, overallStyle*/
-    524312) {
+    1048600) {
       {
         if ($isDragging) {
           $$invalidate(4, overallStyle = "overflow: hidden;");
@@ -28211,7 +28413,7 @@ function instance$1($$self, $$props, $$invalidate) {
       }
     }
     if ($$self.$$.dirty & /*mounted, $compressedTable, $years, $quarters, $prefs, $showWelcomeModalOnLoad, $panelCollapsed, $bachelorsDegreeChoice, $mastersDegreeChoice*/
-    408716) {
+    670860) {
       {
         const isBrowser = typeof window !== "undefined";
         if (isBrowser && mounted) {
@@ -28237,13 +28439,15 @@ function instance$1($$self, $$props, $$invalidate) {
         }
       }
     }
-    if ($$self.$$.dirty & /*$courseTable*/
-    256) {
+    if ($$self.$$.dirty & /*$courseTable, $quarters, $courseDataSlider*/
+    264448) {
       {
         let courseTableListItems = [];
         for (let i = 0; i < $courseTable.length; i++) {
           for (let j = 0; j < $courseTable[i].quarters.length; j++) {
             for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+              if (i * $quarters.length + j > $courseDataSlider)
+                break;
               courseTableListItems.push($courseTable[i].quarters[j].courses[k]);
             }
           }
@@ -28302,6 +28506,7 @@ function instance$1($$self, $$props, $$invalidate) {
     $compiledMastersDegree,
     $compiledDegree,
     $bachelorsDegreeChoice,
+    $courseDataSlider,
     $showWelcomeModalOnLoad,
     $isDragging
   ];

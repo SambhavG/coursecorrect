@@ -30,6 +30,15 @@
 		currentNumWaysFulfilled = numWaysFulfilled(waysGrids[currentSolution]);
 	}
 
+	function isSuperset(waysFilling1, waysFilling2) {
+		for (const key of ['AII', 'SI', 'SMA', 'CE', 'AQR', 'EDP', 'ER', 'FR']) {
+			if (waysFilling1[key].have < waysFilling2[key].have) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	$: {
 		try {
 			//Extract list of WAYS
@@ -146,6 +155,20 @@
 					);
 				});
 			}
+			//Check every pair of fillings. If one is a superset of the other, discard the subset
+			let toDiscard = [];
+			for (let i = 0; i < possibleFillings.length; i++) {
+				for (let j = i + 1; j < possibleFillings.length; j++) {
+					if (isSuperset(possibleFillings[i], possibleFillings[j])) {
+						toDiscard.push(j);
+					} else if (isSuperset(possibleFillings[j], possibleFillings[i])) {
+						toDiscard.push(i);
+					}
+				}
+			}
+			possibleFillings = possibleFillings.filter((filling, index) => {
+				return !toDiscard.includes(index);
+			});
 
 			//Sort the possible fillings by number of ways fulfilled, then by farthest along in the list
 			possibleFillings.sort((a, b) => {

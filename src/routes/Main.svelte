@@ -19,7 +19,8 @@
 		mastersDegreeChoices,
 		compiledDegree,
 		compiledMastersDegree,
-		compressedTable
+		compressedTable,
+		courseDataSlider
 	} from './stores.js';
 	import Search from './components/Search.svelte';
 	import WAYSTracker from './components/WAYSTracker.svelte';
@@ -172,6 +173,8 @@
 		//https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up
 		fetch('https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up');
 
+		$courseDataSlider = $years.length * $quarters.length - 1;
+
 		mounted = true;
 	});
 
@@ -199,6 +202,7 @@
 		for (let i = 0; i < $courseTable.length; i++) {
 			for (let j = 0; j < $courseTable[i].quarters.length; j++) {
 				for (let k = 0; k < $courseTable[i].quarters[j].courses.length; k++) {
+					if (i * $quarters.length + j > $courseDataSlider) break;
 					courseTableListItems.push($courseTable[i].quarters[j].courses[k]);
 				}
 			}
@@ -392,7 +396,7 @@
 							panelId="generalizedDegreeTracker"
 							panelName={'Degree Check'}
 							content={GeneralizedDegreeTracker}
-							props={{ data: degreeTrackerData }}
+							props={{ data: degreeTrackerData, showSlider: true }}
 						/>
 					{/if}
 				</div>

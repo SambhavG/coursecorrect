@@ -163,3 +163,6 @@ export const panelCollapsed = writable({ //PERSISTENT
 
 //Compressed data (for db)
 export const compressedTable = writable([]); //PERSISTENT
+
+//Course data slider
+export const courseDataSlider = writable(0);

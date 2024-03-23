@@ -1,7 +1,9 @@
 <script>
+	import { courseDataSlider, years, quarters } from './../stores.js';
 	import { Info } from 'lucide-svelte';
 	import '../styles.css';
 	export let data;
+	export let showSlider = false;
 
 	//Takes as prop an object describing
 	//(1) what fields should be made
@@ -117,6 +119,21 @@
 		}
 		return style;
 	}
+
+	function handleSliderInput(event) {
+		$courseDataSlider = parseInt(event.target.value);
+	}
+
+	function getQuarter(index) {
+		for (let year of $years) {
+			for (let quarter of $quarters) {
+				if (index == 0) {
+					return year + ' ' + quarter;
+				}
+				index--;
+			}
+		}
+	}
 </script>
 
 <div class="content">
@@ -142,6 +159,21 @@
 			{/each}
 		</div>
 	{/each}
+	{#if showSlider}
+		<div class="row" style="grid-template-columns: 1.65fr 4fr">
+			<div class="cell" style="height: 3em;">{getQuarter($courseDataSlider)}</div>
+			<div class="cell" style="text-align: center; padding: .5em">
+				<input
+					type="range"
+					min="0"
+					max={$years.length * $quarters.length - 1}
+					value={$years.length * $quarters.length - 1}
+					on:input={handleSliderInput}
+					class="slider"
+				/>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -196,5 +228,42 @@
 		100% {
 			background-position: 100% 50%;
 		}
+	}
+
+	.slider {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 15px;
+		border-radius: 10px;
+		/* background: linear-gradient(to right, #ff416c, #ff4b2b); */
+		background: linear-gradient(to right, #022b8b, #37eeff);
+		outline: none;
+		/* opacity: 0.7; */
+		-webkit-transition: 0.2s;
+		transition: opacity 0.2s;
+	}
+
+	.slider:hover {
+		opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #60bfff;
+		cursor: pointer;
+		border: 3px solid #022b8b;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 5px;
+		height: 25px;
+		border-radius: 15%;
+		background: #60bfff;
+		cursor: pointer;
+		border: 3px solid #60bfff;
 	}
 </style>
