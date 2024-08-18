@@ -1,0 +1,21 @@
+/* Path: coursecorrect/static/BergenMono-Regular.otf*/
+@font-face {
+  font-family: 'BergenMono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/coursecorrect/fonts/BergenMono-Regular.otf') format('opentype');
+}
+
+/* @font-face {
+  font-family: 'TT Norms Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/TT Norms Pro Regular.otf') format('opentype');
+} */
+
+/* @font-face {
+  font-family: 'Duolingo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/duolingo 2.otf') format('opentype');
+} */
