@@ -391,19 +391,36 @@
 				<div class="waysTrackerContainer">
 					<PanelCollapseContainer panelId="ways" panelName={'WAYS'} content={WAYSTracker} />
 				</div>
-				<div class="generalizedDegreeTrackerContainer">
-					{#if $bachelorsDegreeChoices.length == 0}
-						<div class="title" />
-					{:else}
-						<PanelCollapseContainer
-							panelId="generalizedDegreeTracker"
-							panelName={'Degree Check'}
-							content={GeneralizedDegreeTracker}
-							props={{ data: degreeTrackerData, showSlider: true }}
-						/>
-					{/if}
-				</div>
-				{#if $mastersDegreeChoices.length != 0 && $mastersDegreeChoice != 'BLANK'}
+
+				{#if $mastersDegreeChoices.length != 0 && $mastersDegreeChoice == 'BLANK'}
+					<div class="generalizedDegreeTrackerContainer">
+						{#if $bachelorsDegreeChoices.length == 0}
+							<div class="title" />
+						{:else}
+							<PanelCollapseContainer
+								panelId="generalizedDegreeTracker"
+								panelName={'Degree Check'}
+								content={GeneralizedDegreeTracker}
+								props={{ data: degreeTrackerData, showSlider: true }}
+							/>
+						{/if}
+					</div>
+				{/if}
+			</div>
+			{#if $mastersDegreeChoices.length != 0 && $mastersDegreeChoice != 'BLANK'}
+				<div class="dataHeader">
+					<div class="generalizedDegreeTrackerContainer">
+						{#if $bachelorsDegreeChoices.length == 0}
+							<div class="title" />
+						{:else}
+							<PanelCollapseContainer
+								panelId="generalizedDegreeTracker"
+								panelName={'Degree Check'}
+								content={GeneralizedDegreeTracker}
+								props={{ data: degreeTrackerData, showSlider: true }}
+							/>
+						{/if}
+					</div>
 					<div class="generalizedDegreeTrackerContainer">
 						<PanelCollapseContainer
 							panelId="generalizedDegreeTracker"
@@ -412,8 +429,8 @@
 							props={{ data: mastersDegreeTrackerData }}
 						/>
 					</div>
-				{/if}
-			</div>
+				</div>
+			{/if}
 			<div class="courseDataPanelContainer">
 				<PanelCollapseContainer
 					panelId="courseData"
@@ -491,6 +508,11 @@
 		align-items: flex-end;
 		flex-wrap: wrap;
 	}
+	/* @media (min-width: 1500px) {
+		.dataHeader > * {
+			max-width: 30%;
+		}
+	} */
 	.waysTrackerContainer {
 		margin-right: 1em;
 		margin-bottom: 1em;

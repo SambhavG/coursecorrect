@@ -130,6 +130,7 @@
 				<p>Configure your settings on the right. Make sure to configure Total transfer units.</p>
 				<p>Search for courses in the top left or directly add them to each quarter.</p>
 				<p>Use filters/sorting aggressively. You can filter by courses that fulfill your degree.</p>
+				<p>For current year planning, make sure to filter "hide courses not offered".</p>
 				<!-- <h2>Star</h2> -->
 				<p>Please star this project on Github if you found it helpful!</p>
 				<div class="githubButton">
@@ -290,7 +291,7 @@
 				{/each}
 			</div>
 			<div class="info">
-				<b> Use checkboxes to add to masters degree or mark credit/satisfactory/no credit. </b>
+				<b>Use checkboxes to add to masters degree or mark credit/satisfactory/no credit. </b>
 			</div>
 			<div class="info">
 				<b>Use bump button to bump a course down to the next requirement</b>
