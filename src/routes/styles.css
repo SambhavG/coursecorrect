@@ -5,10 +5,10 @@
   src: url('/fonts/BergenMono-Regular.otf');
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Duolingo';
   src: url('/fonts/duolingo 2.otf');
-}
+} */
 
 @font-face {
   font-family: 'Outfit';

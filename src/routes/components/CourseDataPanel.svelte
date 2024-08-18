@@ -111,6 +111,14 @@
 				delete reviewDataParsed.data['Unknown'];
 				reviewDataParsed.data['Unknown'] = val;
 			}
+		} else {
+			reviewDataParsed = {
+				totals: {
+					numPositive: 0,
+					numNegative: 0
+				},
+				data: {}
+			};
 		}
 	}
 

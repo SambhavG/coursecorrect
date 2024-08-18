@@ -37,7 +37,7 @@
 	.corner {
 		font-size: 3em;
 		padding: 0.2em;
-		font: 900 3em 'TT Norms Pro';
+		font: 900 3em 'Outfit', sans-serif;
 		background: linear-gradient(45deg, blue, turquoise);
 		background-clip: text;
 		-webkit-background-clip: text;

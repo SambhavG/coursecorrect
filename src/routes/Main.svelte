@@ -55,7 +55,7 @@
 
 	onMount(async () => {
 		try {
-			const res = await fetch('./final_data_no_reviews.json');
+			const res = await fetch('./2024.json');
 			$allCourses = await res.json();
 			//Sort by course dept, then number, then modifier
 			$allCourses.sort((a, b) => {
@@ -171,7 +171,7 @@
 
 		//Send a ping to counter
 		//https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up
-		fetch('https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up');
+		//fetch('https://api.counterapi.dev/v1/sambhavg.github.io/coursecorrect/up');
 
 		$courseDataSlider = $years.length * $quarters.length - 1;
 
@@ -383,7 +383,10 @@
 			<Trash />
 		</div>
 		<div class="gridAndInfoContainer">
-			<OnStartInfoModal />
+			<!-- <OnStartInfoModal /> -->
+			<div class="configPanelContainer">
+				<PanelCollapseContainer panelId="config" panelName={'Settings'} content={ConfigPanel} />
+			</div>
 			<div class="dataHeader">
 				<div class="waysTrackerContainer">
 					<PanelCollapseContainer panelId="ways" panelName={'WAYS'} content={WAYSTracker} />
@@ -410,9 +413,6 @@
 						/>
 					</div>
 				{/if}
-				<div class="configPanelContainer">
-					<PanelCollapseContainer panelId="config" panelName={'Settings'} content={ConfigPanel} />
-				</div>
 			</div>
 			<div class="courseDataPanelContainer">
 				<PanelCollapseContainer

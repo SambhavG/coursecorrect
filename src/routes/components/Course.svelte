@@ -100,7 +100,10 @@
 		});
 	}}
 >
-	<div class="coverUpButton" style={courseColor(course)}>
+	<div
+		class="coverUpButton"
+		style={courseColor(course) + (course?.new ? '; border: 2px solid yellow;' : '')}
+	>
 		<div class="leftSide">
 			{#if $prefs.courseTableData['Bump button']}
 				<div class="checkboxesContainer">
@@ -197,6 +200,10 @@
 		justify-content: space-between;
 		margin-top: 0.25em;
 		/* font-size: 0.7em; */
+	}
+
+	.new {
+		border: 1px solid red;
 	}
 
 	.coverUpButton {
