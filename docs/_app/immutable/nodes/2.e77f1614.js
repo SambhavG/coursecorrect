@@ -5402,7 +5402,7 @@ function create_if_block_5$2(ctx) {
     }
   };
 }
-function create_if_block_4$2(ctx) {
+function create_if_block_4$3(ctx) {
   let music;
   let current;
   music = new Music$1({ props: { size: iconSize } });
@@ -5433,7 +5433,7 @@ function create_if_block_4$2(ctx) {
     }
   };
 }
-function create_if_block_3$2(ctx) {
+function create_if_block_3$3(ctx) {
   let rocket;
   let current;
   rocket = new Rocket$1({ props: { size: smallerSize } });
@@ -5566,8 +5566,8 @@ function create_fragment$c(ctx) {
     create_if_block$b,
     create_if_block_1$8,
     create_if_block_2$6,
-    create_if_block_3$2,
-    create_if_block_4$2,
+    create_if_block_3$3,
+    create_if_block_4$3,
     create_if_block_5$2,
     create_if_block_6$2,
     create_if_block_7$1,
@@ -5881,9 +5881,9 @@ function create_if_block_2$5(ctx) {
   let current;
   let if_block0 = (
     /*course*/
-    ctx[0].ways.length >= 1 && create_if_block_4$1(ctx)
+    ctx[0].ways.length >= 1 && create_if_block_4$2(ctx)
   );
-  const if_block_creators = [create_if_block_3$1, create_else_block$5];
+  const if_block_creators = [create_if_block_3$2, create_else_block$5];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -5937,7 +5937,7 @@ function create_if_block_2$5(ctx) {
             transition_in(if_block0, 1);
           }
         } else {
-          if_block0 = create_if_block_4$1(ctx2);
+          if_block0 = create_if_block_4$2(ctx2);
           if_block0.c();
           transition_in(if_block0, 1);
           if_block0.m(div, t);
@@ -5992,7 +5992,7 @@ function create_if_block_2$5(ctx) {
     }
   };
 }
-function create_if_block_4$1(ctx) {
+function create_if_block_4$2(ctx) {
   let div;
   let waysicon;
   let div_class_value;
@@ -6084,7 +6084,7 @@ function create_else_block$5(ctx) {
     }
   };
 }
-function create_if_block_3$1(ctx) {
+function create_if_block_3$2(ctx) {
   let div;
   let waysicon;
   let div_class_value;
@@ -11706,7 +11706,7 @@ class QuarterDND extends SvelteComponent {
   }
 }
 const PanelCollapseContainer_svelte_svelte_type_style_lang = "";
-function create_else_block_1$3(ctx) {
+function create_else_block_1$4(ctx) {
   let chevronsdownup;
   let current;
   chevronsdownup = new ChevronsDownUp({});
@@ -11922,7 +11922,7 @@ function create_fragment$7(ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_1$5, create_else_block_1$3];
+  const if_block_creators = [create_if_block_1$5, create_else_block_1$4];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -12103,7 +12103,7 @@ function get_each_context_1$3(ctx, list, i) {
   child_ctx[13] = i;
   return child_ctx;
 }
-function create_else_block_1$2(ctx) {
+function create_else_block_1$3(ctx) {
   let chevronsdownup;
   let current;
   chevronsdownup = new ChevronsDownUp({});
@@ -12481,7 +12481,7 @@ function create_each_block$4(key_1, ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_2$4, create_else_block_1$2];
+  const if_block_creators = [create_if_block_2$4, create_else_block_1$3];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -13473,7 +13473,7 @@ function get_each_context_4(ctx, list, i) {
   child_ctx[24] = list[i];
   return child_ctx;
 }
-function create_else_block_1$1(ctx) {
+function create_else_block_1$2(ctx) {
   let div;
   let b;
   let t0_value = (
@@ -13862,7 +13862,7 @@ function create_if_block_5(ctx) {
     }
   };
 }
-function create_if_block_4(ctx) {
+function create_if_block_4$1(ctx) {
   let div;
   let t0;
   let t1_value = (
@@ -13910,7 +13910,7 @@ function create_if_block_4(ctx) {
     }
   };
 }
-function create_if_block_3(ctx) {
+function create_if_block_3$1(ctx) {
   let div;
   let t0;
   let t1_value = (
@@ -14653,7 +14653,7 @@ function create_fragment$4(ctx) {
       ctx2[0].max_units
     )
       return create_if_block_7;
-    return create_else_block_1$1;
+    return create_else_block_1$2;
   }
   let current_block_type = select_block_type(ctx);
   let if_block0 = current_block_type(ctx);
@@ -14671,11 +14671,11 @@ function create_fragment$4(ctx) {
   link1 = new Link$1({ props: { class: "icon", size: linkSize } });
   let if_block3 = (
     /*course*/
-    ctx[0].average_rating != -1 && create_if_block_4(ctx)
+    ctx[0].average_rating != -1 && create_if_block_4$1(ctx)
   );
   let if_block4 = (
     /*course*/
-    ctx[0].percent_outcomes_completed != -1 && create_if_block_3(ctx)
+    ctx[0].percent_outcomes_completed != -1 && create_if_block_3$1(ctx)
   );
   function select_block_type_1(ctx2, dirty) {
     var _a2, _b2;
@@ -15073,7 +15073,7 @@ function create_fragment$4(ctx) {
         if (if_block3) {
           if_block3.p(ctx2, dirty);
         } else {
-          if_block3 = create_if_block_4(ctx2);
+          if_block3 = create_if_block_4$1(ctx2);
           if_block3.c();
           if_block3.m(div5, t12);
         }
@@ -15088,7 +15088,7 @@ function create_fragment$4(ctx) {
         if (if_block4) {
           if_block4.p(ctx2, dirty);
         } else {
-          if_block4 = create_if_block_3(ctx2);
+          if_block4 = create_if_block_3$1(ctx2);
           if_block4.c();
           if_block4.m(div5, t13);
         }
@@ -15719,7 +15719,7 @@ function get_each_context_3(ctx, list, i) {
   child_ctx[43] = i;
   return child_ctx;
 }
-function create_else_block_1(ctx) {
+function create_else_block_1$1(ctx) {
   let t;
   return {
     c() {
@@ -16133,75 +16133,75 @@ function create_fragment$2(ctx) {
   let div24;
   let div23;
   let div2;
-  let textContent = `<div><h2 style="font-size: 2em">CourseCorrect</h2> <p class="svelte-17yr5ya">This is a specialized 5 year course planner. Use it with other services for best results.</p> <p class="svelte-17yr5ya">Configure your settings on the right. Make sure to configure Total transfer units.</p> <p class="svelte-17yr5ya">Search for courses in the top left or directly add them to each quarter.</p> <p class="svelte-17yr5ya">Use filters/sorting aggressively. You can filter by courses that fulfill your degree.</p> <p class="svelte-17yr5ya">Please star this project on Github if you found it helpful!</p> <div class="githubButton"><a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a></div> <h2>Other info</h2> <p class="svelte-17yr5ya">CourseCorrect was made to be used on large screens; if the site is jumbled, zoom out.</p> <p class="svelte-17yr5ya">If the entire website breaks, clear the cache and cookies.</p> <p class="svelte-17yr5ya">Your data is stored on your browser. Export your data frequently.</p> <p class="svelte-17yr5ya">Degrees with more than 50 students/year are implemented.</p> <p class="svelte-17yr5ya">Data and calculations may contain errors. Consult official materials for ground truths.</p> <p class="svelte-17yr5ya">There are no correctness guarantees.</p></div>`;
-  let t27;
+  let textContent = `<div><h2 style="font-size: 2em">CourseCorrect</h2> <p class="svelte-17yr5ya">This is a specialized 5 year course planner. Use it with other services for best results.</p> <p class="svelte-17yr5ya">Configure your settings on the right. Make sure to configure Total transfer units.</p> <p class="svelte-17yr5ya">Search for courses in the top left or directly add them to each quarter.</p> <p class="svelte-17yr5ya">Use filters/sorting aggressively. You can filter by courses that fulfill your degree.</p> <p class="svelte-17yr5ya">For current year planning, make sure to filter &quot;hide courses not offered&quot;.</p> <p class="svelte-17yr5ya">Please star this project on Github if you found it helpful!</p> <div class="githubButton"><a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a></div> <h2>Other info</h2> <p class="svelte-17yr5ya">CourseCorrect was made to be used on large screens; if the site is jumbled, zoom out.</p> <p class="svelte-17yr5ya">If the entire website breaks, clear the cache and cookies.</p> <p class="svelte-17yr5ya">Your data is stored on your browser. Export your data frequently.</p> <p class="svelte-17yr5ya">Degrees with more than 50 students/year are implemented.</p> <p class="svelte-17yr5ya">Data and calculations may contain errors. Consult official materials for ground truths.</p> <p class="svelte-17yr5ya">There are no correctness guarantees.</p></div>`;
+  let t29;
   let div22;
   let h22;
   let textContent_1 = "Settings";
-  let t29;
+  let t31;
   let div8;
   let div3;
   let button0;
   let textContent_2 = "Export data";
-  let t31;
+  let t33;
   let a1;
-  let t32;
+  let t34;
   let div4;
   let button1;
   let textContent_3 = "Import data";
-  let t34;
+  let t36;
   let input0;
-  let t35;
+  let t37;
   let div5;
   let button2;
-  let t36;
+  let t38;
   let div6;
   let button3;
-  let t37;
+  let t39;
   let div7;
   let button4;
   let textContent_4 = "Clear all courses";
-  let t39;
-  let t40;
-  let div9;
   let t41;
+  let t42;
+  let div9;
+  let t43;
   let div10;
   let textContent_5 = `<b>Use checkboxes to add to masters degree or mark credit/satisfactory/no credit.</b>`;
-  let t43;
+  let t45;
   let div11;
   let textContent_6 = `<b>Use bump button to bump a course down to the next requirement</b>`;
-  let t45;
+  let t47;
   let div13;
   let div12;
   let textContent_7 = "Transfer units";
-  let t47;
-  let select0;
-  let t48;
-  let input1;
   let t49;
+  let select0;
+  let t50;
+  let input1;
+  let t51;
   let div14;
   let textContent_8 = `<b>Set total transfer units, then AP units</b>`;
-  let t51;
+  let t53;
   let div21;
   let div15;
   let textContent_9 = "Degree checker";
-  let t53;
+  let t55;
   let div16;
   let select1;
   let select1_value_value;
-  let t54;
+  let t56;
   let div17;
   let select2;
   let select2_value_value;
-  let t55;
+  let t57;
   let div18;
   let textContent_10 = `<b>Add courses to masters degree by enabling &quot;checkboxes&quot; above, then checking courses as
 						&quot;ms&quot;</b>`;
-  let t57;
+  let t59;
   let div19;
   let textContent_11 = `<b>The degree checker is designed to cover the 80% most common cases. There are no accuracy
 						guarantees; consult official materials.</b>`;
-  let t59;
+  let t61;
   let div20;
   let textContent_12 = `Implemented degrees include those which have more than 50 students per year.
 					Implementations are at <a href="https://github.com/SambhavG/coursecorrect/tree/main/src/routes/degrees" target="_blank">src/routes/degrees</a>`;
@@ -16213,7 +16213,7 @@ function create_fragment$2(ctx) {
       ctx2[4].search
     )
       return create_if_block_2$1;
-    return create_else_block_1;
+    return create_else_block_1$1;
   }
   let current_block_type = select_block_type(ctx);
   let if_block0 = current_block_type(ctx);
@@ -16269,86 +16269,86 @@ function create_fragment$2(ctx) {
       div23 = element("div");
       div2 = element("div");
       div2.innerHTML = textContent;
-      t27 = space();
+      t29 = space();
       div22 = element("div");
       h22 = element("h2");
       h22.textContent = textContent_1;
-      t29 = space();
+      t31 = space();
       div8 = element("div");
       div3 = element("div");
       button0 = element("button");
       button0.textContent = textContent_2;
-      t31 = space();
+      t33 = space();
       a1 = element("a");
-      t32 = space();
+      t34 = space();
       div4 = element("div");
       button1 = element("button");
       button1.textContent = textContent_3;
-      t34 = space();
+      t36 = space();
       input0 = element("input");
-      t35 = space();
+      t37 = space();
       div5 = element("div");
       button2 = element("button");
       if_block0.c();
-      t36 = space();
+      t38 = space();
       div6 = element("div");
       button3 = element("button");
       if_block1.c();
-      t37 = space();
+      t39 = space();
       div7 = element("div");
       button4 = element("button");
       button4.textContent = textContent_4;
-      t39 = space();
+      t41 = space();
       if (if_block2)
         if_block2.c();
-      t40 = space();
+      t42 = space();
       div9 = element("div");
       for (let i = 0; i < each_blocks_3.length; i += 1) {
         each_blocks_3[i].c();
       }
-      t41 = space();
+      t43 = space();
       div10 = element("div");
       div10.innerHTML = textContent_5;
-      t43 = space();
+      t45 = space();
       div11 = element("div");
       div11.innerHTML = textContent_6;
-      t45 = space();
+      t47 = space();
       div13 = element("div");
       div12 = element("div");
       div12.textContent = textContent_7;
-      t47 = space();
+      t49 = space();
       select0 = element("select");
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         each_blocks_2[i].c();
       }
-      t48 = space();
+      t50 = space();
       input1 = element("input");
-      t49 = space();
+      t51 = space();
       div14 = element("div");
       div14.innerHTML = textContent_8;
-      t51 = space();
+      t53 = space();
       div21 = element("div");
       div15 = element("div");
       div15.textContent = textContent_9;
-      t53 = space();
+      t55 = space();
       div16 = element("div");
       select1 = element("select");
       for (let i = 0; i < each_blocks_1.length; i += 1) {
         each_blocks_1[i].c();
       }
-      t54 = space();
+      t56 = space();
       div17 = element("div");
       select2 = element("select");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t55 = space();
+      t57 = space();
       div18 = element("div");
       div18.innerHTML = textContent_10;
-      t57 = space();
+      t59 = space();
       div19 = element("div");
       div19.innerHTML = textContent_11;
-      t59 = space();
+      t61 = space();
       div20 = element("div");
       div20.innerHTML = textContent_12;
       this.h();
@@ -16359,15 +16359,15 @@ function create_fragment$2(ctx) {
       div23 = claim_element(div24_nodes, "DIV", { class: true });
       var div23_nodes = children(div23);
       div2 = claim_element(div23_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div2) !== "svelte-cayt1t")
+      if (get_svelte_dataset(div2) !== "svelte-159qt70")
         div2.innerHTML = textContent;
-      t27 = claim_space(div23_nodes);
+      t29 = claim_space(div23_nodes);
       div22 = claim_element(div23_nodes, "DIV", { class: true });
       var div22_nodes = children(div22);
       h22 = claim_element(div22_nodes, "H2", { style: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(h22) !== "svelte-1ag3m66")
         h22.textContent = textContent_1;
-      t29 = claim_space(div22_nodes);
+      t31 = claim_space(div22_nodes);
       div8 = claim_element(div22_nodes, "DIV", { class: true });
       var div8_nodes = children(div8);
       div3 = claim_element(div8_nodes, "DIV", { class: true });
@@ -16375,20 +16375,20 @@ function create_fragment$2(ctx) {
       button0 = claim_element(div3_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button0) !== "svelte-1hst2fi")
         button0.textContent = textContent_2;
-      t31 = claim_space(div3_nodes);
+      t33 = claim_space(div3_nodes);
       a1 = claim_element(div3_nodes, "A", { id: true, style: true });
       children(a1).forEach(detach);
       div3_nodes.forEach(detach);
-      t32 = claim_space(div8_nodes);
+      t34 = claim_space(div8_nodes);
       div4 = claim_element(div8_nodes, "DIV", { class: true });
       var div4_nodes = children(div4);
       button1 = claim_element(div4_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button1) !== "svelte-1678365")
         button1.textContent = textContent_3;
-      t34 = claim_space(div4_nodes);
+      t36 = claim_space(div4_nodes);
       input0 = claim_element(div4_nodes, "INPUT", { id: true, type: true, style: true });
       div4_nodes.forEach(detach);
-      t35 = claim_space(div8_nodes);
+      t37 = claim_space(div8_nodes);
       div5 = claim_element(div8_nodes, "DIV", { class: true });
       var div5_nodes = children(div5);
       button2 = claim_element(div5_nodes, "BUTTON", { class: true });
@@ -16396,7 +16396,7 @@ function create_fragment$2(ctx) {
       if_block0.l(button2_nodes);
       button2_nodes.forEach(detach);
       div5_nodes.forEach(detach);
-      t36 = claim_space(div8_nodes);
+      t38 = claim_space(div8_nodes);
       div6 = claim_element(div8_nodes, "DIV", { class: true });
       var div6_nodes = children(div6);
       button3 = claim_element(div6_nodes, "BUTTON", { class: true });
@@ -16404,63 +16404,63 @@ function create_fragment$2(ctx) {
       if_block1.l(button3_nodes);
       button3_nodes.forEach(detach);
       div6_nodes.forEach(detach);
-      t37 = claim_space(div8_nodes);
+      t39 = claim_space(div8_nodes);
       div7 = claim_element(div8_nodes, "DIV", { class: true });
       var div7_nodes = children(div7);
       button4 = claim_element(div7_nodes, "BUTTON", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(button4) !== "svelte-162cvs7")
         button4.textContent = textContent_4;
-      t39 = claim_space(div7_nodes);
+      t41 = claim_space(div7_nodes);
       if (if_block2)
         if_block2.l(div7_nodes);
       div7_nodes.forEach(detach);
       div8_nodes.forEach(detach);
-      t40 = claim_space(div22_nodes);
+      t42 = claim_space(div22_nodes);
       div9 = claim_element(div22_nodes, "DIV", { class: true });
       var div9_nodes = children(div9);
       for (let i = 0; i < each_blocks_3.length; i += 1) {
         each_blocks_3[i].l(div9_nodes);
       }
       div9_nodes.forEach(detach);
-      t41 = claim_space(div22_nodes);
-      div10 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div10) !== "svelte-lx4zo8")
-        div10.innerHTML = textContent_5;
       t43 = claim_space(div22_nodes);
+      div10 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div10) !== "svelte-1ipk7ek")
+        div10.innerHTML = textContent_5;
+      t45 = claim_space(div22_nodes);
       div11 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div11) !== "svelte-1sjcicl")
         div11.innerHTML = textContent_6;
-      t45 = claim_space(div22_nodes);
+      t47 = claim_space(div22_nodes);
       div13 = claim_element(div22_nodes, "DIV", { class: true });
       var div13_nodes = children(div13);
       div12 = claim_element(div13_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div12) !== "svelte-k80iny")
         div12.textContent = textContent_7;
-      t47 = claim_space(div13_nodes);
+      t49 = claim_space(div13_nodes);
       select0 = claim_element(div13_nodes, "SELECT", { class: true });
       var select0_nodes = children(select0);
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         each_blocks_2[i].l(select0_nodes);
       }
       select0_nodes.forEach(detach);
-      t48 = claim_space(div13_nodes);
+      t50 = claim_space(div13_nodes);
       input1 = claim_element(div13_nodes, "INPUT", {
         class: true,
         type: true,
         placeholder: true
       });
       div13_nodes.forEach(detach);
-      t49 = claim_space(div22_nodes);
+      t51 = claim_space(div22_nodes);
       div14 = claim_element(div22_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div14) !== "svelte-1d3yxne")
         div14.innerHTML = textContent_8;
-      t51 = claim_space(div22_nodes);
+      t53 = claim_space(div22_nodes);
       div21 = claim_element(div22_nodes, "DIV", { class: true });
       var div21_nodes = children(div21);
       div15 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div15) !== "svelte-s3awp9")
         div15.textContent = textContent_9;
-      t53 = claim_space(div21_nodes);
+      t55 = claim_space(div21_nodes);
       div16 = claim_element(div21_nodes, "DIV", { class: true });
       var div16_nodes = children(div16);
       select1 = claim_element(div16_nodes, "SELECT", { class: true });
@@ -16470,7 +16470,7 @@ function create_fragment$2(ctx) {
       }
       select1_nodes.forEach(detach);
       div16_nodes.forEach(detach);
-      t54 = claim_space(div21_nodes);
+      t56 = claim_space(div21_nodes);
       div17 = claim_element(div21_nodes, "DIV", { class: true });
       var div17_nodes = children(div17);
       select2 = claim_element(div17_nodes, "SELECT", { class: true });
@@ -16480,15 +16480,15 @@ function create_fragment$2(ctx) {
       }
       select2_nodes.forEach(detach);
       div17_nodes.forEach(detach);
-      t55 = claim_space(div21_nodes);
+      t57 = claim_space(div21_nodes);
       div18 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div18) !== "svelte-udfxwb")
         div18.innerHTML = textContent_10;
-      t57 = claim_space(div21_nodes);
+      t59 = claim_space(div21_nodes);
       div19 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div19) !== "svelte-1fcgk1r")
         div19.innerHTML = textContent_11;
-      t59 = claim_space(div21_nodes);
+      t61 = claim_space(div21_nodes);
       div20 = claim_element(div21_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(div20) !== "svelte-10nmvpm")
         div20.innerHTML = textContent_12;
@@ -16545,56 +16545,56 @@ function create_fragment$2(ctx) {
       insert_hydration(target, div24, anchor);
       append_hydration(div24, div23);
       append_hydration(div23, div2);
-      append_hydration(div23, t27);
+      append_hydration(div23, t29);
       append_hydration(div23, div22);
       append_hydration(div22, h22);
-      append_hydration(div22, t29);
+      append_hydration(div22, t31);
       append_hydration(div22, div8);
       append_hydration(div8, div3);
       append_hydration(div3, button0);
-      append_hydration(div3, t31);
+      append_hydration(div3, t33);
       append_hydration(div3, a1);
-      append_hydration(div8, t32);
+      append_hydration(div8, t34);
       append_hydration(div8, div4);
       append_hydration(div4, button1);
-      append_hydration(div4, t34);
+      append_hydration(div4, t36);
       append_hydration(div4, input0);
-      append_hydration(div8, t35);
+      append_hydration(div8, t37);
       append_hydration(div8, div5);
       append_hydration(div5, button2);
       if_block0.m(button2, null);
-      append_hydration(div8, t36);
+      append_hydration(div8, t38);
       append_hydration(div8, div6);
       append_hydration(div6, button3);
       if_block1.m(button3, null);
-      append_hydration(div8, t37);
+      append_hydration(div8, t39);
       append_hydration(div8, div7);
       append_hydration(div7, button4);
-      append_hydration(div7, t39);
+      append_hydration(div7, t41);
       if (if_block2)
         if_block2.m(div7, null);
-      append_hydration(div22, t40);
+      append_hydration(div22, t42);
       append_hydration(div22, div9);
       for (let i = 0; i < each_blocks_3.length; i += 1) {
         if (each_blocks_3[i]) {
           each_blocks_3[i].m(div9, null);
         }
       }
-      append_hydration(div22, t41);
-      append_hydration(div22, div10);
       append_hydration(div22, t43);
-      append_hydration(div22, div11);
+      append_hydration(div22, div10);
       append_hydration(div22, t45);
+      append_hydration(div22, div11);
+      append_hydration(div22, t47);
       append_hydration(div22, div13);
       append_hydration(div13, div12);
-      append_hydration(div13, t47);
+      append_hydration(div13, t49);
       append_hydration(div13, select0);
       for (let i = 0; i < each_blocks_2.length; i += 1) {
         if (each_blocks_2[i]) {
           each_blocks_2[i].m(select0, null);
         }
       }
-      append_hydration(div13, t48);
+      append_hydration(div13, t50);
       append_hydration(div13, input1);
       set_input_value(
         input1,
@@ -16604,12 +16604,12 @@ function create_fragment$2(ctx) {
           ctx[1]
         ].value
       );
-      append_hydration(div22, t49);
-      append_hydration(div22, div14);
       append_hydration(div22, t51);
+      append_hydration(div22, div14);
+      append_hydration(div22, t53);
       append_hydration(div22, div21);
       append_hydration(div21, div15);
-      append_hydration(div21, t53);
+      append_hydration(div21, t55);
       append_hydration(div21, div16);
       append_hydration(div16, select1);
       for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -16626,7 +16626,7 @@ function create_fragment$2(ctx) {
           ctx[22]
         )) == null ? void 0 : _a.uniqueID
       );
-      append_hydration(div21, t54);
+      append_hydration(div21, t56);
       append_hydration(div21, div17);
       append_hydration(div17, select2);
       for (let i = 0; i < each_blocks.length; i += 1) {
@@ -16643,11 +16643,11 @@ function create_fragment$2(ctx) {
           ctx[24]
         )) == null ? void 0 : _b.uniqueID
       );
-      append_hydration(div21, t55);
-      append_hydration(div21, div18);
       append_hydration(div21, t57);
-      append_hydration(div21, div19);
+      append_hydration(div21, div18);
       append_hydration(div21, t59);
+      append_hydration(div21, div19);
+      append_hydration(div21, t61);
       append_hydration(div21, div20);
       if (!mounted) {
         dispose = [
@@ -27192,7 +27192,7 @@ function extendLutToCrosslisted(allCourses2, lut) {
   return newLut;
 }
 const Main_svelte_svelte_type_style_lang = "";
-function create_if_block_2(ctx) {
+function create_if_block_4(ctx) {
   let div1;
   let search;
   let t;
@@ -27218,8 +27218,8 @@ function create_if_block_2(ctx) {
       this.h();
     },
     h() {
-      attr(div0, "class", "scrollArea svelte-y5vvwt");
-      attr(div1, "class", "searchContainer svelte-y5vvwt");
+      attr(div0, "class", "scrollArea svelte-s3s237");
+      attr(div1, "class", "searchContainer svelte-s3s237");
     },
     m(target, anchor) {
       insert_hydration(target, div1, anchor);
@@ -27243,6 +27243,294 @@ function create_if_block_2(ctx) {
         detach(div1);
       }
       destroy_component(search);
+    }
+  };
+}
+function create_if_block_2(ctx) {
+  let div;
+  let current_block_type_index;
+  let if_block;
+  let current;
+  const if_block_creators = [create_if_block_3, create_else_block_1];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (
+      /*$bachelorsDegreeChoices*/
+      ctx2[1].length == 0
+    )
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      div = element("div");
+      if_block.c();
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      if_block.l(div_nodes);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "generalizedDegreeTrackerContainer svelte-s3s237");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      if_blocks[current_block_type_index].m(div, null);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(div, null);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(div);
+      }
+      if_blocks[current_block_type_index].d();
+    }
+  };
+}
+function create_else_block_1(ctx) {
+  let panelcollapsecontainer;
+  let current;
+  panelcollapsecontainer = new PanelCollapseContainer({
+    props: {
+      panelId: "generalizedDegreeTracker",
+      panelName: "Degree Check",
+      content: GeneralizedDegreeTracker,
+      props: {
+        data: (
+          /*degreeTrackerData*/
+          ctx[5]
+        ),
+        showSlider: true
+      }
+    }
+  });
+  return {
+    c() {
+      create_component(panelcollapsecontainer.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(panelcollapsecontainer.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(panelcollapsecontainer, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const panelcollapsecontainer_changes = {};
+      if (dirty & /*degreeTrackerData*/
+      32)
+        panelcollapsecontainer_changes.props = {
+          data: (
+            /*degreeTrackerData*/
+            ctx2[5]
+          ),
+          showSlider: true
+        };
+      panelcollapsecontainer.$set(panelcollapsecontainer_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(panelcollapsecontainer.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(panelcollapsecontainer.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(panelcollapsecontainer, detaching);
+    }
+  };
+}
+function create_if_block_3(ctx) {
+  let div;
+  return {
+    c() {
+      div = element("div");
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true });
+      children(div).forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "title");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching) {
+        detach(div);
+      }
+    }
+  };
+}
+function create_if_block$1(ctx) {
+  let div2;
+  let div0;
+  let current_block_type_index;
+  let if_block;
+  let t;
+  let div1;
+  let panelcollapsecontainer;
+  let current;
+  const if_block_creators = [create_if_block_1, create_else_block];
+  const if_blocks = [];
+  function select_block_type_1(ctx2, dirty) {
+    if (
+      /*$bachelorsDegreeChoices*/
+      ctx2[1].length == 0
+    )
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type_1(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  panelcollapsecontainer = new PanelCollapseContainer({
+    props: {
+      panelId: "generalizedDegreeTracker",
+      panelName: "M Degree Check",
+      content: GeneralizedDegreeTracker,
+      props: {
+        data: (
+          /*mastersDegreeTrackerData*/
+          ctx[6]
+        )
+      }
+    }
+  });
+  return {
+    c() {
+      div2 = element("div");
+      div0 = element("div");
+      if_block.c();
+      t = space();
+      div1 = element("div");
+      create_component(panelcollapsecontainer.$$.fragment);
+      this.h();
+    },
+    l(nodes) {
+      div2 = claim_element(nodes, "DIV", { class: true });
+      var div2_nodes = children(div2);
+      div0 = claim_element(div2_nodes, "DIV", { class: true });
+      var div0_nodes = children(div0);
+      if_block.l(div0_nodes);
+      div0_nodes.forEach(detach);
+      t = claim_space(div2_nodes);
+      div1 = claim_element(div2_nodes, "DIV", { class: true });
+      var div1_nodes = children(div1);
+      claim_component(panelcollapsecontainer.$$.fragment, div1_nodes);
+      div1_nodes.forEach(detach);
+      div2_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div0, "class", "generalizedDegreeTrackerContainer svelte-s3s237");
+      attr(div1, "class", "generalizedDegreeTrackerContainer svelte-s3s237");
+      attr(div2, "class", "dataHeader svelte-s3s237");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, div0);
+      if_blocks[current_block_type_index].m(div0, null);
+      append_hydration(div2, t);
+      append_hydration(div2, div1);
+      mount_component(panelcollapsecontainer, div1, null);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type_1(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(div0, null);
+      }
+      const panelcollapsecontainer_changes = {};
+      if (dirty & /*mastersDegreeTrackerData*/
+      64)
+        panelcollapsecontainer_changes.props = {
+          data: (
+            /*mastersDegreeTrackerData*/
+            ctx2[6]
+          )
+        };
+      panelcollapsecontainer.$set(panelcollapsecontainer_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      transition_in(panelcollapsecontainer.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      transition_out(panelcollapsecontainer.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        detach(div2);
+      }
+      if_blocks[current_block_type_index].d();
+      destroy_component(panelcollapsecontainer);
     }
   };
 }
@@ -27330,117 +27618,46 @@ function create_if_block_1(ctx) {
     }
   };
 }
-function create_if_block$1(ctx) {
-  let div;
-  let panelcollapsecontainer;
-  let current;
-  panelcollapsecontainer = new PanelCollapseContainer({
-    props: {
-      panelId: "generalizedDegreeTracker",
-      panelName: "M Degree Check",
-      content: GeneralizedDegreeTracker,
-      props: {
-        data: (
-          /*mastersDegreeTrackerData*/
-          ctx[6]
-        )
-      }
-    }
-  });
-  return {
-    c() {
-      div = element("div");
-      create_component(panelcollapsecontainer.$$.fragment);
-      this.h();
-    },
-    l(nodes) {
-      div = claim_element(nodes, "DIV", { class: true });
-      var div_nodes = children(div);
-      claim_component(panelcollapsecontainer.$$.fragment, div_nodes);
-      div_nodes.forEach(detach);
-      this.h();
-    },
-    h() {
-      attr(div, "class", "generalizedDegreeTrackerContainer svelte-y5vvwt");
-    },
-    m(target, anchor) {
-      insert_hydration(target, div, anchor);
-      mount_component(panelcollapsecontainer, div, null);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      const panelcollapsecontainer_changes = {};
-      if (dirty & /*mastersDegreeTrackerData*/
-      64)
-        panelcollapsecontainer_changes.props = {
-          data: (
-            /*mastersDegreeTrackerData*/
-            ctx2[6]
-          )
-        };
-      panelcollapsecontainer.$set(panelcollapsecontainer_changes);
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(panelcollapsecontainer.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(panelcollapsecontainer.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching) {
-        detach(div);
-      }
-      destroy_component(panelcollapsecontainer);
-    }
-  };
-}
 function create_fragment$1(ctx) {
   let loadinalldegrees;
   let t0;
   let section;
   let t1;
-  let div11;
+  let div10;
   let div0;
   let t2;
   let div1;
   let trash;
   let t3;
-  let div10;
+  let div9;
   let div2;
   let panelcollapsecontainer0;
   let t4;
-  let div5;
+  let div4;
   let div3;
   let panelcollapsecontainer1;
   let t5;
-  let div4;
-  let current_block_type_index;
-  let if_block1;
   let t6;
   let t7;
-  let div6;
+  let div5;
   let panelcollapsecontainer2;
   let t8;
-  let div7;
+  let div6;
   let grid;
   let t9;
   let footer;
-  let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-y5vvwt">Sambhav Gupta</a> with Svelte</p>`;
+  let textContent = `<p>Made by <a href="https://sambhavg.github.io" class="svelte-s3s237">Sambhav Gupta</a> with Svelte</p>`;
   let t13;
-  let div8;
+  let div7;
   let textContent_1 = `<a class="github-button" href="https://github.com/sambhavg/coursecorrect" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star sambhavg/coursecorrect on GitHub">Star</a>`;
   let t15;
   let xkcd;
   let t16;
-  let div9;
+  let div8;
   let current;
   loadinalldegrees = new LoadInAllDegrees({});
   let if_block0 = !/*$panelCollapsed*/
-  ctx[3].search && create_if_block_2();
+  ctx[3].search && create_if_block_4();
   trash = new Trash({});
   panelcollapsecontainer0 = new PanelCollapseContainer({
     props: {
@@ -27456,18 +27673,11 @@ function create_fragment$1(ctx) {
       content: WAYSTracker
     }
   });
-  const if_block_creators = [create_if_block_1, create_else_block];
-  const if_blocks = [];
-  function select_block_type(ctx2, dirty) {
-    if (
-      /*$bachelorsDegreeChoices*/
-      ctx2[1].length == 0
-    )
-      return 0;
-    return 1;
-  }
-  current_block_type_index = select_block_type(ctx);
-  if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  let if_block1 = (
+    /*$mastersDegreeChoices*/
+    ctx[0].length != 0 && /*$mastersDegreeChoice*/
+    ctx[2] == "BLANK" && create_if_block_2(ctx)
+  );
   let if_block2 = (
     /*$mastersDegreeChoices*/
     ctx[0].length != 0 && /*$mastersDegreeChoice*/
@@ -27490,41 +27700,41 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.c();
       t1 = space();
-      div11 = element("div");
+      div10 = element("div");
       div0 = element("div");
       t2 = space();
       div1 = element("div");
       create_component(trash.$$.fragment);
       t3 = space();
-      div10 = element("div");
+      div9 = element("div");
       div2 = element("div");
       create_component(panelcollapsecontainer0.$$.fragment);
       t4 = space();
-      div5 = element("div");
+      div4 = element("div");
       div3 = element("div");
       create_component(panelcollapsecontainer1.$$.fragment);
       t5 = space();
-      div4 = element("div");
-      if_block1.c();
+      if (if_block1)
+        if_block1.c();
       t6 = space();
       if (if_block2)
         if_block2.c();
       t7 = space();
-      div6 = element("div");
+      div5 = element("div");
       create_component(panelcollapsecontainer2.$$.fragment);
       t8 = space();
-      div7 = element("div");
+      div6 = element("div");
       create_component(grid.$$.fragment);
       t9 = space();
       footer = element("footer");
       footer.innerHTML = textContent;
       t13 = space();
-      div8 = element("div");
-      div8.innerHTML = textContent_1;
+      div7 = element("div");
+      div7.innerHTML = textContent_1;
       t15 = space();
       create_component(xkcd.$$.fragment);
       t16 = space();
-      div9 = element("div");
+      div8 = element("div");
       this.h();
     },
     l(nodes) {
@@ -27535,87 +27745,84 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.l(section_nodes);
       t1 = claim_space(section_nodes);
-      div11 = claim_element(section_nodes, "DIV", { class: true });
-      var div11_nodes = children(div11);
-      div0 = claim_element(div11_nodes, "DIV", { class: true });
+      div10 = claim_element(section_nodes, "DIV", { class: true });
+      var div10_nodes = children(div10);
+      div0 = claim_element(div10_nodes, "DIV", { class: true });
       children(div0).forEach(detach);
-      t2 = claim_space(div11_nodes);
-      div1 = claim_element(div11_nodes, "DIV", { class: true });
+      t2 = claim_space(div10_nodes);
+      div1 = claim_element(div10_nodes, "DIV", { class: true });
       var div1_nodes = children(div1);
       claim_component(trash.$$.fragment, div1_nodes);
       div1_nodes.forEach(detach);
-      t3 = claim_space(div11_nodes);
-      div10 = claim_element(div11_nodes, "DIV", { class: true });
-      var div10_nodes = children(div10);
-      div2 = claim_element(div10_nodes, "DIV", { class: true });
+      t3 = claim_space(div10_nodes);
+      div9 = claim_element(div10_nodes, "DIV", { class: true });
+      var div9_nodes = children(div9);
+      div2 = claim_element(div9_nodes, "DIV", { class: true });
       var div2_nodes = children(div2);
       claim_component(panelcollapsecontainer0.$$.fragment, div2_nodes);
       div2_nodes.forEach(detach);
-      t4 = claim_space(div10_nodes);
-      div5 = claim_element(div10_nodes, "DIV", { class: true });
-      var div5_nodes = children(div5);
-      div3 = claim_element(div5_nodes, "DIV", { class: true });
+      t4 = claim_space(div9_nodes);
+      div4 = claim_element(div9_nodes, "DIV", { class: true });
+      var div4_nodes = children(div4);
+      div3 = claim_element(div4_nodes, "DIV", { class: true });
       var div3_nodes = children(div3);
       claim_component(panelcollapsecontainer1.$$.fragment, div3_nodes);
       div3_nodes.forEach(detach);
-      t5 = claim_space(div5_nodes);
-      div4 = claim_element(div5_nodes, "DIV", { class: true });
-      var div4_nodes = children(div4);
-      if_block1.l(div4_nodes);
+      t5 = claim_space(div4_nodes);
+      if (if_block1)
+        if_block1.l(div4_nodes);
       div4_nodes.forEach(detach);
-      t6 = claim_space(div5_nodes);
+      t6 = claim_space(div9_nodes);
       if (if_block2)
-        if_block2.l(div5_nodes);
+        if_block2.l(div9_nodes);
+      t7 = claim_space(div9_nodes);
+      div5 = claim_element(div9_nodes, "DIV", { class: true });
+      var div5_nodes = children(div5);
+      claim_component(panelcollapsecontainer2.$$.fragment, div5_nodes);
       div5_nodes.forEach(detach);
-      t7 = claim_space(div10_nodes);
-      div6 = claim_element(div10_nodes, "DIV", { class: true });
+      t8 = claim_space(div9_nodes);
+      div6 = claim_element(div9_nodes, "DIV", { class: true });
       var div6_nodes = children(div6);
-      claim_component(panelcollapsecontainer2.$$.fragment, div6_nodes);
+      claim_component(grid.$$.fragment, div6_nodes);
       div6_nodes.forEach(detach);
-      t8 = claim_space(div10_nodes);
-      div7 = claim_element(div10_nodes, "DIV", { class: true });
-      var div7_nodes = children(div7);
-      claim_component(grid.$$.fragment, div7_nodes);
-      div7_nodes.forEach(detach);
-      t9 = claim_space(div10_nodes);
-      footer = claim_element(div10_nodes, "FOOTER", { class: true, ["data-svelte-h"]: true });
+      t9 = claim_space(div9_nodes);
+      footer = claim_element(div9_nodes, "FOOTER", { class: true, ["data-svelte-h"]: true });
       if (get_svelte_dataset(footer) !== "svelte-mdbyqg")
         footer.innerHTML = textContent;
-      t13 = claim_space(div10_nodes);
-      div8 = claim_element(div10_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
-      if (get_svelte_dataset(div8) !== "svelte-15mcdvu")
-        div8.innerHTML = textContent_1;
-      t15 = claim_space(div10_nodes);
-      claim_component(xkcd.$$.fragment, div10_nodes);
-      t16 = claim_space(div10_nodes);
-      div9 = claim_element(div10_nodes, "DIV", { class: true });
-      children(div9).forEach(detach);
+      t13 = claim_space(div9_nodes);
+      div7 = claim_element(div9_nodes, "DIV", { class: true, ["data-svelte-h"]: true });
+      if (get_svelte_dataset(div7) !== "svelte-15mcdvu")
+        div7.innerHTML = textContent_1;
+      t15 = claim_space(div9_nodes);
+      claim_component(xkcd.$$.fragment, div9_nodes);
+      t16 = claim_space(div9_nodes);
+      div8 = claim_element(div9_nodes, "DIV", { class: true });
+      children(div8).forEach(detach);
+      div9_nodes.forEach(detach);
       div10_nodes.forEach(detach);
-      div11_nodes.forEach(detach);
       section_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(div0, "class", "scrollArea svelte-y5vvwt");
-      attr(div1, "class", "trashContainer svelte-y5vvwt");
-      attr(div2, "class", "configPanelContainer svelte-y5vvwt");
-      attr(div3, "class", "waysTrackerContainer svelte-y5vvwt");
-      attr(div4, "class", "generalizedDegreeTrackerContainer svelte-y5vvwt");
-      attr(div5, "class", "dataHeader svelte-y5vvwt");
-      attr(div6, "class", "courseDataPanelContainer svelte-y5vvwt");
-      attr(div7, "class", "gridContainer svelte-y5vvwt");
-      attr(footer, "class", "svelte-y5vvwt");
-      attr(div8, "class", "githubButton svelte-y5vvwt");
-      attr(div9, "class", "giantSpace svelte-y5vvwt");
-      attr(div10, "class", "gridAndInfoContainer svelte-y5vvwt");
-      attr(div11, "class", "gridAndInfoAndScrollContainer svelte-y5vvwt");
+      attr(div0, "class", "scrollArea svelte-s3s237");
+      attr(div1, "class", "trashContainer svelte-s3s237");
+      attr(div2, "class", "configPanelContainer svelte-s3s237");
+      attr(div3, "class", "waysTrackerContainer svelte-s3s237");
+      attr(div4, "class", "dataHeader svelte-s3s237");
+      attr(div5, "class", "courseDataPanelContainer svelte-s3s237");
+      attr(div6, "class", "gridContainer svelte-s3s237");
+      attr(footer, "class", "svelte-s3s237");
+      attr(div7, "class", "githubButton svelte-s3s237");
+      attr(div8, "class", "giantSpace svelte-s3s237");
+      attr(div9, "class", "gridAndInfoContainer svelte-s3s237");
+      attr(div10, "class", "gridAndInfoAndScrollContainer svelte-s3s237");
       attr(
         section,
         "style",
         /*overallStyle*/
         ctx[4]
       );
-      attr(section, "class", "svelte-y5vvwt");
+      attr(section, "class", "svelte-s3s237");
     },
     m(target, anchor) {
       mount_component(loadinalldegrees, target, anchor);
@@ -27624,39 +27831,39 @@ function create_fragment$1(ctx) {
       if (if_block0)
         if_block0.m(section, null);
       append_hydration(section, t1);
-      append_hydration(section, div11);
-      append_hydration(div11, div0);
-      append_hydration(div11, t2);
-      append_hydration(div11, div1);
+      append_hydration(section, div10);
+      append_hydration(div10, div0);
+      append_hydration(div10, t2);
+      append_hydration(div10, div1);
       mount_component(trash, div1, null);
-      append_hydration(div11, t3);
-      append_hydration(div11, div10);
-      append_hydration(div10, div2);
-      mount_component(panelcollapsecontainer0, div2, null);
-      append_hydration(div10, t4);
-      append_hydration(div10, div5);
-      append_hydration(div5, div3);
-      mount_component(panelcollapsecontainer1, div3, null);
-      append_hydration(div5, t5);
-      append_hydration(div5, div4);
-      if_blocks[current_block_type_index].m(div4, null);
-      append_hydration(div5, t6);
-      if (if_block2)
-        if_block2.m(div5, null);
-      append_hydration(div10, t7);
-      append_hydration(div10, div6);
-      mount_component(panelcollapsecontainer2, div6, null);
-      append_hydration(div10, t8);
-      append_hydration(div10, div7);
-      mount_component(grid, div7, null);
-      append_hydration(div10, t9);
-      append_hydration(div10, footer);
-      append_hydration(div10, t13);
-      append_hydration(div10, div8);
-      append_hydration(div10, t15);
-      mount_component(xkcd, div10, null);
-      append_hydration(div10, t16);
+      append_hydration(div10, t3);
       append_hydration(div10, div9);
+      append_hydration(div9, div2);
+      mount_component(panelcollapsecontainer0, div2, null);
+      append_hydration(div9, t4);
+      append_hydration(div9, div4);
+      append_hydration(div4, div3);
+      mount_component(panelcollapsecontainer1, div3, null);
+      append_hydration(div4, t5);
+      if (if_block1)
+        if_block1.m(div4, null);
+      append_hydration(div9, t6);
+      if (if_block2)
+        if_block2.m(div9, null);
+      append_hydration(div9, t7);
+      append_hydration(div9, div5);
+      mount_component(panelcollapsecontainer2, div5, null);
+      append_hydration(div9, t8);
+      append_hydration(div9, div6);
+      mount_component(grid, div6, null);
+      append_hydration(div9, t9);
+      append_hydration(div9, footer);
+      append_hydration(div9, t13);
+      append_hydration(div9, div7);
+      append_hydration(div9, t15);
+      mount_component(xkcd, div9, null);
+      append_hydration(div9, t16);
+      append_hydration(div9, div8);
       current = true;
     },
     p(ctx2, [dirty]) {
@@ -27668,7 +27875,7 @@ function create_fragment$1(ctx) {
             transition_in(if_block0, 1);
           }
         } else {
-          if_block0 = create_if_block_2();
+          if_block0 = create_if_block_4();
           if_block0.c();
           transition_in(if_block0, 1);
           if_block0.m(section, t1);
@@ -27680,25 +27887,29 @@ function create_fragment$1(ctx) {
         });
         check_outros();
       }
-      let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx2);
-      if (current_block_type_index === previous_block_index) {
-        if_blocks[current_block_type_index].p(ctx2, dirty);
-      } else {
+      if (
+        /*$mastersDegreeChoices*/
+        ctx2[0].length != 0 && /*$mastersDegreeChoice*/
+        ctx2[2] == "BLANK"
+      ) {
+        if (if_block1) {
+          if_block1.p(ctx2, dirty);
+          if (dirty & /*$mastersDegreeChoices, $mastersDegreeChoice*/
+          5) {
+            transition_in(if_block1, 1);
+          }
+        } else {
+          if_block1 = create_if_block_2(ctx2);
+          if_block1.c();
+          transition_in(if_block1, 1);
+          if_block1.m(div4, null);
+        }
+      } else if (if_block1) {
         group_outros();
-        transition_out(if_blocks[previous_block_index], 1, 1, () => {
-          if_blocks[previous_block_index] = null;
+        transition_out(if_block1, 1, 1, () => {
+          if_block1 = null;
         });
         check_outros();
-        if_block1 = if_blocks[current_block_type_index];
-        if (!if_block1) {
-          if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-          if_block1.c();
-        } else {
-          if_block1.p(ctx2, dirty);
-        }
-        transition_in(if_block1, 1);
-        if_block1.m(div4, null);
       }
       if (
         /*$mastersDegreeChoices*/
@@ -27715,7 +27926,7 @@ function create_fragment$1(ctx) {
           if_block2 = create_if_block$1(ctx2);
           if_block2.c();
           transition_in(if_block2, 1);
-          if_block2.m(div5, null);
+          if_block2.m(div9, t7);
         }
       } else if (if_block2) {
         group_outros();
@@ -27773,7 +27984,8 @@ function create_fragment$1(ctx) {
       destroy_component(trash);
       destroy_component(panelcollapsecontainer0);
       destroy_component(panelcollapsecontainer1);
-      if_blocks[current_block_type_index].d();
+      if (if_block1)
+        if_block1.d();
       if (if_block2)
         if_block2.d();
       destroy_component(panelcollapsecontainer2);
