@@ -55,7 +55,7 @@
 
 	onMount(async () => {
 		try {
-			const res = await fetch('./2024.json');
+			const res = await fetch('./2025.json');
 			$allCourses = await res.json();
 			//Sort by course dept, then number, then modifier
 			$allCourses.sort((a, b) => {
